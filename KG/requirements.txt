@@ -13,6 +13,11 @@ matplotlib>=3.5.0
 plotly>=5.0.0
 numpy>=1.21.0
 
+# OCR dependencies
+PyPDF2>=3.0.0
+pytesseract>=0.3.10
+Pillow>=9.0.0
+
 # Note: spaCy models are large and typically installed separately.
 # If you want medical NLP, install SciSpaCy model:
 #   python -m spacy download en_core_web_sm
