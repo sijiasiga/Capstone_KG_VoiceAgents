@@ -1,0 +1,1 @@
+python pdf_ocr.py MR_2.pdf
