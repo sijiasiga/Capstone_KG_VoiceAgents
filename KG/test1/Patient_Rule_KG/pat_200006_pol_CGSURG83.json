@@ -1,0 +1,103 @@
+{
+  "patient_id": "200006",
+  "policy_id": "CGSURG83",
+  "patient_met_policy": false,
+  "conditions": [
+    {
+      "condition": "Age requirement: Individual is 18 years or older.",
+      "rule": "patient_age >= 18",
+      "logic": "AND",
+      "is_met": false,
+      "logically_met": false,
+      "logical_status": "not_met"
+    },
+    {
+      "condition": "BMI 40 or greater.",
+      "rule": "patient_bmi >= 40.0",
+      "logic": "OR",
+      "is_met": true,
+      "logically_met": true,
+      "logical_status": "met"
+    },
+    {
+      "condition": "BMI 35 or greater with an obesity-related comorbidity (e.g., diabetes mellitus, cardiovascular disease, hypertension, severe obstructive sleep apnea, Pickwickian syndrome, obesity-related cardiomyopathy).",
+      "rule": "patient_bmi >= 35.0 AND comorbidity_flag = TRUE",
+      "logic": "OR",
+      "is_met": true,
+      "logically_met": true,
+      "logical_status": "met"
+    },
+    {
+      "condition": "Past participation in a weight loss program is documented.",
+      "rule": "weight_loss_program_history = TRUE",
+      "logic": "AND",
+      "is_met": true,
+      "logically_met": true,
+      "logical_status": "met"
+    },
+    {
+      "condition": "Inadequate weight loss despite committed conservative medical therapy (diet, exercise, behavioral modifications) is documented.",
+      "rule": "conservative_therapy_attempt = TRUE",
+      "logic": "AND",
+      "is_met": true,
+      "logically_met": true,
+      "logical_status": "met"
+    },
+    {
+      "condition": "Pre-operative medical evaluation and clearance completed.",
+      "rule": "preop_medical_clearance = TRUE",
+      "logic": "AND",
+      "is_met": true,
+      "logically_met": true,
+      "logical_status": "met"
+    },
+    {
+      "condition": "Pre-operative mental health evaluation and clearance completed.",
+      "rule": "preop_psych_clearance = TRUE",
+      "logic": "AND",
+      "is_met": true,
+      "logically_met": true,
+      "logical_status": "met"
+    },
+    {
+      "condition": "Pre-operative education completed (risks, benefits, expectations, need for long-term follow-up, adherence to behavioral modifications).",
+      "rule": "preop_education_completed = TRUE",
+      "logic": "AND",
+      "is_met": true,
+      "logically_met": true,
+      "logical_status": "met"
+    },
+    {
+      "condition": "Treatment plan addresses pre- and post-operative needs.",
+      "rule": "treatment_plan_documented = TRUE",
+      "logic": "AND",
+      "is_met": true,
+      "logically_met": true,
+      "logical_status": "met"
+    },
+    {
+      "condition": "Listed service codes — CPT procedures associated with gastric bypass and gastric restrictive procedures.",
+      "rule": "procedure_code_CPT IN ('43644','43645','43770','43771','43772','43773','43774','43775','43842','43843','43845','43846','43847','43848','43886','43887','43888')",
+      "logic": "OR",
+      "is_met": true,
+      "logically_met": true,
+      "logical_status": "met"
+    },
+    {
+      "condition": "Listed service codes — ICD-10-PCS procedures for restriction/removal/revision of stomach devices and other bypass/excision procedures.",
+      "rule": "procedure_code_ICD10PCS IN ('0DP60CZ','0DP64CZ','0DV60CZ','0DV64CZ','0DV60ZZ','0DV64ZZ','0DW60CZ','0DW64CZ','0D160ZA','0D160ZB','0D164ZA','0D164ZB','0D164Z9','0D190ZB','0DB60Z3','0DB64Z3','0DB68Z3','0DB60ZZ','0DB64ZZ')",
+      "logic": "OR",
+      "is_met": true,
+      "logically_met": true,
+      "logical_status": "met"
+    },
+    {
+      "condition": "Listed service codes — ICD-10 diagnosis codes related to obesity, BMI categories, device fitting, and bariatric surgery status.",
+      "rule": "diagnosis_code_ICD10 IN ('E66.01','E66.09','E66.1','E66.2','E66.3','E66.811','E66.812','E66.813','E66.89','E66.9','E88.82','Z46.51','Z68.35','Z68.36','Z68.37','Z68.38','Z68.39','Z68.41','Z68.42','Z68.43','Z68.44','Z68.45','Z68.51','Z68.52','Z68.53','Z68.54','Z68.55','Z68.56','Z98.84')",
+      "logic": "OR",
+      "is_met": true,
+      "logically_met": true,
+      "logical_status": "met"
+    }
+  ]
+}

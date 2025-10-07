@@ -1,0 +1,12 @@
+/KG/DEMO/
+/KG/test/
+/KG/policy/
+
+# Python cache files
+/KG/__pycache__/
+/KG/*.pyc
+/KG/*.pyo
+
+# OS files
+/KG/.DS_Store
+/KG/.DS_Store?

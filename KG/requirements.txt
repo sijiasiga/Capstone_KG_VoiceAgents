@@ -1,0 +1,22 @@
+requests
+python-docx
+PyMuPDF
+pydantic
+transformers
+torch
+beautifulsoup4
+scikit-learn
+spacy>=3.6,<4
+scispacy>=0.5.3
+networkx>=2.8
+matplotlib>=3.5.0
+plotly>=5.0.0
+numpy>=1.21.0
+
+# Note: spaCy models are large and typically installed separately.
+# If you want medical NLP, install SciSpaCy model:
+#   python -m spacy download en_core_web_sm
+#   pip install https://github.com/allenai/scispacy/releases/download/v0.5.3/en_core_sci_md-0.5.3-py3-none-any.whl
+openai>=1.0.0
+sentencepiece
+accelerate

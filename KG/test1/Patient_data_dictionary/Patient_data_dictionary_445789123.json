@@ -1,0 +1,15 @@
+{
+  "patient_id": "445789123",
+  "patient_age": 44,
+  "patient_bmi": 40.8,
+  "comorbidity_flag": true,
+  "weight_loss_program_history": false,
+  "conservative_therapy_attempt": false,
+  "preop_medical_clearance": false,
+  "preop_psych_clearance": false,
+  "preop_education_completed": false,
+  "treatment_plan_documented": false,
+  "procedure_code_CPT": "43771",
+  "procedure_code_ICD10PCS": "0DW64CZ",
+  "diagnosis_code_ICD10": "E66.813"
+}

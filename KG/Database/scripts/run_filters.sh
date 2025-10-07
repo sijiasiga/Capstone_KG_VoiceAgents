@@ -1,0 +1,1 @@
+python run_filter.py --database policy_CGSURG83.db --sql-file ../test1/Policy_CGSURG83/SQL_CGSURG83.txt --output csv --save patient_data_filtered.csv

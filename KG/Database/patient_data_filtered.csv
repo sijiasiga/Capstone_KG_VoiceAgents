@@ -1,0 +1,4 @@
+patient_id,patient_id,patient_age,patient_bmi,comorbidity_flag,weight_loss_program_history,conservative_therapy_attempt,preop_medical_clearance,preop_psych_clearance,preop_education_completed,treatment_plan_documented,procedure_code_CPT,procedure_code_ICD10PCS,diagnosis_code_ICD10
+200001,200001,52,42.5,0,1,1,1,1,1,1,43644,0DV60ZZ,E66.01
+200002,200002,39,36.4,1,1,1,1,1,1,1,43775,0DB60Z3,Z68.36
+200005,200005,28,34.8,1,1,1,1,1,1,1,43770,0D160ZA,E66.2

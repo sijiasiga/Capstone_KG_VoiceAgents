@@ -1,0 +1,15 @@
+{
+  "patient_id": "200003",
+  "patient_age": 30,
+  "patient_bmi": 29.1,
+  "comorbidity_flag": false,
+  "weight_loss_program_history": false,
+  "conservative_therapy_attempt": false,
+  "preop_medical_clearance": false,
+  "preop_psych_clearance": false,
+  "preop_education_completed": false,
+  "treatment_plan_documented": false,
+  "procedure_code_CPT": null,
+  "procedure_code_ICD10PCS": null,
+  "diagnosis_code_ICD10": "K21.9"
+}

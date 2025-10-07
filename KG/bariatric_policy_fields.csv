@@ -1,0 +1,17 @@
+Field,Type,Example/Rule
+comorbidity_conditions,array,"cardiomyopathy, cardiovascular, diabetes, hypertension, pickwickian, sleep_apnea"
+conservative_therapy_flag,boolean,Required documentation
+diagnosis_code,string,"E66.01, E66.09, E66.1, E66.2, E66.3, E66.8, E66.811, E66.812, E66.813, E66.89, E66.9, E88.82, S10, S17, S20, S21, S25, S26, S30, S42, S45, S46, S50, S51, S54, Z46.51, Z68.20, Z68.29, Z68.30, Z68.34, Z68.35, Z68.39, Z68.41, Z68.45, Z68.51, Z68.56, Z98.84"
+medical_evaluation_flag,boolean,Required documentation
+medical_necessity_flag,boolean,Required for coverage
+mental_health_evaluation_flag,boolean,Required documentation
+patient_age,integer,>= 18 years
+patient_bmi,float,>= 40 OR >= 35 with comorbidity
+patient_weight,float,Current weight in kg/lbs
+preoperative_education_flag,boolean,Required documentation
+procedure_code,string,"43290, 43291, 43632, 43633, 43644, 43645, 43659, 43770, 43771, 43772, 43773, 43774, 43775, 43842, 43843, 43845, 43846, 43847, 43848, 43886, 43887, 43888, 43999"
+reoperation_flag,boolean,Indicates revision surgery
+surgical_complications,array,"erosion, fistula, gerd, leakage, obstruction, stricture"
+surgical_procedure_type,string,"biliopancreatic, gastric_banding, roux_en_y, sleeve_gastrectomy, vertical_banded"
+treatment_plan_flag,boolean,Required documentation
+weight_loss_program_flag,boolean,Required documentation

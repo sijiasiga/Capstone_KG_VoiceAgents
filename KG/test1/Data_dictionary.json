@@ -1,0 +1,8 @@
+[
+    {
+      "name": "patient_id",
+      "type": "string",
+      "description": "Unique patient identifier",
+      "section": "Demographics"
+    }
+]

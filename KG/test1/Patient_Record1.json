@@ -1,0 +1,106 @@
+{
+  "patient": {
+    "name": "Robert Chen",
+    "dob": "1980-08-22",
+    "age": 44,
+    "mrn": "445789123",
+    "visit_date": "2025-09-25"
+  },
+  "chief_complaint": "I'm having trouble breathing when I walk upstairs and my blood sugar keeps getting worse despite my medications.",
+  "history_of_present_illness": {
+    "summary": "44-year-old male with progressive shortness of breath on exertion and poorly controlled diabetes.",
+    "details": [
+      "80 lb weight gain over 8 years after sedentary job change",
+      "Fatigue and bilateral knee pain",
+      "Snoring with witnessed apnea",
+      "Poorly controlled blood sugar despite oral medications"
+    ]
+  },
+  "vital_signs": {
+    "height": "5'10\"",
+    "weight": "285 lbs",
+    "bmi": 40.8,
+    "blood_pressure": "156/94",
+    "heart_rate": 88,
+    "respiratory_rate": 18,
+    "temperature": "98.6°F"
+  },
+  "physical_exam": {
+    "general": "Obese male in mild respiratory distress after walking",
+    "heent": "Crowded oropharynx, large neck circumference (18 inches)",
+    "cardiovascular": "Regular rhythm, no murmurs",
+    "pulmonary": "Clear bilaterally, decreased breath sounds at bases",
+    "abdomen": "Obese, soft, non-tender",
+    "extremities": "Bilateral knee crepitus, mild pedal edema"
+  },
+  "medical_conditions": [
+    "Morbid Obesity (BMI 40.8)",
+    "Type 2 Diabetes Mellitus – poorly controlled (HbA1c 9.1%)",
+    "Hypertension – uncontrolled",
+    "Suspected Sleep Apnea – untreated",
+    "Osteoarthritis – bilateral knees",
+    "GERD – symptoms 3-4x/week"
+  ],
+  "medications": [
+    { "name": "Metformin", "dose": "1000mg", "frequency": "twice daily" },
+    { "name": "Glipizide", "dose": "10mg", "frequency": "daily" },
+    { "name": "Lisinopril", "dose": "20mg", "frequency": "daily" },
+    { "name": "Hydrochlorothiazide", "dose": "25mg", "frequency": "daily" },
+    { "name": "Omeprazole", "dose": "20mg", "frequency": "daily" },
+    { "name": "Ibuprofen", "dose": "600mg", "frequency": "as needed for knee pain" }
+  ],
+  "social_history": {
+    "marital_status": "Married, 3 teenage children",
+    "occupation": "IT manager (sedentary)",
+    "smoking": "Former smoker (quit 5 years ago)",
+    "alcohol": "2–3 beers on weekends",
+    "diet": "Fast food 4–5x/week, large portions, late-night eating"
+  },
+  "assessment_plan": {
+    "morbid_obesity": [
+      "Refer to dietitian",
+      "Lifestyle modification counseling",
+      "Consider bariatric surgery if <20% weight loss in 6 months"
+    ],
+    "diabetes": [
+      "Increase metformin to max dose",
+      "Start long-acting insulin",
+      "Diabetes education referral",
+      "Target HbA1c <7%"
+    ],
+    "hypertension": [
+      "Increase lisinopril to 40mg daily",
+      "Add amlodipine 5mg daily",
+      "Home BP monitoring",
+      "Reduce sodium intake"
+    ],
+    "sleep_apnea": [
+      "Order sleep study (scheduled 10/15/2025)",
+      "Weight loss counseling"
+    ],
+    "knee_osteoarthritis": [
+      "Physical therapy referral",
+      "Order knee X-rays",
+      "Emphasize weight reduction"
+    ],
+    "gerd": [
+      "Continue omeprazole",
+      "Elevate head of bed",
+      "Weight loss counseling"
+    ]
+  },
+  "laboratory_results": {
+    "hba1c": "9.1%",
+    "fasting_glucose": "185 mg/dL",
+    "cholesterol_total": "245 mg/dL",
+    "hdl": "32 mg/dL",
+    "triglycerides": "285 mg/dL",
+    "creatinine": "1.1 mg/dL"
+  },
+  "follow_up": {
+    "return_visit": "4 weeks for diabetes management",
+    "dietitian_appointment": "2025-10-02",
+    "sleep_study": "2025-10-15",
+    "bariatric_consideration": "If 20% weight loss not achieved in 6 months"
+  }
+}

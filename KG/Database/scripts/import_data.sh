@@ -1,0 +1,1 @@
+python import_data.py --database policy_CGSURG83.db --data-dir ../test1/Patient_data_dictionary --table patients

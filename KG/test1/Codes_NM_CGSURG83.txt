@@ -1,0 +1,122 @@
+When services are Not Medically Necessary:
+
+For the following procedure codes or any other procedure code used to describe a procedure identified as not medically necessary
+
+CPT
+
+43290
+Esophagogastroduodenoscopy, flexible, transoral; with deployment of intragastric bariatric balloon
+
+43291
+Esophagogastroduodenoscopy, flexible, transoral; with removal of intragastric bariatric balloon(s)
+
+43632
+Gastrectomy, partial distal; with gastrojejunostomy (Billroth II) [when specified as bariatric surgery]
+
+43633
+Gastrectomy, partial, distal; with Roux-en-Y reconstruction [when specified as bariatric surgery]
+
+43659
+Unlisted laparoscopy procedure, stomach [when specified as gastric plication (laparoscopic greater curvature plication [LGCP]) with or without gastric banding, sleeve gastroplasty, or mini-gastric bypass procedure]
+
+43999
+Unlisted procedure, stomach [when specified as endoluminal gastric restrictive surgery, or aspiration therapy]
+
+44238
+Unlisted laparoscopy procedure, intestine (except rectum) [when specified as a bariatric procedure identified as not medically necessary such as SADI-S]
+
+64999
+Unlisted procedure, nervous system [when specified as implantation, revision, replacement, or removal of vagus nerve blocking neurostimulator electrode array or pulse generator at the esophagogastric junction]
+
+0813T
+Esophagogastroduodenoscopy, flexible, transoral, with volume adjustment of intragastric bariatric balloon
+
+HCPCS
+
+C9784
+Gastric restrictive procedure, endoscopic sleeve gastroplasty, with esophagogastroduodenoscopy and intraluminal tube insertion, if performed, including all system and tissue anchoring components
+
+C9785
+Endoscopic outlet reduction, gastric pouch application, with endoscopy and intraluminal tube insertion, if performed, including all system and tissue anchoring components
+
+ICD-10 Procedure
+
+0D160ZA
+Bypass stomach to jejunum, open approach [when specified as Billroth II)
+
+0DV60DZ
+Restriction of stomach with intraluminal device, open approach
+
+0DV63DZ
+Restriction of stomach with intraluminal device, percutaneous approach
+
+0DV64DZ
+Restriction of stomach with intraluminal device, percutaneous endoscopic approach
+
+0DV67DZ
+Restriction of stomach with intraluminal device, via natural or artificial opening
+
+0DV68DZ
+Restriction of stomach with intraluminal device, via natural or artificial opening endoscopic
+
+0DP60DZ
+Removal of intraluminal device from stomach, open approach
+
+0DP63DZ
+Removal of intraluminal device from stomach, percutaneous approach
+
+0DP64DZ
+Removal of intraluminal device from stomach, percutaneous endoscopic approach
+
+0DP67DZ
+Removal of intraluminal device from stomach, via natural or artificial opening
+
+0DP68DZ
+Removal of intraluminal device from stomach, via natural or artificial opening endoscopic
+
+ICD-10 Diagnosis
+
+E66.01
+Morbid (severe) obesity due to excess calories
+
+E66.09
+Other obesity due to excess calories
+
+E66.1
+Drug-induced obesity
+
+E66.2
+Morbid (severe) obesity with alveolar hypoventilation (Pickwickian syndrome)
+
+E66.3
+Overweight
+
+E66.811-E66.89
+Other obesity
+
+E66.9
+Obesity, unspecified
+
+E88.82
+Obesity due to disruption of MC4R pathway
+
+Z46.51
+Encounter for fitting and adjustment of gastric lap band
+
+Z68.20-Z68.29
+Body mass index [BMI] 20.0-29.9, adult
+
+Z68.30-Z68.34
+Body mass index [BMI] 30.0-34.9, adult
+
+Z68.35-Z68.39
+Body mass index [BMI] 35.0-39.9, adult
+
+Z68.41-Z68.45
+Body mass index [BMI] 40 or greater, adult
+
+Z68.51-Z68.56
+Body mass index [BMI] pediatric [special consideration]
+
+Z98.84
+Bariatric surgery status

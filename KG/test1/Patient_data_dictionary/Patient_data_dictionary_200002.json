@@ -1,0 +1,15 @@
+{
+  "patient_id": "200002",
+  "patient_age": 39,
+  "patient_bmi": 36.4,
+  "comorbidity_flag": true,
+  "weight_loss_program_history": true,
+  "conservative_therapy_attempt": true,
+  "preop_medical_clearance": true,
+  "preop_psych_clearance": true,
+  "preop_education_completed": true,
+  "treatment_plan_documented": true,
+  "procedure_code_CPT": "43775",
+  "procedure_code_ICD10PCS": "0DB60Z3",
+  "diagnosis_code_ICD10": "Z68.36"
+}

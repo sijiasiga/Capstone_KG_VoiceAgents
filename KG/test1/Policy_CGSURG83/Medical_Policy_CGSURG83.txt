@@ -1,0 +1,26 @@
+Clinical_Indications:
+
+  Medically_Necessary:
+
+    Gastric bypass and gastric restrictive procedures are considered medically necessary when all of the following criteria are met:
+
+      - Individual is age 18 years or older; and
+      - The recommended surgery is one of the following procedures:
+          - Biliopancreatic bypass with duodenal switch; or
+          - Laparoscopic adjustable gastric banding; or
+          - Roux-en-Y procedure up to 150 cm; or
+          - Sleeve gastrectomy; or
+          - Vertical banded gastroplasty;
+      - A body mass index (BMI) of one of the following:
+          - 40 or greater, or
+          - 35 or greater with an obesity-related co-morbid condition including, but not limited to:
+              - Diabetes mellitus; or
+              - Cardiovascular disease; or
+              - Hypertension; or
+              - Life threatening cardio-pulmonary problems (for example, severe obstructive sleep apnea, Pickwickian syndrome, obesity related cardiomyopathy);
+      - Documentation of all of the following:
+          - Past participation in a weight loss program; and
+          - Inadequate weight loss despite a committed attempt at conservative medical therapy (for example, comprehensive lifestyle interventions, including a combination of diet, exercise, and behavioral modifications); and
+          - Pre-operative medical and mental health evaluations and clearances; and
+          - Pre-operative education which addresses the risks, benefits, realistic expectations and the need for long-term follow-up and adherence to behavioral modifications; and
+          - A treatment plan which addresses the pre- and post-operative needs of an individual undergoing bariatric surgery.

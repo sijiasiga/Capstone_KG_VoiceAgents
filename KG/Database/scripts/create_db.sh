@@ -1,0 +1,1 @@
+python create_database.py --database policy_CGSURG83.db --dictionary ../test1/Policy_CGSURG83/Data_dictionary_CGSURG83.json --table patients
