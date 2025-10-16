@@ -1,0 +1,4 @@
+patient_id,name,age,gender,language,chronic_conditions,primary_caregiver_id
+10004235,Alice Lee,60,F,ENGLISH,"Diabetes,Heart Failure",C001
+10000032,Bob Chen,54,M,ENGLISH,"Hypertension",C002
+10001217,Cara Wong,17,F,ENGLISH,None,C003

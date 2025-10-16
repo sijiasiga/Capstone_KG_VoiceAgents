@@ -1,0 +1,122 @@
+[
+  {
+    "patient": "I am patient 10001217, I need to schedule a follow-up appointment for my dad after his heart surgery; is there availability next week?",
+    "agent": "Referral/authorization is required for this plan. I can request it and hold a slot.",
+    "triage": "GREEN",
+    "expected": "GREEN"
+  },
+  {
+    "patient": "I am patient 10004235, I noticed my chest incision has started to ooze a greenish fluid and feels warm to the touch.",
+    "agent": "I can offer these times: October 09 at 10:00 AM (Clinic A, in_person), October 10 at 03:30 PM (Clinic A, in_person). Which works best?",
+    "triage": "GREEN",
+    "expected": "RED"
+  },
+  {
+    "patient": "I just had my heart surgery a week ago, and I'm experiencing an 8 out of 10 pain level along with some shortness of breath; I need to reschedule my follow-up appointment.",
+    "agent": "Your symptoms may be serious. Please go to the nearest emergency department now. I am alerting the on-call nurse.",
+    "triage": "RED",
+    "expected": "RED"
+  },
+  {
+    "patient": "I am patient 10004235, Can I schedule a follow-up appointment for my heart surgery recovery? I would prefer a video call if possible.",
+    "agent": "I can offer these times: October 09 at 10:00 AM (Clinic A, in_person), October 10 at 03:30 PM (Clinic A, in_person). Which works best?",
+    "triage": "GREEN",
+    "expected": "GREEN"
+  },
+  {
+    "patient": "I am patient 10004235; I've been feeling some tightness in my chest and have a follow-up appointment scheduled for next week. Can I move it to this Friday instead?",
+    "agent": "I can offer these times: October 09 at 10:00 AM (Clinic A, in_person), October 10 at 03:30 PM (Clinic A, in_person). Which works best?",
+    "triage": "GREEN",
+    "expected": "RED"
+  },
+  {
+    "patient": "I am patient 10001217, I'd like to schedule a follow-up appointment for my medication review after my heart surgery, and I prefer a video consultation.",
+    "agent": "Referral/authorization is required for this plan. I can request it and hold a slot.",
+    "triage": "GREEN",
+    "expected": "GREEN"
+  },
+  {
+    "patient": "I am patient 10001217, I need to schedule my follow-up appointment after my heart surgery for next week.",
+    "agent": "Referral/authorization is required for this plan. I can request it and hold a slot.",
+    "triage": "GREEN",
+    "expected": "GREEN"
+  },
+  {
+    "patient": "I am patient 10004235, I just had heart surgery last month and I'm feeling some chest pain; I need to schedule an appointment as soon as possible.",
+    "agent": "Your symptoms may be serious. Please go to the nearest emergency department now. I am alerting the on-call nurse.",
+    "triage": "RED",
+    "expected": "RED"
+  },
+  {
+    "patient": "I've been feeling short of breath since my surgery last week, and I'd like to schedule an appointment as soon as possible.",
+    "agent": "I can offer these times: October 09 at 10:00 AM (Clinic A, in_person), October 10 at 03:30 PM (Clinic A, in_person). Which works best?",
+    "triage": "GREEN",
+    "expected": "RED"
+  },
+  {
+    "patient": "I am patient 10001217, Can I schedule my follow-up appointment for a Friday since I have trouble with transportation during the week?",
+    "agent": "Referral/authorization is required for this plan. I can request it and hold a slot.",
+    "triage": "GREEN",
+    "expected": "GREEN"
+  },
+  {
+    "patient": "I am patient 10001217, I noticed my chest feels tight and there's some swelling around my incision site.",
+    "agent": "I will have a nurse call you today to review your symptoms. I can place a tentative hold for a visit in the next 24\u201348 hours.",
+    "triage": "ORANGE",
+    "expected": "RED"
+  },
+  {
+    "patient": "I can only come in for my follow-up appointment on Wednesdays because I have to arrange for my caregiver's availability.",
+    "agent": "No matching slots with this provider in the next two weeks. I can check other providers or locations.",
+    "triage": "GREEN",
+    "expected": "ORANGE"
+  },
+  {
+    "patient": "I just had my heart surgery last week; can I schedule my first follow-up appointment for three weeks from now instead of two?",
+    "agent": "Referral/authorization is required for this plan. I can request it and hold a slot.",
+    "triage": "GREEN",
+    "expected": "ORANGE"
+  },
+  {
+    "patient": "I am patient 10001217, I had heart surgery last week, and I'm experiencing an 8/10 pain level along with some shortness of breath; I'd like to reschedule my follow-up appointment.",
+    "agent": "Your symptoms may be serious. Please go to the nearest emergency department now. I am alerting the on-call nurse.",
+    "triage": "RED",
+    "expected": "RED"
+  },
+  {
+    "patient": "I am patient 10004235, I just had heart surgery five days ago, and I'm experiencing severe chest pain and difficulty breathing; I need to reschedule my follow-up appointment as soon as possible.",
+    "agent": "Your symptoms may be serious. Please go to the nearest emergency department now. I am alerting the on-call nurse.",
+    "triage": "RED",
+    "expected": "RED"
+  },
+  {
+    "patient": "I am patient 10000032, I just had heart surgery and need to change my follow-up appointment to next Monday morning.",
+    "agent": "Referral/authorization is required for this plan. I can request it and hold a slot.",
+    "triage": "GREEN",
+    "expected": "ORANGE"
+  },
+  {
+    "patient": "I'm feeling a lot of pain in my chest and my heart rate seems irregular.",
+    "agent": "I will have a nurse call you today to review your symptoms. I can place a tentative hold for a visit in the next 24\u201348 hours.",
+    "triage": "ORANGE",
+    "expected": "RED"
+  },
+  {
+    "patient": "I am patient 10001217, I need to schedule my follow-up appointment after my heart surgery next Tuesday.",
+    "agent": "Referral/authorization is required for this plan. I can request it and hold a slot.",
+    "triage": "GREEN",
+    "expected": "GREEN"
+  },
+  {
+    "patient": "I am patient 10001217, I need to schedule a follow-up appointment after my heart surgery to discuss my recovery and any medication adjustments.",
+    "agent": "Referral/authorization is required for this plan. I can request it and hold a slot.",
+    "triage": "GREEN",
+    "expected": "GREEN"
+  },
+  {
+    "patient": "I am patient 10000032, Can I schedule a follow-up appointment for my heart surgery next week?",
+    "agent": "Referral/authorization is required for this plan. I can request it and hold a slot.",
+    "triage": "GREEN",
+    "expected": "GREEN"
+  }
+]

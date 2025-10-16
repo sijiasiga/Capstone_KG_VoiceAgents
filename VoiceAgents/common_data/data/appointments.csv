@@ -1,0 +1,4 @@
+appointment_id,patient_id,appointment_date,appointment_type,doctor,status,urgency,can_reschedule,plan_id
+30409,10000032,2025-10-15 09:30:00,"Surgery - Cardiac Bypass","Dr. Smith",Scheduled,high,False,HMO_A
+30220,10004235,2025-10-08 14:20:00,"Follow-up - Cardiology","Dr. Johnson",Scheduled,medium,True,PPO_A
+30384,10001217,2025-09-28 11:00:00,"Consultation - Diabetes","Dr. Wilson",Scheduled,low,True,HMO_A
