@@ -1,0 +1,24 @@
+code,description,category,status
+43644,Laparoscopy surgical gastric restrictive procedure with gastric bypass and Roux-en-Y gastroenterostomy (roux limb 150 cm or less),approved,active
+43645,Laparoscopy surgical gastric restrictive procedure with gastric bypass and small intestine reconstruction to limit absorption,approved,active
+43770,Laparoscopy surgical gastric restrictive procedure placement of adjustable gastric restrictive device (eg gastric band and subcutaneous port components),approved,active
+43771,Laparoscopy surgical gastric restrictive procedure revision of adjustable gastric restrictive device component only,approved,active
+43772,Laparoscopy surgical gastric restrictive procedure removal of adjustable gastric restrictive device component only,approved,active
+43773,Laparoscopy surgical gastric restrictive procedure removal and replacement of adjustable gastric restrictive device component only,approved,active
+43774,Laparoscopy surgical gastric restrictive procedure removal of adjustable gastric restrictive device and subcutaneous port components,approved,active
+43775,Laparoscopy surgical gastric restrictive procedure longitudinal gastrectomy (ie sleeve gastrectomy),approved,active
+43842,Gastric restrictive procedure without gastric bypass for morbid obesity vertical-banded gastroplasty,approved,active
+43843,Gastric restrictive procedure without gastric bypass for morbid obesity other than vertical-banded gastroplasty,approved,active
+43845,Gastric restrictive procedure with partial gastrectomy pylorus-preserving duodenoileostomy and ileoileostomy (50 to 100 cm common channel) to limit absorption (biliopancreatic diversion with duodenal switch),approved,active
+43846,Gastric restrictive procedure with gastric bypass for morbid obesity with short limb (150 cm or less) Roux-en-Y gastroenterostomy,approved,active
+43847,Gastric restrictive procedure with gastric bypass for morbid obesity with small intestine reconstruction to limit absorption,approved,active
+43848,Revision open of gastric restrictive procedure for morbid obesity other than adjustable gastric restrictive device (separate procedure),approved,active
+43886,Gastric restrictive procedure open revision of subcutaneous port component only,approved,active
+43887,Gastric restrictive procedure open removal of subcutaneous port component only,approved,active
+43888,Gastric restrictive procedure open removal and replacement of subcutaneous port component only,approved,active
+43290,Esophagogastroduodenoscopy flexible transoral with deployment of intragastric bariatric balloon,not_approved,active
+43291,Esophagogastroduodenoscopy flexible transoral with removal of intragastric bariatric balloon(s),not_approved,active
+43632,Gastrectomy partial distal with gastrojejunostomy (Billroth II) when specified as bariatric surgery,not_approved,active
+43633,Gastrectomy partial distal with Roux-en-Y reconstruction when specified as bariatric surgery,not_approved,active
+43659,Unlisted laparoscopy procedure stomach when specified as gastric plication,not_approved,active
+43999,Unlisted procedure stomach when specified as endoluminal gastric restrictive surgery or aspiration therapy,not_approved,active

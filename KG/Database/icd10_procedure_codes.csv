@@ -1,0 +1,30 @@
+﻿code,description,category,status
+0DP60CZ,Removal of extraluminal device from stomach open approach,approved,active
+0DP64CZ,Removal of extraluminal device from stomach percutaneous endoscopic approach,approved,active
+0DV60CZ,Restriction of stomach with extraluminal device open approach,approved,active
+0DV64CZ,Restriction of stomach with extraluminal device percutaneous endoscopic approach,approved,active
+0DV60ZZ,Restriction of stomach open approach,approved,active
+0DV64ZZ,Restriction of stomach percutaneous endoscopic approach,approved,active
+0DW60CZ,Revision of extraluminal device in stomach open approach,approved,active
+0DW64CZ,Revision of extraluminal device in stomach percutaneous endoscopic approach,approved,active
+0D160ZA,Bypass stomach to jejunum open approach,approved,active
+0D160ZB,Bypass stomach to ileum open approach,approved,active
+0D164ZA,Bypass stomach to jejunum percutaneous endoscopic approach,approved,active
+0D164ZB,Bypass stomach to ileum percutaneous endoscopic approach,approved,active
+0D164Z9,Bypass stomach to duodenum percutaneous endoscopic approach,approved,active
+0D190ZB,Bypass duodenum to ileum open approach,approved,active
+0DB60Z3,Excision of stomach open approach vertical,approved,active
+0DB64Z3,Excision of stomach percutaneous endoscopic approach vertical,approved,active
+0DB68Z3,Excision of stomach via natural or artificial opening endoscopic vertical,approved,active
+0DB60ZZ,Excision of stomach open approach,approved,active
+0DB64ZZ,Excision of stomach percutaneous endoscopic approach,approved,active
+0DV60DZ,Restriction of stomach with intraluminal device open approach,not_approved,active
+0DV63DZ,Restriction of stomach with intraluminal device percutaneous approach,not_approved,active
+0DV64DZ,Restriction of stomach with intraluminal device percutaneous endoscopic approach,not_approved,active
+0DV67DZ,Restriction of stomach with intraluminal device via natural or artificial opening,not_approved,active
+0DV68DZ,Restriction of stomach with intraluminal device via natural or artificial opening endoscopic,not_approved,active
+0DP60DZ,Removal of intraluminal device from stomach open approach,not_approved,active
+0DP63DZ,Removal of intraluminal device from stomach percutaneous approach,not_approved,active
+0DP64DZ,Removal of intraluminal device from stomach percutaneous endoscopic approach,not_approved,active
+0DP67DZ,Removal of intraluminal device from stomach via natural or artificial opening,not_approved,active
+0DP68DZ,Removal of intraluminal device from stomach via natural or artificial opening endoscopic,not_approved,active
