@@ -1,0 +1,121 @@
+# ===================================
+# Python
+# ===================================
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pdb
+*.pkl
+*.log
+*.sqlite3
+*.egg-info/
+.env
+.venv
+*.DS_Store
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# ===================================
+# Environment & Config
+# ===================================
+# Conda environments and virtual env folders
+venv/
+env/
+.voiceagents_env/
+.voiceagents_venv/
+.idea/
+.vscode/
+*.iml
+
+# Jupyter / Streamlit
+.ipynb_checkpoints/
+.streamlit/
+
+# Mac / System files
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+
+# ===================================
+# Logs and Runtime Data
+# ===================================
+*.log
+logs/
+orchestration_agent/demos/logs/
+caregiver_agent/logs/
+followup_agent/logs/
+medication_agent/logs/
+*.jsonl
+
+# Temporary data or generated outputs
+tmp/
+temp/
+*.tmp
+*.bak
+*.swp
+
+# ===================================
+# Generated Datasets / Example Data
+# ===================================
+appointment_agent/qna_examples/generated_qna_examples.csv
+appointment_agent/qna_examples/generated_qna_examples.json
+
+# ===================================
+# Python Packaging / Distribution
+# ===================================
+build/
+dist/
+*.egg
+*.egg-info/
+.eggs/
+MANIFEST
+__pypackages__/
+
+# ===================================
+# Reports / Caches / Compiled Files
+# ===================================
+.mypy_cache/
+pytest_cache/
+.cache/
+.coverage
+*.cover
+htmlcov/
+*.spec
+
+# ===================================
+# OS or IDE Metadata
+# ===================================
+.vscode/
+.idea/
+.project
+.pydevproject
+*.sublime-project
+*.sublime-workspace
+
+# ===================================
+# User Keys / Sensitive Files
+# ===================================
+*.pem
+*.key
+*.crt
+*.token
+*.json (if containing secrets)
+OPENAI_API_KEY.txt
+.env.local
+.env.*.backup
+
+# ===================================
+# Streamlit & Local Deployment Files
+# ===================================
+.streamlit/secrets.toml
+prototype_demo/__pycache__/
+prototype_demo/.ipynb_checkpoints/

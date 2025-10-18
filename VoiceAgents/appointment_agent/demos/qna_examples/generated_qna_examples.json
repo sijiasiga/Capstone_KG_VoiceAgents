@@ -1,0 +1,122 @@
+[
+  {
+    "patient": "I am patient 10000032, I want to move my surgery to next week.",
+    "agent": "Rescheduling is blocked: Surgery cannot be rescheduled within 48 hours.",
+    "triage": "GREEN",
+    "expected": "GREEN"
+  },
+  {
+    "patient": "I am patient 10000032; low-grade fever 100.8 on day 5. Next week OK?",
+    "agent": "Rescheduling is blocked: Surgery cannot be rescheduled within 48 hours.",
+    "triage": "GREEN",
+    "expected": "GREEN"
+  },
+  {
+    "patient": "I am patient 10001217, I need suture removal\u2014can this be video?",
+    "agent": "No matching slots with this provider in the next two weeks. I can check other providers or locations.",
+    "triage": "GREEN",
+    "expected": "GREEN"
+  },
+  {
+    "patient": "I am patient 10000032, I had heart surgery last week; pain is 8/10 with shortness of breath. I want to move my follow-up.",
+    "agent": "Rescheduling is blocked: Surgery cannot be rescheduled within 48 hours.",
+    "triage": "GREEN",
+    "expected": "GREEN"
+  },
+  {
+    "patient": "I am patient 10000032, My incision has yellow drainage and is opening.",
+    "agent": "Rescheduling is blocked: Surgery cannot be rescheduled within 48 hours.",
+    "triage": "GREEN",
+    "expected": "GREEN"
+  },
+  {
+    "patient": "Transportation is hard; Fridays only.",
+    "agent": "Rescheduling is blocked: Surgery cannot be rescheduled within 48 hours.",
+    "triage": "GREEN",
+    "expected": "GREEN"
+  },
+  {
+    "patient": "I want to move my surgery to next week.",
+    "agent": "Rescheduling is blocked: Surgery cannot be rescheduled within 48 hours.",
+    "triage": "GREEN",
+    "expected": "GREEN"
+  },
+  {
+    "patient": "My glucose was over 320; I feel a bit dizzy. I want a visit this week.",
+    "agent": "Rescheduling is blocked: Surgery cannot be rescheduled within 48 hours.",
+    "triage": "GREEN",
+    "expected": "GREEN"
+  },
+  {
+    "patient": "I am patient 10004235, My incision has yellow drainage and is opening.",
+    "agent": "No matching slots with this provider in the next two weeks. I can check other providers or locations.",
+    "triage": "GREEN",
+    "expected": "GREEN"
+  },
+  {
+    "patient": "I am patient 10004235, I am 17; can I reschedule to next Thursday afternoon?",
+    "agent": "No matching slots with this provider in the next two weeks. I can check other providers or locations.",
+    "triage": "GREEN",
+    "expected": "GREEN"
+  },
+  {
+    "patient": "I am patient 10001217, My glucose was over 320; I feel a bit dizzy. I want a visit this week.",
+    "agent": "No matching slots with this provider in the next two weeks. I can check other providers or locations.",
+    "triage": "GREEN",
+    "expected": "GREEN"
+  },
+  {
+    "patient": "Transportation is hard; Fridays only.",
+    "agent": "No matching slots with this provider in the next two weeks. I can check other providers or locations.",
+    "triage": "GREEN",
+    "expected": "GREEN"
+  },
+  {
+    "patient": "Transportation is hard; Fridays only.",
+    "agent": "No matching slots with this provider in the next two weeks. I can check other providers or locations.",
+    "triage": "GREEN",
+    "expected": "GREEN"
+  },
+  {
+    "patient": "I am patient 10000032, My glucose was over 320; I feel a bit dizzy. I want a visit this week.",
+    "agent": "Rescheduling is blocked: Surgery cannot be rescheduled within 48 hours.",
+    "triage": "GREEN",
+    "expected": "GREEN"
+  },
+  {
+    "patient": "I am patient 10001217, I am 17; can I reschedule to next Thursday afternoon?",
+    "agent": "No matching slots with this provider in the next two weeks. I can check other providers or locations.",
+    "triage": "GREEN",
+    "expected": "GREEN"
+  },
+  {
+    "patient": "I am patient 10000032; can I push my first follow-up to day 21 after surgery?",
+    "agent": "Rescheduling is blocked: Surgery cannot be rescheduled within 48 hours.",
+    "triage": "GREEN",
+    "expected": "GREEN"
+  },
+  {
+    "patient": "I am patient 10001217, I am 17; can I reschedule to next Thursday afternoon?",
+    "agent": "No matching slots with this provider in the next two weeks. I can check other providers or locations.",
+    "triage": "GREEN",
+    "expected": "GREEN"
+  },
+  {
+    "patient": "I am patient 10000032, I need suture removal\u2014can this be video?",
+    "agent": "Rescheduling is blocked: Surgery cannot be rescheduled within 48 hours.",
+    "triage": "GREEN",
+    "expected": "GREEN"
+  },
+  {
+    "patient": "I need suture removal\u2014can this be video?",
+    "agent": "Rescheduling is blocked: Surgery cannot be rescheduled within 48 hours.",
+    "triage": "GREEN",
+    "expected": "GREEN"
+  },
+  {
+    "patient": "I am patient 10001217, I want to move my surgery to next week.",
+    "agent": "No matching slots with this provider in the next two weeks. I can check other providers or locations.",
+    "triage": "GREEN",
+    "expected": "GREEN"
+  }
+]

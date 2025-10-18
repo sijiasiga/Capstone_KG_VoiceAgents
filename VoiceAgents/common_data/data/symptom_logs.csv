@@ -5,3 +5,6 @@ ts_iso,patient_id,symptom,severity,note
 2025-10-16T14:55:47Z,10004235,shortness of breath,7,
 2025-10-16T15:22:02Z,10004235,dizzy,7,
 2025-10-16T15:22:02Z,10004235,shortness of breath,7,
+2025-10-18T06:19:57Z,10004235,fever,,
+2025-10-18T09:29:29Z,10004235,dizzy,,
+2025-10-18T09:31:32Z,10004235,dizzy,,
