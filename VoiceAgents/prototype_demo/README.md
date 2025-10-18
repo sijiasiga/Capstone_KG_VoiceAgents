@@ -4,7 +4,6 @@ It’s written purely as a **user instruction guide** and assumes **Python 3.10*
 
 ---
 
-````markdown
 # VoiceAgents Orchestrator – Prototype Demo
 
 This demo provides a **Streamlit interface** for interacting with the multi-agent **VoiceAgents Orchestrator**, which coordinates between four specialized agents:
@@ -235,8 +234,7 @@ Each orchestration decision is recorded as one JSON line:
 * Use **Python 3.10** for consistent library compatibility.
 * Always launch Streamlit from the project root to preserve relative imports.
 * LLM routing uses GPT-4o-mini; when the API key is absent, a rule-based router ensures deterministic behavior.
-* You can safely extend this demo with additional agents (e.g., billing or nutrition) by registering new intent handlers inside the orchestration layer.
-
+* You can safely extend this demo.
 ---
 
 **Author:** CMU Capstone Team
