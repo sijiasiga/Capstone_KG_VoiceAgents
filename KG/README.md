@@ -298,7 +298,16 @@ The `streamlit_app.py` provides an interactive web interface for the complete wo
 - **📄 Medical Records Page**: Upload PDFs, extract text, parse patient data, generate knowledge graphs
 - **🗄️ SQL Queries Page**: View database, run policy filters, manage patient records
 
+
 ### Usage:
 ```bash
 streamlit run streamlit_app.py
 ```
+
+### Screenshots:
+
+**Medical Records Processing Page:**
+![Streamlit Medical Records Page](Figures/streamlit1.jpg)
+
+**SQL Queries & Database Management Page:**
+![Streamlit SQL Queries Page](Figures/streamlit2.jpg)
