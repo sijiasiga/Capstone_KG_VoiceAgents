@@ -136,6 +136,36 @@ def check_database_duplicates() -> Dict[str, Any]:
     except Exception as e:
         return {"error": str(e)}
 
+def delete_patient_by_id(patient_id: str) -> bool:
+    """Delete a specific patient record from the database."""
+    try:
+        db_path = get_database_path()
+        if not os.path.exists(db_path):
+            st.error("Database not found")
+            return False
+        
+        conn = sqlite3.connect(db_path)
+        cursor = conn.cursor()
+        
+        # Check if patient exists
+        cursor.execute("SELECT COUNT(*) FROM patients WHERE patient_id = ?", (patient_id,))
+        count = cursor.fetchone()[0]
+        
+        if count == 0:
+            st.warning(f"Patient {patient_id} not found in database")
+            conn.close()
+            return False
+        
+        # Delete the patient
+        cursor.execute("DELETE FROM patients WHERE patient_id = ?", (patient_id,))
+        conn.commit()
+        conn.close()
+        
+        return True
+    except Exception as e:
+        st.error(f"Error deleting patient: {e}")
+        return False
+
 def remove_duplicates_from_database() -> bool:
     """Remove duplicate patients from the database, keeping only the latest record."""
     try:
@@ -732,7 +762,7 @@ def sql_queries_page():
     st.markdown('<h2 class="section-header">📋 Available Operations</h2>', unsafe_allow_html=True)
     
     # Create tabs for different operations
-    tab1, tab2 = st.tabs(["📊 View All Data", "🔍 Run Policy Filters"])
+    tab1, tab2, tab3 = st.tabs(["📊 View All Data", "🔍 Run Policy Filters", "🗑️ Delete Patient"])
     
     with tab1:
         st.markdown('<h3 class="section-header">View All Patient Data</h3>', unsafe_allow_html=True)
@@ -823,6 +853,68 @@ def sql_queries_page():
                         )
                 else:
                     st.warning("No patients found meeting the policy criteria.")
+    
+    with tab3:
+        st.markdown('<h3 class="section-header">Delete Specific Patient</h3>', unsafe_allow_html=True)
+        st.write("Delete a specific patient record from the database. You can either type the patient ID or select from the table below.")
+        
+        # Load and display current patients
+        with st.spinner("Loading current patients..."):
+            df = get_all_patients()
+            
+            if df is not None and not df.empty:
+                st.success(f"Found {len(df)} patients in database")
+                
+                # Display the patient table
+                st.markdown('<h4 class="section-header">Current Patients</h4>', unsafe_allow_html=True)
+                st.dataframe(df, use_container_width=True)
+                
+                # Get patient IDs for selection
+                patient_ids = df['patient_id'].tolist() if 'patient_id' in df.columns else []
+                
+                if patient_ids:
+                    st.markdown("---")
+                    st.markdown("**Select Patient to Delete:**")
+                    
+                    # Single dropdown selection
+                    patient_id_to_delete = st.selectbox(
+                        "Choose Patient ID:",
+                        options=[""] + patient_ids,
+                        help="Select a patient ID from the dropdown"
+                    )
+                    
+                    if patient_id_to_delete:
+                        # Show patient details before deletion
+                        patient_data = df[df['patient_id'] == patient_id_to_delete]
+                        
+                        if not patient_data.empty:
+                            st.markdown("---")
+                            st.markdown("**Patient Details to be Deleted:**")
+                            st.dataframe(patient_data, use_container_width=True)
+                            
+                            # Show confirmation
+                            st.warning(f"⚠️ You are about to delete patient: **{patient_id_to_delete}**")
+                            st.write("This action cannot be undone!")
+                            
+                            col1, col2 = st.columns(2)
+                            with col1:
+                                if st.button("🗑️ Confirm Delete", type="primary"):
+                                    with st.spinner("Deleting patient..."):
+                                        if delete_patient_by_id(patient_id_to_delete):
+                                            st.success(f"✅ Patient {patient_id_to_delete} deleted successfully!")
+                                            st.rerun()  # Refresh the page
+                                        else:
+                                            st.error(f"❌ Failed to delete patient {patient_id_to_delete}")
+                            
+                            with col2:
+                                if st.button("❌ Cancel", type="secondary"):
+                                    st.info("Deletion cancelled")
+                        else:
+                            st.error(f"Patient ID '{patient_id_to_delete}' not found in the current data")
+                else:
+                    st.warning("No patient IDs found in the data")
+            else:
+                st.warning("No patients found in the database")
     
     # Database info section
     st.markdown('<h2 class="section-header">ℹ️ Database Information</h2>', unsafe_allow_html=True)
