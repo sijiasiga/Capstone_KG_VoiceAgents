@@ -15,6 +15,8 @@ import json
 import tempfile
 import subprocess
 import sys
+import sqlite3
+import pandas as pd
 from pathlib import Path
 from typing import Dict, Any, Optional, Tuple
 import shutil
@@ -80,6 +82,100 @@ st.markdown("""
     }
 </style>
 """, unsafe_allow_html=True)
+
+def get_database_path() -> str:
+    """Get the path to the policy database."""
+    return str(kg_dir / "Database" / "policy_CGSURG83.db")
+
+def clean_dataframe_columns(df: pd.DataFrame) -> pd.DataFrame:
+    """Clean DataFrame by removing duplicate columns and handling data issues."""
+    if df is None or df.empty:
+        return df
+    
+    # Remove duplicate columns (keep first occurrence)
+    if df.columns.duplicated().any():
+        df = df.loc[:, ~df.columns.duplicated()]
+    
+    return df
+
+def add_patient_to_database(patient_data: Dict[str, Any]) -> bool:
+    """Add patient data to the database."""
+    try:
+        db_path = get_database_path()
+        if not os.path.exists(db_path):
+            st.error(f"Database not found: {db_path}")
+            return False
+        
+        conn = sqlite3.connect(db_path)
+        cursor = conn.cursor()
+        
+        # Get field names and values from patient data
+        field_names = list(patient_data.keys())
+        values = list(patient_data.values())
+        
+        # Create INSERT statement
+        placeholders = ','.join(['?' for _ in field_names])
+        insert_sql = f"INSERT OR REPLACE INTO patients ({','.join(field_names)}) VALUES ({placeholders})"
+        
+        cursor.execute(insert_sql, values)
+        conn.commit()
+        conn.close()
+        
+        return True
+    except Exception as e:
+        st.error(f"Error adding patient to database: {e}")
+        return False
+
+def get_all_patients() -> Optional[pd.DataFrame]:
+    """Get all patient data from the database."""
+    try:
+        db_path = get_database_path()
+        if not os.path.exists(db_path):
+            st.error(f"Database not found: {db_path}")
+            return None
+        
+        conn = sqlite3.connect(db_path)
+        query = "SELECT * FROM patients"
+        df = pd.read_sql_query(query, conn)
+        conn.close()
+        
+        # Clean the DataFrame
+        df = clean_dataframe_columns(df)
+        
+        return df
+    except Exception as e:
+        st.error(f"Error retrieving patient data: {e}")
+        return None
+
+def run_policy_sql_filter() -> Optional[pd.DataFrame]:
+    """Run the policy SQL filter on the database."""
+    try:
+        db_path = get_database_path()
+        sql_path = kg_dir / "test1" / "Policy_CGSURG83" / "SQL_CGSURG83.txt"
+        
+        if not os.path.exists(db_path):
+            st.error(f"Database not found: {db_path}")
+            return None
+        
+        if not os.path.exists(sql_path):
+            st.error(f"SQL file not found: {sql_path}")
+            return None
+        
+        # Load SQL query
+        with open(sql_path, 'r', encoding='utf-8') as f:
+            sql_query = f.read().strip()
+        
+        conn = sqlite3.connect(db_path)
+        df = pd.read_sql_query(sql_query, conn)
+        conn.close()
+        
+        # Clean the DataFrame
+        df = clean_dataframe_columns(df)
+        
+        return df
+    except Exception as e:
+        st.error(f"Error running SQL filter: {e}")
+        return None
 
 def create_patient_folder(patient_id: str, base_dir: str = "patient_data") -> str:
     """Create a folder for the patient and return the path."""
@@ -236,8 +332,8 @@ def generate_patient_rule_kg(patient_data: Dict[str, Any], patient_dir: str, sho
         st.error(f"Error generating patient rule KG: {e}")
         return None
 
-def main():
-    """Main Streamlit application."""
+def medical_record_page():
+    """Medical Record Processing Page."""
     
     # Header
     st.markdown('<h1 class="main-header">🏥 Medical Record Knowledge Graph Generator</h1>', unsafe_allow_html=True)
@@ -374,6 +470,15 @@ def main():
                 
                 st.success("✅ Files organized in patient folder")
                 
+                # Step 6.5: Add patient to database
+                status_text.text("💾 Adding patient to database...")
+                progress_bar.progress(58)
+                
+                if add_patient_to_database(patient_data):
+                    st.success("✅ Patient added to database")
+                else:
+                    st.warning("⚠️ Failed to add patient to database")
+                
                 # Step 7: Generate knowledge graphs
                 status_text.text("🎨 Generating knowledge graphs...")
                 progress_bar.progress(60)
@@ -486,6 +591,151 @@ def main():
         </ul>
         </div>
         """, unsafe_allow_html=True)
+
+def sql_queries_page():
+    """SQL Queries and Database Management Page."""
+    
+    # Header
+    st.markdown('<h1 class="main-header">🗄️ SQL Queries & Database Management</h1>', unsafe_allow_html=True)
+    
+    # Sidebar
+    st.sidebar.title("📊 Database Options")
+    
+    # Check if database exists
+    db_path = get_database_path()
+    if not os.path.exists(db_path):
+        st.error(f"❌ Database not found: {db_path}")
+        st.info("Please ensure the database exists before using SQL queries.")
+        return
+    
+    st.success(f"✅ Database found: {db_path}")
+    
+    # Main content
+    st.markdown('<h2 class="section-header">📋 Available Operations</h2>', unsafe_allow_html=True)
+    
+    # Create tabs for different operations
+    tab1, tab2 = st.tabs(["📊 View All Data", "🔍 Run Policy Filters"])
+    
+    with tab1:
+        st.markdown('<h3 class="section-header">View All Patient Data</h3>', unsafe_allow_html=True)
+        st.write("Display all patient records in the database.")
+        
+        if st.button("📊 Load All Patient Data", type="primary"):
+            with st.spinner("Loading patient data..."):
+                df = get_all_patients()
+                
+                if df is not None and not df.empty:
+                    st.success(f"✅ Loaded {len(df)} patient records")
+                    
+                    # Display basic statistics
+                    col1, col2 = st.columns(2)
+                    with col1:
+                        st.metric("Total Patients", len(df))
+                    with col2:
+                        st.metric("Database Size", f"{os.path.getsize(db_path):,} bytes")
+                    
+                    # Display the data
+                    st.markdown('<h4 class="section-header">Patient Data Table</h4>', unsafe_allow_html=True)
+                    st.dataframe(df, use_container_width=True)
+                    
+                    # Download options
+                    col1, col2 = st.columns(2)
+                    with col1:
+                        csv = df.to_csv(index=False)
+                        st.download_button(
+                            label="📥 Download as CSV",
+                            data=csv,
+                            file_name="patient_data.csv",
+                            mime="text/csv"
+                        )
+                    with col2:
+                        json_data = df.to_json(orient='records', indent=2)
+                        st.download_button(
+                            label="📥 Download as JSON",
+                            data=json_data,
+                            file_name="patient_data.json",
+                            mime="application/json"
+                        )
+                else:
+                    st.warning("No patient data found in the database.")
+    
+    with tab2:
+        st.markdown('<h3 class="section-header">Run Policy SQL Filters</h3>', unsafe_allow_html=True)
+        st.write("Execute the policy SQL filter to find patients who meet the bariatric surgery criteria.")
+        
+        # Show the SQL query
+        sql_path = kg_dir / "test1" / "Policy_CGSURG83" / "SQL_CGSURG83.txt"
+        if os.path.exists(sql_path):
+            with st.expander("📄 View SQL Query", expanded=False):
+                with open(sql_path, 'r', encoding='utf-8') as f:
+                    sql_query = f.read()
+                st.code(sql_query, language='sql')
+        
+        if st.button("🔍 Run Policy Filter", type="primary"):
+            with st.spinner("Running policy SQL filter..."):
+                df = run_policy_sql_filter()
+                
+                if df is not None and not df.empty:
+                    st.success(f"✅ Found {len(df)} patients meeting policy criteria")
+                    
+                    # Display basic statistics
+                    st.metric("Eligible Patients", len(df))
+                    
+                    # Display the filtered data
+                    st.markdown('<h4 class="section-header">Eligible Patients</h4>', unsafe_allow_html=True)
+                    st.dataframe(df, use_container_width=True)
+                    
+                    # Download options
+                    col1, col2 = st.columns(2)
+                    with col1:
+                        csv = df.to_csv(index=False)
+                        st.download_button(
+                            label="📥 Download as CSV",
+                            data=csv,
+                            file_name="eligible_patients.csv",
+                            mime="text/csv"
+                        )
+                    with col2:
+                        json_data = df.to_json(orient='records', indent=2)
+                        st.download_button(
+                            label="📥 Download as JSON",
+                            data=json_data,
+                            file_name="eligible_patients.json",
+                            mime="application/json"
+                        )
+                else:
+                    st.warning("No patients found meeting the policy criteria.")
+    
+    # Database info section
+    st.markdown('<h2 class="section-header">ℹ️ Database Information</h2>', unsafe_allow_html=True)
+    
+    col1, col2 = st.columns(2)
+    with col1:
+        st.info(f"**Database Path:** `{db_path}`")
+        st.info(f"**Database Size:** {os.path.getsize(db_path):,} bytes")
+    
+    with col2:
+        st.info(f"**SQL File:** `{sql_path}`")
+        if os.path.exists(sql_path):
+            st.success("✅ SQL file found")
+        else:
+            st.error("❌ SQL file not found")
+
+def main():
+    """Main Streamlit application with page navigation."""
+    
+    # Page selection in sidebar
+    st.sidebar.title("🏥 Medical KG App")
+    page = st.sidebar.selectbox(
+        "Choose a page:",
+        ["📄 Medical Records", "🗄️ SQL Queries"]
+    )
+    
+    # Route to appropriate page
+    if page == "📄 Medical Records":
+        medical_record_page()
+    elif page == "🗄️ SQL Queries":
+        sql_queries_page()
 
 if __name__ == "__main__":
     main()
