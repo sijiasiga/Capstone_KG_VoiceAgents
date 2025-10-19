@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(taskkill /F /IM streamlit.exe)",
+      "Bash(taskkill //F //IM streamlit.exe)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

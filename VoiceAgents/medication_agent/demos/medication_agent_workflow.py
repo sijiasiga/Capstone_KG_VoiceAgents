@@ -47,6 +47,23 @@ def say(text: str, use_voice: bool = False):
     if use_voice and pyttsx3 is not None:
         try:
             engine = pyttsx3.init()
+
+            # Force English voice (US or UK)
+            voices = engine.getProperty('voices')
+            english_voice = None
+            for v in voices:
+                # Look for English voices (US or UK)
+                if 'english' in v.name.lower() or 'en_' in v.id.lower() or 'en-' in v.id.lower():
+                    english_voice = v.id
+                    break
+                # Fallback: look for common English voice names on Windows
+                if 'david' in v.name.lower() or 'zira' in v.name.lower() or 'mark' in v.name.lower():
+                    english_voice = v.id
+                    break
+
+            if english_voice:
+                engine.setProperty('voice', english_voice)
+
             engine.setProperty("rate", 155)
             engine.say(text)
             engine.runAndWait()
@@ -89,7 +106,7 @@ def mic_listen_once(timeout: int = 5, phrase_time_limit: int = 10) -> str:
     try:
         r = sr.Recognizer()
         with sr.Microphone() as source:
-            print("[🎙️ Listening...] Speak now")
+            print("[Listening...] Speak now")
             r.adjust_for_ambient_noise(source, duration=0.5)
             audio = r.listen(source, timeout=timeout, phrase_time_limit=phrase_time_limit)
         try:
@@ -198,7 +215,7 @@ class MedicationAgent:
         patient = self.db.get_patient(patient_id)
         if not patient:
             say("Patient not found.", self.use_voice)
-            return
+            return "Patient not found."
 
         parsed = llm_parse_query(user_text)
         intent = parsed.get("intent", "general")
@@ -206,7 +223,7 @@ class MedicationAgent:
         prescriptions = self.db.get_prescriptions(patient_id)
         if not prescriptions:
             say("No prescriptions found for this patient.", self.use_voice)
-            return
+            return "No prescriptions found for this patient."
 
         risk = llm_score_risk(parsed)
 
@@ -228,15 +245,19 @@ class MedicationAgent:
             else:
                 responses.append(f"{p['drug_name']} is used for {p['condition']} ({info['drug_class']} class).")
 
+        # Add helpful context for interaction checks
+        if intent == "interaction_check" and len(responses) > 1:
+            responses.insert(0, "You're taking multiple medications. Here are the interaction warnings:")
+
         if not responses:
             responses.append("I could not interpret your medication question clearly.")
 
         combined = " ".join(responses)
-        # Risk-level prefix
+        # Risk-level prefix (no emojis for Windows compatibility)
         if risk == "RED":
-            combined = "⚠️ High-risk situation detected. Please seek immediate medical care. " + combined
+            combined = "[HIGH RISK] Please seek immediate medical care. " + combined
         elif risk == "ORANGE":
-            combined = "⚠️ Potential issue detected. Please contact your clinician soon. " + combined
+            combined = "[ALERT] Please contact your clinician soon. " + combined
 
         say(combined, self.use_voice)
 
@@ -251,6 +272,8 @@ class MedicationAgent:
             "response": combined,
         }
         save_jsonline(os.path.join(LOG_DIR, "med_agent_log.jsonl"), log)
+
+        return combined
 
 
 # ---------------------------------------------------

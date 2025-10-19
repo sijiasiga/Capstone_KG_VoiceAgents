@@ -18,6 +18,7 @@ From project root 'VoiceAgents':
 import os
 import sys
 import json
+import threading
 from typing import Dict, Any, Optional
 from datetime import datetime, timezone
 
@@ -135,16 +136,41 @@ def log_event(obj: Dict[str, Any]) -> None:
 
 
 # ----------------- Helpers -----------------
+def _speak_in_background(text: str):
+    """Helper function to run TTS in background thread."""
+    try:
+        eng = pyttsx3.init()
+
+        # Force English voice (US or UK)
+        voices = eng.getProperty('voices')
+        english_voice = None
+        for v in voices:
+            # Look for English voices (US or UK)
+            if 'english' in v.name.lower() or 'en_' in v.id.lower() or 'en-' in v.id.lower():
+                english_voice = v.id
+                break
+            # Fallback: look for common English voice names on Windows
+            if 'david' in v.name.lower() or 'zira' in v.name.lower() or 'mark' in v.name.lower():
+                english_voice = v.id
+                break
+
+        if english_voice:
+            eng.setProperty('voice', english_voice)
+
+        eng.setProperty("rate", 155)
+        eng.say(text)
+        eng.runAndWait()
+    except Exception:
+        pass
+
+
 def say(text: str, voice: bool = False):
+    """Print text immediately and optionally speak it in background thread."""
     print(f"\nAgent: {text}")
     if voice and pyttsx3 is not None:
-        try:
-            eng = pyttsx3.init()
-            eng.setProperty("rate", 155)
-            eng.say(text)
-            eng.runAndWait()
-        except Exception:
-            pass
+        # Run TTS in background thread so it doesn't block UI updates
+        tts_thread = threading.Thread(target=_speak_in_background, args=(text,), daemon=True)
+        tts_thread.start()
 
 
 def stt_transcribe(path: str) -> str:
@@ -163,16 +189,51 @@ def stt_transcribe(path: str) -> str:
 
 
 def mic_listen_once(timeout=5, phrase_time_limit=10) -> str:
+    """
+    Listen to microphone once and transcribe.
+    Returns transcribed text or empty string on failure.
+    """
     if not USE_STT or sr is None:
         return ""
     try:
         r = sr.Recognizer()
-        with sr.Microphone() as source:
-            print("[🎙️ Listening...] Speak now")
-            r.adjust_for_ambient_noise(source, duration=0.5)
+        # Improved settings for better accuracy
+        r.energy_threshold = 200  # More sensitive (lower value)
+        r.dynamic_energy_threshold = True
+        r.dynamic_energy_adjustment_damping = 0.15
+        r.dynamic_energy_ratio = 1.5
+        r.pause_threshold = 1.0  # Wait longer before considering phrase complete
+        r.phrase_threshold = 0.3  # Minimum seconds of speaking audio before considering phrase
+        r.non_speaking_duration = 0.5  # Seconds of non-speaking audio to keep on both sides
+
+        with sr.Microphone(sample_rate=16000) as source:
+            print("[Listening...] Speak now")
+            # Longer calibration for better noise cancellation
+            r.adjust_for_ambient_noise(source, duration=1.5)
+            # Listen for audio
             audio = r.listen(source, timeout=timeout, phrase_time_limit=phrase_time_limit)
-        return r.recognize_google(audio)
-    except Exception:
+
+        print("[Processing...] Transcribing audio")
+        # Try Google Speech Recognition with show_all to get alternatives
+        try:
+            # First try: standard recognition
+            text = r.recognize_google(audio, language='en-US', show_all=False)
+            return text
+        except:
+            # Fallback: try without language specification
+            text = r.recognize_google(audio)
+            return text
+    except sr.WaitTimeoutError:
+        print("[Error] No speech detected within timeout")
+        return ""
+    except sr.UnknownValueError:
+        print("[Error] Could not understand audio")
+        return ""
+    except sr.RequestError as e:
+        print(f"[Error] API error: {e}")
+        return ""
+    except Exception as e:
+        print(f"[Error] Unexpected error: {e}")
         return ""
 
 
@@ -256,10 +317,11 @@ class Orchestrator:
     def __init__(self, voice: bool = False):
         self.voice = voice
         self.patient_id = "10004235"
-        self.appointment = AppointmentAdapter(voice=voice) if AppointmentAdapter else None
-        self.followup = FollowUpAdapter(voice=voice) if FollowUpAdapter else None
-        self.medication = MedicationAdapter(voice=voice) if MedicationAdapter else None
-        self.caregiver = CaregiverAdapter(voice=voice) if CaregiverAdapter else None
+        # Disable voice in sub-agents - orchestrator will handle TTS
+        self.appointment = AppointmentAdapter(voice=False) if AppointmentAdapter else None
+        self.followup = FollowUpAdapter(voice=False) if FollowUpAdapter else None
+        self.medication = MedicationAdapter(voice=False) if MedicationAdapter else None
+        self.caregiver = CaregiverAdapter(voice=False) if CaregiverAdapter else None
 
     def route(self, user_text: str) -> str:
         parsed = parse_intent_llm(user_text)
@@ -276,7 +338,12 @@ class Orchestrator:
 
         reply = ""
         if intent == "appointment" and self.appointment:
-            reply = self.appointment.handle(user_text)
+            # Prepend patient ID if not already in text
+            if pid and pid not in user_text:
+                enhanced_text = f"I am patient {pid}, {user_text}"
+            else:
+                enhanced_text = user_text
+            reply = self.appointment.handle(enhanced_text)
         elif intent == "followup" and self.followup:
             reply = self.followup.handle(pid, user_text)
         elif intent == "medication" and self.medication:

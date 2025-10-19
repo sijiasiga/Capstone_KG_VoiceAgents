@@ -29,12 +29,20 @@ def say(text: str, speaker: str, use_voice: bool = False):
         try:
             engine = pyttsx3.init()
             voices = engine.getProperty('voices')
+            english_voice = None
             for voice in voices:
-                if 'english' in voice.name.lower():
-                    engine.setProperty('voice', voice.id)
+                # Look for English voices (US or UK)
+                if 'english' in voice.name.lower() or 'en_' in voice.id.lower() or 'en-' in voice.id.lower():
+                    english_voice = voice.id
                     break
+                # Fallback: common English voice names on Windows
+                if 'david' in voice.name.lower() or 'zira' in voice.name.lower() or 'mark' in voice.name.lower():
+                    english_voice = voice.id
+                    break
+            if english_voice:
+                engine.setProperty('voice', english_voice)
             engine.setProperty('rate', 150)
-            engine.say(f"{speaker} says: {text}")
+            engine.say(text)  # Just say the text, no "says:" prefix
             engine.runAndWait()
         except Exception:
             pass
@@ -430,7 +438,7 @@ class AppointmentService:
             return msg
 
         except Exception as e:
-            msg = f"⚠️ Error while processing: {str(e)}"
+            msg = f"[WARNING] Error while processing: {str(e)}"
             say(msg, "Agent", use_voice)
             return msg
 
@@ -524,7 +532,7 @@ def mic_listen() -> str:
     """Capture one sentence from the microphone and return recognized text."""
     recognizer = sr.Recognizer()
     with sr.Microphone() as source:
-        print("[🎙️ Listening...] Please speak now.")
+        print("[LISTENING...] Please speak now.")
         recognizer.adjust_for_ambient_noise(source, duration=1)
         audio = recognizer.listen(source, timeout=5)
     try:
@@ -594,7 +602,7 @@ if __name__ == "__main__":
                 json.dump(results, f, indent=2)
             df = pd.DataFrame(results)
             df.to_csv(os.path.join(QNA_DIR, "generated_qna_examples.csv"), index=False)
-            print(f"\n✅ Saved 20 Q&A examples to:")
+            print(f"\n[SUCCESS] Saved 20 Q&A examples to:")
             print(f"   {os.path.join(QNA_DIR, 'generated_qna_examples.json')}")
             print(f"   {os.path.join(QNA_DIR, 'generated_qna_examples.csv')}")
 

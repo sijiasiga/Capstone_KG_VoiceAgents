@@ -53,6 +53,23 @@ def say(text: str, voice: bool = False):
     if voice and pyttsx3 is not None:
         try:
             eng = pyttsx3.init()
+
+            # Force English voice (US or UK)
+            voices = eng.getProperty('voices')
+            english_voice = None
+            for v in voices:
+                # Look for English voices (US or UK)
+                if 'english' in v.name.lower() or 'en_' in v.id.lower() or 'en-' in v.id.lower():
+                    english_voice = v.id
+                    break
+                # Fallback: look for common English voice names on Windows
+                if 'david' in v.name.lower() or 'zira' in v.name.lower() or 'mark' in v.name.lower():
+                    english_voice = v.id
+                    break
+
+            if english_voice:
+                eng.setProperty('voice', english_voice)
+
             eng.setProperty("rate", 155)
             eng.say(text)
             eng.runAndWait()
@@ -150,7 +167,7 @@ class CaregiverAgent:
 
         summary = (
             f"Caregiver Update for {pname} ({cg_rel}: {cg_name})\n"
-            f"• {overall_text}\n"
+            f"- {overall_text}\n"
             f"Recommendation: Please check in if risk is MODERATE or HIGH."
         )
 
