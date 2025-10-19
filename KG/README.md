@@ -9,7 +9,12 @@ A Python toolkit for generating and visualizing knowledge graphs from medical po
 pip install -r requirements.txt
 ```
 
-2. **Run the complete workflow:**
+2. **Run the Streamlit web app:**
+```bash
+streamlit run streamlit_app.py
+```
+
+3. **Or run the complete workflow:**
 ```bash
 # Generate all visualizations for test1 example
 chmod +x scripts/generate_all_patient_kgs.sh
@@ -42,9 +47,10 @@ Output: Compliance report + Visualization
 ## 📁 Project Structure
 
 ```
-├── patient_kg.py               # Patient data visualizer
+├── patient_kg.py               # Patient data visualizer with code mapping
 ├── patient_rule_kg.py          # Patient vs policy evaluator  
 ├── generate_policy_rule_kg.py  # Policy rule generator
+├── streamlit_app.py            # Interactive web application
 ├── test1/                      # Complete example with outputs
 │   ├── Patient_data_dictionary/ # Input: Patient JSON files
 │   ├── Patient_KG/             # Output: Patient visualizations
@@ -283,3 +289,16 @@ The test1 example processes 7 patients against bariatric surgery policy criteria
 - **Patient 445789123**: Various profile
 
 All generated visualizations and compliance reports are available in the `test1/` directory for inspection.
+
+## 🌐 Streamlit Web Application
+
+The `streamlit_app.py` provides an interactive web interface for the complete workflow:
+
+### Features:
+- **📄 Medical Records Page**: Upload PDFs, extract text, parse patient data, generate knowledge graphs
+- **🗄️ SQL Queries Page**: View database, run policy filters, manage patient records
+
+### Usage:
+```bash
+streamlit run streamlit_app.py
+```
