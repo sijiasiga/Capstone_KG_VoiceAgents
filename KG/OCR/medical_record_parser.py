@@ -331,7 +331,7 @@ def parse_medical_record_file(input_file: str, output_dir: str = None) -> Dict[s
     
     Args:
         input_file: Path to OCR-extracted text file
-        output_dir: Directory to save output JSON (optional)
+        output_dir: Directory to save output JSON (optional, defaults to input file directory)
     
     Returns:
         Parsed patient data dictionary
@@ -344,18 +344,20 @@ def parse_medical_record_file(input_file: str, output_dir: str = None) -> Dict[s
     parser = MedicalRecordParser(text)
     patient_data = parser.parse()
     
-    # Save to JSON if output directory specified
-    if output_dir:
-        output_dir = Path(output_dir)
-        output_dir.mkdir(parents=True, exist_ok=True)
-        
-        patient_id = patient_data['patient_id']
-        output_file = output_dir / f"Patient_data_dictionary_{patient_id}.json"
-        
-        with open(output_file, 'w', encoding='utf-8') as f:
-            json.dump(patient_data, f, indent=2)
-        
-        print(f"✅ Parsed medical record saved to: {output_file}")
+    # Use input file directory as default output directory
+    if output_dir is None:
+        output_dir = Path(input_file).parent
+    
+    output_dir = Path(output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
+    
+    patient_id = patient_data['patient_id']
+    output_file = output_dir / f"Patient_data_dictionary_{patient_id}.json"
+    
+    with open(output_file, 'w', encoding='utf-8') as f:
+        json.dump(patient_data, f, indent=2)
+    
+    print(f"✅ Parsed medical record saved to: {output_file}")
     
     return patient_data
 
