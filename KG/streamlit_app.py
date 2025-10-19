@@ -98,8 +98,114 @@ def clean_dataframe_columns(df: pd.DataFrame) -> pd.DataFrame:
     
     return df
 
+def check_database_duplicates() -> Dict[str, Any]:
+    """Check for duplicate patients in the database."""
+    try:
+        db_path = get_database_path()
+        if not os.path.exists(db_path):
+            return {"error": "Database not found"}
+        
+        conn = sqlite3.connect(db_path)
+        cursor = conn.cursor()
+        
+        # Check for duplicate patient_ids
+        cursor.execute("""
+            SELECT patient_id, COUNT(*) as count 
+            FROM patients 
+            GROUP BY patient_id 
+            HAVING COUNT(*) > 1
+        """)
+        duplicate_patients = cursor.fetchall()
+        
+        # Get total patient count
+        cursor.execute("SELECT COUNT(*) FROM patients")
+        total_patients = cursor.fetchone()[0]
+        
+        # Get unique patient count
+        cursor.execute("SELECT COUNT(DISTINCT patient_id) FROM patients")
+        unique_patients = cursor.fetchone()[0]
+        
+        conn.close()
+        
+        return {
+            "total_patients": total_patients,
+            "unique_patients": unique_patients,
+            "duplicate_patients": duplicate_patients,
+            "has_duplicates": len(duplicate_patients) > 0
+        }
+    except Exception as e:
+        return {"error": str(e)}
+
+def remove_duplicates_from_database() -> bool:
+    """Remove duplicate patients from the database, keeping only the latest record."""
+    try:
+        db_path = get_database_path()
+        if not os.path.exists(db_path):
+            st.error("Database not found")
+            return False
+        
+        conn = sqlite3.connect(db_path)
+        cursor = conn.cursor()
+        
+        # Check table structure
+        cursor.execute("PRAGMA table_info(patients)")
+        columns = cursor.fetchall()
+        
+        # Get all duplicate patient_ids
+        cursor.execute("""
+            SELECT patient_id, COUNT(*) as count 
+            FROM patients 
+            GROUP BY patient_id 
+            HAVING COUNT(*) > 1
+        """)
+        duplicates = cursor.fetchall()
+        
+        if not duplicates:
+            conn.close()
+            return True
+        
+        # Get all records and create a unique set
+        cursor.execute("SELECT * FROM patients")
+        all_records = cursor.fetchall()
+        
+        # Get column names
+        column_names = [col[1] for col in columns]
+        
+        # Create a dictionary to track unique patients
+        unique_patients = {}
+        duplicates_removed = 0
+        
+        for record in all_records:
+            record_dict = dict(zip(column_names, record))
+            patient_id = record_dict.get('patient_id')
+            
+            if patient_id not in unique_patients:
+                unique_patients[patient_id] = record
+            else:
+                duplicates_removed += 1
+        
+        if duplicates_removed == 0:
+            conn.close()
+            return True
+        
+        # Clear the table
+        cursor.execute("DELETE FROM patients")
+        
+        # Insert only unique records
+        for patient_id, record in unique_patients.items():
+            placeholders = ','.join(['?' for _ in record])
+            cursor.execute(f"INSERT INTO patients VALUES ({placeholders})", record)
+        
+        conn.commit()
+        conn.close()
+        
+        return True
+    except Exception as e:
+        st.error(f"Error removing duplicates: {e}")
+        return False
+
 def add_patient_to_database(patient_data: Dict[str, Any]) -> bool:
-    """Add patient data to the database."""
+    """Add patient data to the database with proper duplicate handling."""
     try:
         db_path = get_database_path()
         if not os.path.exists(db_path):
@@ -109,13 +215,22 @@ def add_patient_to_database(patient_data: Dict[str, Any]) -> bool:
         conn = sqlite3.connect(db_path)
         cursor = conn.cursor()
         
+        patient_id = patient_data.get('patient_id')
+        if not patient_id:
+            st.error("Patient ID is required")
+            conn.close()
+            return False
+        
+        # First, delete any existing records for this patient_id
+        cursor.execute("DELETE FROM patients WHERE patient_id = ?", (patient_id,))
+        
         # Get field names and values from patient data
         field_names = list(patient_data.keys())
         values = list(patient_data.values())
         
-        # Create INSERT statement
+        # Insert the new record
         placeholders = ','.join(['?' for _ in field_names])
-        insert_sql = f"INSERT OR REPLACE INTO patients ({','.join(field_names)}) VALUES ({placeholders})"
+        insert_sql = f"INSERT INTO patients ({','.join(field_names)}) VALUES ({placeholders})"
         
         cursor.execute(insert_sql, values)
         conn.commit()
@@ -127,8 +242,11 @@ def add_patient_to_database(patient_data: Dict[str, Any]) -> bool:
         return False
 
 def get_all_patients() -> Optional[pd.DataFrame]:
-    """Get all patient data from the database."""
+    """Get all patient data from the database, automatically removing duplicates first."""
     try:
+        # First, remove duplicates automatically (silent)
+        remove_duplicates_from_database()
+        
         db_path = get_database_path()
         if not os.path.exists(db_path):
             st.error(f"Database not found: {db_path}")
@@ -618,14 +736,14 @@ def sql_queries_page():
     
     with tab1:
         st.markdown('<h3 class="section-header">View All Patient Data</h3>', unsafe_allow_html=True)
-        st.write("Display all patient records in the database.")
+        st.write("Display all patient records in the database. Duplicates are automatically removed before displaying data.")
         
-        if st.button("📊 Load All Patient Data", type="primary"):
-            with st.spinner("Loading patient data..."):
+        if st.button("📊 Load All Patient Data (Auto-Remove Duplicates)", type="primary"):
+            with st.spinner("Loading patient data and removing duplicates..."):
                 df = get_all_patients()
                 
                 if df is not None and not df.empty:
-                    st.success(f"✅ Loaded {len(df)} patient records")
+                    st.success(f"✅ Loaded {len(df)} patient records (duplicates automatically removed)")
                     
                     # Display basic statistics
                     col1, col2 = st.columns(2)
