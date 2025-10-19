@@ -10,4 +10,7 @@ echo "🔄 Processing Patient ID: $patient_id for rule KG..."
 echo "📁 Using file: $patient_record"
 
 # Generate the patient rule knowledge graph
-python patient_rule_kg.py "$patient_record" test1/Policy_CGSURG83/SQL_CGSURG83.txt test1/Policy_CGSURG83/Data_dictionary_CGSURG83.json --output-file "test1/Patient_Rule_KG/patient_rule_kg_$patient_id"
+python patient_rule_kg.py "$patient_record" \
+  --sql-file test1/Policy_CGSURG83/SQL_CGSURG83.txt \
+  --policy-file test1/Policy_CGSURG83/Data_dictionary_CGSURG83.json \
+  --output-file "test1/Patient_Rule_KG/patient_rule_kg_$patient_id"

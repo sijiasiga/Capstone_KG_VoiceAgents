@@ -1,13 +1,10 @@
+# Core dependencies
 requests
 python-docx
 PyMuPDF
 pydantic
-transformers
-torch
 beautifulsoup4
 scikit-learn
-spacy>=3.6,<4
-scispacy>=0.5.3
 networkx>=2.8
 matplotlib>=3.5.0
 plotly>=5.0.0
@@ -18,10 +15,21 @@ PyPDF2>=3.0.0
 pytesseract>=0.3.10
 Pillow>=9.0.0
 
-# Note: spaCy models are large and typically installed separately.
-# If you want medical NLP, install SciSpaCy model:
-#   python -m spacy download en_core_web_sm
-#   pip install https://github.com/allenai/scispacy/releases/download/v0.5.3/en_core_sci_md-0.5.3-py3-none-any.whl
-openai>=1.0.0
-sentencepiece
-accelerate
+# Streamlit dependencies
+streamlit>=1.28.0
+pandas>=2.0.0
+
+# Optional ML dependencies (install separately if needed)
+# transformers
+# torch
+# spacy>=3.6,<4
+# scispacy>=0.5.3
+# openai>=1.0.0
+# sentencepiece
+# accelerate
+
+# Note: Some packages may have compatibility issues on ARM64 macOS.
+# Install core dependencies first, then add ML packages as needed:
+# pip install transformers torch
+# pip install spacy>=3.6,<4
+# python -m spacy download en_core_web_sm

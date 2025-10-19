@@ -1,613 +1,705 @@
 #!/usr/bin/env python3
 """
-Patient Rule Knowledge Graph Visualizer
+Patient Knowledge Graph Visualizerhttps://file+.vscode-resource.vscode-cdn.net/Users/songxiaoyu/Library/Mobile%20Documents/com~apple~CloudDocs/CMU/mini56%20Capstone/Code/KG/test1/Patient_KG/patient_kg_8472202544.png?version%3D1760901862748
 
-Uses SQL for evaluation logic and Policy.json for descriptions.
+A flexible tool that takes a JSON file as input and creates interactive knowledge graphs.
+Supports various JSON structures and provides multiple visualization options.
+Includes code mapping functionality to enrich medical codes with descriptions and approval status.
 
 Usage:
-    python patient_rule_kg.py patient.json sql.txt policy.json --policy-id CGSURG83
+    python patient_kg.py input.json [options]
+    python patient_kg.py input.json --db-dir ./Database
+
+Features:
+    - Automatic code description lookup (CPT, ICD-10 diagnosis, ICD-10 procedure)
+    - Code approval status checking against policies
+    - Multiple visualization layouts (spring, circular, hierarchical)
+    - Interactive and static output options
+
+Author: AI Assistant
 """
 
 import json
 import argparse
 import sys
 import os
-import re
-import math
 from typing import Dict, List, Any, Optional, Tuple
-from dataclasses import dataclass
 import networkx as nx
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
+from matplotlib.patches import FancyBboxPatch
+import numpy as np
+import plotly.graph_objects as go
+import plotly.express as px
+from plotly.subplots import make_subplots
 import warnings
 warnings.filterwarnings('ignore')
 from code_mapping_db import CodeMappingDB
 
-
-@dataclass
-class PolicyCondition:
-    """Represents a single condition from SQL."""
-    condition: str  # Human-readable description from Policy.json
-    rule: str  # SQL condition
-    logic: str  # "AND" or "OR"
-    is_met: bool = False
-    logically_met: bool = False
-    logical_status: str = "not_met"  # "met", "logically_met_by_other_or", "not_met"
-
-
-class PatientRuleKGVisualizer:
-    """Creates knowledge graphs showing patient data against policy rules."""
-
-    def __init__(self, patient_data: Dict[str, Any], sql_text: str, policy_data: List[Dict[str, Any]]):
+class PatientKGVisualizer:
+    """Main class for creating and visualizing patient knowledge graphs from JSON data."""
+    
+    def __init__(self, json_data: Dict[str, Any], db_dir: str = None):
         """
-        Initialize the visualizer.
-
+        Initialize the visualizer with JSON data.
+        
         Args:
-            patient_data: Patient record data
-            sql_text: SQL policy text
-            policy_data: Policy data with restrictions for descriptions
+            json_data: Dictionary containing the JSON data to visualize
+            db_dir: Directory containing code_mapping.db file
         """
-        self.patient_data = patient_data
-        self.sql_text = sql_text
-        self.policy_data = policy_data
-        self.conditions: List[PolicyCondition] = []
-        self.graph = nx.DiGraph()
-
+        self.json_data = json_data
+        self.graph = nx.Graph()
+        self.node_colors = {}
+        self.edge_colors = {}
+        self.node_sizes = {}
+        self.node_labels = {}
+        self.edge_labels = {}
+        
+        # Initialize code mapping database
         try:
-            self.code_db = CodeMappingDB()
-            print("✅ Code mapping database connected")
+            if db_dir:
+                # Use custom database directory
+                db_path = os.path.join(db_dir, 'code_mapping.db')
+                self.code_db = CodeMappingDB(db_path)
+                print(f"✅ Code mapping database connected from: {db_path}")
+            else:
+                # Use default database location
+                self.code_db = CodeMappingDB()
+                print("✅ Code mapping database connected")
         except Exception as e:
             print(f"⚠️  Warning: Could not connect to code mapping database: {e}")
             print("   Continuing without code descriptions...")
             self.code_db = None
-
-        # Build mapping from SQL rules to descriptions
-        self.rule_to_description = {}
-        for policy in policy_data:
-            if 'restrictions' in policy:
-                for restriction in policy['restrictions']:
-                    rule = restriction.get('rule', '').strip()
-                    condition_desc = restriction.get('condition', '')
-                    logic = restriction.get('logic', 'AND')
-                    if rule:
-                        # Normalize for matching
-                        normalized = rule.lower().replace(' ', '').replace('\n', '')
-                        self.rule_to_description[normalized] = {
-                            'description': condition_desc,
-                            'logic': logic
-                        }
-
-        # Color schemes
+        
+        # Color schemes for different node types
         self.color_schemes = {
-            'patient': '#FF6B6B',
-            'condition_met': '#4ECDC4',
-            'condition_logically_met': '#87CEEB',
-            'condition_not_met': '#FF6B6B',
-            'condition_group': '#45B7D1',
-            'default': '#B0B0B0'
+            'patient': '#FF6B6B',      # Red
+            'policy': '#4ECDC4',       # Teal
+            'criterion': '#45B7D1',    # Blue
+            'procedure': '#96CEB4',    # Green
+            'diagnosis': '#FFEAA7',    # Yellow
+            'comorbidity': '#DDA0DD',  # Plum
+            'data_field': '#98D8C8',   # Mint
+            'default': '#B0B0B0'       # Gray
         }
-
-    def normalize_rule(self, rule: str) -> str:
-        """Normalize a rule for matching."""
-        return rule.lower().replace(' ', '').replace('\n', '').replace('\t', '')
-
-    def parse_and_evaluate_conditions(self) -> None:
-        """Parse policy conditions and evaluate them using policy rules."""
-        # Use Policy.json as the source of truth for conditions
-        for policy in self.policy_data:
-            if 'restrictions' not in policy:
-                continue
-
-            for restriction in policy['restrictions']:
-                condition_text = restriction.get('condition', '')
-                rule = restriction.get('rule', '')
-                logic = restriction.get('logic', 'AND')
-
-                # Evaluate the rule
-                is_met = self.evaluate_condition(rule)
-
-                condition = PolicyCondition(
-                    condition=condition_text,
-                    rule=rule,
-                    logic=logic,
-                    is_met=is_met
-                )
-
-                self.conditions.append(condition)
-
-    def enrich_condition_with_codes(self, condition: PolicyCondition) -> None:
-        """Add human-readable descriptions for codes in conditions."""
-
+    
+    def enrich_with_code_descriptions(self, text: str) -> str:
+        """
+        Enrich text with code descriptions if codes are found.
+        
+        Args:
+            text: Text that may contain medical codes
+            
+        Returns:
+            Enriched text with code descriptions
+        """
         if not self.code_db:
-            return  # Skip if database not available
-
+            return text
+            
+        enriched_text = text
+        
         try:
-            # Check if condition involves procedure codes
-            if 'procedure_code' in condition.rule.lower():
-                # Try different field name variations
-                patient_procedure = (self.patient_data.get('procedure_code_CPT') or
-                                    self.patient_data.get('procedure_code') or
-                                    None)
-
-                if patient_procedure:
-                    # Look up code description
-                    code_info = self.code_db.lookup_cpt(patient_procedure)
-
-                    if code_info:
-                        # Validate if code is approved
-                        is_approved = self.code_db.is_code_approved_for_policy(
-                            'CG-SURG-83', patient_procedure, 'CPT'
-                        )
-
-                        approval_status = "✅ APPROVED" if is_approved else "❌ NOT APPROVED"
-
-                        # Add description to condition (shorter for visualization)
-                        short_desc = code_info['description'][:50] + "..." if len(code_info['description']) > 50 else code_info['description']
-                        condition.condition = f"{condition.condition}\n{short_desc} (CPT: {patient_procedure}) {approval_status}"
-                    else:
-                        condition.condition = f"{condition.condition}\nCPT {patient_procedure} (⚠️ not in database)"
-
-            # Check if condition involves ICD10 procedure codes
-            if 'procedure_code_icd10' in condition.rule.lower():
-                patient_procedure = (self.patient_data.get('procedure_code_ICD10PCS') or
-                                    self.patient_data.get('procedure_code_icd10pcs') or
-                                    None)
-
-                if patient_procedure:
-                    code_info = self.code_db.lookup_icd10_procedure(patient_procedure)
-
-                    if code_info:
-                        is_approved = self.code_db.is_code_approved_for_policy(
-                            'CG-SURG-83', patient_procedure, 'ICD10PROC'
-                        )
-
-                        approval_status = "✅ APPROVED" if is_approved else "❌ NOT APPROVED"
-                        short_desc = code_info['description'][:50] + "..." if len(code_info['description']) > 50 else code_info['description']
-                        condition.condition = f"{condition.condition}\n{short_desc} (ICD10-PCS: {patient_procedure}) {approval_status}"
-
-            # Check if condition involves diagnosis codes
-            if 'diagnosis_code' in condition.rule.lower():
-                patient_diagnosis = (self.patient_data.get('diagnosis_code_ICD10') or
-                                    self.patient_data.get('diagnosis_code') or
-                                    None)
-
-                if patient_diagnosis:
-                    # Look up code description
-                    code_info = self.code_db.lookup_icd10_diagnosis(patient_diagnosis)
-
-                    if code_info:
-                        # Validate if code is approved
-                        is_approved = self.code_db.is_code_approved_for_policy(
-                            'CG-SURG-83', patient_diagnosis, 'ICD10DIAG'
-                        )
-
-                        approval_status = "✅ APPROVED" if is_approved else "❌ NOT APPROVED"
-
-                        # Add description to condition (shorter for visualization)
-                        short_desc = code_info['description'][:50] + "..." if len(code_info['description']) > 50 else code_info['description']
-                        condition.condition = f"{condition.condition}\n{short_desc} (ICD-10: {patient_diagnosis}) {approval_status}"
-                    else:
-                        condition.condition = f"{condition.condition}\nICD-10 {patient_diagnosis} (⚠️ not in database)"
-
+            import re
+            
+            # Look for CPT codes (5-digit numbers) - more flexible pattern
+            cpt_pattern = r'(\d{5})'
+            cpt_matches = re.findall(cpt_pattern, text)
+            
+            for code in cpt_matches:
+                code_info = self.code_db.lookup_cpt(code)
+                if code_info:
+                    short_desc = code_info['description'][:50] + "..." if len(code_info['description']) > 50 else code_info['description']
+                    # Replace the code with enriched version
+                    enriched_text = enriched_text.replace(code, f"{code} ({short_desc})")
+            
+            # Look for ICD-10 diagnosis codes (alphanumeric with dots)
+            icd10_diag_pattern = r'([A-Z]\d{2}(?:\.\d+)?)'
+            icd10_diag_matches = re.findall(icd10_diag_pattern, text)
+            
+            for code in icd10_diag_matches:
+                code_info = self.code_db.lookup_icd10_diagnosis(code)
+                if code_info:
+                    short_desc = code_info['description'][:50] + "..." if len(code_info['description']) > 50 else code_info['description']
+                    enriched_text = enriched_text.replace(code, f"{code} ({short_desc})")
+            
+            # Look for ICD-10 procedure codes (alphanumeric, typically 7 characters)
+            icd10_proc_pattern = r'([0-9A-Z]{7})'
+            icd10_proc_matches = re.findall(icd10_proc_pattern, text)
+            
+            for code in icd10_proc_matches:
+                code_info = self.code_db.lookup_icd10_procedure(code)
+                if code_info:
+                    short_desc = code_info['description'][:50] + "..." if len(code_info['description']) > 50 else code_info['description']
+                    enriched_text = enriched_text.replace(code, f"{code} ({short_desc})")
+                    
         except Exception as e:
-            print(f"⚠️  Warning: Could not enrich condition with codes: {e}")
-
-    def evaluate_condition(self, condition: str) -> bool:
-        """Evaluate a SQL condition against patient data."""
+            print(f"⚠️  Warning: Could not enrich text with code descriptions: {e}")
+            
+        return enriched_text
+    
+    def get_code_approval_status(self, code: str, code_type: str = None, policy_id: str = "CG-SURG-83") -> str:
+        """
+        Get approval status for a code.
+        
+        Args:
+            code: Medical code
+            code_type: Type of code (CPT, ICD10PROC, ICD10DIAG)
+            policy_id: Policy ID to check against
+            
+        Returns:
+            Approval status string
+        """
+        if not self.code_db:
+            return "⚠️ No DB"
+            
         try:
-            # Build context with patient values
-            context = {}
-            for key, value in self.patient_data.items():
-                context[key] = value
-                context[key.lower()] = value
-
-            # Prepare condition for evaluation
-            eval_cond = condition.strip()
-
-            # Handle IN clauses: convert SQL IN ('a','b') to Python in ('a','b')
-            # This is already valid Python syntax, just need to replace IN with in
-            eval_cond = re.sub(r'\bIN\b', 'in', eval_cond, flags=re.IGNORECASE)
-
-            # Handle boolean comparisons
-            eval_cond = eval_cond.replace(' = TRUE', ' == True')
-            eval_cond = eval_cond.replace(' = FALSE', ' == False')
-            eval_cond = re.sub(r'\bTRUE\b', 'True', eval_cond)
-            eval_cond = re.sub(r'\bFALSE\b', 'False', eval_cond)
-
-            # Handle logical operators
-            eval_cond = re.sub(r'\bAND\b', 'and', eval_cond)
-            eval_cond = re.sub(r'\bOR\b', 'or', eval_cond)
-
-            # Evaluate
-            result = eval(eval_cond, {"__builtins__": {}}, context)
-            return bool(result)
+            is_approved = self.code_db.is_code_approved_for_policy(policy_id, code, code_type)
+            return "✅ APPROVED" if is_approved else "❌ NOT APPROVED"
         except Exception as e:
-            return False
-
-    def apply_logical_operators(self) -> None:
-        """Apply OR/AND logic to conditions."""
-        and_conditions = [c for c in self.conditions if c.logic == 'AND']
-        or_conditions = [c for c in self.conditions if c.logic == 'OR']
-
-        # Check if any OR condition is met
-        has_met_or = any(c.is_met for c in or_conditions) if or_conditions else False
-
-        # Mark AND conditions
-        for condition in and_conditions:
-            condition.logically_met = condition.is_met
-            condition.logical_status = 'met' if condition.is_met else 'not_met'
-
-        # Mark OR conditions
-        for condition in or_conditions:
-            condition.logically_met = has_met_or
-            if condition.is_met:
-                condition.logical_status = 'met'
-            elif has_met_or:
-                condition.logical_status = 'logically_met_by_other_or'
+            return f"⚠️ Error: {e}"
+    
+    def detect_data_structure(self) -> str:
+        """
+        Detect the structure of the JSON data to determine visualization strategy.
+        
+        Returns:
+            String indicating the detected data structure type
+        """
+        if isinstance(self.json_data, dict):
+            # Check for common patterns
+            if 'patient_id' in self.json_data:
+                return 'patient_record'
+            elif 'name' in self.json_data and 'restrictions' in self.json_data:
+                return 'policy'
+            elif 'nodes' in self.json_data and 'edges' in self.json_data:
+                return 'graph_structure'
+            elif all(isinstance(v, (str, int, float, bool)) for v in self.json_data.values()):
+                return 'simple_dict'
             else:
-                condition.logical_status = 'not_met'
-
-    def evaluate_policy_compliance(self) -> bool:
-        """Evaluate if patient meets overall policy."""
-        and_conditions = [c for c in self.conditions if c.logic == 'AND']
-        or_conditions = [c for c in self.conditions if c.logic == 'OR']
-
-        and_satisfied = all(c.is_met for c in and_conditions) if and_conditions else True
-        or_satisfied = any(c.is_met for c in or_conditions) if or_conditions else True
-
-        return and_satisfied and or_satisfied
-
-    def build_knowledge_graph(self) -> None:
-        """Build the knowledge graph."""
-        patient_id = self.patient_data.get('patient_id', 'unknown')
-        patient_name = f"Patient {patient_id}"
-
-        self.graph.add_node(
-            patient_id,
-            type="Patient",
-            label=patient_name,
-            node_size=2000
-        )
-
-        # Group by logic type
-        and_conditions = [c for c in self.conditions if c.logic == 'AND']
-        or_conditions = [c for c in self.conditions if c.logic == 'OR']
-
-        condition_groups = {}
-        if and_conditions:
-            condition_groups['AND'] = and_conditions
-        if or_conditions:
-            condition_groups['OR'] = or_conditions
-
-        # Create group nodes
-        angle_step = 2 * math.pi / max(len(condition_groups), 1)
-
-        for i, (logic_type, conditions) in enumerate(condition_groups.items()):
-            group_id = f"group_{logic_type}"
-
-            self.graph.add_node(
-                group_id,
-                type="ConditionGroup",
-                label=f"{logic_type} Conditions",
-                node_size=1500
-            )
-
-            self.graph.add_edge(
-                patient_id, group_id,
-                relation="evaluated_by",
-                edge_type="patient_group"
-            )
-
-            # Create condition nodes
-            for j, condition in enumerate(conditions):
-                condition_id = f"condition_{logic_type}_{j}"
-
-                self.enrich_condition_with_codes(condition)  # ← ADD THIS LINE
-
-                label = condition.condition[:30] + "..." if len(condition.condition) > 30 else condition.condition
-                status = "✓" if condition.is_met else "✗"
-                label = f"{status} {label}"
-
-                self.graph.add_node(
-                    condition_id,
-                    type="Condition",
-                    label=label,
-                    description=condition.condition,
-                    logic=condition.logic,
-                    is_met=condition.is_met,
-                    logical_status=condition.logical_status,
-                    node_size=1000
-                )
-
-                self.graph.add_edge(
-                    group_id, condition_id,
-                    relation="contains",
-                    edge_type="group_condition"
-                )
-
-                edge_relation = condition.logical_status
-                self.graph.add_edge(
-                    patient_id, condition_id,
-                    relation=edge_relation,
-                    edge_type="patient_condition"
-                )
-
-    def create_visualization(self, figsize: Tuple[int, int] = (16, 12),
-                            output_file: Optional[str] = None,
-                            no_show: bool = False) -> None:
-        """Create matplotlib visualization."""
+                return 'complex_dict'
+        elif isinstance(self.json_data, list):
+            if all(isinstance(item, dict) and 'name' in item for item in self.json_data):
+                return 'data_dictionary'
+            elif all(isinstance(item, dict) and 'source' in item and 'target' in item for item in self.json_data):
+                return 'edge_list'
+            else:
+                return 'object_list'
+        else:
+            return 'unknown'
+    
+    def create_patient_record_graph(self) -> None:
+        """Create graph from patient record data."""
+        patient_id = self.json_data.get('patient_id', 'Unknown')
+        
+        # Add patient node
+        self.graph.add_node(patient_id, type='patient', **self.json_data)
+        self.node_colors[patient_id] = self.color_schemes['patient']
+        self.node_sizes[patient_id] = 1000
+        self.node_labels[patient_id] = f"Patient {patient_id}"
+        
+        # Add attribute nodes
+        for key, value in self.json_data.items():
+            if key != 'patient_id':
+                attr_id = f"{patient_id}_{key}"
+                self.graph.add_node(attr_id, type='attribute', field=key, value=value)
+                self.graph.add_edge(patient_id, attr_id, relation='has_attribute')
+                
+                # Color based on value type
+                if isinstance(value, bool):
+                    self.node_colors[attr_id] = '#90EE90' if value else '#FFB6C1'
+                elif isinstance(value, (int, float)):
+                    self.node_colors[attr_id] = '#87CEEB'
+                else:
+                    self.node_colors[attr_id] = self.color_schemes['data_field']
+                
+                self.node_sizes[attr_id] = 500
+                
+                # Enrich labels with code descriptions
+                enriched_value = self.enrich_with_code_descriptions(str(value))
+                self.node_labels[attr_id] = f"{key}: {enriched_value}"
+                self.edge_labels[(patient_id, attr_id)] = 'has'
+    
+    def create_policy_graph(self) -> None:
+        """Create graph from policy data."""
+        policy_name = self.json_data.get('name', 'Unknown Policy')
+        policy_id = policy_name.replace(' ', '_').replace(',', '')
+        
+        # Add policy node
+        self.graph.add_node(policy_id, type='policy', **self.json_data)
+        self.node_colors[policy_id] = self.color_schemes['policy']
+        self.node_sizes[policy_id] = 1200
+        self.node_labels[policy_id] = policy_name
+        
+        # Add restriction/criteria nodes
+        restrictions = self.json_data.get('restrictions', [])
+        for idx, restriction in enumerate(restrictions):
+            criterion_id = f"{policy_id}_criterion_{idx}"
+            self.graph.add_node(criterion_id, type='criterion', **restriction)
+            self.graph.add_edge(policy_id, criterion_id, relation='has_criterion')
+            
+            self.node_colors[criterion_id] = self.color_schemes['criterion']
+            self.node_sizes[criterion_id] = 800
+            
+            # Enrich condition with code descriptions
+            condition_text = restriction.get('condition', f'Criterion {idx}')
+            enriched_condition = self.enrich_with_code_descriptions(condition_text)
+            self.node_labels[criterion_id] = enriched_condition
+            self.edge_labels[(policy_id, criterion_id)] = 'requires'
+            
+            # Add codes if present
+            codes = restriction.get('codes', [])
+            for code in codes:
+                code_id = f"code_{code}"
+                if not self.graph.has_node(code_id):
+                    self.graph.add_node(code_id, type='code', code=code)
+                    self.node_colors[code_id] = self.color_schemes['procedure']
+                    self.node_sizes[code_id] = 600
+                    
+                    # Enrich code with description and approval status
+                    enriched_code = self.enrich_with_code_descriptions(code)
+                    approval_status = self.get_code_approval_status(code)
+                    self.node_labels[code_id] = f"{enriched_code}\n{approval_status}"
+                
+                self.graph.add_edge(criterion_id, code_id, relation='applies_to')
+                self.edge_labels[(criterion_id, code_id)] = 'applies_to'
+    
+    def create_data_dictionary_graph(self) -> None:
+        """Create graph from data dictionary list."""
+        for idx, field in enumerate(self.json_data):
+            field_name = field.get('name', f'field_{idx}')
+            field_id = f"field_{field_name}"
+            
+            self.graph.add_node(field_id, type='data_field', **field)
+            self.node_colors[field_id] = self.color_schemes['data_field']
+            self.node_sizes[field_id] = 700
+            
+            # Enrich field name with code descriptions if it contains codes
+            enriched_field_name = self.enrich_with_code_descriptions(field_name)
+            self.node_labels[field_id] = enriched_field_name
+            
+            # Add section grouping
+            section = field.get('section', 'Unknown')
+            section_id = f"section_{section}"
+            if not self.graph.has_node(section_id):
+                self.graph.add_node(section_id, type='section', name=section)
+                self.node_colors[section_id] = '#E6E6FA'  # Lavender
+                self.node_sizes[section_id] = 900
+                self.node_labels[section_id] = section
+            
+            self.graph.add_edge(section_id, field_id, relation='contains')
+            self.edge_labels[(section_id, field_id)] = 'contains'
+    
+    def create_graph_structure_graph(self) -> None:
+        """Create graph from pre-structured graph data (nodes and edges)."""
+        # Add nodes
+        for node in self.json_data.get('nodes', []):
+            node_id = node.get('id', node.get('name', 'unknown'))
+            self.graph.add_node(node_id, **node)
+            
+            node_type = node.get('type', 'default')
+            self.node_colors[node_id] = self.color_schemes.get(node_type, self.color_schemes['default'])
+            self.node_sizes[node_id] = 800
+            self.node_labels[node_id] = node.get('name', node_id)
+        
+        # Add edges
+        for edge in self.json_data.get('edges', []):
+            source = edge.get('source')
+            target = edge.get('target')
+            relation = edge.get('relation', 'related_to')
+            
+            if source and target:
+                self.graph.add_edge(source, target, **edge)
+                self.edge_labels[(source, target)] = relation
+    
+    def create_simple_dict_graph(self) -> None:
+        """Create graph from simple key-value dictionary."""
+        center_id = 'root'
+        self.graph.add_node(center_id, type='root')
+        self.node_colors[center_id] = '#FFD700'  # Gold
+        self.node_sizes[center_id] = 1000
+        self.node_labels[center_id] = 'Root'
+        
+        for key, value in self.json_data.items():
+            attr_id = f"attr_{key}"
+            self.graph.add_node(attr_id, type='attribute', field=key, value=value)
+            self.graph.add_edge(center_id, attr_id, relation='has_attribute')
+            
+            self.node_colors[attr_id] = self.color_schemes['data_field']
+            self.node_sizes[attr_id] = 600
+            
+            # Enrich labels with code descriptions
+            enriched_value = self.enrich_with_code_descriptions(str(value))
+            self.node_labels[attr_id] = f"{key}: {enriched_value}"
+            self.edge_labels[(center_id, attr_id)] = 'has'
+    
+    def create_object_list_graph(self) -> None:
+        """Create graph from list of objects."""
+        for idx, obj in enumerate(self.json_data):
+            obj_id = f"obj_{idx}"
+            obj_type = obj.get('type', 'object')
+            
+            self.graph.add_node(obj_id, type=obj_type, **obj)
+            self.node_colors[obj_id] = self.color_schemes.get(obj_type, self.color_schemes['default'])
+            self.node_sizes[obj_id] = 700
+            self.node_labels[obj_id] = obj.get('name', f'Object {idx}')
+            
+            # Try to find relationships
+            for key, value in obj.items():
+                if isinstance(value, str) and any(other_obj.get('id') == value or other_obj.get('name') == value 
+                                                for other_obj in self.json_data if other_obj != obj):
+                    target_id = f"obj_{next(i for i, o in enumerate(self.json_data) if o.get('id') == value or o.get('name') == value)}"
+                    self.graph.add_edge(obj_id, target_id, relation=key)
+                    self.edge_labels[(obj_id, target_id)] = key
+    
+    def build_graph(self) -> None:
+        """Build the knowledge graph based on detected data structure."""
+        structure_type = self.detect_data_structure()
+        print(f"Detected data structure: {structure_type}")
+        
+        if structure_type == 'patient_record':
+            self.create_patient_record_graph()
+        elif structure_type == 'policy':
+            self.create_policy_graph()
+        elif structure_type == 'data_dictionary':
+            self.create_data_dictionary_graph()
+        elif structure_type == 'graph_structure':
+            self.create_graph_structure_graph()
+        elif structure_type == 'simple_dict':
+            self.create_simple_dict_graph()
+        elif structure_type == 'object_list':
+            self.create_object_list_graph()
+        else:
+            print(f"Unknown data structure: {structure_type}")
+            print("Creating basic graph from JSON structure...")
+            self.create_simple_dict_graph()
+    
+    def create_matplotlib_visualization(self, layout: str = 'spring', figsize: Tuple[int, int] = (15, 10), output_file: Optional[str] = None, input_file_path: Optional[str] = None, no_show: bool = False) -> None:
+        """Create a matplotlib-based visualization of the knowledge graph."""
         plt.figure(figsize=figsize)
-
-        pos = nx.spring_layout(self.graph, k=3, iterations=50, seed=42)
-
+        
+        # Choose layout
+        if layout == 'spring':
+            pos = nx.spring_layout(self.graph, k=3, iterations=50)
+        elif layout == 'circular':
+            pos = nx.circular_layout(self.graph)
+        elif layout == 'hierarchical':
+            pos = nx.nx_agraph.graphviz_layout(self.graph, prog='dot')
+        else:
+            pos = nx.spring_layout(self.graph)
+        
         # Draw nodes
         for node in self.graph.nodes():
-            node_data = self.graph.nodes[node]
-            node_type = node_data.get('type', 'Condition')
-
-            if node_type == 'Patient':
-                color = self.color_schemes['patient']
-                size = 2000
-            elif node_type == 'ConditionGroup':
-                color = self.color_schemes['condition_group']
-                size = 1500
-            elif node_type == 'Condition':
-                logical_status = node_data.get('logical_status', 'not_met')
-                if logical_status == 'met':
-                    color = self.color_schemes['condition_met']
-                elif logical_status == 'logically_met_by_other_or':
-                    color = self.color_schemes['condition_logically_met']
-                else:
-                    color = self.color_schemes['condition_not_met']
-                size = 1000
-            else:
-                color = self.color_schemes['default']
-                size = 500
-
             nx.draw_networkx_nodes(
                 self.graph, pos,
                 nodelist=[node],
-                node_color=color,
-                node_size=size,
+                node_color=self.node_colors.get(node, self.color_schemes['default']),
+                node_size=self.node_sizes.get(node, 500),
                 alpha=0.8
             )
-
+        
         # Draw edges
-        met_edges = []
-        logically_met_edges = []
-        not_met_edges = []
-        other_edges = []
-
-        for edge in self.graph.edges():
-            edge_data = self.graph.edges[edge]
-            relation = edge_data.get('relation', '')
-
-            if relation == 'met':
-                met_edges.append(edge)
-            elif relation == 'logically_met_by_other_or':
-                logically_met_edges.append(edge)
-            elif relation == 'not_met':
-                not_met_edges.append(edge)
-            else:
-                other_edges.append(edge)
-
-        if met_edges:
-            nx.draw_networkx_edges(
-                self.graph, pos, edgelist=met_edges,
-                edge_color='green', alpha=0.8, width=3, style='-'
-            )
-
-        if logically_met_edges:
-            nx.draw_networkx_edges(
-                self.graph, pos, edgelist=logically_met_edges,
-                edge_color='skyblue', alpha=0.8, width=3, style='-'
-            )
-
-        if not_met_edges:
-            nx.draw_networkx_edges(
-                self.graph, pos, edgelist=not_met_edges,
-                edge_color='red', alpha=0.8, width=3, style='--'
-            )
-
-        if other_edges:
-            nx.draw_networkx_edges(
-                self.graph, pos, edgelist=other_edges,
-                edge_color='gray', alpha=0.6, width=1.5
-            )
-
-        # Draw labels
-        labels = {node: data.get('label', node) for node, data in self.graph.nodes(data=True)}
-        nx.draw_networkx_labels(
-            self.graph, pos, labels,
-            font_size=8, font_weight='bold'
+        nx.draw_networkx_edges(
+            self.graph, pos,
+            edge_color='gray',
+            alpha=0.6,
+            width=1.5
         )
-
-        # Legend
-        legend_elements = [
-            mpatches.Patch(color=self.color_schemes['patient'], label='Patient'),
-            mpatches.Patch(color=self.color_schemes['condition_group'], label='Rule Groups'),
-            mpatches.Patch(color=self.color_schemes['condition_met'], label='Met'),
-            mpatches.Patch(color=self.color_schemes['condition_logically_met'], label='Logically Met (OR)'),
-            mpatches.Patch(color=self.color_schemes['condition_not_met'], label='Not Met'),
-            plt.Line2D([0], [0], color='green', linewidth=3, label='Edge: Met'),
-            plt.Line2D([0], [0], color='skyblue', linewidth=3, label='Edge: Logically Met'),
-            plt.Line2D([0], [0], color='red', linewidth=3, linestyle='--', label='Edge: Not Met')
-        ]
-        plt.legend(handles=legend_elements, loc='upper right', bbox_to_anchor=(1, 1))
-
-        # Policy compliance status
-        policy_met = self.evaluate_policy_compliance()
-        policy_status = "✓ POLICY MET" if policy_met else "✗ POLICY NOT MET"
-        policy_color = "green" if policy_met else "red"
-
-        plt.title("Patient Rule Knowledge Graph\nPatient vs Policy Rules",
-                 fontsize=16, fontweight='bold', pad=20)
-
-        plt.text(0.5, 0.98, policy_status,
-                transform=plt.gcf().transFigure,
-                fontsize=14, fontweight='bold',
-                color=policy_color,
-                ha='center', va='top',
-                bbox=dict(boxstyle='round,pad=0.5', facecolor='white',
-                         edgecolor=policy_color, linewidth=2))
-
-        plt.axis('off')
-        plt.tight_layout()
-
-        # Save
-        if output_file:
-            output_path = f"{output_file}.png"
+        
+        # Draw labels
+        nx.draw_networkx_labels(
+            self.graph, pos,
+            labels=self.node_labels,
+            font_size=8,
+            font_weight='bold'
+        )
+        
+        # Draw edge labels
+        nx.draw_networkx_edge_labels(
+            self.graph, pos,
+            edge_labels=self.edge_labels,
+            font_size=6
+        )
+        
+        # Determine title based on data structure
+        structure_type = self.detect_data_structure()
+        if structure_type == 'patient_record':
+            title = "Patient KG"
+        elif structure_type == 'policy':
+            title = "Policy KG"
+        elif structure_type == 'data_dictionary':
+            title = "Data Dictionary KG"
         else:
-            output_path = "patient_rule_kg.png"
-
+            title = "Knowledge Graph Visualization"
+        
+        plt.title(title, fontsize=16, fontweight='bold')
+        plt.axis('off')
+        
+        # Create legend
+        legend_elements = []
+        for node_type, color in self.color_schemes.items():
+            if any(self.graph.nodes[node].get('type') == node_type for node in self.graph.nodes()):
+                legend_elements.append(mpatches.Patch(color=color, label=node_type.title()))
+        
+        if legend_elements:
+            plt.legend(handles=legend_elements, loc='upper right', bbox_to_anchor=(1, 1))
+        
+        plt.tight_layout()
+        
+        # Save the plot
+        if output_file:
+            output_filename = f"{output_file}.png"
+        else:
+            output_filename = f"patient_kg_{layout}_{figsize[0]}x{figsize[1]}.png"
+        
+        # Determine output path
+        if output_file:
+            # If output_file is provided, use it as the full path
+            output_path = output_filename
+        elif input_file_path:
+            # If no output_file but input_file_path is provided, use input file directory
+            output_dir = os.path.dirname(os.path.abspath(input_file_path))
+            output_path = os.path.join(output_dir, output_filename)
+        else:
+            # Default to current directory
+            output_path = output_filename
+            
         plt.savefig(output_path, dpi=300, bbox_inches='tight')
-        print(f"📊 Patient rule knowledge graph saved as: {output_path}")
-
+        print(f"📊 Knowledge graph saved as: {output_path}")
+        
         if not no_show:
             plt.show()
+    
+    def create_plotly_visualization(self, layout: str = 'spring', output_file: Optional[str] = None, input_file_path: Optional[str] = None) -> None:
+        """Create an interactive Plotly visualization of the knowledge graph."""
+        # Choose layout
+        if layout == 'spring':
+            pos = nx.spring_layout(self.graph, k=3, iterations=50)
+        elif layout == 'circular':
+            pos = nx.circular_layout(self.graph)
+        else:
+            pos = nx.spring_layout(self.graph)
+        
+        # Prepare data for Plotly
+        edge_x = []
+        edge_y = []
+        edge_info = []
+        
+        for edge in self.graph.edges():
+            x0, y0 = pos[edge[0]]
+            x1, y1 = pos[edge[1]]
+            edge_x.extend([x0, x1, None])
+            edge_y.extend([y0, y1, None])
+            
+            edge_data = self.graph.edges[edge]
+            edge_info.append(f"Relation: {edge_data.get('relation', 'related')}")
+        
+        # Create edge trace
+        edge_trace = go.Scatter(
+            x=edge_x, y=edge_y,
+            line=dict(width=2, color='rgba(125,125,125,0.5)'),
+            hoverinfo='none',
+            mode='lines'
+        )
+        
+        # Prepare node data
+        node_x = []
+        node_y = []
+        node_text = []
+        node_hover = []
+        node_colors = []
+        node_sizes = []
+        
+        for node in self.graph.nodes():
+            x, y = pos[node]
+            node_x.append(x)
+            node_y.append(y)
+            
+            node_data = self.graph.nodes[node]
+            node_text.append(self.node_labels.get(node, node))
+            node_hover.append(f"<b>{node}</b><br>" + 
+                            "<br>".join([f"{k}: {v}" for k, v in node_data.items() if k != 'type']))
+            
+            # Convert color to RGB
+            color = self.node_colors.get(node, self.color_schemes['default'])
+            if color.startswith('#'):
+                rgb = tuple(int(color[i:i+2], 16) for i in (1, 3, 5))
+                node_colors.append(f'rgb({rgb[0]},{rgb[1]},{rgb[2]})')
+            else:
+                node_colors.append('rgb(176,176,176)')
+            
+            node_sizes.append(self.node_sizes.get(node, 20))
+        
+        # Create node trace
+        node_trace = go.Scatter(
+            x=node_x, y=node_y,
+            mode='markers+text',
+            hoverinfo='text',
+            text=node_text,
+            textposition="middle center",
+            hovertext=node_hover,
+            marker=dict(
+                size=node_sizes,
+                color=node_colors,
+                line=dict(width=2, color='black')
+            )
+        )
+        
+        # Determine title based on data structure
+        structure_type = self.detect_data_structure()
+        if structure_type == 'patient_record':
+            title = 'Patient KG'
+        elif structure_type == 'policy':
+            title = 'Policy KG'
+        elif structure_type == 'data_dictionary':
+            title = 'Data Dictionary KG'
+        else:
+            title = 'Interactive Knowledge Graph'
+        
+        # Create figure
+        fig = go.Figure(data=[edge_trace, node_trace],
+                       layout=go.Layout(
+                           title=title,
+                           titlefont_size=16,
+                           showlegend=False,
+                           hovermode='closest',
+                           margin=dict(b=20,l=5,r=5,t=40),
+                           annotations=[ dict(
+                               text=f"{title} - Hover over nodes for details",
+                               showarrow=False,
+                               xref="paper", yref="paper",
+                               x=0.005, y=-0.002,
+                               xanchor='left', yanchor='bottom',
+                               font=dict(color="gray", size=12)
+                           )],
+                           xaxis=dict(showgrid=False, zeroline=False, showticklabels=False),
+                           yaxis=dict(showgrid=False, zeroline=False, showticklabels=False),
+                           plot_bgcolor='white'
+                       ))
+        
+        # Save the interactive plot
+        if output_file:
+            output_filename = f"{output_file}.html"
+        else:
+            output_filename = f"patient_kg_{layout}_interactive.html"
+        
+        # Determine output directory (same as input file if provided)
+        if input_file_path:
+            output_dir = os.path.dirname(os.path.abspath(input_file_path))
+            output_path = os.path.join(output_dir, output_filename)
+        else:
+            output_path = output_filename
+            
+        fig.write_html(output_path)
+        print(f"📊 Interactive knowledge graph saved as: {output_path}")
+        
+        fig.show()
+    
+    def print_graph_summary(self) -> None:
+        """Print a summary of the knowledge graph."""
+        print(f"\n📊 Knowledge Graph Summary:")
+        print(f"   Total nodes: {self.graph.number_of_nodes()}")
+        print(f"   Total edges: {self.graph.number_of_edges()}")
+        
+        # Node type breakdown
+        node_types = {}
+        for node in self.graph.nodes():
+            node_type = self.graph.nodes[node].get('type', 'unknown')
+            node_types[node_type] = node_types.get(node_type, 0) + 1
+        
+        print(f"\n📈 Node Types:")
+        for node_type, count in sorted(node_types.items()):
+            print(f"   {node_type}: {count}")
+        
+        # Edge type breakdown
+        edge_types = {}
+        for edge in self.graph.edges():
+            edge_data = self.graph.edges[edge]
+            edge_type = edge_data.get('relation', 'unknown')
+            edge_types[edge_type] = edge_types.get(edge_type, 0) + 1
+        
+        print(f"\n🔗 Edge Types:")
+        for edge_type, count in sorted(edge_types.items()):
+            print(f"   {edge_type}: {count}")
 
-    def generate_compliance_report(self, patient_id: str, policy_id: str,
-                                   output_dir: str = ".") -> str:
-        """Generate compliance report JSON."""
-        policy_met = self.evaluate_policy_compliance()
 
-        conditions_data = []
-        for condition in self.conditions:
-            condition_dict = {
-                'condition': condition.condition,
-                'rule': condition.rule,
-                'logic': condition.logic,
-                'is_met': condition.is_met,
-                'logically_met': condition.logically_met,
-                'logical_status': condition.logical_status
-            }
-
-            # Add code information if database is available
-            if self.code_db:
-                # Check for CPT procedure codes
-                if 'procedure_code_cpt' in condition.rule.lower() or 'procedure_code' in condition.rule.lower():
-                    patient_procedure = self.patient_data.get('procedure_code_CPT') or self.patient_data.get('procedure_code')
-                    if patient_procedure:
-                        code_info = self.code_db.lookup_cpt(patient_procedure)
-                        if code_info:
-                            condition_dict['procedure_code'] = patient_procedure
-                            condition_dict['procedure_description'] = code_info['description']
-                            condition_dict['procedure_approved'] = self.code_db.is_code_approved_for_policy('CG-SURG-83', patient_procedure, 'CPT')
-
-                # Check for ICD10-PCS procedure codes
-                if 'procedure_code_icd10pcs' in condition.rule.lower():
-                    patient_procedure = self.patient_data.get('procedure_code_ICD10PCS')
-                    if patient_procedure:
-                        code_info = self.code_db.lookup_icd10_procedure(patient_procedure)
-                        if code_info:
-                            condition_dict['icd10_procedure_code'] = patient_procedure
-                            condition_dict['icd10_procedure_description'] = code_info['description']
-                            condition_dict['icd10_procedure_approved'] = self.code_db.is_code_approved_for_policy('CG-SURG-83', patient_procedure, 'ICD10PROC')
-
-                # Check for diagnosis codes
-                if 'diagnosis_code' in condition.rule.lower():
-                    patient_diagnosis = self.patient_data.get('diagnosis_code_ICD10') or self.patient_data.get('diagnosis_code')
-                    if patient_diagnosis:
-                        code_info = self.code_db.lookup_icd10_diagnosis(patient_diagnosis)
-                        if code_info:
-                            condition_dict['diagnosis_code'] = patient_diagnosis
-                            condition_dict['diagnosis_description'] = code_info['description']
-                            condition_dict['diagnosis_approved'] = self.code_db.is_code_approved_for_policy('CG-SURG-83', patient_diagnosis, 'ICD10DIAG')
-
-            conditions_data.append(condition_dict)
-
-        report = {
-            'patient_id': patient_id,
-            'policy_id': policy_id,
-            'patient_met_policy': policy_met,
-            'conditions': conditions_data
-        }
-
-        filename = f"pat_{patient_id}_pol_{policy_id}.json"
-        filepath = os.path.join(output_dir, filename)
-
-        with open(filepath, 'w', encoding='utf-8') as f:
-            json.dump(report, f, indent=2, ensure_ascii=False)
-
-        print(f"📄 Compliance report saved: {filepath}")
-        return filepath
-
-
-def load_json_file(file_path: str) -> Any:
-    """Load JSON file."""
+def load_json_file(file_path: str) -> Dict[str, Any]:
+    """Load JSON data from file."""
     try:
         with open(file_path, 'r', encoding='utf-8') as f:
             return json.load(f)
-    except Exception as e:
-        print(f"❌ Error loading {file_path}: {e}")
+    except FileNotFoundError:
+        print(f"❌ Error: File '{file_path}' not found.")
         sys.exit(1)
-
-
-def load_text_file(file_path: str) -> str:
-    """Load text file."""
-    try:
-        with open(file_path, 'r', encoding='utf-8') as f:
-            return f.read()
+    except json.JSONDecodeError as e:
+        print(f"❌ Error: Invalid JSON in file '{file_path}': {e}")
+        sys.exit(1)
     except Exception as e:
-        print(f"❌ Error loading {file_path}: {e}")
+        print(f"❌ Error loading file '{file_path}': {e}")
         sys.exit(1)
 
 
 def main():
-    """Main function."""
-    parser = argparse.ArgumentParser(description="Patient Rule Knowledge Graph Visualizer")
-    parser.add_argument('patient_file', help='Patient record JSON file')
-    parser.add_argument('sql_file', help='SQL policy file')
-    parser.add_argument('policy_file', help='Policy JSON file')
-    parser.add_argument('--policy-id', type=str, default='POLICY', help='Policy ID')
-    parser.add_argument('--output-file', type=str, help='Output file path (without extension)')
-    parser.add_argument('--compliance-dir', type=str, default='.', help='Compliance report directory')
-    parser.add_argument('--no-show', action='store_true', help='Do not display plot')
-    parser.add_argument('--figsize', nargs=2, type=int, default=[16, 12], help='Figure size')
-
+    """Main function to run the patient knowledge graph visualizer."""
+    parser = argparse.ArgumentParser(
+        description="Create knowledge graphs from JSON data",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+Examples:
+  python patient_kg.py data.json
+  python patient_kg.py data.json --layout circular --output static
+  python patient_kg.py data.json --interactive --figsize 20 15
+  python patient_kg.py data.json --db-dir ./Database
+        """
+    )
+    
+    parser.add_argument('input_file', help='Input JSON file path')
+    parser.add_argument('--layout', choices=['spring', 'circular', 'hierarchical'], 
+                       default='spring', help='Graph layout algorithm')
+    parser.add_argument('--interactive', action='store_true', 
+                       help='Create interactive Plotly visualization')
+    parser.add_argument('--figsize', nargs=2, type=int, default=[15, 10],
+                       help='Figure size for matplotlib (width height)')
+    parser.add_argument('--output', choices=['static', 'interactive'], 
+                       default='static', help='Output type')
+    parser.add_argument('--output-file', type=str, 
+                       help='Custom output filename (without extension)')
+    parser.add_argument('--no-show', action='store_true',
+                       help='Do not display the plot (only save to file)')
+    parser.add_argument('--db-dir', type=str, 
+                       help='Directory containing code_mapping.db file')
+    
     args = parser.parse_args()
-
-    # Load data
-    print(f"📁 Loading patient data: {args.patient_file}")
-    patient_data = load_json_file(args.patient_file)
-
-    print(f"📁 Loading SQL policy: {args.sql_file}")
-    sql_text = load_text_file(args.sql_file)
-
-    print(f"📁 Loading policy data: {args.policy_file}")
-    policy_data = load_json_file(args.policy_file)
-
-    patient_id = patient_data.get('patient_id', 'unknown')
-
+    
+    # Load JSON data
+    print(f"📁 Loading JSON data from: {args.input_file}")
+    json_data = load_json_file(args.input_file)
+    
     # Create visualizer
-    print(f"\n🔧 Creating visualizer for patient {patient_id}...")
-    visualizer = PatientRuleKGVisualizer(patient_data, sql_text, policy_data)
-
-    # Parse and evaluate conditions from Policy.json
-    print("🔍 Evaluating policy conditions...")
-    visualizer.parse_and_evaluate_conditions()
-
-    print("⚖️  Applying logical operators...")
-    visualizer.apply_logical_operators()
-
+    print("🔧 Creating patient knowledge graph visualizer...")
+    visualizer = PatientKGVisualizer(json_data, args.db_dir)
+    
     # Build graph
     print("🏗️  Building knowledge graph...")
-    visualizer.build_knowledge_graph()
-
-    # Visualize
+    visualizer.build_graph()
+    
+    # Print summary
+    visualizer.print_graph_summary()
+    
+    # Create visualization
     print("🎨 Creating visualization...")
-    visualizer.create_visualization(
-        figsize=tuple(args.figsize),
-        output_file=args.output_file,
-        no_show=args.no_show
-    )
-
-    # Generate report
-    print("\n📝 Generating compliance report...")
-    os.makedirs(args.compliance_dir, exist_ok=True)
-    visualizer.generate_compliance_report(patient_id, args.policy_id, args.compliance_dir)
-
-    print("✅ Done!")
+    
+    if args.interactive or args.output == 'interactive':
+        visualizer.create_plotly_visualization(layout=args.layout, output_file=args.output_file, input_file_path=args.input_file)
+    else:
+        visualizer.create_matplotlib_visualization(
+            layout=args.layout, 
+            figsize=tuple(args.figsize),
+            output_file=args.output_file,
+            input_file_path=args.input_file,
+            no_show=args.no_show
+        )
+    
+    print("✅ Visualization complete!")
 
 
 if __name__ == "__main__":

@@ -1,0 +1,380 @@
+============================================================
+PDF TEXT EXTRACTION RESULTS
+============================================================
+File: patient_data/patient_temp_processing/MR_3.pdf
+Pages: 12
+Title: Bariatric Surgery Medical Records - Advanced Inference Testing Set 2
+FULL TEXT:
+----------------------------------------
+Advanced Inference Testing Medical Records - Set 2
+CASE 2: Complex Revision Case with Scattered Documentation
+Patient: Chen, Stephanie
+MRN: 9384-2025-772
+DOB: 07/23/1985 (40 years old)
+Date of Service: October 15, 2025
+PAGE 1 - EMERGENCY DEPARTMENT NOTE
+ARRIVAL TIME: 02:45
+PROVIDER: Jackson, Mark DO - Emergency Medicine
+CHIEF COMPLAINT: Throwing up everything I eat
+HPI:
+40F brought in by husband around 3am with complaints of persistent vomiting for the past 3 days. Pt states she
+had that stomach surgery a few years back where they put the band around her stomach. She's been doing okay
+until recently. Started noticing food getting stuck about 2 months ago. At ﬁrst just with bread and meat, but
+now even liquids are coming back up. Hasn't been able to keep anything down for 72 hours. Feels weak and
+dizzy. Denies fever. Some pain in upper belly. Says the port area on her abdomen has been bothering her lately
+- feels like it shifted or something.
+Husband reports she's lost a lot of weight recently but not in a good way - looks gaunt and exhausted.
+PMH:
+Per patient:
+Had lap band surgery back in 2020 at some other hospital (records not available)
+Was doing great for ﬁrst couple years, lost like 80 pounds
+Has gained back about 30 pounds over last year
+Gets heartburn a lot
+High BP - on meds
+Prediabetes they told her
+MEDS:
+Lisinopril something, not sure of dose. Takes prilosec over the counter.
+PHYSICAL EXAM:
+
+
+VS: T 99.1, BP 108/68, HR 112, RR 20, O2 98% RA
+GEN: Thin-appearing woman, uncomfortable, dry mucous membranes
+ABD: Thin, scaphoid, epigastric tenderness, port site TTP with some surrounding ﬁrmness, no rebound but
+guarding present
+Otherwise unremarkable
+ED COURSE:
+IV started, ﬂuids running. Labs drawn. Surgical consult called.
+PAGE 2 - ED LABORATORY RESULTS
+COLLECTED: 02:50
+RESULTED: 03:45
+BASIC METABOLIC PANEL:
+Sodium: 148 mEq/L [HIGH]
+Potassium: 3.1 mEq/L [LOW]
+Chloride: 110 mEq/L [HIGH]
+Bicarbonate: 31 mEq/L [HIGH]
+BUN: 28 mg/dL [HIGH]
+Creatinine: 1.3 mg/dL [HIGH]
+Glucose: 88 mg/dL
+Calcium: 8.9 mg/dL
+CBC:
+WBC: 11.2 K/uL [SLIGHTLY HIGH]
+Hemoglobin: 10.8 g/dL [LOW]
+Hematocrit: 33% [LOW]
+MCV: 76 fL [LOW - microcytic]
+Platelets: 312 K/uL
+ADDITIONAL:
+Albumin: 3.1 g/dL [LOW]
+Prealbumin: 16 mg/dL [LOW]
+
+
+PAGE 3 - ED IMAGING
+CT ABDOMEN/PELVIS WITH CONTRAST
+ORDERED: 03:15
+PERFORMED: 04:20
+INDICATION: S/p gastric banding, persistent vomiting, eval for obstruction
+TECHNIQUE: Axial images acquired after IV contrast
+FINDINGS:
+Gastric band identiﬁed in expected location around proximal stomach. However, band appears to have
+migrated/slipped with signiﬁcant angulation. Marked dilation of esophagus measuring up to 5.2 cm. Stomach
+proximal to band markedly distended. Contrast passes slowly through band region.
+Port site: Subcutaneous port appears displaced from original position. Surrounding inﬂammatory changes
+noted.
+Liver: Mildly enlarged with decreased attenuation suggesting steatosis. No focal lesions.
+Small bowel: Normal caliber, no obstruction
+Large bowel: Unremarkable
+No free air, no free ﬂuid
+IMPRESSION:
+1. Gastric band slippage with malposition causing high-grade outlet obstruction
+2. Severe esophageal dilation
+3. Port site complications with displacement and surrounding inﬂammation
+4. Hepatic steatosis
+RECOMMENDATION: Urgent surgical evaluation
+PAGE 4 - SURGICAL CONSULTATION NOTE
+TIME: 05:30
+PROVIDER: Anderson, Rebecca MD - General Surgery (on call)
+CONSULTED FOR: Gastric band complications
+HPI
+
+
+HPI:
+Called to ED to see this 40yo woman who had adjustable gastric banding done elsewhere around 5 years ago
+(2020). Per patient, she did really well initially - lost signiﬁcant weight, felt great. Band adjustments were done
+periodically. However, she moved here about 18 months ago and didn't establish care with a bariatric surgeon
+locally. Started having issues with reﬂux about a year ago, managed with OTC PPIs. Progressive dysphagia
+over past 2 months, now in acute distress with inability to tolerate PO intake and dehydration.
+Reviewed CT - clear band slippage with esophageal dilation and obstruction. This is a known complication of
+adjustable banding. Port also appears problematic.
+EXAM:
+Ill-appearing, dehydrated. Abd exam notable for port site tenderness and abnormal positioning of port.
+ASSESSMENT:
+Gastric band complication - band slippage causing obstruction. This is surgical emergency requiring band
+removal. Given esophageal dilation and patient's overall status, recommend band removal without immediate
+conversion to another procedure. Can consider staged approach with conversion later once recovered.
+PLAN:
+1. Admit to surgery service
+2. NPO, IVF, correct electrolytes
+3. Schedule for urgent band removal in AM
+4. Discussed risks with patient and husband - understand this is complication of original surgery requiring
+intervention
+PAGE 5 - HOSPITAL ADMISSION NOTE
+DATE: October 15, 2025
+ADMITTING PROVIDER: Anderson, Rebecca MD
+ADMISSION DIAGNOSIS:
+Gastric band slippage with obstruction, dehydration, malnutrition
+HOSPITAL COURSE - DAY 1:
+Admitted from ED. Patient made NPO. Aggressive IV hydration initiated. Electrolyte repletion started - K+ and
+Mg++ protocols. GI decompression with NG tube placed - immediately drained 800mL gastric contents. Patient
+more comfortable after NG placement.
+Nutrition consulted given labs showing protein-calorie malnutrition. Anemia workup - likely nutritional given
+i
+i
+d h/
+l b
+i
+
+
+microcytosis and h/o malabsorption.
+Scheduled for OR tomorrow AM for laparoscopic band removal.
+VITAL SIGNS FLOW:
+06:00: BP 118/72, HR 98, T 98.8
+12:00: BP 122/76, HR 88, T 98.6
+18:00: BP 128/78, HR 82, T 98.4
+24:00: BP 124/74, HR 78, T 98.2
+Patient tolerating NG decompression. I/Os monitored. Electrolytes will recheck in AM.
+PAGE 6 - OPERATIVE REPORT
+DATE OF SURGERY: October 16, 2025
+SURGEON: Anderson, Rebecca MD
+ASSISTANT: Chen, David MD
+ANESTHESIA: General endotracheal
+PREOPERATIVE DIAGNOSIS:
+Gastric band slippage with obstruction
+POSTOPERATIVE DIAGNOSIS:
+Same, plus band erosion into gastric wall
+PROCEDURE PERFORMED:
+Laparoscopic removal of gastric band and port system
+INDICATIONS:
+Patient with history of laparoscopic adjustable gastric banding performed in 2020 presenting with acute
+obstruction due to band slippage. Imaging shows malpositioned band. Requires emergent removal.
+FINDINGS:
+Upon laparoscopic exploration, gastric band found slipped signiﬁcantly with prolapse of stomach through band.
+Band severely angulated. Upon mobilization, noted that band had partially eroded through gastric wall
+posteriorly - approximately 30% circumference embedded in gastric tissue. Signiﬁcant inﬂammatory reaction
+surrounding band. Esophagus markedly dilated. Port tubing intact but port displaced subcutaneously.
+PROCEDURE DETAILS:
+[Standard operative technique details omitted for brevity]
+Band successfully removed along with all tubing and port components Gastric wall defect from erosion
+
+
+Band successfully removed along with all tubing and port components. Gastric wall defect from erosion
+repaired primarily with 3-0 vicryl suture in two layers. No leak on methylene blue test. Hemostasis achieved.
+Drains placed. Fascia and skin closed.
+EBL: 75mL
+SPECIMENS: Gastric band and port system
+COMPLICATIONS: None intraoperative
+DISPOSITION: To PACU in stable condition
+PAGE 7 - POST-OP HOSPITAL COURSE
+POST-OPERATIVE DAY 1 (October 17, 2025):
+Patient doing reasonably well. Some incisional pain controlled with IV medications. NG tube removed this
+AM. Started on clear liquids - tolerating small sips. Drain output minimal, serosanguinous. Ambulating with
+PT. No fever.
+Labs: Improving electrolytes. Hemoglobin stable at 10.4.
+POST-OPERATIVE DAY 2 (October 18, 2025):
+Continued improvement. Advanced to full liquids. Tolerating PO intake. Drain removed. Pain better,
+transitioned to PO meds. Plans for discharge tomorrow.
+DISCHARGE DAY (October 19, 2025):
+Patient ready for discharge. Tolerating diet. Pain controlled orally. Ambulating independently. Incisions clean,
+dry, intact.
+DISCHARGE DIAGNOSES:
+1. Gastric band slippage with obstruction
+2. Gastric band erosion
+3. Dehydration, resolved
+4. Electrolyte abnormalities, corrected
+5. Malnutrition
+6. Anemia
+DISCHARGE INSTRUCTIONS:
+Soft diet for 2 weeks then advance as tolerated
+Incision care
+Activity as tolerated
+
+
+F/u with Dr. Anderson in 2 weeks
+Will need nutrition follow-up
+Iron supplementation for anemia
+PPI for reﬂux
+DISCHARGE MEDICATIONS:
+Omeprazole 40mg daily
+Ferrous sulfate 325mg daily
+Hydrocodone-acetaminophen 5/325 PRN pain
+Multivitamin daily
+PAGE 8 - POST-OP FOLLOW-UP VISIT
+DATE: November 2, 2025 (2 weeks post-op)
+PROVIDER: Anderson, Rebecca MD
+INTERVAL HISTORY:
+Patient doing much better since band removal. Tolerating regular diet without difﬁculty. No more vomiting. No
+dysphagia. Incisions healing well. Still feels weak but improving. Concerned about weight - has continued to
+lose weight since surgery, now down to 158 lbs.
+CURRENT WEIGHT: 158 lbs
+HEIGHT: 64 inches (5'4")
+BMI: 27.1
+PHYSICAL EXAM:
+GENERAL: Thin woman, appears somewhat malnourished
+VITALS: BP 132/84, HR 76
+ABDOMEN: Incisions well-healed. Soft, non-tender. No masses.
+LABS FROM TODAY:
+Albumin: 3.3 (improving)
+Hemoglobin: 11.1 (improving)
+Glucose: 118 (fasting)
+A1C: 6.1%
+ASSESSMENT/PLAN:
+
+
+Doing well from surgical standpoint. Band removal successful. However, patient has several ongoing issues:
+1. Nutritional deﬁciency - improving but needs continued monitoring. Referral to dietitian.
+2. Weight trajectory concerning - patient has lost 30+ lbs in unhealthy manner over past few months due to
+band complications. Prior to that, she had regained about 30 lbs from her nadir weight after initial band
+placement.
+3. Recurrence of metabolic issues - blood sugars trending up (was told prediabetes before, numbers conﬁrm),
+BP elevated today.
+4. Patient asking about revision surgery - wants to consider conversion to another bariatric procedure as she's
+concerned about weight regain. Explained need to recover ﬁrst, optimize nutrition, then can reassess in
+future.
+PLAN:
+Continue current medications
+Nutrition follow-up scheduled
+Will see back in 6 weeks
+Can discuss revisional surgery options once medically optimized
+PAGE 9 - NUTRITION FOLLOW-UP
+DATE: December 15, 2025
+PROVIDER: Williams, Sandra RD - Registered Dietitian
+NUTRITION ASSESSMENT:
+Patient referred post gastric band removal for nutritional optimization and guidance. She's interested in
+pursuing another weight loss surgery once cleared.
+WEIGHT HISTORY: Per patient report:
+Pre-band surgery weight (2020): 268 lbs, BMI 46
+Lowest weight post-band (2022): 188 lbs, BMI 32.3 - excellent result
+Started regaining weight 2023: back up to 218 lbs by early 2024
+Current weight: 162 lbs (lost dramatically d/t band complications)
+So essentially, she lost 80 lbs with band initially (30% total body weight loss), regained 30 lbs, then lost 56 lbs
+in unhealthy manner due to obstruction.
+DIETARY RECALL
+
+
+DIETARY RECALL:
+Currently eating 3 meals daily. Appetite improved since band removal. Portions still smaller than pre-surgery.
+Protein intake adequate. Taking vitamins as prescribed.
+CONCERNS:
+Patient worried about continued weight regain now that she can eat normally again. Already gained 4 lbs since
+last visit (was 158, now 162). Says she "knows herself" and without the restriction, she'll gain all the weight
+back. That's why she's very motivated for revision surgery.
+COMORBIDITY STATUS: Reviewing records:
+Blood sugar issues have returned - A1C was 6.1% at last visit (prediabetic range)
+BP running high again - was on meds before initial surgery, needed them again
+Reports reﬂux symptoms ongoing despite PPI
+ASSESSMENT:
+Patient is appropriate candidate for revision bariatric surgery consideration once medically cleared. Has history
+of:
+Signiﬁcant initial weight loss with prior procedure (30% TBWL)
+Weight regain of portion of lost weight
+Surgical complication requiring band removal
+Recurrence of comorbid conditions
+RECOMMENDATIONS:
+Continue current dietary plan. Scheduled for monthly follow-ups to monitor weight and nutrition status.
+Discussed that most insurance require 6 months documented weight management for revision procedures.
+Patient agreeable to continued program participation.
+PAGE 10 - BARIATRIC SURGERY REVISION CONSULTATION
+DATE: May 10, 2026
+PROVIDER: Martinez, Joseph MD - Bariatric Surgery
+LOCATION: Regional Bariatric Center
+CHIEF COMPLAINT:
+Revision bariatric surgery consultation
+HPI:
+41yo woman presents for evaluation of revision bariatric surgery. She underwent laparoscopic adjustable
+gastric banding in 2020 at outside facility for morbid obesity (BMI 46) Initial results were excellent
+lost 80
+
+
+gastric banding in 2020 at outside facility for morbid obesity (BMI 46). Initial results were excellent - lost 80
+lbs reaching BMI of 32. However, developed band complications including slippage and erosion requiring
+removal in October 2025 by Dr. Anderson. Since band removal, she has gained 26 lbs over 6 months. Currently
+weighs 188 lbs.
+WEIGHT TRAJECTORY:
+Pre-initial surgery (2020): 268 lbs, BMI 46
+Nadir post-band (2022): 188 lbs, BMI 32.3
+Pre-band removal (2024): 218 lbs, BMI 37.4 (regained)
+Immediately post-removal (2025): 162 lbs, BMI 27.8 (lost d/t complications)
+Current (2026): 188 lbs, BMI 32.3 (regained again)
+CURRENT COMORBIDITIES: Patient now has recurrence of metabolic problems:
+1. Glucose metabolism issues - A1C today is 6.4% (deﬁnitely prediabetic), fasting glucose 126 (meeting
+criteria for diagnosis). Was in better control after initial surgery, worsened with weight regain.
+2. Blood pressure problems - currently on amlodipine 5mg and HCTZ, BP today 138/88. Was off meds
+completely 2022-2023, restarted 2024.
+3. Reﬂux - persistent despite high-dose PPI, likely related to esophageal changes from prior band
+complications.
+4. Joint pain - knees and back, limiting exercise tolerance.
+5. Lipid abnormalities - recent lipid panel shows total cholesterol 232, LDL 156, triglycerides 198, HDL 38.
+WEIGHT MANAGEMENT DOCUMENTATION:
+Patient has been followed by dietitian monthly since December 2025 (now 6 months documented). Seen by Dr.
+Thompson (PCP) monthly as well for weight management program. Records provided show consistent
+attendance, dietary counseling, exercise recommendations. Despite adherence, gaining weight steadily -
+average 4-5 lbs per month.
+PREVIOUS SURGICAL COMPLICATIONS:
+Band slippage and erosion (10/2025) - serious complication requiring removal. Operative report reviewed
+showing signiﬁcant erosion requiring repair of gastric wall. Patient recovered well from removal surgery.
+ASSESSMENT:
+This is a revision case. Patient previously underwent LAGB with initial success but developed signiﬁcant
+surgical complication (band slippage and erosion) requiring removal. Now experiencing:
+Weight regain approaching pre-initial surgery levels
+
+
+Recurrence of multiple comorbidities (impaired fasting glucose/prediabetes, HTN, dyslipidemia, reﬂux,
+arthropathy)
+Failure to maintain weight loss after band removal despite 6 months documented medical management
+Anatomic issues from prior surgery (esophageal changes, gastric wall scarring)
+Criteria for revision surgery: ✓ Prior bariatric procedure (LAGB 2020) ✓ Surgical complication requiring
+intervention (band removal 2025)
+✓ Weight regain with recurrence of comorbidities ✓ 6+ months documented physician-supervised weight
+management post-band removal ✓ BMI 32.3 with multiple comorbidities ✓ Psychological clearance
+(scheduled)
+DISCUSSION:
+Extensively discussed revision options. Given her history and current anatomy:
+Sleeve gastrectomy possible but reﬂux is concerning
+RYGB likely best option given metabolic beneﬁts and lower reﬂux risk
+Higher risk procedure given prior surgery and complications
+Will need careful pre-op workup
+Patient understands risks including but not limited to: higher complication rate with revision (leak, bleeding,
+infection), possibility of need for further surgery, nutritional deﬁciencies, need for lifelong supplementation and
+follow-up. Patient motivated and understands this is her "second chance."
+PLAN:
+1. Pre-op labs, EGD, psych clearance, cardiac clearance
+2. Submit for authorization for revision RYGB
+3. Continue medical weight management pending surgery
+4. Multidisciplinary team review
+MEDICAL NECESSITY STATEMENT:
+Patient meets criteria for revision bariatric surgery. Previous procedure failed due to surgical complication
+(band erosion/slippage) requiring explantation. Now has recurrent obesity (BMI 32.3) with multiple recurrent
+comorbidities including impaired glucose metabolism progressing toward diabetes, hypertension requiring
+medications, dyslipidemia, and reﬂux. Has completed 6 months supervised medical weight management
+program without success at maintaining weight loss. Revision surgery is medically necessary to address
+recurrent obesity and prevent progression of metabolic disease.
+ELECTRONIC SIGNATURE J
+h M ti
+MD
+
+
+ELECTRONIC SIGNATURE: Joseph Martinez, MD
+Date/Time: 05/10/2026 16:20
+INFERENCE CHALLENGES IN THIS CASE:
+1. Weight calculations scattered across timeline - requires tracking BMI changes over multiple years
+2. Comorbidity terminology variations:
+"Blood sugar issues" / "prediabetic" / "impaired fasting glucose" / "glucose metabolism issues" →
+Type 2 Diabetes/Prediabetes
+"Blood pressure problems" / "HTN" → Hypertension
+"Reﬂux" / "heartburn" → GERD
+3. Surgical complication evidence spread across multiple documents (ED, imaging, operative report)
+4. Weight management documentation scattered across nutrition and PCP notes
+5. Time intervals requiring calculation from various dates
+6. Revision criteria must be inferred from: prior surgery + complication + weight regain + comorbidity
+recurrence + documented management
+7. Lab values requiring interpretation (A1C 6.4% = prediabetes, fasting glucose 126 = diabetes threshold)
+8. No explicit statement of "meets criteria" until ﬁnal note - agent must determine eligibility from scattered
+evidence
