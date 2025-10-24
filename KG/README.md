@@ -22,12 +22,17 @@ streamlit run streamlit_app.py
 ├── patient_rule_kg.py          # Patient vs policy evaluator  
 ├── generate_policy_rule_kg.py  # Policy rule generator
 ├── streamlit_app.py            # Interactive web application
+├── Database                    # Database management system
+├── OCR                         # Medical record processing
+├── patient_data/               # Patient case studies
+│   ├── patient_8472202544/     # Patient case 1 (ELIGIBLE)
+│   ├── patient_9384202577/     # Patient case 2 (NOT ELIGIBLE)
+│   └── patient_*/              # Additional patient cases
 ├── test1/                      # Complete example with outputs
 │   ├── Patient_data_dictionary/ # Input: Patient JSON files
 │   ├── Patient_KG/             # Output: Patient visualizations
 │   ├── Patient_Rule_KG/        # Output: Compliance reports
 │   └── Policy_CGSURG83/        # Input: Policy data + Output: Policy KG
-├── Database/                   # Database management system
 └── scripts/                    # Automation scripts
 ```
 
