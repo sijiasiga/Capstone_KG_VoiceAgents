@@ -33,19 +33,19 @@ streamlit run streamlit_app.py
 
 
 
-## 📋 Policy Rule Extraction: Bariatric Surgery (test1/)
+## 📋 Policy Rule Extraction: Bariatric Surgery
 ### Policy Extraction Agents Workflow
 
 ![Policy Extraction Agents](Figures/policy_extraction_agents.png)
 
-The `test1/` directory contains a complete working example analyzing bariatric surgery eligibility.
+The [`/test1`](test1) directory contains a complete working example analyzing bariatric surgery eligibility.
 
 
 
 ### 1. Data Field Extraction Agent
 #### Input
 1. **Bariatric Surgery Policy**: https://www.anthem.com/medpolicies/abc/active/gl_pw_d085821.html
-2. **Initial Data Dictionary**: 
+2. [**Initial Data Dictionary**](test1/Data_dictionary.json): 
 ```json
 [
     {
@@ -85,46 +85,6 @@ WHERE patient_age >= 18
 ```
 
 
-### Input Data Examples
-
-**Patient 200001 - ELIGIBLE** (`Patient_data_dictionary/Patient_data_dictionary_200001.json`):
-```json
-{
-  "patient_id": "200001",
-  "patient_age": 52,
-  "patient_bmi": 42.5,
-  "comorbidity_flag": false,
-  "weight_loss_program_history": true,
-  "conservative_therapy_attempt": true,
-  "preop_medical_clearance": true,
-  "preop_psych_clearance": true,
-  "preop_education_completed": true,
-  "treatment_plan_documented": true,
-  "procedure_code_CPT": "43644",
-  "procedure_code_ICD10PCS": "0DV60ZZ",
-  "diagnosis_code_ICD10": "E66.01"
-}
-```
-
-**Patient 200004 - NOT ELIGIBLE** (`Patient_data_dictionary/Patient_data_dictionary_200004.json`):
-```json
-{
-  "patient_id": "200004",
-  "patient_age": 46,
-  "patient_bmi": 38.7,
-  "comorbidity_flag": false,
-  "weight_loss_program_history": true,
-  "conservative_therapy_attempt": true,
-  "preop_medical_clearance": true,
-  "preop_psych_clearance": false,
-  "preop_education_completed": true,
-  "treatment_plan_documented": true,
-  "procedure_code_CPT": "43845",
-  "procedure_code_ICD10PCS": "0DP60CZ",
-  "diagnosis_code_ICD10": "Z68.38"
-}
-```
-
 
 ## 📊 Patient-Policy Compliance
 
@@ -153,9 +113,49 @@ Output: Compliance report + Visualization
 **2. Patient Knowledge Graphs**
 
 ### ✅ Patient 8472202544 - ELIGIBLE
+
+[PDF](patient_data/patient_8472202544/MR_2.pdf)--[OCR](OCR/pdf_ocr.py)--[Parser](OCR/medical_record_parser.py)-->[JSON](patient_data/patient_8472202544/Patient_data_dictionary_8472202544.json)
+```json
+{
+  "patient_id": "8472202544",
+  "patient_age": 47,
+  "patient_bmi": 42.4,
+  "comorbidity_flag": true,
+  "weight_loss_program_history": true,
+  "conservative_therapy_attempt": true,
+  "preop_medical_clearance": true,
+  "preop_psych_clearance": true,
+  "preop_education_completed": true,
+  "treatment_plan_documented": true,
+  "procedure_code_CPT": "43846",
+  "procedure_code_ICD10PCS": "0D160ZA",
+  "diagnosis_code_ICD10": "E66.01"
+}
+```
+
 ![Patient 8472202544 KG](patient_data/patient_8472202544/patient_kg.png)
 
 ### ❌ Patient 9384202577 - NOT ELIGIBLE
+
+[PDF](patient_data/patient_9384202577/MR_3.pdf)--[OCR](OCR/pdf_ocr.py)--[Parser](OCR/medical_record_parser.py)-->[JSON](patient_data/patient_9384202577/Patient_data_dictionary_9384202577.json)
+```json
+{
+  "patient_id": "9384202577",
+  "patient_age": 40,
+  "patient_bmi": 27.1,
+  "comorbidity_flag": true,
+  "weight_loss_program_history": true,
+  "conservative_therapy_attempt": true,
+  "preop_medical_clearance": true,
+  "preop_psych_clearance": true,
+  "preop_education_completed": false,
+  "treatment_plan_documented": true,
+  "procedure_code_CPT": "43775",
+  "procedure_code_ICD10PCS": "0DB64Z3",
+  "diagnosis_code_ICD10": "E66.01"
+}
+```
+
 ![Patient 9384202577 KG](patient_data/patient_9384202577/patient_kg.png)
 
 **3. Compliance Reports**
