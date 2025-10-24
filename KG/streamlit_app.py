@@ -676,7 +676,7 @@ def medical_record_page():
                             st.subheader(f"{plot_name}")
                             
                             if os.path.exists(plot_path):
-                                st.image(plot_path, use_container_width=True)
+                                st.image(plot_path, use_column_width=True)
                                 
                                 # Download button
                                 with open(plot_path, "rb") as file:
