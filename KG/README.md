@@ -97,7 +97,7 @@ The system processes medical policies and patient data through three main phases
 
 ```
 Phase 1: Policy Analysis
-Input: Policy rules (policy json)
+Input: Policy rules (policy json/sql)
 Output: Policy knowledge graph
 
 Phase 2: Patient Analysis  
