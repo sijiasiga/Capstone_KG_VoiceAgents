@@ -1,0 +1,15 @@
+{
+  "patient_id": "7821202593",
+  "patient_age": 42,
+  "patient_bmi": 41.0,
+  "comorbidity_flag": true,
+  "weight_loss_program_history": true,
+  "conservative_therapy_attempt": true,
+  "preop_medical_clearance": false,
+  "preop_psych_clearance": false,
+  "preop_education_completed": false,
+  "treatment_plan_documented": true,
+  "procedure_code_CPT": "43846",
+  "procedure_code_ICD10PCS": "0D160ZA",
+  "diagnosis_code_ICD10": "E66.01"
+}

@@ -1,0 +1,557 @@
+============================================================
+PDF TEXT EXTRACTION RESULTS
+============================================================
+File: patient_data/patient_temp_processing/MR_5.pdf
+Pages: 18
+Title: Bariatric Surgery Medical Records - Advanced Inference Testing Set 4
+FULL TEXT:
+----------------------------------------
+Advanced Inference Testing Medical Records - Set 4
+CASE 4: Medication List Inference + Conﬂicting Measurements
+Patient: Thompson, Beverly
+MRN: 4521-2025-668
+DOB: 09/08/1972 (53 years old)
+Date of Service: October 25, 2025
+PAGE 1 - PRIMARY CARE VISIT
+PROVIDER: Johnson, Robert MD - Internal Medicine
+LOCATION: Northside Medical Group
+CHIEF COMPLAINT: Reﬁlls and weight loss discussion
+HPI:
+53F here for medication reﬁlls and wants to discuss weight loss options. Says she's been reading about that
+surgery where they shrink your stomach. Friend had it done and "looks great now." Patient frustrated with her
+current situation. Takes "a lot of pills" every day. Tired all the time. Can't keep up with grandkids.
+PROBLEM LIST (from EMR):
+1. Multiple metabolic conditions
+2. Cardiac history
+3. Breathing issues
+4. Mood disorder
+5. Joint problems
+6. GERD
+7. Chronic conditions requiring daily management
+CURRENT MEDICATIONS (veriﬁed with patient, pill bottles reviewed):
+1. Lantus 45 units subcutaneous every night at bedtime
+2. Humalog sliding scale with meals
+3. Jardiance 25mg every morning
+4. Metformin ER 1000mg twice daily
+
+
+5. Glipizide 10mg twice daily
+6. Lisinopril 40mg daily
+7. Metoprolol succinate 100mg daily
+8. Amlodipine 10mg daily
+9. Furosemide 40mg daily in morning
+10. Carvedilol 25mg twice daily
+11. Aspirin 81mg daily
+12. Plavix 75mg daily
+13. Atorvastatin 80mg at bedtime
+14. Fenoﬁbrate 145mg daily
+15. Omega-3 fatty acids 1000mg twice daily
+16. Pantoprazole 40mg twice daily
+17. Sertraline 100mg daily
+18. Trazodone 50mg at bedtime PRN
+19. Gabapentin 300mg three times daily
+20. Meloxicam 15mg daily
+21. Vitamin D 2000 units daily
+22. Multivitamin daily
+23. Calcium with vitamin D twice daily
+SOCIAL HISTORY:
+Works as administrative assistant. Divorced, lives alone. 3 adult children, 5 grandchildren. Denies tobacco -
+quit 10 years ago. Rare alcohol. No illicit drugs.
+REVIEW OF SYSTEMS:
+Per patient: Gets short of breath walking, feet swell by end of day, chronic back and knee pain, heartburn if
+misses pills, feels down a lot, trouble sleeping, numbness in feet sometimes, frequent urination especially at
+night.
+PHYSICAL EXAM:
+VITALS (MA taking vitals - patient in street clothes with shoes):
+BP: 138/84 (left arm, sitting)
+HR: 78
+Temp: 98 4°F
+
+
+Temp: 98.4 F
+RR: 16
+O2 Sat: 96% on RA
+Weight: 247 lbs (digital scale in hallway)
+Height: 64 inches (measured with shoes on)
+GENERAL: Obese woman, appears stated age, NAD
+CARDIOVASCULAR: RRR, distant heart sounds, no obvious m/r/g
+RESPIRATORY: Decreased breath sounds at bases, no wheezing
+ABDOMEN: Obese, soft, non-tender, BS present
+EXTREMITIES: 2+ pitting edema bilateral lower extremities to mid-calf
+SKIN: Intact, no acute lesions
+NEURO: Grossly intact, decreased sensation bilateral feet to monoﬁlament
+LABS (drawn today, will result later):
+Comprehensive metabolic panel
+CBC
+Lipid panel
+HbA1c
+Liver function tests
+ASSESSMENT/PLAN:
+Patient with multiple chronic conditions requesting weight loss surgery consultation. Given her medication list
+and physical ﬁndings, she appears to have signiﬁcant comorbidities. Will need to review labs when back.
+Provided referral to bariatric surgery. Reﬁlled all medications x90 days.
+Discussed diet and exercise. Patient states she's tried "everything" but hard to exercise with her knees and being
+out of breath.
+Return to clinic in 3 months or sooner if issues. Follow up with specialists as scheduled.
+PAGE 2 - LABORATORY RESULTS
+COLLECTION DATE: October 25, 2025
+RESULT DATE: October 26, 2025
+COMPREHENSIVE METABOLIC PANEL:
+Gl
+(f
+ti
+) 187
+/dL [HIGH]
+
+
+Glucose (fasting): 187 mg/dL [HIGH]
+BUN: 32 mg/dL [HIGH]
+Creatinine: 1.6 mg/dL [HIGH]
+eGFR: 38 mL/min/1.73m² [LOW - Stage 3B CKD]
+Sodium: 136 mEq/L [LOW NORMAL]
+Potassium: 5.1 mEq/L [HIGH NORMAL]
+Chloride: 101 mEq/L
+CO2: 24 mEq/L
+Calcium: 9.1 mg/dL
+Albumin: 3.6 g/dL
+HEMOGLOBIN A1C: 9.2% [HIGH - poorly controlled]
+LIPID PANEL:
+Total Cholesterol: 198 mg/dL
+LDL: 112 mg/dL (calculated)
+HDL: 34 mg/dL [LOW]
+Triglycerides: 260 mg/dL [HIGH]
+VLDL: 52 mg/dL
+LIVER FUNCTION:
+AST: 45 U/L [SLIGHTLY HIGH]
+ALT: 58 U/L [HIGH]
+Alkaline Phosphatase: 92 U/L
+Total Bilirubin: 0.8 mg/dL
+CBC:
+WBC: 8.2 K/uL
+RBC: 3.9 M/uL [LOW]
+Hemoglobin: 10.8 g/dL [LOW]
+Hematocrit: 33% [LOW]
+MCV: 85 fL
+Platelets: 245 K/uL
+
+
+URINALYSIS:
+Protein: 2+ [ABNORMAL]
+Glucose: 3+ [ABNORMAL]
+Ketones: Negative
+Blood: Trace
+Microalbumin/Creatinine Ratio: 420 mg/g [MARKEDLY ELEVATED - macroalbuminuria]
+PAGE 3 - CARDIOLOGY RECORDS (from chart review)
+MOST RECENT CARDIOLOGY NOTE - 08/15/2025
+PROVIDER: Martinez, Elena MD - Cardiology
+Patient: Beverly Thompson
+HISTORY: 53yo woman with h/o MI 2019 s/p PCI with DES to LAD, chronic systolic HF (EF 35-40%),
+HTN, and other conditions. Here for routine f/u.
+CURRENT SYMPTOMS:
+Class II-III heart failure symptoms. Gets SOB with one ﬂight of stairs. Sleeps on 3 pillows. Denies chest pain
+currently. Legs swell by evening.
+MEDICATIONS: As documented elsewhere in chart - on appropriate HF regimen with ACE-I, beta-blocker,
+diuretic, antiplatelet therapy.
+EXAM: BP 142/86, HR 76 regular
+Weight: 244 lbs (cardiac clinic scale)
+JVP mildly elevated
+S3 gallop present
+Lungs: Bibasilar crackles
+Extremities: 2+ edema
+ECHO FROM 06/2025:
+LV systolic dysfunction, EF 35-40%
+Moderate LVH
+Mild mitral regurgitation
+Dilated left atrium
+No pericardial effusion
+
+
+ASSESSMENT:
+CHF, systolic, NYHA class II-III - stable on current regimen
+CAD s/p stenting - continued dual antiplatelet
+HTN - suboptimally controlled
+PLAN: Continue current medications. Weight management critical - every pound matters for heart function.
+Encouraged lifestyle modiﬁcation.
+Next visit 3 months.
+PAGE 4 - ENDOCRINOLOGY RECORDS
+DATE: 09/20/2025
+PROVIDER: Kumar, Anil MD - Endocrinology
+RE: Diabetes management
+HPI:
+Patient with longstanding diabetes (diagnosed approximately 12 years ago per history). Has been on insulin for
+past 5 years. Multiple oral agents added over years. Recent A1C was 9.4% which is unacceptable. Discussed
+need for intensiﬁcation.
+COMPLICATIONS OF DIABETES NOTED:
+Retinopathy - followed by ophthalmology, s/p laser treatment bilaterally
+Nephropathy - Cr 1.5 last check, signiﬁcant proteinuria, followed by nephrology
+Peripheral neuropathy - on gabapentin, seen by podiatry
+Macrovascular disease - prior MI
+EXAM: Weight: 250 lbs (endocrine clinic scale with hospital gown)
+Height: 63 inches (stadiometer measurement) BP 144/88
+Diabetic foot exam: Loss of protective sensation bilaterally. No ulcers today.
+PLAN:
+Increased Lantus to 45 units (from 38 units)
+Continue all other agents
+Stricter dietary compliance discussed
+
+
+A1C goal <7% but difﬁcult to achieve
+Consider insulin pump vs. further intensiﬁcation
+F/u 2 months
+PAGE 5 - NEPHROLOGY CONSULTATION
+DATE: 07/12/2025
+PROVIDER: Singh, Rajiv MD - Nephrology
+REASON FOR CONSULT: Progressive kidney disease
+HPI:
+53F referred for worsening kidney function. History of diabetes and hypertension. Creatinine has been rising
+over past 2 years. Now 1.5-1.6 range. Has signiﬁcant proteinuria.
+REVIEW OF LABS:
+Creatinine trend: 1.1 (2022) → 1.3 (2023) → 1.5 (2024) → 1.6 (2025)
+eGFR: Currently 38, was 52 two years ago
+Urine protein elevated, microalbumin >300 (macroalbuminuria)
+KIDNEY ULTRASOUND (06/2025):
+Right kidney: 10.2 cm, increased echogenicity
+Left kidney: 9.8 cm, increased echogenicity
+Consistent with chronic kidney disease
+No hydronephrosis, no stones
+ASSESSMENT:
+CKD Stage 3B, diabetic nephropathy
+Proteinuria
+Secondary to long-standing DM and HTN
+DISCUSSION: Patient's kidney disease is progressing despite optimal medical management. At this rate, may
+need dialysis within 5-10 years. Discussed importance of:
+1. Strict BP control (goal <130/80)
+2. Glycemic control (A1C <7%)
+3 WEIGHT LOSS
+even 5 10% would signiﬁcantly help
+
+
+3. WEIGHT LOSS - even 5-10% would signiﬁcantly help
+4. Avoid nephrotoxic drugs
+Will continue to follow. Educated about kidney disease progression and eventual need for renal replacement
+therapy considerations.
+PAGE 6 - OPHTHALMOLOGY NOTE
+DATE: 05/10/2025
+PROVIDER: Lee, Christine MD - Ophthalmology/Retina Specialist
+DIAGNOSIS: Diabetic retinopathy with macular edema
+HISTORY:
+Long-standing diabetes with eye complications. Has had multiple laser treatments. Vision has declined over
+years.
+EXAM: Visual acuity: 20/40 OD, 20/50 OS (with correction)
+Dilated exam:
+Background diabetic retinopathy both eyes
+Hard exudates present bilaterally
+Cotton wool spots OU
+Microaneurysms
+Macular edema left > right
+S/p panretinal photocoagulation
+IMPRESSION: Moderate-severe diabetic retinopathy. Macular edema contributing to vision loss.
+PLAN: Anti-VEGF injection left eye today. Return in 6 weeks. Emphasized critical importance of glucose
+control to prevent further vision loss.
+PAGE 7 - SLEEP MEDICINE CONSULTATION
+DATE: 04/18/2025
+PROVIDER: Chang, Michelle MD - Sleep Medicine
+CHIEF COMPLAINT: Snoring, daytime fatigue
+HPI:
+
+
+HPI:
+53F referred for evaluation of sleep-disordered breathing. Husband (now ex-husband, but was married at time
+of study) reported loud snoring and witnessed breathing pauses. Patient complains of never feeling rested, falls
+asleep watching TV. Epworth Sleepiness Scale: 14/24.
+SLEEP STUDY - APRIL 2025:
+Overnight polysomnography performed.
+RESULTS:
+Total sleep time: 5.8 hours
+Sleep efﬁciency: 72%
+AHI: 38 events/hour [SEVERE OSA]
+RDI: 42 events/hour
+Lowest oxygen saturation: 79%
+Average O2 saturation during sleep: 89%
+Signiﬁcant oxygen desaturations during REM sleep
+Predominant obstructive events
+IMPRESSION: Severe obstructive sleep apnea
+TREATMENT: CPAP therapy initiated. Settings: 11 cm H2O. Patient given machine and mask. Education
+provided.
+FOLLOW-UP NOTE (06/2025): Compliance check: Patient using CPAP only 3 nights per week, 4-5 hours
+per night when used. Does not meet insurance deﬁnition of compliance (>4 hours, >70% of nights). Discussed
+importance. Patient states mask uncomfortable, hard to sleep with it.
+PAGE 8 - PSYCHIATRY NOTE
+DATE: 03/15/2025
+PROVIDER: Williams, Jennifer MD - Psychiatry
+CHIEF COMPLAINT: Depression
+HPI:
+Patient presents with persistent low mood. Going through divorce. Financial stress. Feels overwhelmed by
+medical problems. Difﬁculty sleeping. Low energy. Loss of interest in activities. Denies SI/HI currently but had
+passive thoughts in past ("would be easier if I wasn't here").
+
+
+PSYCHIATRIC HISTORY:
+Major depressive disorder - recurrent episodes
+First episode age 30
+Multiple medication trials over years
+Prior hospitalization 2008 for suicidal ideation
+No recent hospitalizations
+Currently on sertraline with partial response
+MENTAL STATUS EXAM: Alert, oriented. Depressed mood and affect. Linear thought process. Denies
+current SI. Fair insight and judgment.
+ASSESSMENT: MDD, currently in partial remission on sertraline. Stressors include divorce, health issues,
+ﬁnancial concerns.
+PLAN:
+Continue sertraline 100mg
+Added trazodone 50mg HS for sleep
+Supportive therapy
+F/u 4-6 weeks
+PAGE 9 - WEIGHT MANAGEMENT PROGRAM DOCUMENTATION
+PROGRAM: Northside Hospital Comprehensive Weight Management
+START DATE: December 1, 2024
+DURATION: 10 months (ongoing)
+INITIAL VISIT (12/01/2024):
+Weight: 256 lbs (clinic scale, patient in light clothing)
+Height: 64 inches (wall-mounted stadiometer)
+BMI: 43.9
+Patient enrolled in medically supervised weight loss program. Team includes physician, dietitian, exercise
+physiologist, behavioral psychologist.
+VISIT SUMMARY:
+Month 1 (12/2024): Wt 256 lbs - Baseline established
+Month 2 (01/2025): Wt 254 lbs - Lost 2 lbs, dietary counseling
+
+
+Month 3 (02/2025): Wt 251 lbs - Lost 3 lbs, encouraged to continue
+Month 4 (03/2025): Wt 253 lbs - Up 2 lbs, discussed barriers
+Month 5 (04/2025): Wt 250 lbs - Back down 3 lbs
+Month 6 (05/2025): Wt 249 lbs - Lost 1 lb
+Month 7 (06/2025): Wt 251 lbs - Up 2 lbs - plateau discussed
+Month 8 (07/2025): Wt 250 lbs - Down 1 lb
+Month 9 (08/2025): Wt 249 lbs - Down 1 lb
+Month 10 (09/2025): Wt 248 lbs - Down 1 lb
+TOTAL WEIGHT LOSS: 8 lbs over 10 months (3.1% total body weight loss)
+PROGRAM NOTES: Patient has been compliant with visits. Attended nutrition counseling monthly.
+Participated in group education classes. Food diaries reviewed - shows adherence to meal plan. Exercise limited
+by physical limitations (knee pain, shortness of breath). Patient frustrated with minimal weight loss despite
+efforts. Discussed that medical conditions and medications may be limiting weight loss. Referred for bariatric
+surgery evaluation given plateau and multiple comorbidities.
+PAGE 10 - BARIATRIC SURGERY CONSULTATION
+DATE: October 28, 2025
+PROVIDER: Roberts, Patricia MD - Bariatric Surgery
+CHIEF COMPLAINT: Evaluation for weight loss surgery
+HPI:
+53F referred by PCP for bariatric surgery evaluation. Presents with medication list indicating multiple obesity-
+related conditions. Patient motivated for surgery after friend's successful outcome.
+WEIGHT/HEIGHT MEASUREMENTS TODAY: Weight: 242 lbs (bariatric clinic digital scale, patient in
+exam gown, no shoes)
+Height: 63 inches (digital stadiometer, shoes off)
+BMI: 42.9 kg/m²
+Note: Measurements differ from various clinics - reviewed records showing range 242-256 lbs depending on
+scale, clothing, time of day. Height measurements 63-64 inches. Using today's measurements as most
+standardized.
+MEDICATION RECONCILIATION: Reviewed patient's medication list. Based on medications, patient
+appears to have:
+Diabetes (on basal-bolus insulin + multiple oral agents)
+
+
+Diabetes (on basal-bolus insulin + multiple oral agents)
+Cardiovascular disease (on multiple cardiac meds including post-MI regimen)
+Heart failure (on HF-speciﬁc medications)
+Hypertension (on 3-4 BP medications)
+Dyslipidemia (on statin + ﬁbrate)
+GERD (on high-dose PPI)
+Depression (on SSRI)
+Neuropathy (on gabapentin)
+Chronic pain (on NSAID)
+REVIEW OF RECORDS:
+Conﬁrmed Diagnoses from documentation:
+1. Type 2 DM with complications:
+Retinopathy with macular edema (s/p laser)
+Nephropathy (Stage 3B CKD, eGFR 38, macroalbuminuria)
+Peripheral neuropathy
+A1C 9.2% (poorly controlled despite max medical therapy)
+2. Cardiovascular disease:
+CAD s/p MI (2019) with stenting
+Chronic systolic heart failure (EF 35-40%, NYHA Class II-III)
+LVH
+3. Hypertension:
+On 3 agents, still not at goal
+4. Dyslipidemia:
+Despite statin + ﬁbrate, triglycerides 260, low HDL
+5. Severe OSA:
+AHI 38, not compliant with CPAP
+6. NAFLD:
+Elevated liver enzymes, consistent with fatty liver
+7. Depression:
+Recurrent MDD
+8 Chronic kidney disease Stage 3B:
+
+
+8. Chronic kidney disease Stage 3B:
+Diabetic nephropathy, progressing
+WEIGHT MANAGEMENT HISTORY: Documented participation in comprehensive medically supervised
+program for 10 months (12/2024-09/2025) with consistent monthly attendance. Lost only 8 lbs despite
+adherence. Multiple specialists have recommended weight loss as critical intervention.
+CLEARANCES NEEDED:
+Cardiology clearance (high-risk given EF 35-40%)
+Psychology clearance (history of depression with past SI)
+Nephrology input (CKD Stage 3B - surgery may stress kidneys further)
+PHYSICAL EXAM: VITALS: BP 134/82, HR 74, RR 16, O2 Sat 95% RA
+GENERAL: Obese woman, pleasant, NAD
+CARDIOVASCULAR: RRR, S3 present, JVP normal today
+RESPIRATORY: CTAB, no distress
+ABDOMEN: Obese, soft, non-tender, well-healed surgical scars (prior C-sections)
+EXTREMITIES: Trace edema today
+NEURO: Decreased sensation feet bilaterally
+ASSESSMENT:
+Complex 53yo woman with severe obesity (BMI 42.9) and MULTIPLE serious comorbidities:
+Advanced diabetes with microvascular complications (retinopathy, nephropathy, neuropathy)
+Cardiovascular disease (prior MI, chronic HF with reduced EF)
+CKD Stage 3B with declining function
+Severe OSA
+Poorly controlled HTN
+Dyslipidemia
+Depression
+Patient has participated in comprehensive medically supervised weight management program for >6 months
+with documented adherence but minimal success (3.1% weight loss). Taking 23 medications daily for obesity-
+related conditions.
+CONCERNS:
+1. Cardiac risk: EF 35-40% increases surgical risk signiﬁcantly
+2. Renal function: eGFR 38 - surgery may worsen kidney function
+
+
+y
+y
+y
+3. Psychological: History of depression with suicidal ideation
+4. CPAP non-compliance: Concerning for post-op compliance
+This is a HIGH-RISK but potentially HIGH-BENEFIT case.
+Without intervention, patient's trajectory is dialysis, further cardiac decline, possible blindness from
+retinopathy. But surgery carries signiﬁcant risks given comorbidities.
+PLAN:
+1. Obtain cardiology clearance - will need stress test, optimize HF management
+2. Psychology evaluation - assess current mental status, surgical readiness
+3. Nephrology consultation regarding surgical risk
+4. Comprehensive pre-op medical optimization
+5. Multidisciplinary team conference
+6. If cleared, recommend Roux-en-Y gastric bypass (metabolic beneﬁts for diabetes)
+MEDICAL NECESSITY: Patient meets criteria for bariatric surgery:
+BMI >40 (42.9)
+Multiple severe obesity-related comorbidities
+Failed >6 months medically supervised weight loss program
+Medically necessary to prevent further deterioration
+However, must ensure patient can safely undergo surgery given cardiac and renal status. Will proceed with
+clearances and optimization.
+PAGE 11 - CARDIOLOGY CLEARANCE FOR SURGERY
+DATE: November 5, 2025
+PROVIDER: Martinez, Elena MD - Cardiology
+RE: Pre-operative clearance for bariatric surgery
+ASSESSMENT:
+Patient with known CAD s/p PCI, chronic systolic HF (EF 35-40%) requesting clearance for bariatric surgery.
+ADDITIONAL TESTING PERFORMED:
+Stress Test (Nuclear):
+
+
+Modiﬁed Bruce protocol
+Stopped at 4 minutes due to fatigue and dyspnea
+Peak HR 128 (75% max predicted)
+BP response: 134/82 to 156/88
+No chest pain
+No diagnostic ECG changes
+Nuclear imaging: Fixed defect in LAD territory (old MI), no new reversible ischemia
+Updated Echo (11/2025):
+EF 38% (unchanged)
+Moderate LVH
+Mild MR
+No signiﬁcant change from prior
+IMPRESSION: High-risk surgical candidate due to reduced EF and HF history. However, no evidence of
+active ischemia. Patient medically optimized on appropriate HF regimen.
+CLEARANCE: Patient cleared for bariatric surgery with following recommendations:
+Perioperative beta-blockade (already on carvedilol)
+Careful ﬂuid management given HF
+ICU monitoring post-operatively
+Aggressive DVT prophylaxis
+Close cardiac monitoring
+Beneﬁts of signiﬁcant weight loss (reduced cardiac workload, improved metabolic proﬁle) may outweigh
+surgical risks. Patient understands increased cardiac risk.
+CLEARED FOR SURGERY with above precautions.
+PAGE 12 - PSYCHOLOGY PRE-OPERATIVE EVALUATION
+DATE: November 8, 2025
+PROVIDER: Anderson, Mark PhD - Clinical Psychology
+EVALUATION TYPE: Pre-bariatric surgery psychological assessment
+
+
+CLINICAL INTERVIEW: Patient presents as cooperative, appropriate. Currently in stable mental health,
+denies active depression. Taking sertraline with good effect. Denies current or recent suicidal ideation. Past
+hospitalization was 17 years ago in context of difﬁcult divorce - no recent psychiatric hospitalizations.
+UNDERSTANDING OF SURGERY: Patient demonstrates good understanding of bariatric surgery. Able to
+articulate:
+Surgical risks and beneﬁts
+Dietary restrictions post-operatively
+Need for vitamin supplementation for life
+Importance of follow-up
+Lifestyle changes required
+Realistic weight loss expectations
+EATING BEHAVIORS: No evidence of binge eating disorder. No purging behaviors. Some emotional eating
+acknowledged but not pathological. Patient has been working with dietitian and shows improvement in eating
+patterns.
+MOTIVATION: Highly motivated. Understands surgery is tool, not cure. Concerned about declining health.
+Wants to be healthy for grandchildren. Motivated by friend's successful outcome and realistic about her
+expectations.
+SUPPORT SYSTEM: Divorced but has good support from adult children. Attends church regularly. Has
+friend group. Not isolated.
+CONCERNS: History of depression with past suicidal ideation is noted, but currently stable. Will need
+continued psychiatric follow-up post-operatively. Patient understands and agrees.
+COGNITIVE ASSESSMENT: Adequate cognitive function to understand informed consent and post-
+operative requirements.
+RECOMMENDATION: CLEARED for bariatric surgery from psychological standpoint.
+Recommend:
+Continue sertraline post-operatively
+Close psychiatric follow-up
+Monitor for post-operative depression (common after bariatric surgery)
+Patient committed to follow-up care
+
+
+INFERENCE CHALLENGES IN THIS CASE:
+1. Must infer diagnoses from medication list:
+Lantus + Humalog + Jardiance + Metformin + Glipizide = Type 2 DM
+Lisinopril + Metoprolol + Amlodipine + Furosemide + Carvedilol = Heart failure + HTN
+Aspirin + Plavix = Prior MI/stenting
+Atorvastatin + Fenoﬁbrate = Dyslipidemia
+Pantoprazole = GERD
+Sertraline + Trazodone = Depression
+Gabapentin = Neuropathy
+2. Conﬂicting weight/height measurements:
+PCP: 247 lbs, 64 inches (with shoes, street clothes)
+Cardiology: 244 lbs
+Endocrinology: 250 lbs, 63 inches (in gown)
+Weight program: 248 lbs, 64 inches
+Bariatric clinic: 242 lbs, 63 inches (most standardized)
+BMI ranges from 41.5 to 43.9 depending on measurements
+Must determine which is most accurate
+3. Diabetes complications scattered across multiple notes:
+Ophthalmology: Retinopathy
+Nephrology: Nephropathy, CKD Stage 3B
+Neuro exam ﬁndings: Neuropathy
+Cardiology: Macrovascular disease (MI)
+Must piece together that patient has severe diabetes with multiple end-organ complications
+4. Kidney disease progression - Must track creatinine trend and recognize Stage 3B CKD
+5. Heart failure severity - Must recognize:
+EF 35-40% = reduced EF (HFrEF)
+S3 gallop = decompensated HF
+NYHA Class II-III symptoms
+On guideline-directed medical therapy (ACE-I, beta-blocker, diuretic)
+6. Sleep apnea non-compliance - AHI 38 (severe) but poor CPAP adherence
+i
+i
+
+
+7. Weight loss program documentation - Calculate % weight loss (3.1%), determine if adequate attempt
+8. High surgical risk recognition - Despite meeting criteria, must recognize:
+Cardiac risk (low EF)
+Renal risk (CKD Stage 3B)
+But cleared by specialists with precautions
+9. Borderline approval - This case SHOULD be approved but requires careful risk-beneﬁt analysis
+10. Time calculations - 10 months program participation (12/2024-09/2025), consultation 10/2025 = meets >6
+month requirement
+This tests whether AI can:
+Reverse-engineer diagnoses from medications
+Reconcile conﬂicting measurements
+Recognize high-risk but appropriate candidate
+Understand that severe comorbidities = both higher risk AND higher medical necessity

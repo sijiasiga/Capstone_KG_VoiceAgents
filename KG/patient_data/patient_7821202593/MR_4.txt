@@ -1,0 +1,495 @@
+============================================================
+PDF TEXT EXTRACTION RESULTS
+============================================================
+File: patient_data/patient_temp_processing/MR_4.pdf
+Pages: 16
+Title: Bariatric Surgery Medical Records - Advanced Inference Testing Set 3
+FULL TEXT:
+----------------------------------------
+Advanced Inference Testing Medical Records - Set 3
+CASE 3: Adolescent with Incomplete Documentation and Conﬂicting Information
+Patient: Rodriguez, Miguel
+MRN: 7821-2025-933
+DOB: 02/14/2009 (16 years old)
+Date of Service: October 20, 2025
+PAGE 1 - PEDIATRIC PRIMARY CARE NOTE
+PROVIDER: Kim, Susan MD - Pediatrics
+LOCATION: Westside Pediatric Clinic
+CHIEF COMPLAINT: School physical and weight concerns
+HPI:
+Miguel here with mom for sports physical. Mom reports he wants to try out for football but she's worried about
+his weight. He's been a big kid since elementary school. Kids tease him at school. He's been eating more lately
+- growth spurt maybe? Mom tried to get him to diet but he just gets hungry. Eats a lot of fast food.
+Patient quiet during visit, lets mom do most of talking. When asked directly, says he'd like to lose weight but
+"it's hard."
+PMH:
+Has always been heavy "since he was little"
+Mom says doctor at previous clinic mentioned something about pre-diabetes couple years ago
+Asthma - uses inhaler sometimes with exercise
+Broke his arm skateboarding last year
+MEDICATIONS:
+Albuterol inhaler PRN
+FAMILY HISTORY:
+Mom has "sugar diabetes" - on insulin. Dad has high BP and had heart attack at age 42. Grandma on mom's
+side passed away from complications of diabetes. Uncle had gastric bypass surgery few years ago.
+SOCIAL HISTORY:
+10th grade. Lives with both parents and younger sister. Doesn't play sports currently. Spends time on video
+
+
+games. Mom works two jobs, dad works nights, so family doesn't eat together much. Lot of takeout and frozen
+meals.
+PHYSICAL EXAM:
+VITALS:
+Height: 70 inches (5'10")
+Weight: 278 lbs
+BP: 138/86 (elevated - recheck 136/84)
+HR: 88
+RR: 18
+GENERAL: Obese teenage male, cooperative
+TANNER STAGING: Tanner IV (pubic hair, genitalia)
+SKIN: Acanthosis nigricans noted on neck, axilla
+HEENT: Normal
+CARDIAC: RRR, no murmurs
+LUNGS: Clear
+ABD: Obese, soft, no tenderness
+EXTREMITIES: Normal, old fracture scar right forearm
+ASSESSMENT:
+1. Obesity - severe by CDC charts
+2. Elevated BP - likely related to weight
+3. Acanthosis nigricans - concerning for insulin resistance
+4. No clearance for contact sports due to weight and BP
+PLAN:
+Mom declined labs today - says they're too expensive and he had some done "not that long ago" at clinic in
+another state before they moved here 8 months ago
+Discussed need for weight management
+Recommended reducing fast food, increasing activity
+Mom asked about "that surgery" her brother had - explained too young for that, need to try other things
+ﬁrst
+RTC 1 month for BP recheck and weight check
+Will need labs if mom can arrange
+
+
+PAGE 2 - FOLLOW-UP VISIT #1
+DATE: November 18, 2025
+PROVIDER: Kim, Susan MD
+INTERVAL HISTORY:
+Miguel back for f/u. Mom says he's been "trying" but hasn't lost weight. Actually up a few pounds. BP still
+elevated. Mom brought in some papers from previous doctor in Texas.
+RECORDS FROM PREVIOUS PROVIDER (San Antonio Pediatrics - dated 03/2024): Partial records only
+- mom says rest were lost in move
+Labs from 3/15/2024:
+Glucose random: 156 mg/dL
+Cholesterol: 201 mg/dL
+"Other tests done but mom doesn't have copies"
+Note fragment: "...continue to monitor weight. Discussed dietary changes with family. Consider referral if no
+improvement..."
+TODAY'S VISIT:
+WEIGHT: 282 lbs (+4 lbs)
+HEIGHT: 70.5 inches
+BP: 142/88, repeat 138/86
+Mom frustrated. Says she's working all the time, hard to control what he eats. Patient admits eating school
+lunch, then getting fast food after school with friends before going home.
+ASSESSMENT/PLAN:
+Weight increasing rather than decreasing
+BP persistently elevated
+Need formal labs - gave mom lab slip, asked her to take him this week
+Referred to nutritionist - gave mom number to call
+Discussed need for structured program
+RTC 1 month
+
+
+PAGE 3 - MISSED APPOINTMENTS LOG
+Electronic Health Record - Appointment History
+12/16/2025 - MISSED APPOINTMENT - No show, no call
+Note: Front desk called home number, no answer, left message
+01/20/2026 - MISSED APPOINTMENT - No show, no call
+Note: Sent reminder letter to home address
+PAGE 4 - EMERGENCY DEPARTMENT VISIT
+DATE: February 3, 2026
+TIME: 22:15
+PROVIDER: Walsh, Kevin DO - Emergency Medicine
+CHIEF COMPLAINT: Headache and feeling weird
+HPI:
+16yo M brought in by parents for severe headache and "not acting right." Parents report he's been complaining
+of headache on and off for a few days. Tonight was worse. Also saying his vision is blurry. Mom checked his
+BP at pharmacy yesterday and it was really high - that's why she brought him in. Denies trauma. No fever. No
+vomiting but has nausea.
+Patient oriented but seems drowsy. Says head hurts bad, feels dizzy.
+EXAM: VITALS:
+BP: 168/102 (!!!)
+HR: 94
+Temp: 98.6
+RR: 20
+O2: 97% RA
+Weight (ED scale): 292 lbs
+GENERAL: Obese adolescent, lethargic but arousable
+NEURO: A&Ox3, CN II-XII intact, no focal deﬁcits, fundoscopic exam shows bilateral papilledema
+CARDIAC: RRR
+LUNGS: Clear
+Other systems WNL for body habitus
+LABS:
+
+
+LABS:
+Glucose: 224 mg/dL [CRITICAL HIGH]
+BUN: 24
+Creatinine: 0.9
+Na: 138, K: 4.1
+UA: Glucose 3+, ketones trace, protein 1+
+ASSESSMENT:
+Hypertensive emergency in obese adolescent with hyperglycemia. Concern for malignant HTN with end-organ
+effects (papilledema). New diagnosis diabetes likely.
+ED COURSE:
+IV access. Cardiology consulted. Pediatric endocrinology consulted. Admitted for BP management and diabetes
+workup.
+PAGE 5 - HOSPITAL ADMISSION - CARDIOLOGY CONSULT
+DATE: February 4, 2026
+PROVIDER: Lee, James MD - Pediatric Cardiology
+REASON FOR CONSULT: Severe HTN in adolescent
+ASSESSMENT:
+16yo with severe obesity presenting with hypertensive emergency. BP 168/102 in ED, has come down to
+148/90 with IV medications.
+ECHO PERFORMED TODAY:
+Signiﬁcant LVH (left ventricular hypertrophy) - wall thickness markedly increased
+LV systolic function preserved, EF 60%
+Mild diastolic dysfunction
+Tricuspid regurg velocity elevated suggesting pulmonary HTN
+IMPRESSION:
+End-organ damage from chronic hypertension. This didn't happen overnight - patient has had elevated BP for
+some time causing cardiac remodeling. Concerning in someone so young.
+RECOMMENDATIONS:
+Amlodipine 5mg daily
+
+
+Lisinopril 10mg daily
+Close BP monitoring
+MUST address underlying obesity - major contributor to HTN
+F/u in cardiology clinic
+PAGE 6 - HOSPITAL ADMISSION - ENDOCRINOLOGY CONSULT
+DATE: February 4, 2026
+PROVIDER: Patel, Neha MD - Pediatric Endocrinology
+CONSULTED FOR: Hyperglycemia, obesity
+HPI:
+16yo M admitted with hypertensive emergency, found to have glucose 224. Mom reports he's always been
+heavy. Family history strongly positive for T2DM. Patient has acanthosis nigricans, severe obesity.
+ADMISSION LABS:
+Glucose: 224 (random)
+A1C: 8.9% [HIGH - diagnostic for diabetes]
+Fasting glucose this AM: 186 mg/dL
+C-peptide: 4.2 ng/mL (elevated - indicates insulin resistance, not T1DM)
+Islet cell antibodies: Negative
+GAD antibodies: Negative
+ADDITIONAL LABS I ORDERED:
+Lipid panel: Total chol 256, LDL 172, HDL 32, Trig 260
+ALT: 89 (elevated)
+AST: 76 (elevated)
+TSH: 3.2 (normal)
+DIAGNOSIS:
+Type 2 diabetes mellitus, new onset, uncontrolled
+ASSESSMENT:
+This patient has severe insulin resistance in setting of morbid obesity. His diabetes is already fairly advanced
+based on A1C of 8.9%. Combined with severe HTN causing end-organ damage, this is very concerning for
+someone his age
+
+
+someone his age.
+PLAN:
+Start metformin 500mg BID, will increase
+Diabetes education
+STRONGLY recommend comprehensive weight management
+Consider bariatric surgery evaluation - I know he's young but this is severe disease
+PAGE 7 - HOSPITAL DISCHARGE SUMMARY
+ADMISSION DATE: February 3, 2026
+DISCHARGE DATE: February 6, 2026
+ATTENDING: Martinez, Sandra MD - Pediatric Hospitalist
+PRINCIPAL DIAGNOSIS: Hypertensive emergency
+SECONDARY DIAGNOSES:
+Type 2 diabetes mellitus, newly diagnosed
+Morbid obesity
+Left ventricular hypertrophy
+Probable pulmonary hypertension
+Hepatic steatosis (by imaging and elevated enzymes)
+HOSPITAL COURSE:
+16yo M admitted with severe HTN and hyperglycemia. Found to have end-organ damage including LVH and
+papilledema. BP controlled with medications. Diabetes conﬁrmed with A1C 8.9%. Extensive education
+provided to family regarding severity of conditions. Multiple specialists involved.
+DISCHARGE MEDICATIONS:
+Amlodipine 5mg daily
+Lisinopril 10mg daily
+Metformin 500mg BID with meals
+Atorvastatin 20mg daily
+DISCHARGE WEIGHT: 289 lbs
+DISCHARGE BP: 128/78 (on meds)
+
+
+FOLLOW-UP:
+PCP (Dr. Kim) in 1 week
+Cardiology in 2 weeks
+Endocrinology in 2 weeks
+Nutrition referral given
+CRITICAL ISSUE: Family MUST engage with weight management. Patient has severe obesity-related
+complications at young age. Discussed possibility of bariatric surgery evaluation with parents. Father seemed
+interested, mother hesitant. Social work involved - some ﬁnancial concerns, transportation issues identiﬁed.
+PAGE 8 - ENDOCRINOLOGY FOLLOW-UP
+DATE: February 20, 2026
+PROVIDER: Patel, Neha MD
+INTERVAL HISTORY:
+Miguel seen 2 weeks post-discharge. Mom and patient present. Taking medications "most of the time." Mom
+says metformin gives him stomach upset so he skips it sometimes. Checking blood sugars at home - running
+160-220 range.
+EXAM: Weight: 287 lbs (down 2 lbs from discharge)
+BP: 134/82
+Otherwise unremarkable
+LABS TODAY:
+Fasting glucose: 172
+A1C: 8.7% (was 8.9% - minimal improvement)
+ASSESSMENT:
+Diabetes still poorly controlled. Need to optimize management.
+LONG DISCUSSION WITH FAMILY:
+Talked extensively about severity. Patient is 16 years old with complications usually seen in adults with
+decades of diabetes. At this rate, will have heart attack, kidney failure, blindness by age 30-40.
+Discussed surgical options. Mom very nervous about surgery. Says "he's just a kid." Explained that sometimes
+surgery is necessary to prevent worse outcomes. Dad seems more open to it. Patient quiet, hard to read his
+feelings.
+PLAN:
+
+
+PLAN:
+Increase metformin to 1000mg BID
+Continue other meds
+Referred to comprehensive weight management program at Children's Hospital
+Gave information about adolescent bariatric surgery program
+RTC 6 weeks
+PAGE 9 - CONFLICTING DOCUMENTATION - SCHOOL NURSE NOTE
+DATE: March 5, 2026
+FROM: Lincoln High School Health Ofﬁce
+NURSE: Thompson, Mary RN
+RE: Miguel Rodriguez - Health Concerns
+TO: Dr. Kim
+Dear Dr. Kim,
+I wanted to reach out regarding Miguel. He's been coming to health ofﬁce frequently complaining of not feeling
+well. I've checked his BP a few times and it's been ranging 138-152 systolic. I know he was hospitalized
+recently.
+I'm concerned because I've observed him in cafeteria eating large portions and he told me his parents "don't
+really care" what he eats. He seems depressed. Other students have made comments about his weight in my
+presence.
+His gym teacher reports he sits out of activities frequently, says he can't breathe. When I asked about his
+inhaler, he said he doesn't have it at school.
+I encouraged him to follow up with you. He said his mom keeps canceling appointments because she has to
+work.
+Please let me know if there's anything I can do to support his health at school.
+Regards,
+Mary Thompson, RN
+PAGE 10 - BARIATRIC SURGERY CONSULTATION (Finally!)
+DATE: August 15 2026
+
+
+DATE: August 15, 2026
+PROVIDER: Richardson, Thomas MD - Bariatric Surgery
+LOCATION: Children's Hospital Adolescent Bariatric Program
+CHIEF COMPLAINT: Evaluation for weight loss surgery
+HPI:
+17yo M (DOB 2/14/2009) referred by endocrinology for bariatric surgery evaluation. Complex history - has
+had severe obesity "his whole life" per family. Recently diagnosed with T2DM and severe HTN with end-organ
+complications (LVH, papilledema). Multiple other obesity-related conditions.
+GROWTH/DEVELOPMENT: Height: 71 inches (5'11")
+Weight today: 294 lbs
+BMI: 41.0 (>99th percentile for age)
+Tanner Stage: Now Tanner V per exam (mature)
+Bone age X-ray (done last month): 16.5 years - appropriate for chronological age. Endocrinology notes growth
+plates nearly fused, at ﬁnal adult height.
+WEIGHT HISTORY - PIECED TOGETHER FROM RECORDS:
+Age 14 (2023, Texas records): 245 lbs
+Age 16 (10/2025, Dr. Kim): 278 lbs
+Age 16 (2/2026, hospital discharge): 289 lbs
+Age 17 (today, 8/2026): 294 lbs
+Steady upward trajectory despite multiple interventions.
+CURRENT MEDICAL CONDITIONS:
+1. T2DM - A1C last month 8.2% (still not controlled despite max dose metformin)
+2. Hypertension - on 2 meds, BP today 136/84
+3. LVH with diastolic dysfunction
+4. Probable pulmonary HTN
+5. Dyslipidemia - on statin
+6. Fatty liver with elevated enzymes
+7. Insulin resistance - severe
+8. Likely OSA - family reports snoring, witnessed apneas (sleep study pending - scheduled next week)
+9. Orthopedic issues - knee pain, limits mobility
+
+
+10. Depression - started on sertraline 2 months ago by PCP
+MEDICATIONS:
+Metformin 1000mg BID
+Amlodipine 10mg daily (increased from 5mg)
+Lisinopril 20mg daily (increased from 10mg)
+Atorvastatin 20mg daily
+Sertraline 50mg daily
+Albuterol PRN (rarely uses)
+WEIGHT MANAGEMENT ATTEMPTS:
+This is where it gets complicated...
+Per mom: "We've tried so many things over the years"
+Multiple diet attempts on own - no documentation
+Saw nutritionist "a few times" in Texas - limited records, not recent
+After hospitalization (2/2026), referred to Children's Hospital weight management program
+Program participation:
+Started 3/2026
+Initial visits in March, April - attended
+Missed May appointment
+Came to June appointment
+No-show July
+Mom states: "It's hard to get there, I work two jobs, it's downtown, parking is expensive"
+I called program coordinator - they conﬁrm sporadic attendance. When he does come, family seems engaged,
+but follow-through is inconsistent. Patient has not been adherent to dietary recommendations based on food
+logs. Only 5 months in program with inconsistent participation.
+PSYCHOLOGICAL EVALUATION (completed last week by Dr. Santos):
+Psychological testing shows:
+Mild-moderate depression (now on medication)
+Low self-esteem related to weight and bullying
+Some family dysfunction - parents have marital stress
+
+
+y y
+Patient has mixed feelings about surgery - says he wants it but also scared
+Developmental assessment: Appropriate for age
+Cognitive function: Normal
+Eating patterns: Some binge eating episodes, emotional eating
+Psychologist impression: "Patient has some psychological readiness but family engagement is concerning.
+Mother seems ambivalent about surgery. Father more supportive but works nights, less involved in care.
+Inconsistent medical follow-up is red ﬂag. Would beneﬁt from more intensive psychological support before
+proceeding."
+SOCIAL WORK ASSESSMENT:
+Social worker met with family. Identiﬁed barriers:
+Financial stress - both parents working multiple jobs
+Transportation issues - no car, use public transit
+Language barriers - parents more comfortable in Spanish, all documents in English
+Mother's health literacy lower - doesn't fully understand son's conditions
+Family eats out frequently due to work schedules, convenience
+TODAY'S VISIT:
+Patient seems mature, articulate. Says he understands surgery is "serious" and will "change everything." When I
+press on speciﬁcs of post-op diet, vitamin requirements, seems less clear. Mom doing a lot of talking for him.
+Dad came today (took day off work). Very concerned about son's health. Says "I don't want him to die young
+like my father." More supportive of surgery than mom.
+PAGE 11 - MULTIDISCIPLINARY TEAM CONFERENCE NOTE
+DATE: August 16, 2026
+ATTENDEES: Dr. Richardson (surgeon), Dr. Patel (endocrinology), Dr. Lee (cardiology), Dr. Santos
+(psychology), Social worker, Dietitian
+CASE DISCUSSION: Miguel Rodriguez - 17yo male with severe obesity, T2DM, HTN
+DEBATE/CONCERNS RAISED:
+PRO-SURGERY ARGUMENTS (Dr. Patel, Dr. Lee):
+Severe disease at young age - already has end-organ damage
+
+
+y
+g g
+y
+g
+g
+BMI >40 (41.0, which is >99th percentile)
+Multiple major comorbidities: T2DM poorly controlled despite meds, HTN requiring 2 drugs with LVH,
+dyslipidemia, fatty liver
+Disease progression rapid despite medical management
+Skeletal maturity documented
+Surgery may be only way to prevent early death/disability
+CONCERNS (Psychology, Social Work, Nutrition):
+Inconsistent engagement with weight management program - only 5 months, multiple no-shows
+Hasn't truly "failed" comprehensive program due to attendance issues
+Psychological readiness questionable
+Family dysfunction and ambivalence
+Concern about post-op compliance
+Social barriers (ﬁnances, transportation) that affect follow-up
+SURGEON'S PERSPECTIVE (Dr. Richardson): "I'm conﬂicted. Medically, he's a strong candidate - severe
+disease, complications, skeletal maturity. But the program participation is problematic. Policy requires 6
+months minimum, and we need consistent engagement, not sporadic attendance. I'm also concerned about post-
+op follow-up given current pattern."
+TEAM CONSENSUS:
+Patient is NOT ready for surgery at this time
+Need to address barriers to care ﬁrst
+Extend weight management program with better support systems
+Re-evaluate in 3-4 months with better documentation
+PAGE 12 - SURGEON'S ASSESSMENT AND PLAN
+DATE: August 15, 2026
+PROVIDER: Richardson, Thomas MD
+ASSESSMENT:
+17yo male with severe obesity (BMI 41.0, >99th percentile) and multiple serious comorbidities including:
+Type 2 diabetes, poorly controlled (A1C 8.2%)
+
+
+Hypertension with end-organ damage (LVH)
+Dyslipidemia
+Probable OSA (study pending)
+Hepatic steatosis
+Depression
+Skeletal maturity conﬁrmed (Tanner V, bone age appropriate, at ﬁnal height).
+MEDICAL NECESSITY CONSIDERATIONS:
+MEETS CRITERIA:
+✓ Age appropriate (17, skeletal maturity conﬁrmed)
+✓ BMI >35 with major comorbidities (actually >40)
+✓ Severe comorbidities (T2DM with poor control, HTN with LVH)
+✓ Failed dietary management (weight increasing despite efforts)
+✓ Psychological evaluation completed
+✓ Multidisciplinary team involved
+DOES NOT MEET CRITERIA:
+✗ Inadequate documentation of comprehensive weight management program
+Only 5 months participation (need 6 minimum)
+Inconsistent attendance (multiple no-shows)
+Poor adherence to recommendations ✗ Psychological concerns about family engagement and compliance ✗
+Social barriers not adequately addressed
+DISCUSSION WITH FAMILY:
+Had lengthy conversation. Explained that medically, Miguel is very sick and surgery could help. However,
+surgery requires lifelong commitment. Need to see better engagement with medical care before proceeding.
+Discussed barriers:
+Arranged for appointments at satellite clinic closer to home
+Connected family with ﬁnancial counselor for assistance with transportation
+Arranged Spanish-speaking care coordinator
+Referred to more intensive psychological support
+PLAN:
+1 NOT
+i
+f
+hi
+i
+
+
+1. NOT approving for surgery at this time
+2. Continue/restart comprehensive weight management program with better support
+3. Address barriers to care
+4. Need minimum 6 months CONSISTENT participation with documentation
+5. Psychological counseling for patient and family
+6. Will re-evaluate in 4-6 months
+Explained to family: "Miguel needs this surgery medically, but we need to make sure he can be successful with
+it. That means being able to come to appointments, follow the program, and commit to changes. Let's work on
+making that possible."
+Family disappointed but understanding. Dad especially frustrated - says "you're telling me he's sick enough to
+need it but you won't do it." Explained it's not punitive, it's ensuring best outcomes.
+IMPRESSION:
+Defer bariatric surgery evaluation pending completion of adequate pre-operative preparation and
+documentation of program adherence.
+INFERENCE CHALLENGES IN THIS CASE:
+1. Incomplete/scattered weight history - reconstruct from multiple sources over 3+ years
+2. BMI percentiles for adolescents vs. adult BMI calculations
+3. Growth/development markers:
+Tanner staging progression (IV → V)
+Bone age interpretation
+"Near ﬁnal height" requires inference from multiple notes
+4. Conﬂicting information:
+Mother vs. father support
+School nurse observations vs. family reports
+Attendance records vs. verbal claims
+5. Inadequate documentation:
+Lost records from Texas
+Missed appointments creating gaps
+Incomplete weight management program participation
+
+
+6. Comorbidity terminology requiring inference:
+"Sugar problems" → prediabetes → T2DM (progression over time)
+"Feeling weird" + papilledema = hypertensive emergency
+LVH + diastolic dysfunction = cardiac complications
+Elevated liver enzymes + ultrasound = fatty liver/NAFLD
+7. Time calculations:
+Program participation: 3/2026-8/2026 with gaps
+Is 5 months with multiple no-shows sufﬁcient?
+8. Psychosocial factors affecting medical necessity determination
+9. Must infer DENIAL despite meeting medical criteria due to inadequate documentation
+10. Special consideration for adolescent - different criteria than adults
+This case tests whether AI can recognize that clinical severity ALONE doesn't guarantee approval -
+documentation quality and compliance matter.
