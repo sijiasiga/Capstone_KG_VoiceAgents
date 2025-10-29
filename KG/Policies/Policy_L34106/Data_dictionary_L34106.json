@@ -1,0 +1,285 @@
+[
+    {
+    "name": "patient_id",
+    "type": "string",
+    "description": "Unique patient identifier",
+    "section": "Demographics"
+    },
+    {
+    "name": "patient_age",
+    "type": "integer",
+    "description": "Patient age, must be 18 years or older",
+    "section": "Demographics"
+    },
+    {
+    "name": "patient_bmi",
+    "type": "float",
+    "description": "Body Mass Index. Eligible if ≥40, or ≥35 with comorbid condition",
+    "section": "Eligibility"
+    },
+    {
+    "name": "comorbidity_flag",
+    "type": "boolean",
+    "description": "Indicates if patient has an obesity-related comorbidity (e.g., diabetes, cardiovascular disease, hypertension, severe sleep apnea, Pickwickian syndrome, obesity-related cardiomyopathy)",
+    "section": "Diagnosis"
+    },
+    {
+    "name": "weight_loss_program_history",
+    "type": "boolean",
+    "description": "Indicates past participation in a weight loss program",
+    "section": "Program Requirements"
+    },
+    {
+    "name": "conservative_therapy_attempt",
+    "type": "boolean",
+    "description": "Indicates inadequate weight loss despite comprehensive lifestyle interventions (diet, exercise, behavioral modifications)",
+    "section": "Program Requirements"
+    },
+    {
+    "name": "preop_medical_clearance",
+    "type": "boolean",
+    "description": "Indicates whether pre-operative medical evaluation and clearance were completed",
+    "section": "Program Requirements"
+    },
+    {
+    "name": "preop_psych_clearance",
+    "type": "boolean",
+    "description": "Indicates whether pre-operative mental health evaluation and clearance were completed",
+    "section": "Program Requirements"
+    },
+    {
+    "name": "preop_education_completed",
+    "type": "boolean",
+    "description": "Indicates whether pre-operative education about risks, benefits, expectations, long-term follow-up, and behavioral adherence was completed",
+    "section": "Program Requirements"
+    },
+    {
+    "name": "treatment_plan_documented",
+    "type": "boolean",
+    "description": "Indicates whether a treatment plan addressing pre- and post-operative needs is documented",
+    "section": "Program Requirements"
+    },
+    {
+    "name": "procedure_code_CPT",
+    "type": "string",
+    "description": "Covered CPT procedure codes for bariatric surgery (e.g., 43644, 43645, 43770, 43771, 43772, 43773, 43774, 43775, 43842, 43843, 43845, 43846, 43847, 43848, 43886, 43887, 43888) and percutaneous vertebral augmentation/vertebroplasty/kyphoplasty (e.g., 22510, 22511, 22512, 22513, 22514, 22515) when covered by policy",
+    "section": "Procedures"
+    },
+    {
+    "name": "procedure_code_ICD10PCS",
+    "type": "string",
+    "description": "Covered ICD-10 procedure codes for bariatric surgery (e.g., 0DP60CZ, 0DV64ZZ, 0D160ZA, 0DB60ZZ)",
+    "section": "Procedures"
+    },
+    {
+    "name": "diagnosis_code_ICD10",
+    "type": "string",
+    "description": "Covered ICD-10 diagnosis codes (e.g., E66.01, E66.09, E66.2, E66.811-E66.813, E66.9, Z46.51, Z68.35-Z68.39, Z68.41-Z68.45, Z98.84)",
+    "section": "Diagnosis"
+    },
+    {
+    "name": "pva_procedure_type",
+    "type": "string",
+    "description": "Type of percutaneous vertebral augmentation performed: percutaneous vertebroplasty (PVP) or percutaneous kyphoplasty (PKP)",
+    "section": "Procedures"
+    },
+    {
+    "name": "vcf_onset_category",
+    "type": "string",
+    "description": "Fracture acuity category based on symptom onset: acute (<6 weeks) or subacute (6–12 weeks)",
+    "section": "Eligibility"
+    },
+    {
+    "name": "vcf_symptom_duration_weeks",
+    "type": "integer",
+    "description": "Number of weeks since symptom onset for vertebral compression fracture",
+    "section": "Eligibility"
+    },
+    {
+    "name": "vcf_level_range",
+    "type": "string",
+    "description": "Anatomical levels eligible for treatment (T1–L5) for osteoporotic vertebral compression fracture",
+    "section": "Eligibility"
+    },
+    {
+    "name": "advanced_imaging_confirmation",
+    "type": "boolean",
+    "description": "Advanced imaging confirms acute/subacute osteoporotic VCF (e.g., bone marrow edema on MRI or uptake on bone scan/SPECT/CT)",
+    "section": "Diagnostics"
+    },
+    {
+    "name": "imaging_finding_bone_marrow_edema",
+    "type": "boolean",
+    "description": "Bone marrow edema present on MRI at the fracture level",
+    "section": "Diagnostics"
+    },
+    {
+    "name": "imaging_finding_nuclear_uptake",
+    "type": "boolean",
+    "description": "Increased uptake at the fracture level on bone scan, SPECT, or CT indicating acuity",
+    "section": "Diagnostics"
+    },
+    {
+    "name": "hospitalized_status",
+    "type": "boolean",
+    "description": "Indicates whether the patient is hospitalized at time of evaluation for VCF",
+    "section": "Eligibility"
+    },
+    {
+    "name": "pain_score_NRS",
+    "type": "integer",
+    "description": "Numeric Rating Scale (0–10) pain score",
+    "section": "Eligibility"
+    },
+    {
+    "name": "pain_score_VAS",
+    "type": "integer",
+    "description": "Visual Analog Scale (0–10) pain score",
+    "section": "Eligibility"
+    },
+    {
+    "name": "pain_threshold_hospitalized_NRS_or_VAS",
+    "type": "integer",
+    "description": "Hospitalized patient pain threshold for eligibility (NRS or VAS ≥ 8)",
+    "section": "Eligibility"
+    },
+    {
+    "name": "pain_threshold_nonhospitalized_NRS_or_VAS",
+    "type": "integer",
+    "description": "Non-hospitalized patient pain threshold for eligibility after optimal non-surgical management (NRS or VAS ≥ 5)",
+    "section": "Eligibility"
+    },
+    {
+    "name": "optimal_nonsurgical_management_attempted",
+    "type": "boolean",
+    "description": "Indicates whether optimal non-surgical management (e.g., analgesics, bracing, activity modification, physical therapy) was attempted",
+    "section": "Eligibility"
+    },
+    {
+    "name": "pain_worsening_on_nsm",
+    "type": "boolean",
+    "description": "Pain worsening despite optimal non-surgical management",
+    "section": "Eligibility"
+    },
+    {
+    "name": "pain_persistent_ge5_on_nsm",
+    "type": "boolean",
+    "description": "Pain stable or improved but persists with NRS or VAS ≥5 after optimal non-surgical management",
+    "section": "Eligibility"
+    },
+    {
+    "name": "vertebral_height_loss_progression",
+    "type": "boolean",
+    "description": "Progression of vertebral body height loss on follow-up",
+    "section": "Eligibility"
+    },
+    {
+    "name": "vertebral_height_loss_percent",
+    "type": "float",
+    "description": "Percent vertebral body height reduction; eligibility factor when >25%",
+    "section": "Eligibility"
+    },
+    {
+    "name": "kyphotic_deformity_present",
+    "type": "boolean",
+    "description": "Presence of kyphotic deformity associated with the vertebral compression fracture",
+    "section": "Eligibility"
+    },
+    {
+    "name": "rdq_score",
+    "type": "integer",
+    "description": "Roland Morris Disability Questionnaire score; severe impact defined as RDQ >17",
+    "section": "Eligibility"
+    },
+    {
+    "name": "bmd_evaluation_referral",
+    "type": "boolean",
+    "description": "Referral for bone mineral density evaluation as part of continuum of care for patients with VCF",
+    "section": "Program Requirements"
+    },
+    {
+    "name": "osteoporosis_education_provided",
+    "type": "boolean",
+    "description": "Osteoporosis education provided to the patient",
+    "section": "Program Requirements"
+    },
+    {
+    "name": "osteoporosis_prevention_treatment_program_participation",
+    "type": "boolean",
+    "description": "Patient instructed to and/or participating in an osteoporosis prevention/treatment program",
+    "section": "Program Requirements"
+    },
+    {
+    "name": "exclusion_pain_not_due_to_identified_vcf",
+    "type": "boolean",
+    "description": "Current back pain is not primarily due to the identified acute or subacute VCF(s) (absolute contraindication)",
+    "section": "Exclusions"
+    },
+    {
+    "name": "exclusion_active_infection",
+    "type": "boolean",
+    "description": "Presence of osteomyelitis, discitis, or active systemic/surgical site infection (absolute contraindication)",
+    "section": "Exclusions"
+    },
+    {
+    "name": "exclusion_pregnancy",
+    "type": "boolean",
+    "description": "Pregnancy (absolute contraindication)",
+    "section": "Exclusions"
+    },
+    {
+    "name": "exclusion_fractures_per_procedure_count",
+    "type": "integer",
+    "description": "Number of vertebral fractures planned per procedure; relative contraindication if greater than three",
+    "section": "Exclusions"
+    },
+    {
+    "name": "exclusion_bone_cement_or_opacifier_allergy",
+    "type": "boolean",
+    "description": "Allergy to bone cement or opacification agents (relative contraindication)",
+    "section": "Exclusions"
+    },
+    {
+    "name": "exclusion_uncorrected_coagulopathy",
+    "type": "boolean",
+    "description": "Uncorrected coagulopathy (relative contraindication)",
+    "section": "Exclusions"
+    },
+    {
+    "name": "exclusion_spinal_instability",
+    "type": "boolean",
+    "description": "Spinal instability (relative contraindication)",
+    "section": "Exclusions"
+    },
+    {
+    "name": "exclusion_myelopathy_from_fracture",
+    "type": "boolean",
+    "description": "Myelopathy resulting from the fracture (relative contraindication)",
+    "section": "Exclusions"
+    },
+    {
+    "name": "exclusion_neurologic_deficit",
+    "type": "boolean",
+    "description": "Presence of neurologic deficit (relative contraindication)",
+    "section": "Exclusions"
+    },
+    {
+    "name": "exclusion_neural_impingement",
+    "type": "boolean",
+    "description": "Neural impingement present (relative contraindication)",
+    "section": "Exclusions"
+    },
+    {
+    "name": "exclusion_canal_compromise_or_retropulsion",
+    "type": "boolean",
+    "description": "Fracture retropulsion/canal compromise (relative contraindication)",
+    "section": "Exclusions"
+    },
+    {
+    "name": "diagnosis_osteoporotic_vcf",
+    "type": "boolean",
+    "description": "Diagnosis of osteoporotic vertebral compression fracture as the target condition for PVA",
+    "section": "Diagnosis"
+    }
+    ]
+    
