@@ -1,0 +1,114 @@
+# ==================================================
+# OS / IDE
+# ==================================================
+# macOS system files
+.DS_Store
+*.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+
+# IDE / Editor settings
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+.project
+.pydevproject
+*.iml
+
+# ==================================================
+# Python
+# ==================================================
+# Byte-compiled / cache files
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+*.pyd
+*.pdb
+*.pkl
+
+# Virtual environments
+.venv/
+venv/
+env/
+.voiceagents_env/
+.voiceagents_venv/
+
+# Packaging / build artifacts
+build/
+dist/
+.eggs/
+*.egg
+*.egg-info/
+MANIFEST
+__pypackages__/
+
+# Shared object / compiled extensions
+*.so
+
+# Type checker / testing cache
+.mypy_cache/
+pytest_cache/
+.cache/
+.coverage
+*.cover
+htmlcov/
+*.spec
+
+# ==================================================
+# Jupyter / Streamlit
+# ==================================================
+.ipynb_checkpoints/
+.streamlit/
+.streamlit/secrets.toml
+
+# ==================================================
+# 🧾 Logs and Runtime Outputs
+# ==================================================
+# General logs
+*.log
+
+# LangGraph agent logs
+logs/*.jsonl
+logs/*.txt
+logs/*.log
+!logs/.gitkeep
+
+# ==================================================
+# Data / Temporary Files
+# ==================================================
+tmp/
+temp/
+*.tmp
+*.bak
+*.swp
+
+# Auto-generated data examples
+data/generated_qna_examples.csv
+data/generated_qna_examples.json
+
+# ==================================================
+# Credentials / Keys / Tokens
+# ==================================================
+# Note: .env is NOT ignored - each user should manage their own .env file
+# .env.example is tracked as a template
+.env
+.env.local
+.env.*.backup
+*.pem
+*.key
+*.crt
+*.token
+OPENAI_API_KEY.txt
+
+# ==================================================
+# Evaluation Results
+# ==================================================
+# Keep evaluation structure but ignore temporary files
+evaluation/results/*.html
+evaluation/results/*.png
+evaluation/results/*.pdf

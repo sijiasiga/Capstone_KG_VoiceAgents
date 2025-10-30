@@ -1,0 +1,32 @@
+{
+  "medication": {
+    "avg_response_time": 2.3747956275939943,
+    "min_response_time": 2.1824690818786623,
+    "max_response_time": 2.5671221733093263,
+    "num_tests": 2
+  },
+  "followup": {
+    "avg_response_time": 0.5646004676818848,
+    "min_response_time": 0.4893316745758057,
+    "max_response_time": 0.6398692607879639,
+    "num_tests": 2
+  },
+  "appointment": {
+    "avg_response_time": 2.384125328063965,
+    "min_response_time": 2.384125328063965,
+    "max_response_time": 2.384125328063965,
+    "num_tests": 1
+  },
+  "caregiver": {
+    "avg_response_time": 0.5743333339691162,
+    "min_response_time": 0.5743333339691162,
+    "max_response_time": 0.5743333339691162,
+    "num_tests": 1
+  },
+  "overall": {
+    "avg_response_time": 1.4728751420974733,
+    "min_response_time": 0.4893316745758057,
+    "max_response_time": 2.5671221733093263,
+    "total_tests": 6
+  }
+}

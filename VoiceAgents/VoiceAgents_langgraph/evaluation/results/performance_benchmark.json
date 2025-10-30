@@ -1,0 +1,62 @@
+[
+  {
+    "agent_type": "medication",
+    "query": "What are the side effects of Metformin?",
+    "iterations": 5,
+    "min_time": 1.7672271728515625,
+    "max_time": 4.486558198928833,
+    "avg_time": 2.5671221733093263,
+    "median_time": 2.154313802719116,
+    "std_dev": 1.0968767722761519
+  },
+  {
+    "agent_type": "followup",
+    "query": "I feel dizzy 7/10",
+    "iterations": 5,
+    "min_time": 0.5260903835296631,
+    "max_time": 0.7732293605804443,
+    "avg_time": 0.6398692607879639,
+    "median_time": 0.6258671283721924,
+    "std_dev": 0.10131556241121598
+  },
+  {
+    "agent_type": "appointment",
+    "query": "Check my appointment",
+    "iterations": 5,
+    "min_time": 2.1200637817382812,
+    "max_time": 2.642780065536499,
+    "avg_time": 2.384125328063965,
+    "median_time": 2.3899636268615723,
+    "std_dev": 0.19653663855238
+  },
+  {
+    "agent_type": "caregiver",
+    "query": "Give me this week's caregiver update",
+    "iterations": 5,
+    "min_time": 0.4621264934539795,
+    "max_time": 0.7416613101959229,
+    "avg_time": 0.5743333339691162,
+    "median_time": 0.5555896759033203,
+    "std_dev": 0.10198532302328688
+  },
+  {
+    "agent_type": "medication",
+    "query": "I forgot to take my Furosemide",
+    "iterations": 5,
+    "min_time": 1.8737359046936035,
+    "max_time": 2.817229986190796,
+    "avg_time": 2.1824690818786623,
+    "median_time": 1.9447555541992188,
+    "std_dev": 0.3985888586648423
+  },
+  {
+    "agent_type": "followup",
+    "query": "I have chest pain 9/10",
+    "iterations": 5,
+    "min_time": 0.366105318069458,
+    "max_time": 0.7264823913574219,
+    "avg_time": 0.4893316745758057,
+    "median_time": 0.48260951042175293,
+    "std_dev": 0.14705869552862944
+  }
+]

@@ -1,0 +1,17 @@
+anthropic==0.72.0
+Bottleneck==1.6.0
+faster-whisper==1.2.0
+google-generativeai==0.8.5
+grpcio-status==1.71.2
+langchain==1.0.3
+matplotlib==3.10.7
+networkx==3.5
+openai==2.6.1
+pip-tools==7.5.1
+pipdeptree==2.29.0
+PyAudio==0.2.14
+pydub==0.25.1
+python-dotenv==1.2.1
+pyttsx3==2.99
+SpeechRecognition==3.14.3
+streamlit==1.51.0

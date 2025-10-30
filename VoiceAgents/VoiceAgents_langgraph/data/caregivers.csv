@@ -1,0 +1,4 @@
+caregiver_id,name,relationship,consent_on_file
+C001,Wong Parent,Mother,True
+C002,Chen Spouse,Wife,True
+C003,Wong Mother,Mother,True
