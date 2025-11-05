@@ -1,0 +1,315 @@
+{
+  "orchestration_tests": [
+    {
+      "id": 1,
+      "query": "What are the side effects of Metformin?",
+      "expected_agent": "medication",
+      "expected_intent": "side_effect",
+      "patient_id": "10004235"
+    },
+    {
+      "id": 2,
+      "query": "I feel dizzy, severity 7 out of 10",
+      "expected_agent": "followup",
+      "expected_intent": "followup",
+      "patient_id": "10004235"
+    },
+    {
+      "id": 3,
+      "query": "Check my appointment",
+      "expected_agent": "appointment",
+      "expected_intent": "appointment",
+      "patient_id": "10004235"
+    },
+    {
+      "id": 4,
+      "query": "Give me this week's caregiver update",
+      "expected_agent": "caregiver",
+      "expected_intent": "caregiver",
+      "patient_id": "10004235"
+    },
+    {
+      "id": 5,
+      "query": "I forgot to take my Furosemide this morning",
+      "expected_agent": "medication",
+      "expected_intent": "missed_dose",
+      "patient_id": "10004235"
+    },
+    {
+      "id": 6,
+      "query": "I have chest pain 9/10",
+      "expected_agent": "followup",
+      "expected_intent": "followup",
+      "patient_id": "10004235"
+    },
+    {
+      "id": 7,
+      "query": "I need to reschedule my appointment to next Tuesday at 3pm",
+      "expected_agent": "appointment",
+      "expected_intent": "appointment",
+      "patient_id": "10004235"
+    },
+    {
+      "id": 8,
+      "query": "Can I take Metformin with food?",
+      "expected_agent": "medication",
+      "expected_intent": "instruction",
+      "patient_id": "10004235"
+    },
+    {
+      "id": 9,
+      "query": "I'm feeling breathless, about 6 out of 10",
+      "expected_agent": "followup",
+      "expected_intent": "followup",
+      "patient_id": "10004235"
+    },
+    {
+      "id": 10,
+      "query": "What medications am I currently taking?",
+      "expected_agent": "medication",
+      "expected_intent": "general",
+      "patient_id": "10004235"
+    },
+    {
+      "id": 11,
+      "query": "I took double dose of Aspirin by accident",
+      "expected_agent": "medication",
+      "expected_intent": "double_dose",
+      "patient_id": "10004235"
+    },
+    {
+      "id": 12,
+      "query": "Can I take Metformin and Aspirin together?",
+      "expected_agent": "medication",
+      "expected_intent": "interaction_check",
+      "patient_id": "10004235"
+    },
+    {
+      "id": 13,
+      "query": "I feel tired severity 4",
+      "expected_agent": "followup",
+      "expected_intent": "followup",
+      "patient_id": "10004235"
+    },
+    {
+      "id": 14,
+      "query": "When is my next doctor visit?",
+      "expected_agent": "appointment",
+      "expected_intent": "appointment",
+      "patient_id": "10004235"
+    },
+    {
+      "id": 15,
+      "query": "Show caregiver summary for patient 10001217",
+      "expected_agent": "caregiver",
+      "expected_intent": "caregiver",
+      "patient_id": "10001217"
+    }
+  ],
+  "medication_tests": [
+    {
+      "id": 1,
+      "query": "What are the side effects of Metformin?",
+      "expected_intent": "side_effect",
+      "expected_risk": "GREEN",
+      "patient_id": "10004235"
+    },
+    {
+      "id": 2,
+      "query": "I forgot to take my Furosemide",
+      "expected_intent": "missed_dose",
+      "expected_risk": "ORANGE",
+      "patient_id": "10004235"
+    },
+    {
+      "id": 3,
+      "query": "I took two pills of Aspirin instead of one",
+      "expected_intent": "double_dose",
+      "expected_risk": "RED",
+      "patient_id": "10004235"
+    },
+    {
+      "id": 4,
+      "query": "Should I take Metformin with meals?",
+      "expected_intent": "instruction",
+      "expected_risk": "GREEN",
+      "patient_id": "10004235"
+    },
+    {
+      "id": 5,
+      "query": "Can I combine Metformin with Aspirin?",
+      "expected_intent": "interaction_check",
+      "expected_risk": "GREEN",
+      "patient_id": "10004235"
+    },
+    {
+      "id": 6,
+      "query": "Is Metformin safe during pregnancy?",
+      "expected_intent": "contraindication",
+      "expected_risk": "ORANGE",
+      "patient_id": "10004235"
+    },
+    {
+      "id": 7,
+      "query": "I feel nauseous after taking Metformin",
+      "expected_intent": "side_effect",
+      "expected_risk": "GREEN",
+      "patient_id": "10004235"
+    },
+    {
+      "id": 8,
+      "query": "I skipped my morning dose of Furosemide",
+      "expected_intent": "missed_dose",
+      "expected_risk": "ORANGE",
+      "patient_id": "10004235"
+    },
+    {
+      "id": 9,
+      "query": "What time should I take Aspirin?",
+      "expected_intent": "instruction",
+      "expected_risk": "GREEN",
+      "patient_id": "10004235"
+    },
+    {
+      "id": 10,
+      "query": "I accidentally took 3 pills of Metformin today",
+      "expected_intent": "double_dose",
+      "expected_risk": "RED",
+      "patient_id": "10004235"
+    }
+  ],
+  "followup_tests": [
+    {
+      "id": 1,
+      "query": "I feel dizzy 3/10",
+      "expected_symptom": "dizzy",
+      "expected_severity": 3,
+      "expected_risk": "GREEN",
+      "patient_id": "10004235"
+    },
+    {
+      "id": 2,
+      "query": "I have chest pain severity 9 out of 10",
+      "expected_symptom": "chest pain",
+      "expected_severity": 9,
+      "expected_risk": "RED",
+      "patient_id": "10004235"
+    },
+    {
+      "id": 3,
+      "query": "Feeling breathless, about 6/10",
+      "expected_symptom": "breathless",
+      "expected_severity": 6,
+      "expected_risk": "ORANGE",
+      "patient_id": "10004235"
+    },
+    {
+      "id": 4,
+      "query": "I'm experiencing dizziness level 5",
+      "expected_symptom": "dizziness",
+      "expected_severity": 5,
+      "expected_risk": "ORANGE",
+      "patient_id": "10004235"
+    },
+    {
+      "id": 5,
+      "query": "Pain in my leg 2 out of 10",
+      "expected_symptom": "pain",
+      "expected_severity": 2,
+      "expected_risk": "GREEN",
+      "patient_id": "10004235"
+    },
+    {
+      "id": 6,
+      "query": "Severe headache 8/10",
+      "expected_symptom": "headache",
+      "expected_severity": 8,
+      "expected_risk": "RED",
+      "patient_id": "10004235"
+    },
+    {
+      "id": 7,
+      "query": "I feel tired, severity 4",
+      "expected_symptom": "tired",
+      "expected_severity": 4,
+      "expected_risk": "GREEN",
+      "patient_id": "10004235"
+    },
+    {
+      "id": 8,
+      "query": "Shortness of breath 7 out of 10",
+      "expected_symptom": "shortness of breath",
+      "expected_severity": 7,
+      "expected_risk": "RED",
+      "patient_id": "10004235"
+    },
+    {
+      "id": 9,
+      "query": "Feeling weak level 5 out of 10",
+      "expected_symptom": "weak",
+      "expected_severity": 5,
+      "expected_risk": "ORANGE",
+      "patient_id": "10004235"
+    },
+    {
+      "id": 10,
+      "query": "Mild nausea 3/10",
+      "expected_symptom": "nausea",
+      "expected_severity": 3,
+      "expected_risk": "GREEN",
+      "patient_id": "10004235"
+    }
+  ],
+  "appointment_tests": [
+    {
+      "id": 1,
+      "query": "Check my appointment",
+      "expected_action": "check",
+      "patient_id": "10004235"
+    },
+    {
+      "id": 2,
+      "query": "When is my next doctor visit?",
+      "expected_action": "check",
+      "patient_id": "10004235"
+    },
+    {
+      "id": 3,
+      "query": "I need to reschedule to next Tuesday at 3pm",
+      "expected_action": "reschedule",
+      "patient_id": "10004235"
+    },
+    {
+      "id": 4,
+      "query": "Cancel my appointment",
+      "expected_action": "cancel",
+      "patient_id": "10004235"
+    },
+    {
+      "id": 5,
+      "query": "What appointments do I have?",
+      "expected_action": "check",
+      "patient_id": "10004235"
+    }
+  ],
+  "caregiver_tests": [
+    {
+      "id": 1,
+      "query": "Give me this week's caregiver update",
+      "expected_timeframe": 7,
+      "patient_id": "10004235"
+    },
+    {
+      "id": 2,
+      "query": "Show caregiver summary for the last 3 days",
+      "expected_timeframe": 3,
+      "patient_id": "10004235"
+    },
+    {
+      "id": 3,
+      "query": "Caregiver update for patient 10001217",
+      "expected_timeframe": 7,
+      "patient_id": "10001217"
+    }
+  ]
+}

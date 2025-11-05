@@ -1,0 +1,50 @@
+{
+  "orchestration_routing": {
+    "medication": {
+      "medication": 6
+    },
+    "followup": {
+      "followup": 4
+    },
+    "appointment": {
+      "appointment": 3
+    },
+    "caregiver": {
+      "caregiver": 2
+    }
+  },
+  "medication_intent": {
+    "side_effect": {
+      "side_effect": 2
+    },
+    "missed_dose": {
+      "missed_dose": 2
+    },
+    "double_dose": {
+      "double_dose": 2
+    },
+    "instruction": {
+      "instruction": 2
+    },
+    "interaction_check": {
+      "interaction_check": 1
+    },
+    "contraindication": {
+      "contraindication": 1
+    }
+  },
+  "medication_risk": {
+    "GREEN": {
+      "GREEN": 5
+    },
+    "ORANGE": {
+      "RED": 2,
+      "GREEN": 1
+    },
+    "RED": {
+      "RED": 1,
+      "GREEN": 1
+    }
+  },
+  "followup_risk": {}
+}

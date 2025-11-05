@@ -1,0 +1,254 @@
+{
+  "orchestration": [
+    {
+      "test_id": 1,
+      "query": "What are the side effects of Metformin?",
+      "expected_agent": "medication",
+      "detected_agent": "medication",
+      "detected_intent": "medication",
+      "correct": true,
+      "response_time": 0.9379949569702148
+    },
+    {
+      "test_id": 2,
+      "query": "I feel dizzy, severity 7 out of 10",
+      "expected_agent": "followup",
+      "detected_agent": "followup",
+      "detected_intent": "followup",
+      "correct": true,
+      "response_time": 0.6976547241210938
+    },
+    {
+      "test_id": 3,
+      "query": "Check my appointment",
+      "expected_agent": "appointment",
+      "detected_agent": "appointment",
+      "detected_intent": "appointment",
+      "correct": true,
+      "response_time": 2.0836658477783203
+    },
+    {
+      "test_id": 4,
+      "query": "Give me this week's caregiver update",
+      "expected_agent": "caregiver",
+      "detected_agent": "caregiver",
+      "detected_intent": "caregiver",
+      "correct": true,
+      "response_time": 21.16743803024292
+    },
+    {
+      "test_id": 5,
+      "query": "I forgot to take my Furosemide this morning",
+      "expected_agent": "medication",
+      "detected_agent": "medication",
+      "detected_intent": "medication",
+      "correct": true,
+      "response_time": 20.730626106262207
+    },
+    {
+      "test_id": 6,
+      "query": "I have chest pain 9/10",
+      "expected_agent": "followup",
+      "detected_agent": "followup",
+      "detected_intent": "followup",
+      "correct": true,
+      "response_time": 21.051480770111084
+    },
+    {
+      "test_id": 7,
+      "query": "I need to reschedule my appointment to next Tuesday at 3pm",
+      "expected_agent": "appointment",
+      "detected_agent": "appointment",
+      "detected_intent": "appointment",
+      "correct": true,
+      "response_time": 20.720277070999146
+    },
+    {
+      "test_id": 8,
+      "query": "Can I take Metformin with food?",
+      "expected_agent": "medication",
+      "detected_agent": "medication",
+      "detected_intent": "medication",
+      "correct": true,
+      "response_time": 20.852524757385254
+    },
+    {
+      "test_id": 9,
+      "query": "I'm feeling breathless, about 6 out of 10",
+      "expected_agent": "followup",
+      "detected_agent": "followup",
+      "detected_intent": "followup",
+      "correct": true,
+      "response_time": 0.6698610782623291
+    },
+    {
+      "test_id": 10,
+      "query": "What medications am I currently taking?",
+      "expected_agent": "medication",
+      "detected_agent": "medication",
+      "detected_intent": "medication",
+      "correct": true,
+      "response_time": 0.8289508819580078
+    },
+    {
+      "test_id": 11,
+      "query": "I took double dose of Aspirin by accident",
+      "expected_agent": "medication",
+      "detected_agent": "medication",
+      "detected_intent": "medication",
+      "correct": true,
+      "response_time": 40.280903339385986
+    },
+    {
+      "test_id": 12,
+      "query": "Can I take Metformin and Aspirin together?",
+      "expected_agent": "medication",
+      "detected_agent": "medication",
+      "detected_intent": "medication",
+      "correct": true,
+      "response_time": 21.095884084701538
+    },
+    {
+      "test_id": 13,
+      "query": "I feel tired severity 4",
+      "expected_agent": "followup",
+      "detected_agent": "followup",
+      "detected_intent": "followup",
+      "correct": true,
+      "response_time": 0.7119631767272949
+    },
+    {
+      "test_id": 14,
+      "query": "When is my next doctor visit?",
+      "expected_agent": "appointment",
+      "detected_agent": "appointment",
+      "detected_intent": "appointment",
+      "correct": true,
+      "response_time": 0.7197079658508301
+    },
+    {
+      "test_id": 15,
+      "query": "Show caregiver summary for patient 10001217",
+      "expected_agent": "caregiver",
+      "detected_agent": "caregiver",
+      "detected_intent": "caregiver",
+      "correct": true,
+      "response_time": 0.711270809173584
+    }
+  ],
+  "medication": [
+    {
+      "test_id": 1,
+      "query": "What are the side effects of Metformin?",
+      "expected_intent": "side_effect",
+      "detected_intent": "side_effect",
+      "intent_correct": true,
+      "expected_risk": "GREEN",
+      "detected_risk": "GREEN",
+      "risk_correct": true,
+      "response_time": 41.54673910140991
+    },
+    {
+      "test_id": 2,
+      "query": "I forgot to take my Furosemide",
+      "expected_intent": "missed_dose",
+      "detected_intent": "missed_dose",
+      "intent_correct": true,
+      "expected_risk": "ORANGE",
+      "detected_risk": "RED",
+      "risk_correct": false,
+      "response_time": 26.134279251098633
+    },
+    {
+      "test_id": 3,
+      "query": "I took two pills of Aspirin instead of one",
+      "expected_intent": "double_dose",
+      "detected_intent": "double_dose",
+      "intent_correct": true,
+      "expected_risk": "RED",
+      "detected_risk": "RED",
+      "risk_correct": true,
+      "response_time": 1.2979607582092285
+    },
+    {
+      "test_id": 4,
+      "query": "Should I take Metformin with meals?",
+      "expected_intent": "instruction",
+      "detected_intent": "instruction",
+      "intent_correct": true,
+      "expected_risk": "GREEN",
+      "detected_risk": "GREEN",
+      "risk_correct": true,
+      "response_time": 21.024487018585205
+    },
+    {
+      "test_id": 5,
+      "query": "Can I combine Metformin with Aspirin?",
+      "expected_intent": "interaction_check",
+      "detected_intent": "interaction_check",
+      "intent_correct": true,
+      "expected_risk": "GREEN",
+      "detected_risk": "GREEN",
+      "risk_correct": true,
+      "response_time": 21.174078941345215
+    },
+    {
+      "test_id": 6,
+      "query": "Is Metformin safe during pregnancy?",
+      "expected_intent": "contraindication",
+      "detected_intent": "contraindication",
+      "intent_correct": true,
+      "expected_risk": "ORANGE",
+      "detected_risk": "GREEN",
+      "risk_correct": false,
+      "response_time": 1.4255430698394775
+    },
+    {
+      "test_id": 7,
+      "query": "I feel nauseous after taking Metformin",
+      "expected_intent": "side_effect",
+      "detected_intent": "side_effect",
+      "intent_correct": true,
+      "expected_risk": "GREEN",
+      "detected_risk": "GREEN",
+      "risk_correct": true,
+      "response_time": 0.7320361137390137
+    },
+    {
+      "test_id": 8,
+      "query": "I skipped my morning dose of Furosemide",
+      "expected_intent": "missed_dose",
+      "detected_intent": "missed_dose",
+      "intent_correct": true,
+      "expected_risk": "ORANGE",
+      "detected_risk": "RED",
+      "risk_correct": false,
+      "response_time": 1.3243000507354736
+    },
+    {
+      "test_id": 9,
+      "query": "What time should I take Aspirin?",
+      "expected_intent": "instruction",
+      "detected_intent": "instruction",
+      "intent_correct": true,
+      "expected_risk": "GREEN",
+      "detected_risk": "GREEN",
+      "risk_correct": true,
+      "response_time": 21.035075902938843
+    },
+    {
+      "test_id": 10,
+      "query": "I accidentally took 3 pills of Metformin today",
+      "expected_intent": "double_dose",
+      "detected_intent": "double_dose",
+      "intent_correct": true,
+      "expected_risk": "RED",
+      "detected_risk": "GREEN",
+      "risk_correct": false,
+      "response_time": 41.67924618721008
+    }
+  ],
+  "followup": [],
+  "appointment": [],
+  "caregiver": []
+}

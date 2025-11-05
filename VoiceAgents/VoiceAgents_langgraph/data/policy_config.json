@@ -1,0 +1,9 @@
+{
+  "red_flags": ["severe pain", "shortness of breath", "fainted", "bleeding"],
+  "orange_flags": ["moderate pain", "low fever", "dizziness"],
+  "telehealth_allowed": {
+    "Follow-up - Cardiology": true,
+    "Consultation - Diabetes": true
+  },
+  "referral_required_plans": ["HMO_A"]
+}

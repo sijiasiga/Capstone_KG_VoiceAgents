@@ -1,0 +1,5 @@
+patient_id,drug_name,dose,frequency,route,start_date,condition
+10004235,Metformin,500mg,BID,oral,2025-09-15,Diabetes
+10004235,Furosemide,40mg,QD,oral,2025-09-15,Heart Failure
+10000032,Aspirin,81mg,QD,oral,2025-09-10,Heart Disease
+10001217,Insulin,10 units,BID,subcutaneous,2025-09-20,Diabetes
