@@ -1,0 +1,146 @@
+```sql
+-- Policy: Percutaneous Vertebral Augmentation (PVA) for Osteoporotic Vertebral Compression Fracture (VCF)
+-- Total restrictions: 35
+SELECT *
+FROM patients
+WHERE
+  -- INCLUSION CRITERIA (ALL are required)
+  (
+    -- Restriction 1.a: Fracture Acuity, Location, and Imaging
+    (
+      -- Restriction 1: Acute osteoporotic vertebral compression fracture (VCF) duration less than 6 weeks.
+      vcf_acuity_acute_duration_weeks < 6
+      OR
+      -- Restriction 2: Subacute osteoporotic vertebral compression fracture (VCF) duration between 6 and 12 weeks.
+      (vcf_acuity_subacute_duration_weeks_min >= 6 AND vcf_acuity_subacute_duration_weeks_max <= 12)
+    )
+    AND
+    -- Restriction 3: Vertebral compression fracture (VCF) located from T1 to L5.
+    vcf_location_vertebral_levels = 'T1 – L5'
+    AND
+    (
+      -- Restriction 4: VCF documented by advanced imaging showing bone marrow edema on MRI.
+      imaging_bone_marrow_edema_mri_flag = TRUE
+      OR
+      -- Restriction 5: VCF documented by advanced imaging showing bone-scan/SPECT/CT uptake.
+      imaging_bone_scan_spect_ct_uptake_flag = TRUE
+    )
+  )
+  AND
+  -- Restriction 1.b: Symptomatic criteria (ONE of hospitalized or non-hospitalized)
+  (
+    -- Restriction 6: Patient is hospitalized with severe pain, indicated by a Numeric Rating Scale (NRS) or Visual Analog Scale (VAS) pain score of 8 or greater.
+    (pain_score_nrs_threshold_hospitalized >= 8 OR pain_score_vas_threshold_hospitalized >= 8)
+    OR
+    -- Non-hospitalized criteria (Restriction 7, 8, 9, 10, 11, 12, 13, 14)
+    (
+      -- Restriction 7: Patient is non-hospitalized with moderate to severe pain, indicated by a Numeric Rating Scale (NRS) or Visual Analog Scale (VAS) pain score of 5 or greater.
+      (pain_score_nrs_threshold_non_hospitalized >= 5 OR pain_score_vas_threshold_non_hospitalized >= 5)
+      AND
+      -- Restriction 8: Non-hospitalized patient's pain persists despite optimal non-surgical management (NSM) for a trial of at least 24 hours. Additionally, for acute VCFs, failed medical therapy must have been for a duration less than 3 weeks.
+      (optimal_non_surgical_management_failure_flag = TRUE AND non_operative_medical_therapy_trial_duration_hours >= 24 AND medical_therapy_failure_window_weeks < 3)
+      AND
+      (
+        -- Restriction 9: For non-hospitalized patients with moderate to severe pain despite NSM, experiencing worsening pain.
+        pain_worsening_flag = TRUE
+        OR
+        -- For non-hospitalized patients with stable to improved pain but with an NRS or VAS pain score of 5 or greater, and at least two of the following four criteria are met (R11, R12, R13, R14).
+        -- NOTE: The JSON "logic: 'OR'" for rules 11-14 means "at least one" is implemented, not "at least two".
+        (
+          -- Restriction 10: Non-hospitalized patient's pain is stable to improved, but NRS/VAS still >= 5.
+          (pain_score_nrs_threshold_non_hospitalized >= 5 OR pain_score_vas_threshold_non_hospitalized >= 5)
+          AND
+          (
+            -- Restriction 11: Progression of vertebral body height loss
+            vertebral_body_height_loss_progression_flag = TRUE
+            OR
+            -- Restriction 12: Greater than 25% vertebral body height reduction
+            vertebral_body_height_reduction_percentage_threshold > 25
+            OR
+            -- Restriction 13: Presence of kyphotic deformity
+            kyphotic_deformity_flag = TRUE
+            OR
+            -- Restriction 14: Severe impact of VCF on daily functioning with a Roland Morris Disability Questionnaire (RDQ) score greater than 17
+            daily_functioning_rdq_score_threshold > 17
+          )
+        )
+      )
+    )
+  )
+  AND
+  -- Restriction 1.c: Continuum of care (Both required)
+  (
+    -- Restriction 15: All patients with VCF must be referred for evaluation of Bone Mineral Density (BMD) and osteoporosis education.
+    (bone_mineral_density_evaluation_referral_flag = TRUE AND osteoporosis_education_referral_flag = TRUE)
+    AND
+    -- Restriction 16: All patients with VCF must be instructed to take part in an osteoporosis prevention/treatment program.
+    osteoporosis_prevention_treatment_program_participation_flag = TRUE
+  )
+  AND
+  -- EXCLUSION CRITERIA (Can have NONE of the following)
+  -- Absolute Contraindications
+  (
+    -- Restriction 17: Current back pain must be primarily due to the identified acute or subacute VCF(s). (Absence of pain not primarily due to VCF).
+    back_pain_not_primarily_vcf_flag = FALSE
+    AND
+    -- Restriction 18: Absence of osteomyelitis.
+    osteomyelitis_flag = FALSE
+    AND
+    -- Restriction 19: Absence of discitis.
+    discitis_flag = FALSE
+    AND
+    -- Restriction 20: Absence of active systemic infection.
+    active_systemic_infection_flag = FALSE
+    AND
+    -- Restriction 21: Absence of surgical site infection.
+    surgical_site_infection_flag = FALSE
+    AND
+    -- Restriction 22: Patient is not pregnant.
+    pregnancy_flag = FALSE
+  )
+  AND
+  -- Relative Contraindications
+  (
+    -- Restriction 23: Three or fewer vertebral fractures per procedure. (Exclusion for greater than three vertebral fractures per procedure).
+    vertebral_fracture_count_per_procedure_limit <= 3
+    AND
+    -- Restriction 24: Absence of allergy to bone cement.
+    allergy_bone_cement_flag = FALSE
+    AND
+    -- Restriction 25: Absence of allergy to opacification agents.
+    allergy_opacification_agents_flag = FALSE
+    AND
+    -- Restriction 26: Absence of uncorrected coagulopathy.
+    uncorrected_coagulopathy_flag = FALSE
+    AND
+    -- Restriction 27: Absence of spinal instability.
+    spinal_instability_flag = FALSE
+    AND
+    -- Restriction 28: Absence of myelopathy from the fracture.
+    myelopathy_from_fracture_flag = FALSE
+    AND
+    -- Restriction 29: Absence of neurologic deficit.
+    neurologic_deficit_flag = FALSE
+    AND
+    -- Restriction 30: Absence of neural impingement.
+    neural_impingement_flag = FALSE
+    AND
+    -- Restriction 31: Absence of fracture retropulsion.
+    fracture_retropulsion_flag = FALSE
+    AND
+    -- Restriction 32: Absence of canal compromise.
+    canal_compromise_flag = FALSE
+  )
+  AND
+  -- PROCEDURE COVERAGE
+  (
+    -- Restriction 33: Percutaneous Vertebroplasty (PVP) procedure is covered.
+    procedure_percutaneous_vertebroplasty = TRUE
+    OR
+    -- Restriction 34: Kyphoplasty (PKP) procedure is covered.
+    procedure_kyphoplasty = TRUE
+  )
+  AND
+  -- Restriction 35: Covered CPT codes for Percutaneous Vertebral Augmentation (PVA) procedures.
+  procedure_code_CPT IN ('22510','22511','22512','22513','22514','22515');
+```

@@ -1,0 +1,227 @@
+======================================================================
+POLICY PDF TEXT EXTRACTION
+======================================================================
+File: NCD_LCD_Syn_data/L34106/LCD - Percutaneous Vertebral Augmentation (PVA) for Osteoporotic Vertebral Compression Fracture (VCF) (L34106).pdf
+Pages: 20
+Extraction method: PyMuPDF text
+Text cleaning: Applied (two-layer)
+Title: LCD - Percutaneous Vertebral Augmentation (PVA) for Osteoporotic Vertebral Compression Fracture (VCF) (L34106)
+----------------------------------------------------------------------
+EXTRACTED TEXT:
+----------------------------------------------------------------------
+LCD - Percutaneous Vertebral Augmentation (PVA) for Osteoporotic Vertebral Compression Fracture (VCF) (L34106)
+
+Local Coverage Determination (LCD) | Percutaneous Vertebral Augmentation (PVA) | for Osteoporotic Vertebral Compression | Fracture (VCF)
+
+L34106
+
+Contractor Information
+
+Contract Contract
+Contractor Name Type Number Jurisdiction States
+
+Noridian Healthcare A and B 02101 - J - F Alaska Solutions, LLC MAC MAC A
+
+Noridian Healthcare A and B 02102 - J - F Alaska Solutions, LLC MAC MAC B
+
+Noridian Healthcare A and B 02201 - J - F Idaho Solutions, LLC MAC MAC A
+
+Noridian Healthcare A and B 02202 - J - F Idaho Solutions, LLC MAC MAC B
+
+Noridian Healthcare A and B 02301 - J - F Oregon Solutions, LLC MAC MAC A
+
+Noridian Healthcare A and B 02302 - J - F Oregon Solutions, LLC MAC MAC B
+
+LCD - Percutaneous Vertebral Augmentation (PVA) for Osteoporotic Vertebral Compression Fracture (VCF) (L34106)
+
+Contract Contract
+Contractor Name Type Number Jurisdiction States
+
+Noridian Healthcare A and B 02401 - J - F Washington Solutions, LLC MAC MAC A
+
+Noridian Healthcare A and B 02402 - J - F Washington Solutions, LLC MAC MAC B
+
+Noridian Healthcare A and B 03101 - J - F Arizona Solutions, LLC MAC MAC A
+
+Noridian Healthcare A and B 03102 - J - F Arizona Solutions, LLC MAC MAC B
+
+Noridian Healthcare A and B 03201 - J - F Montana Solutions, LLC MAC MAC A
+
+Noridian Healthcare A and B 03202 - J - F Montana Solutions, LLC MAC MAC B
+
+Noridian Healthcare A and B 03301 - J - F North Solutions, LLC MAC MAC A Dakota
+
+Noridian Healthcare A and B 03302 - J - F North Solutions, LLC MAC MAC B Dakota
+
+Noridian Healthcare A and B 03401 - J - F South Solutions, LLC MAC MAC A Dakota
+
+Noridian Healthcare A and B 03402 - J - F South Solutions, LLC MAC MAC B Dakota
+
+Noridian Healthcare A and B 03501 - J - F Utah Solutions, LLC MAC MAC A
+
+LCD - Percutaneous Vertebral Augmentation (PVA) for Osteoporotic Vertebral Compression Fracture (VCF) (L34106)
+
+Contract Contract
+Contractor Name Type Number Jurisdiction States
+
+Noridian Healthcare A and B 03502 - J - F Utah Solutions, LLC MAC MAC B
+
+Noridian Healthcare A and B 03601 - J - F Wyoming Solutions, LLC MAC MAC A
+
+Noridian Healthcare A and B 03602 - J - F Wyoming Solutions, LLC MAC MAC B
+
+LCD Information
+
+Document Information
+
+LCD ID | L34106
+
+LCD Title
+Percutaneous Vertebral Augmentation (PVA) for Osteoporotic Vertebral Compression Fracture (VCF)
+
+Proposed LCD in Comment Period N/A
+
+Source Proposed LCD | DL34106
+
+Original Effective Date For services performed on or after 10/
+Revision Effective Date For services performed on or after 01/
+Revision Ending Date N/A
+
+Retirement Date N/A
+
+LCD - Percutaneous Vertebral Augmentation (PVA) for Osteoporotic Vertebral Compression Fracture (VCF) (L34106)
+
+Notice Period Start Date 11/
+Notice Period End Date 01/
+CPT codes, descriptions, and other data only are .
+Applicable FARS/HHSARS apply.
+
+Fee schedules, relative value units, conversion factors and/or related components are not assigned by the AMA, are not part of CPT, and the AMA is not recommending their use. The AMA does not directly or indirectly practice medicine or
+dispense medical services. The AMA assumes no liability for data contained or not contained herein.
+
+Current Dental Terminology .
+
+s in the | Section of the LCD. Keyword Section of the LCD.
+At this time 21st Century )
+Cures Act will apply to | new and revised LCDs | that restrict coverage | which requires comment | and notice. This revision | is not a restriction to the coverage determination;
+and, therefore not all the | fields included on the | LCD are applicable as noted in this policy.
+
+LCD - Percutaneous Vertebral Augmentation (PVA) for Osteoporotic Vertebral Compression Fracture (VCF) (L34106)
+
+Revision Revision | History History Revision History
+Date Number Explanation Reasons for Change
+
+02/19/2020 R9 LCD was revised to add Other (Added Notice
+Notice Period Start date Period Start and End of 1/3/2020 and Notice dates.)
+Period End Date of 2/18/2020.
+
+At this time 21st Century | Cures Act will apply to | new and revised LCDs | that restrict coverage | which requires comment | and notice. This revision | is not a restriction to the coverage determination;
+and, therefore not all the | fields included on the | LCD are applicable as | noted in this policy
+
+02/19/2020 R8 11/24/2019 - This LCD Creation of Uniform version was created as LCDs With Other MAC | a result of DL34106 Jurisdiction | being released to a Final
+LCD.
+
+12/01/2019 R7 12/01/2019: At this time Provider 21st Century Cures Act Education/Guidance
+will apply to new and Revisions Due To Code | revised LCDs that restrict Removal | coverage which requires | comment and notice. This | revision is not a | restriction to the coverage determination;
+and, therefore not all the
+
+LCD - Percutaneous Vertebral Augmentation (PVA) for Osteoporotic Vertebral Compression Fracture (VCF) (L34106)
+
+Revision Revision | History History Revision History
+Date Number Explanation Reasons for Change
+
+fields included on the LCD | are applicable as noted in this policy.
+
+As required by CR 10901, | all billing and coding | information has been | moved to the companion | article, this article is linked to the LCD.
+
+10/01/2015 R6 01/18/18-At this time Other (New/Change to 21st Century Cures Act audit direction) | will apply to new and | revised LCDs that | restrict coverage which | requires comment and | notice. This revision is | not a restriction to the
+coverage determination;
+and, therefore not all the | fields included on the | LCD are applicable as noted in this policy.
+
+In Coverage Indications, Limitations and/or
+Medical Necessity, removal of:
+
+The medical record | must contain | assessment of | patient condition | and response to | treatment at one
+
+LCD - Percutaneous Vertebral Augmentation (PVA) for Osteoporotic Vertebral Compression Fracture (VCF) (L34106)
+
+Revision Revision | History History Revision History
+Date Number Explanation Reasons for Change
+
+month, three | months and 6 | months post | procedure unless | the patient is | enrolled in a | registry. Telephone | follow up with | documentation of | outcomes is acceptable.
+Documentation of at | least two (2) | unsuccessful and | reasonable | attempts to contact | the patient may | substitute for the 3 | or 6 moth follow up evaluations.
+Enrollment in a | registry with an | outcomes | documentation | schedule consistent | with that described | in this LCD is an | acceptable | substitute for medical records'
+follow up documentation.
+Any acceptable | registry must be | compliant with the | principles
+
+LCD - Percutaneous Vertebral Augmentation (PVA) for Osteoporotic Vertebral Compression Fracture (VCF) (L34106)
+
+Revision Revision | History History Revision History
+Date Number Explanation Reasons for Change
+
+established in the AHRQ's "Registries
+for Evaluating
+Patient Outcomes: A User's Guide". (See
+bibliography.) | Noridian knows of | one such registry | currently available for enrollment.
+The link to the registry is:
+
+arkmedical.com/VCF Registry/ This
+homepage | describes the | registry as well as | registration resources.
+
+10/01/2015 R5 This final LCD, effective Other (This final LCD, 10/01/2015, combines effective 10/01/2015,
+JFA L34168 into the JFB combines JFA L34168 | LCD so that both JFA into the JFB LCD so that | and JFB contract both JFA and JFB | numbers will have the contract numbers will | same final MCD LCD have the same final | number. MCD LCD number.)
+
+LCD - Percutaneous Vertebral Augmentation (PVA) for Osteoporotic Vertebral Compression Fracture (VCF) (L34106)
+
+Revision Revision | History History Revision History
+Date Number Explanation Reasons for Change
+
+10/01/2015 R4 LCD revised to add 178 Revisions Due To ICD- ICD codes in Group 1 to 10-CM Code Changes | be consistent with this | policy in JFA. Information | in the Coverage | Indications, Limitations
+and/or Medical Necessity and in the | Documentation | Requirements portions | of the LCD was not
+changed.
+
+10/01/2015 R3 The LCD is revised to Other ( Correct the link correct the link to the to the VCF Registry | VCF registry. referenced in the LCD.)
+
+10/01/2015 R2 The LCD is revised to Revisions Due To remove the deleted CPT CPT/HCPCS Code
+codes 22520, 22521, Changes | 22522, 22523, 22524, | 22525, 72291, 72292 | and replaced with | 22510, 22511, 22512, | 22513, 22514 and 22515.
+
+10/01/2015 R1 This LCD is renamed to Provider "Percutaneous Vertebral Education/Guidance
+Augmentation" for the Creation of Uniform comment period ending LCDs Within a MAC
+3/4/2014. The original Jurisdiction LCD title was
+"Vertebroplasty,
+
+LCD - Percutaneous Vertebral Augmentation (PVA) for Osteoporotic Vertebral Compression Fracture (VCF) (L34106)
+
+Revision Revision | History History Revision History
+Date Number Explanation Reasons for Change
+
+Vertebral Augmentation;
+Percutaneous".
+
+Associated Documents
+
+Attachments N/A
+
+Related Local Coverage Documents | Articles A56573 - Billing and Coding: Percutaneous Vertebral Augmentation (PVA) for Osteoporotic
+Vertebral Compression Fracture (VCF)
+A58535 - Response to Comments: Percutaneous Vertebral Augmentation (PVA) for
+Osteoporotic Vertebral Compression Fracture (VCF) | LCDs DL34106 - Percutaneous Vertebral Augmentation (PVA) for Osteoporotic Vertebral
+Compression Fracture (VCF) (MCD Archive Site)
+
+Related National Coverage Documents | NCDs N/A
+
+Public Versions
+
+Updated On Effective Dates Status
+
+08/04/2021 01/10/2021 - N/A Currently in Effect You are here
+
+11/18/2020 01/10/2021 - N/A Superseded View
+
+Some older versions have been archived. Please visit the MCD Archive Site to retrieve them.
+
+LCD - Percutaneous Vertebral Augmentation (PVA) for Osteoporotic Vertebral Compression Fracture (VCF) (L34106)
+
+Keywords
+
+N/A

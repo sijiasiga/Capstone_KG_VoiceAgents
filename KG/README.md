@@ -127,6 +127,15 @@ The script will:
 - `Policy_{policy_id}.json` - Extracted policy conditions
 - `SQL_{policy_id}.txt` - Generated SQL queries
 
+### Data Field Validation
+
+```bash
+cd KG
+python DataField_Valid_Agent.py
+```
+
+Validates extracted data fields against policy text for accuracy and completeness.
+
 ## 📊 Patient-Policy Compliance
 
 The system processes medical policies and patient data through three main phases:

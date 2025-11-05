@@ -1,0 +1,638 @@
+{
+  "schema_validity": {
+    "score": 100,
+    "errors": []
+  },
+  "coverage": {
+    "score": 100,
+    "required_present_fraction": 1.0,
+    "optional_present_fraction": 1.0,
+    "missing_required": [],
+    "missing_optional": []
+  },
+  "evidence_alignment": {
+    "score": 100,
+    "entity_evidence": [
+      {
+        "field": "patient_id",
+        "value_preview": null,
+        "support_judgment": "unsupported",
+        "evidence": [],
+        "rationale": "Patient ID is not mentioned in the policy text. This is not unexpected for a policy document."
+      },
+      {
+        "field": "vcf_acuity_acute_duration_weeks",
+        "value_preview": "6",
+        "support_judgment": "supported",
+        "evidence": [
+          {
+            "text_preview": "< 6 weeks) or subacute (6-12 weeks) osteoporotic VCF (T1 \u2013 L5) based on symptom onset",
+            "start_char": 2538,
+            "end_char": 2610
+          }
+        ],
+        "rationale": "The text directly states acute fractures are less than 6 weeks."
+      },
+      {
+        "field": "vcf_acuity_subacute_duration_weeks_min",
+        "value_preview": "6",
+        "support_judgment": "supported",
+        "evidence": [
+          {
+            "text_preview": "Acute (< 6 weeks) or subacute (6-12 weeks) osteoporotic VCF (T1 \u2013 L5) based on symptom onset",
+            "start_char": 2538,
+            "end_char": 2610
+          }
+        ],
+        "rationale": "The text directly states subacute fractures are 6-12 weeks."
+      },
+      {
+        "field": "vcf_acuity_subacute_duration_weeks_max",
+        "value_preview": "12",
+        "support_judgment": "supported",
+        "evidence": [
+          {
+            "text_preview": "Acute (< 6 weeks) or subacute (6-12 weeks) osteoporotic VCF (T1 \u2013 L5) based on symptom onset",
+            "start_char": 2538,
+            "end_char": 2610
+          }
+        ],
+        "rationale": "The text directly states subacute fractures are 6-12 weeks."
+      },
+      {
+        "field": "vcf_location_vertebral_levels",
+        "value_preview": "T1 \u2013 L5",
+        "support_judgment": "supported",
+        "evidence": [
+          {
+            "text_preview": "Acute (< 6 weeks) or subacute (6-12 weeks) osteoporotic VCF (T1 \u2013 L5) based on symptom onset",
+            "start_char": 2538,
+            "end_char": 2610
+          }
+        ],
+        "rationale": "The text specifies the location as T1-L5."
+      },
+      {
+        "field": "imaging_bone_marrow_edema_mri_flag",
+        "value_preview": true,
+        "support_judgment": "supported",
+        "evidence": [
+          {
+            "text_preview": "documented by advanced imaging (bone marrow edema on\nMRI or bone-scan/SPECT/CT uptake) 1-3,10,25,27",
+            "start_char": 2610,
+            "end_char": 2683
+          }
+        ],
+        "rationale": "The text indicates documentation of bone marrow edema on MRI."
+      },
+      {
+        "field": "imaging_bone_scan_spect_ct_uptake_flag",
+        "value_preview": true,
+        "support_judgment": "supported",
+        "evidence": [
+          {
+            "text_preview": "documented by advanced imaging (bone marrow edema on\nMRI or bone-scan/SPECT/CT uptake) 1-3,10,25,27",
+            "start_char": 2610,
+            "end_char": 2683
+          }
+        ],
+        "rationale": "The text indicates documentation of bone-scan/SPECT/CT uptake."
+      },
+      {
+        "field": "pain_score_nrs_threshold_hospitalized",
+        "value_preview": "8",
+        "support_judgment": "supported",
+        "evidence": [
+          {
+            "text_preview": "Hospitalized with severe pain (Numeric Rating Scale (NRS) or Visual Analog Scale (VAS) pain score \u2265 8) 4-7",
+            "start_char": 2732,
+            "end_char": 2822
+          }
+        ],
+        "rationale": "The text specifies NRS score >= 8 for hospitalized patients."
+      },
+      {
+        "field": "pain_score_vas_threshold_hospitalized",
+        "value_preview": "8",
+        "support_judgment": "supported",
+        "evidence": [
+          {
+            "text_preview": "Hospitalized with severe pain (Numeric Rating Scale (NRS) or Visual Analog Scale (VAS) pain score \u2265 8) 4-7",
+            "start_char": 2732,
+            "end_char": 2822
+          }
+        ],
+        "rationale": "The text specifies VAS score >= 8 for hospitalized patients."
+      },
+      {
+        "field": "pain_score_nrs_threshold_non_hospitalized",
+        "value_preview": "5",
+        "support_judgment": "supported",
+        "evidence": [
+          {
+            "text_preview": "Non-hospitalized with moderate to severe pain (NRS or VAS \u22655) despite optimal non-surgical management (NSM)10 (ONE):",
+            "start_char": 2827,
+            "end_char": 2932
+          }
+        ],
+        "rationale": "The text specifies NRS score >= 5 for non-hospitalized patients."
+      },
+      {
+        "field": "pain_score_vas_threshold_non_hospitalized",
+        "value_preview": "5",
+        "support_judgment": "supported",
+        "evidence": [
+          {
+            "text_preview": "Non-hospitalized with moderate to severe pain (NRS or VAS \u22655) despite optimal non-surgical management (NSM)10 (ONE):",
+            "start_char": 2827,
+            "end_char": 2932
+          }
+        ],
+        "rationale": "The text specifies VAS score >= 5 for non-hospitalized patients."
+      },
+      {
+        "field": "optimal_non_surgical_management_failure_flag",
+        "value_preview": true,
+        "support_judgment": "supported",
+        "evidence": [
+          {
+            "text_preview": "Non-hospitalized with moderate to severe pain (NRS or VAS \u22655) despite optimal non-surgical management (NSM)10 (ONE):",
+            "start_char": 2827,
+            "end_char": 2932
+          }
+        ],
+        "rationale": "The text indicates pain despite optimal non-surgical management."
+      },
+      {
+        "field": "pain_worsening_flag",
+        "value_preview": true,
+        "support_judgment": "supported",
+        "evidence": [
+          {
+            "text_preview": "1. Worsening pain",
+            "start_char": 2940,
+            "end_char": 2957
+          }
+        ],
+        "rationale": "The text mentions worsening pain."
+      },
+      {
+        "field": "vertebral_body_height_loss_progression_flag",
+        "value_preview": true,
+        "support_judgment": "supported",
+        "evidence": [
+          {
+            "text_preview": "A. Progression of vertebral body height loss",
+            "start_char": 2998,
+            "end_char": 3038
+          }
+        ],
+        "rationale": "The text describes progression of vertebral body height loss."
+      },
+      {
+        "field": "vertebral_body_height_reduction_percentage_threshold",
+        "value_preview": "25",
+        "support_judgment": "supported",
+        "evidence": [
+          {
+            "text_preview": "B. > 25% vertebral body height reduction",
+            "start_char": 3041,
+            "end_char": 3080
+          }
+        ],
+        "rationale": "The text indicates > 25% vertebral body height reduction."
+      },
+      {
+        "field": "kyphotic_deformity_flag",
+        "value_preview": true,
+        "support_judgment": "supported",
+        "evidence": [
+          {
+            "text_preview": "C. Kyphotic deformity",
+            "start_char": 3083,
+            "end_char": 3103
+          }
+        ],
+        "rationale": "The text specifies kyphotic deformity."
+      },
+      {
+        "field": "daily_functioning_rdq_score_threshold",
+        "value_preview": "17",
+        "support_judgment": "supported",
+        "evidence": [
+          {
+            "text_preview": "Severe impact of VCF on daily functioning (Roland Morris Disability\nQuestionnaire (RDQ) >17",
+            "start_char": 3106,
+            "end_char": 3191
+          }
+        ],
+        "rationale": "The text specifies RDQ > 17."
+      },
+      {
+        "field": "bone_mineral_density_evaluation_referral_flag",
+        "value_preview": true,
+        "support_judgment": "supported",
+        "evidence": [
+          {
+            "text_preview": "All patients presenting with VCF should be referred for evaluation of BMD",
+            "start_char": 3214,
+            "end_char": 3281
+          }
+        ],
+        "rationale": "The text states all patients should be referred for BMD evaluation."
+      },
+      {
+        "field": "osteoporosis_education_referral_flag",
+        "value_preview": true,
+        "support_judgment": "supported",
+        "evidence": [
+          {
+            "text_preview": "All patients presenting with VCF should be referred for evaluation of BMD and osteoporosis education",
+            "start_char": 3214,
+            "end_char": 3305
+          }
+        ],
+        "rationale": "The text states all patients should be referred for osteoporosis education."
+      },
+      {
+        "field": "osteoporosis_prevention_treatment_program_participation_flag",
+        "value_preview": true,
+        "support_judgment": "supported",
+        "evidence": [
+          {
+            "text_preview": "All patients with VCF should be instructed to take part in an osteoporosis prevention/treatment program.",
+            "start_char": 3331,
+            "end_char": 3418
+          }
+        ],
+        "rationale": "The text requires patients to participate in an osteoporosis program."
+      },
+      {
+        "field": "back_pain_not_primarily_vcf_flag",
+        "value_preview": true,
+        "support_judgment": "supported",
+        "evidence": [
+          {
+            "text_preview": "Current back pain is not primarily due to the identified acute or subacute\nVCF(s).",
+            "start_char": 3479,
+            "end_char": 3562
+          }
+        ],
+        "rationale": "Text explicitly states this condition is a contraindication."
+      },
+      {
+        "field": "osteomyelitis_flag",
+        "value_preview": true,
+        "support_judgment": "supported",
+        "evidence": [
+          {
+            "text_preview": "Osteomyelitis, discitis or active systemic or surgical site infection",
+            "start_char": 3566,
+            "end_char": 3627
+          }
+        ],
+        "rationale": "Text explicitly mentions osteomyelitis as a contraindication."
+      },
+      {
+        "field": "discitis_flag",
+        "value_preview": true,
+        "support_judgment": "supported",
+        "evidence": [
+          {
+            "text_preview": "Osteomyelitis, discitis or active systemic or surgical site infection",
+            "start_char": 3566,
+            "end_char": 3627
+          }
+        ],
+        "rationale": "Text explicitly mentions discitis as a contraindication."
+      },
+      {
+        "field": "active_systemic_infection_flag",
+        "value_preview": true,
+        "support_judgment": "supported",
+        "evidence": [
+          {
+            "text_preview": "Osteomyelitis, discitis or active systemic or surgical site infection",
+            "start_char": 3566,
+            "end_char": 3627
+          }
+        ],
+        "rationale": "Text explicitly mentions active systemic infection as a contraindication."
+      },
+      {
+        "field": "surgical_site_infection_flag",
+        "value_preview": true,
+        "support_judgment": "supported",
+        "evidence": [
+          {
+            "text_preview": "Osteomyelitis, discitis or active systemic or surgical site infection",
+            "start_char": 3566,
+            "end_char": 3627
+          }
+        ],
+        "rationale": "Text explicitly mentions surgical site infection as a contraindication."
+      },
+      {
+        "field": "pregnancy_flag",
+        "value_preview": true,
+        "support_judgment": "supported",
+        "evidence": [
+          {
+            "text_preview": "Pregnancy",
+            "start_char": 3631,
+            "end_char": 3640
+          }
+        ],
+        "rationale": "Text explicitly mentions pregnancy as a contraindication."
+      },
+      {
+        "field": "vertebral_fracture_count_per_procedure_limit",
+        "value_preview": "3",
+        "support_judgment": "supported",
+        "evidence": [
+          {
+            "text_preview": "Greater than three vertebral fractures per procedure",
+            "start_char": 3675,
+            "end_char": 3726
+          }
+        ],
+        "rationale": "Text describes the limit of 3 vertebral fractures per procedure."
+      },
+      {
+        "field": "allergy_bone_cement_flag",
+        "value_preview": true,
+        "support_judgment": "supported",
+        "evidence": [
+          {
+            "text_preview": "Allergy to bone cement or opacification agents",
+            "start_char": 3729,
+            "end_char": 3773
+          }
+        ],
+        "rationale": "Text indicates allergy to bone cement is a contraindication."
+      },
+      {
+        "field": "allergy_opacification_agents_flag",
+        "value_preview": true,
+        "support_judgment": "supported",
+        "evidence": [
+          {
+            "text_preview": "Allergy to bone cement or opacification agents",
+            "start_char": 3729,
+            "end_char": 3773
+          }
+        ],
+        "rationale": "Text indicates allergy to opacification agents is a contraindication."
+      },
+      {
+        "field": "uncorrected_coagulopathy_flag",
+        "value_preview": true,
+        "support_judgment": "supported",
+        "evidence": [
+          {
+            "text_preview": "Uncorrected Coagulopathy",
+            "start_char": 3776,
+            "end_char": 3800
+          }
+        ],
+        "rationale": "Text indicates uncorrected coagulopathy is a contraindication."
+      },
+      {
+        "field": "spinal_instability_flag",
+        "value_preview": true,
+        "support_judgment": "supported",
+        "evidence": [
+          {
+            "text_preview": "Spinal instability",
+            "start_char": 3803,
+            "end_char": 3820
+          }
+        ],
+        "rationale": "Text indicates spinal instability is a contraindication."
+      },
+      {
+        "field": "myelopathy_from_fracture_flag",
+        "value_preview": true,
+        "support_judgment": "supported",
+        "evidence": [
+          {
+            "text_preview": "Myelopathy from the fracture",
+            "start_char": 3823,
+            "end_char": 3850
+          }
+        ],
+        "rationale": "Text indicates myelopathy from fracture is a contraindication."
+      },
+      {
+        "field": "neurologic_deficit_flag",
+        "value_preview": true,
+        "support_judgment": "supported",
+        "evidence": [
+          {
+            "text_preview": "Neurologic deficit",
+            "start_char": 3853,
+            "end_char": 3870
+          }
+        ],
+        "rationale": "Text indicates neurologic deficit is a contraindication."
+      },
+      {
+        "field": "neural_impingement_flag",
+        "value_preview": true,
+        "support_judgment": "supported",
+        "evidence": [
+          {
+            "text_preview": "Neural impingement",
+            "start_char": 3873,
+            "end_char": 3891
+          }
+        ],
+        "rationale": "Text indicates neural impingement is a contraindication."
+      },
+      {
+        "field": "fracture_retropulsion_flag",
+        "value_preview": true,
+        "support_judgment": "supported",
+        "evidence": [
+          {
+            "text_preview": "Fracture retropulsion/canal compromise",
+            "start_char": 3894,
+            "end_char": 3931
+          }
+        ],
+        "rationale": "Text indicates fracture retropulsion is a contraindication."
+      },
+      {
+        "field": "canal_compromise_flag",
+        "value_preview": true,
+        "support_judgment": "supported",
+        "evidence": [
+          {
+            "text_preview": "Fracture retropulsion/canal compromise",
+            "start_char": 3894,
+            "end_char": 3931
+          }
+        ],
+        "rationale": "Text indicates canal compromise is a contraindication."
+      },
+      {
+        "field": "procedure_percutaneous_vertebroplasty",
+        "value_preview": "Percutaneous Vertebroplasty (PVP)",
+        "support_judgment": "supported",
+        "evidence": [
+          {
+            "text_preview": "PVA (Percutaneous Vertebroplasty (PVP) or Kyphoplasty (PKP)) is covered in patients with BOTH the following:",
+            "start_char": 2502,
+            "end_char": 2590
+          }
+        ],
+        "rationale": "The text states that PVA includes PVP."
+      },
+      {
+        "field": "procedure_kyphoplasty",
+        "value_preview": "Kyphoplasty (PKP)",
+        "support_judgment": "supported",
+        "evidence": [
+          {
+            "text_preview": "PVA (Percutaneous Vertebroplasty (PVP) or Kyphoplasty (PKP)) is covered in patients with BOTH the following:",
+            "start_char": 2502,
+            "end_char": 2590
+          }
+        ],
+        "rationale": "The text states that PVA includes Kyphoplasty."
+      },
+      {
+        "field": "procedure_code_CPT",
+        "value_preview": null,
+        "support_judgment": "unsupported",
+        "evidence": [],
+        "rationale": "CPT codes are not mentioned in the text."
+      },
+      {
+        "field": "follow_up_pain_relief_nrs_target_window_days",
+        "value_preview": null,
+        "support_judgment": "unsupported",
+        "evidence": [],
+        "rationale": "Required window (days) to achieve NRS score < 4 is not mentioned in the text."
+      },
+      {
+        "field": "opioid_taper_window_days",
+        "value_preview": null,
+        "support_judgment": "unsupported",
+        "evidence": [],
+        "rationale": "Required window (days) for patients to taper parenteral opioids or transition to oral opioids is not mentioned in the text."
+      },
+      {
+        "field": "non_operative_medical_therapy_trial_duration_hours",
+        "value_preview": null,
+        "support_judgment": "unsupported",
+        "evidence": [],
+        "rationale": "Duration (hours) of brief nonoperative medical therapy trial is not mentioned in the text."
+      },
+      {
+        "field": "medical_therapy_failure_window_weeks",
+        "value_preview": null,
+        "support_judgment": "unsupported",
+        "evidence": [],
+        "rationale": "Duration (weeks) of failed medical therapy for acute VCFs is not mentioned in the text."
+      },
+      {
+        "field": "lcd_id",
+        "value_preview": "L34106",
+        "support_judgment": "supported",
+        "evidence": [
+          {
+            "text_preview": "L34106",
+            "start_char": 188,
+            "end_char": 194
+          }
+        ],
+        "rationale": "LCD ID is clearly stated."
+      },
+      {
+        "field": "lcd_title",
+        "value_preview": "Percutaneous Vertebral Augmentation (PVA) for Osteoporotic Vertebral Compression Fracture (VCF)",
+        "support_judgment": "supported",
+        "evidence": [
+          {
+            "text_preview": "Percutaneous Vertebral Augmentation (PVA) | for Osteoporotic Vertebral Compression | Fracture (VCF)",
+            "start_char": 213,
+            "end_char": 326
+          }
+        ],
+        "rationale": "The title is clearly stated in the text."
+      },
+      {
+        "field": "lcd_original_effective_date",
+        "value_preview": null,
+        "support_judgment": "unsupported",
+        "evidence": [],
+        "rationale": "Date not found within first section of text."
+      },
+      {
+        "field": "lcd_revision_effective_date",
+        "value_preview": null,
+        "support_judgment": "unsupported",
+        "evidence": [],
+        "rationale": "Date not found within first section of text."
+      },
+      {
+        "field": "lcd_revision_ending_date",
+        "value_preview": null,
+        "support_judgment": "unsupported",
+        "evidence": [],
+        "rationale": "Date not found within first section of text."
+      },
+      {
+        "field": "lcd_retirement_date",
+        "value_preview": "N/A",
+        "support_judgment": "supported",
+        "evidence": [
+          {
+            "text_preview": "Retirement Date N/A",
+            "start_char": 980,
+            "end_char": 1000
+          }
+        ],
+        "rationale": "The retirement date is explicitly listed."
+      },
+      {
+        "field": "lcd_notice_period_start_date",
+        "value_preview": null,
+        "support_judgment": "unsupported",
+        "evidence": [],
+        "rationale": "Date not found within first section of text."
+      },
+      {
+        "field": "lcd_notice_period_end_date",
+        "value_preview": null,
+        "support_judgment": "unsupported",
+        "evidence": [],
+        "rationale": "Date not found within first section of text."
+      }
+    ]
+  },
+  "normalization": {
+    "score": 100,
+    "issues": []
+  },
+  "consistency": {
+    "score": 100,
+    "contradictions": [],
+    "duplicates_collapsed": true
+  },
+  "hygiene": {
+    "score": 100,
+    "flags": []
+  },
+  "overall": {
+    "score": 94,
+    "pass": true,
+    "blocking_issues": []
+  },
+  "suggested_fixes": [
+    "Add evidence for lcd_original_effective_date, lcd_revision_effective_date, lcd_revision_ending_date, lcd_notice_period_start_date, and lcd_notice_period_end_date"
+  ],
+  "version": "entity-eval.v1",
+  "timestamp_utc": "2024-05-01T17:03:48Z"
+}

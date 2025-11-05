@@ -1,0 +1,308 @@
+[
+  {
+    "name": "patient_id",
+    "type": "string",
+    "description": "Unique patient identifier",
+    "section": "Demographics"
+  },
+  {
+    "name": "vcf_acuity_acute_duration_weeks",
+    "type": "integer",
+    "description": "Duration for acute osteoporotic vertebral compression fracture (VCF) (less than 6 weeks)",
+    "section": "Eligibility"
+  },
+  {
+    "name": "vcf_acuity_subacute_duration_weeks_min",
+    "type": "integer",
+    "description": "Minimum duration for subacute osteoporotic vertebral compression fracture (VCF) (6 weeks)",
+    "section": "Eligibility"
+  },
+  {
+    "name": "vcf_acuity_subacute_duration_weeks_max",
+    "type": "integer",
+    "description": "Maximum duration for subacute osteoporotic vertebral compression fracture (VCF) (12 weeks)",
+    "section": "Eligibility"
+  },
+  {
+    "name": "vcf_location_vertebral_levels",
+    "type": "string",
+    "description": "Vertebral compression fracture (VCF) location (T1 \u2013 L5)",
+    "section": "Eligibility"
+  },
+  {
+    "name": "imaging_bone_marrow_edema_mri_flag",
+    "type": "boolean",
+    "description": "Documentation of bone marrow edema on MRI",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "imaging_bone_scan_spect_ct_uptake_flag",
+    "type": "boolean",
+    "description": "Documentation of bone-scan/SPECT/CT uptake",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "pain_score_nrs_threshold_hospitalized",
+    "type": "integer",
+    "description": "Numeric Rating Scale (NRS) pain score threshold for hospitalized patients with severe pain (>= 8)",
+    "section": "Eligibility"
+  },
+  {
+    "name": "pain_score_vas_threshold_hospitalized",
+    "type": "integer",
+    "description": "Visual Analog Scale (VAS) pain score threshold for hospitalized patients with severe pain (>= 8)",
+    "section": "Eligibility"
+  },
+  {
+    "name": "pain_score_nrs_threshold_non_hospitalized",
+    "type": "integer",
+    "description": "Numeric Rating Scale (NRS) pain score threshold for non-hospitalized patients with moderate to severe pain (>= 5)",
+    "section": "Eligibility"
+  },
+  {
+    "name": "pain_score_vas_threshold_non_hospitalized",
+    "type": "integer",
+    "description": "Visual Analog Scale (VAS) pain score threshold for non-hospitalized patients with moderate to severe pain (>= 5)",
+    "section": "Eligibility"
+  },
+  {
+    "name": "optimal_non_surgical_management_failure_flag",
+    "type": "boolean",
+    "description": "Pain despite optimal non-surgical management (NSM) for non-hospitalized patients",
+    "section": "Eligibility"
+  },
+  {
+    "name": "pain_worsening_flag",
+    "type": "boolean",
+    "description": "Worsening pain (for non-hospitalized with moderate to severe pain)",
+    "section": "Eligibility"
+  },
+  {
+    "name": "vertebral_body_height_loss_progression_flag",
+    "type": "boolean",
+    "description": "Progression of vertebral body height loss",
+    "section": "Eligibility"
+  },
+  {
+    "name": "vertebral_body_height_reduction_percentage_threshold",
+    "type": "integer",
+    "description": "Vertebral body height reduction percentage threshold (> 25%)",
+    "section": "Eligibility"
+  },
+  {
+    "name": "kyphotic_deformity_flag",
+    "type": "boolean",
+    "description": "Presence of kyphotic deformity",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "daily_functioning_rdq_score_threshold",
+    "type": "integer",
+    "description": "Roland Morris Disability Questionnaire (RDQ) score threshold for severe impact on daily functioning (>17)",
+    "section": "Eligibility"
+  },
+  {
+    "name": "bone_mineral_density_evaluation_referral_flag",
+    "type": "boolean",
+    "description": "Referral for evaluation of Bone Mineral Density (BMD)",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "osteoporosis_education_referral_flag",
+    "type": "boolean",
+    "description": "Referral for osteoporosis education",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "osteoporosis_prevention_treatment_program_participation_flag",
+    "type": "boolean",
+    "description": "Instruction to take part in an osteoporosis prevention/treatment program",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "back_pain_not_primarily_vcf_flag",
+    "type": "boolean",
+    "description": "Current back pain is not primarily due to the identified acute or subacute VCF(s)",
+    "section": "Exclusion Criteria"
+  },
+  {
+    "name": "osteomyelitis_flag",
+    "type": "boolean",
+    "description": "Presence of osteomyelitis",
+    "section": "Exclusion Criteria"
+  },
+  {
+    "name": "discitis_flag",
+    "type": "boolean",
+    "description": "Presence of discitis",
+    "section": "Exclusion Criteria"
+  },
+  {
+    "name": "active_systemic_infection_flag",
+    "type": "boolean",
+    "description": "Presence of active systemic infection",
+    "section": "Exclusion Criteria"
+  },
+  {
+    "name": "surgical_site_infection_flag",
+    "type": "boolean",
+    "description": "Presence of surgical site infection",
+    "section": "Exclusion Criteria"
+  },
+  {
+    "name": "pregnancy_flag",
+    "type": "boolean",
+    "description": "Patient is pregnant",
+    "section": "Exclusion Criteria"
+  },
+  {
+    "name": "vertebral_fracture_count_per_procedure_limit",
+    "type": "integer",
+    "description": "Maximum number of vertebral fractures per procedure (greater than 3 is a relative contraindication)",
+    "section": "Exclusion Criteria"
+  },
+  {
+    "name": "allergy_bone_cement_flag",
+    "type": "boolean",
+    "description": "Allergy to bone cement",
+    "section": "Exclusion Criteria"
+  },
+  {
+    "name": "allergy_opacification_agents_flag",
+    "type": "boolean",
+    "description": "Allergy to opacification agents",
+    "section": "Exclusion Criteria"
+  },
+  {
+    "name": "uncorrected_coagulopathy_flag",
+    "type": "boolean",
+    "description": "Presence of uncorrected coagulopathy",
+    "section": "Exclusion Criteria"
+  },
+  {
+    "name": "spinal_instability_flag",
+    "type": "boolean",
+    "description": "Presence of spinal instability",
+    "section": "Exclusion Criteria"
+  },
+  {
+    "name": "myelopathy_from_fracture_flag",
+    "type": "boolean",
+    "description": "Presence of myelopathy from the fracture",
+    "section": "Exclusion Criteria"
+  },
+  {
+    "name": "neurologic_deficit_flag",
+    "type": "boolean",
+    "description": "Presence of neurologic deficit",
+    "section": "Exclusion Criteria"
+  },
+  {
+    "name": "neural_impingement_flag",
+    "type": "boolean",
+    "description": "Presence of neural impingement",
+    "section": "Exclusion Criteria"
+  },
+  {
+    "name": "fracture_retropulsion_flag",
+    "type": "boolean",
+    "description": "Presence of fracture retropulsion",
+    "section": "Exclusion Criteria"
+  },
+  {
+    "name": "canal_compromise_flag",
+    "type": "boolean",
+    "description": "Presence of canal compromise",
+    "section": "Exclusion Criteria"
+  },
+  {
+    "name": "procedure_percutaneous_vertebroplasty",
+    "type": "string",
+    "description": "Percutaneous Vertebroplasty (PVP) procedure, a type of percutaneous vertebral augmentation (PVA)",
+    "section": "Procedures"
+  },
+  {
+    "name": "procedure_kyphoplasty",
+    "type": "string",
+    "description": "Kyphoplasty (PKP) procedure, a type of percutaneous vertebral augmentation (PVA)",
+    "section": "Procedures"
+  },
+  {
+    "name": "procedure_code_CPT",
+    "type": "string",
+    "description": "CPT codes for percutaneous vertebral augmentation, including 22510, 22511, 22512, 22513, 22514, 22515",
+    "section": "Procedures"
+  },
+  {
+    "name": "follow_up_pain_relief_nrs_target_window_days",
+    "type": "integer",
+    "description": "Required window (days) to achieve NRS score < 4 (14 days)",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "opioid_taper_window_days",
+    "type": "integer",
+    "description": "Required window (days) for patients to taper parenteral opioids or transition to oral opioids (7 days)",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "non_operative_medical_therapy_trial_duration_hours",
+    "type": "integer",
+    "description": "Duration (hours) of brief nonoperative medical therapy trial (24 hours)",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "medical_therapy_failure_window_weeks",
+    "type": "integer",
+    "description": "Duration (weeks) of failed medical therapy for acute VCFs (<3 weeks)",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "lcd_id",
+    "type": "string",
+    "description": "Local Coverage Determination (LCD) identifier",
+    "section": "Policy Information"
+  },
+  {
+    "name": "lcd_title",
+    "type": "string",
+    "description": "Local Coverage Determination (LCD) title: Percutaneous Vertebral Augmentation (PVA) for Osteoporotic Vertebral Compression Fracture (VCF)",
+    "section": "Policy Information"
+  },
+  {
+    "name": "lcd_original_effective_date",
+    "type": "string",
+    "description": "Original effective date for services performed on or after (month/day/year)",
+    "section": "Policy Information"
+  },
+  {
+    "name": "lcd_revision_effective_date",
+    "type": "string",
+    "description": "Revision effective date for services performed on or after (month/day/year)",
+    "section": "Policy Information"
+  },
+  {
+    "name": "lcd_revision_ending_date",
+    "type": "string",
+    "description": "Revision ending date (month/day/year)",
+    "section": "Policy Information"
+  },
+  {
+    "name": "lcd_retirement_date",
+    "type": "string",
+    "description": "Retirement date (month/day/year)",
+    "section": "Policy Information"
+  },
+  {
+    "name": "lcd_notice_period_start_date",
+    "type": "string",
+    "description": "Notice period start date (month/day/year)",
+    "section": "Policy Information"
+  },
+  {
+    "name": "lcd_notice_period_end_date",
+    "type": "string",
+    "description": "Notice period end date (month/day/year)",
+    "section": "Policy Information"
+  }
+]

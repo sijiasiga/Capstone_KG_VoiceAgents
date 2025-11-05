@@ -4,7 +4,7 @@
 # Run from KG/ directory
 
 PDF_FILE="NCD_LCD_Syn_data/L34106/LCD - Percutaneous Vertebral Augmentation (PVA) for Osteoporotic Vertebral Compression Fracture (VCF) (L34106).pdf"
-OUTPUT_DIR="test2"
+OUTPUT_DIR="test3"
 INITIAL_DATA_DIC="test1/Data_dictionary.json"
 DATAFIELD_PROMPT="prompts/DataField/1.txt"
 POLICY_PROMPT="prompts/Policy/1.txt"
@@ -38,7 +38,7 @@ echo ""
 # Step 0: Extract text from PDF using OCR
 # Save with policy_id in filename
 EXTRACTED_TEXT_FILE="$OUTPUT_DIR/Policy_$POLICY_ID.txt"
-python OCR/pdf_ocr.py "$PDF_FILE" --output "$EXTRACTED_TEXT_FILE"
+python OCR/policy_ocr.py --input_file "$PDF_FILE" --output "$EXTRACTED_TEXT_FILE"
 
 if [ ! -f "$EXTRACTED_TEXT_FILE" ]; then
     echo "Error: Failed to extract text from PDF"
