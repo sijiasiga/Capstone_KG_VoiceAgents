@@ -1,0 +1,314 @@
+[
+  {
+    "name": "patient_id",
+    "type": "string",
+    "description": "Unique patient identifier",
+    "section": "Demographics"
+  },
+  {
+    "name": "lcd_id",
+    "type": "string",
+    "description": "Local Coverage Determination (LCD) identifier",
+    "section": "Policy Information"
+  },
+  {
+    "name": "lcd_title",
+    "type": "string",
+    "description": "Title of the Local Coverage Determination (LCD)",
+    "section": "Policy Information"
+  },
+  {
+    "name": "original_effective_date",
+    "type": "string",
+    "description": "Original effective date for services covered by the LCD",
+    "section": "Policy Information"
+  },
+  {
+    "name": "revision_effective_date",
+    "type": "string",
+    "description": "Effective date of the latest revision for services covered by the LCD",
+    "section": "Policy Information"
+  },
+  {
+    "name": "contractor_name",
+    "type": "string",
+    "description": "Name of the Medicare Administrative Contractor (MAC)",
+    "section": "Policy Information"
+  },
+  {
+    "name": "contract_type",
+    "type": "string",
+    "description": "Type of contract held by the Medicare Administrative Contractor (MAC)",
+    "section": "Policy Information"
+  },
+  {
+    "name": "mac_contract_number",
+    "type": "string",
+    "description": "Contract number associated with the Medicare Administrative Contractor (MAC)",
+    "section": "Policy Information"
+  },
+  {
+    "name": "jurisdiction_type",
+    "type": "string",
+    "description": "Type of jurisdiction for the Medicare Administrative Contractor (MAC)",
+    "section": "Policy Information"
+  },
+  {
+    "name": "covered_state",
+    "type": "string",
+    "description": "State covered by the Medicare Administrative Contractor (MAC) jurisdiction",
+    "section": "Policy Information"
+  },
+  {
+    "name": "section_1862a1a_exclusion_description",
+    "type": "string",
+    "description": "Exclusion of expenses for items or services not reasonable and necessary for diagnosis, treatment, or functional improvement per Section 1862(a)(1)(A) of the Social Security Act.",
+    "section": "Policy Exclusions"
+  },
+  {
+    "name": "section_1833e_prohibition_description",
+    "type": "string",
+    "description": "Prohibition of Medicare payment for claims lacking necessary information per Section 1833(e) of the Social Security Act.",
+    "section": "Policy Exclusions"
+  },
+  {
+    "name": "procedure_name_pva",
+    "type": "string",
+    "description": "General term for Percutaneous Vertebral Augmentation, including vertebroplasty and kyphoplasty.",
+    "section": "Procedures"
+  },
+  {
+    "name": "procedure_name_pvp",
+    "type": "string",
+    "description": "Specific type of Percutaneous Vertebral Augmentation involving percutaneous injection of bone cement.",
+    "section": "Procedures"
+  },
+  {
+    "name": "procedure_name_pkp",
+    "type": "string",
+    "description": "Specific type of Percutaneous Vertebral Augmentation involving balloon tamponade prior to cement injection.",
+    "section": "Procedures"
+  },
+  {
+    "name": "diagnosis_osteoporotic_vcf",
+    "type": "string",
+    "description": "Diagnosis of a vertebral compression fracture caused by osteoporosis.",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "vcf_onset_duration_acute_max_weeks",
+    "type": "integer",
+    "description": "Maximum onset duration for acute Vertebral Compression Fracture (VCF) in weeks.",
+    "section": "Eligibility"
+  },
+  {
+    "name": "vcf_onset_duration_subacute_min_weeks",
+    "type": "integer",
+    "description": "Minimum onset duration for subacute Vertebral Compression Fracture (VCF) in weeks.",
+    "section": "Eligibility"
+  },
+  {
+    "name": "vcf_onset_duration_subacute_max_weeks",
+    "type": "integer",
+    "description": "Maximum onset duration for subacute Vertebral Compression Fracture (VCF) in weeks.",
+    "section": "Eligibility"
+  },
+  {
+    "name": "vcf_anatomical_location",
+    "type": "string",
+    "description": "Anatomical location of the vertebral compression fracture, ranging from T1 to L5.",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "vcf_imaging_mri_bone_marrow_edema",
+    "type": "boolean",
+    "description": "Requirement for documentation of bone marrow edema on MRI for VCF.",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "vcf_imaging_bone_scan_spect_ct_uptake",
+    "type": "boolean",
+    "description": "Requirement for documentation of bone-scan/SPECT/CT uptake for VCF.",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "patient_pain_score_nrs_vas_hospitalized_min",
+    "type": "integer",
+    "description": "Minimum Numeric Rating Scale (NRS) or Visual Analog Scale (VAS) pain score for hospitalized patients with symptomatic VCF.",
+    "section": "Eligibility"
+  },
+  {
+    "name": "patient_pain_score_nrs_vas_non_hospitalized_min",
+    "type": "integer",
+    "description": "Minimum Numeric Rating Scale (NRS) or Visual Analog Scale (VAS) pain score for non-hospitalized patients with symptomatic VCF.",
+    "section": "Eligibility"
+  },
+  {
+    "name": "non_surgical_management_attempted",
+    "type": "boolean",
+    "description": "Indicates if optimal non-surgical management (NSM) has been attempted for non-hospitalized patients.",
+    "section": "Eligibility"
+  },
+  {
+    "name": "pain_status_worsening",
+    "type": "boolean",
+    "description": "Indicates if pain is worsening despite optimal non-surgical management, as an eligibility criterion.",
+    "section": "Eligibility"
+  },
+  {
+    "name": "pain_status_stable_or_improved_but_score_ge_5",
+    "type": "boolean",
+    "description": "Indicates if pain is stable to improved but Numeric Rating Scale (NRS) or Visual Analog Scale (VAS) score is still >=5, as an eligibility criterion.",
+    "section": "Eligibility"
+  },
+  {
+    "name": "vcf_progression_vertebral_body_height_loss",
+    "type": "boolean",
+    "description": "Progression of vertebral body height loss as a criterion for VCF.",
+    "section": "Eligibility"
+  },
+  {
+    "name": "vcf_vertebral_body_height_reduction_percentage_min",
+    "type": "float",
+    "description": "Minimum percentage of vertebral body height reduction for VCF, if stable or improved pain with score >=5.",
+    "section": "Eligibility"
+  },
+  {
+    "name": "vcf_kyphotic_deformity_present",
+    "type": "boolean",
+    "description": "Presence of kyphotic deformity as a criterion for VCF, if stable or improved pain with score >=5.",
+    "section": "Eligibility"
+  },
+  {
+    "name": "vcf_rdq_score_min",
+    "type": "integer",
+    "description": "Minimum Roland Morris Disability Questionnaire (RDQ) score indicating severe impact of VCF on daily functioning, if stable or improved pain with score >=5.",
+    "section": "Eligibility"
+  },
+  {
+    "name": "bmd_evaluation_referral_required",
+    "type": "boolean",
+    "description": "Requirement for referral for evaluation of Bone Mineral Density (BMD).",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "osteoporosis_education_referral_required",
+    "type": "boolean",
+    "description": "Requirement for referral for osteoporosis education.",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "osteoporosis_prevention_treatment_program_required",
+    "type": "boolean",
+    "description": "Requirement for participation in an osteoporosis prevention/treatment program.",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "exclusion_back_pain_not_primarily_vcf_related",
+    "type": "boolean",
+    "description": "Exclusion criterion: Current back pain is not primarily due to the identified acute or subacute VCF(s).",
+    "section": "Exclusions"
+  },
+  {
+    "name": "exclusion_osteomyelitis_or_discitis",
+    "type": "boolean",
+    "description": "Exclusion criterion: Presence of osteomyelitis or discitis.",
+    "section": "Exclusions"
+  },
+  {
+    "name": "exclusion_active_systemic_or_surgical_site_infection",
+    "type": "boolean",
+    "description": "Exclusion criterion: Presence of active systemic or surgical site infection.",
+    "section": "Exclusions"
+  },
+  {
+    "name": "exclusion_pregnancy",
+    "type": "boolean",
+    "description": "Exclusion criterion: Patient is pregnant.",
+    "section": "Exclusions"
+  },
+  {
+    "name": "exclusion_greater_than_three_vertebral_fractures_per_procedure",
+    "type": "boolean",
+    "description": "Exclusion criterion: More than three vertebral fractures per procedure.",
+    "section": "Exclusions"
+  },
+  {
+    "name": "exclusion_allergy_bone_cement_or_opacification_agents",
+    "type": "boolean",
+    "description": "Exclusion criterion: Allergy to bone cement or opacification agents.",
+    "section": "Exclusions"
+  },
+  {
+    "name": "exclusion_uncorrected_coagulopathy",
+    "type": "boolean",
+    "description": "Exclusion criterion: Presence of uncorrected coagulopathy.",
+    "section": "Exclusions"
+  },
+  {
+    "name": "exclusion_spinal_instability",
+    "type": "boolean",
+    "description": "Exclusion criterion: Presence of spinal instability.",
+    "section": "Exclusions"
+  },
+  {
+    "name": "exclusion_myelopathy_from_fracture",
+    "type": "boolean",
+    "description": "Exclusion criterion: Myelopathy resulting from the fracture.",
+    "section": "Exclusions"
+  },
+  {
+    "name": "exclusion_neurologic_deficit",
+    "type": "boolean",
+    "description": "Exclusion criterion: Presence of a neurologic deficit.",
+    "section": "Exclusions"
+  },
+  {
+    "name": "exclusion_neural_impingement",
+    "type": "boolean",
+    "description": "Exclusion criterion: Presence of neural impingement.",
+    "section": "Exclusions"
+  },
+  {
+    "name": "exclusion_fracture_retropulsion_or_canal_compromise",
+    "type": "boolean",
+    "description": "Exclusion criterion: Presence of fracture retropulsion or canal compromise.",
+    "section": "Exclusions"
+  },
+  {
+    "name": "population_over_50_affected_by_osteoporosis_percentage",
+    "type": "integer",
+    "description": "Percentage of people over 50 years of age affected by osteoporosis or low bone mass in the United States.",
+    "section": "Demographics"
+  },
+  {
+    "name": "fracture_prevalence_women_over_50_percentage",
+    "type": "integer",
+    "description": "Percentage of women over 50 years of age who eventually experience fragility fractures.",
+    "section": "Demographics"
+  },
+  {
+    "name": "fracture_prevalence_men_over_50_percentage",
+    "type": "integer",
+    "description": "Percentage of men over 50 years of age who eventually experience fragility fractures.",
+    "section": "Demographics"
+  },
+  {
+    "name": "vcf_proportion_of_osteoporotic_fractures_percentage",
+    "type": "integer",
+    "description": "Percentage of osteoporotic fractures constituted by vertebral compression fractures (VCFs).",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "vcf_mortality_risk_10_year_medicare_percentage",
+    "type": "integer",
+    "description": "10-year mortality risk following a VCF diagnosis based on Medicare claims data.",
+    "section": "Prognosis"
+  },
+  {
+    "name": "nsm_treatment_options_description",
+    "type": "string",
+    "description": "Non-surgical management treatment options for symptomatic osteoporotic VCF, including anti-osteoporosis therapy, analgesics, limited activity/bed rest, back brace, and physical therapy.",
+    "section": "Treatments"
+  }
+]

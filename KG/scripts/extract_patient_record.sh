@@ -1,0 +1,1 @@
+python OCR/pdf_ocr.py Patients/MR_2.pdf

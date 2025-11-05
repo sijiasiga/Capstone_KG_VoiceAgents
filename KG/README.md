@@ -90,7 +90,42 @@ WHERE patient_age >= 18
   AND treatment_plan_documented = TRUE
 ```
 
+## 🤖 Policy Extraction Pipeline (process_policy.py)
 
+This script implements an end-to-end policy extraction pipeline using Gemini 2.5-Flash, chaining three agents together:
+
+1. **DataField Agent** - Extracts structured data fields from policy text
+2. **Policy Agent** - Extracts policy conditions and restrictions
+3. **SQL Agent** - Converts policy conditions to executable SQL
+
+### Setup
+
+Before running, create `api.json` in the root directory:
+
+```json
+{
+  "gemini": "your-gemini-api-key-here"
+}
+```
+
+### Usage
+
+```bash
+cd KG
+bash scripts/run_process_policy.sh
+```
+
+The script will:
+- Extract text from PDF using OCR
+- Run all 3 Gemini agents in sequence
+- Output files with naming format: `{Type}_{policy_id}.{ext}`
+
+### Output Files
+
+- `Policy_{policy_id}.txt` - OCR extracted policy text
+- `Data_dictionary_{policy_id}.json` - Extracted data fields
+- `Policy_{policy_id}.json` - Extracted policy conditions
+- `SQL_{policy_id}.txt` - Generated SQL queries
 
 ## 📊 Patient-Policy Compliance
 

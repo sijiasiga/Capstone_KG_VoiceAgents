@@ -1,0 +1,1 @@
+python OCR/medical_record_parser.py Patients/MR_2.txt

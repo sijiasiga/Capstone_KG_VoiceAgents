@@ -1,0 +1,57 @@
+```sql
+SELECT *
+FROM patients
+WHERE
+( -- Start of Inclusion criteria (ALL are required)
+  ( -- 1a. Acute/subacute osteoporotic VCF (T1-L5) AND documented by advanced imaging
+    ( -- Acute OR Subacute VCF
+      (diagnosis_osteoporotic_vcf = TRUE AND vcf_anatomical_location BETWEEN 'T1' AND 'L5' AND vcf_onset_duration_acute_max_weeks < 6)
+      OR
+      (diagnosis_osteoporotic_vcf = TRUE AND vcf_anatomical_location BETWEEN 'T1' AND 'L5' AND vcf_onset_duration_subacute_min_weeks >= 6 AND vcf_onset_duration_subacute_max_weeks <= 12)
+    )
+    AND
+    (vcf_imaging_mri_bone_marrow_edema = TRUE OR vcf_imaging_bone_scan_spect_ct_uptake = TRUE)
+  )
+  AND
+  ( -- 1b. Symptomatic (ONE of the following)
+    (patient_pain_score_nrs_vas_hospitalized_min >= 8)
+    OR
+    (patient_pain_score_nrs_vas_non_hospitalized_min >= 5 AND non_surgical_management_attempted = TRUE AND pain_status_worsening = TRUE)
+    OR
+    (patient_pain_score_nrs_vas_non_hospitalized_min >= 5 AND non_surgical_management_attempted = TRUE AND pain_status_stable_or_improved_but_score_ge_5 = TRUE AND (((vcf_progression_vertebral_body_height_loss = TRUE)::integer + (vcf_vertebral_body_height_reduction_percentage_min > 25.0)::integer + (vcf_kyphotic_deformity_present = TRUE)::integer + (vcf_rdq_score_min > 17)::integer) >= 2))
+  )
+  AND
+  ( -- 1c. Continuum of care (Both)
+    (bmd_evaluation_referral_required = TRUE AND osteoporosis_education_referral_required = TRUE)
+    AND
+    (osteoporosis_prevention_treatment_program_required = TRUE)
+  )
+) -- End of Inclusion criteria
+AND
+( -- Start of Exclusion criteria (Can have NONE of the following, rules are already negated)
+  (exclusion_back_pain_not_primarily_vcf_related = FALSE)
+  AND
+  (exclusion_osteomyelitis_or_discitis = FALSE)
+  AND
+  (exclusion_active_systemic_or_surgical_site_infection = FALSE)
+  AND
+  (exclusion_pregnancy = FALSE)
+  AND
+  (exclusion_greater_than_three_vertebral_fractures_per_procedure = FALSE)
+  AND
+  (exclusion_allergy_bone_cement_or_opacification_agents = FALSE)
+  AND
+  (exclusion_uncorrected_coagulopathy = FALSE)
+  AND
+  (exclusion_spinal_instability = FALSE)
+  AND
+  (exclusion_myelopathy_from_fracture = FALSE)
+  AND
+  (exclusion_neurologic_deficit = FALSE)
+  AND
+  (exclusion_neural_impingement = FALSE)
+  AND
+  (exclusion_fracture_retropulsion_or_canal_compromise = FALSE)
+) -- End of Exclusion criteria
+;
+```

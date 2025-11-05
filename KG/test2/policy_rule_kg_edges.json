@@ -1,0 +1,26 @@
+[
+  {
+    "source": "policy_center",
+    "target": "group_diagnosis",
+    "relation": "contains",
+    "edge_type": "policy_rule"
+  },
+  {
+    "source": "policy_center",
+    "target": "group_other",
+    "relation": "contains",
+    "edge_type": "policy_rule"
+  },
+  {
+    "source": "group_diagnosis",
+    "target": "condition_diagnosis_osteoporotic_vcf_0",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_exclusion_back_pain_not_primarily_vcf_related_0",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  }
+]

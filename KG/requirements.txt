@@ -33,3 +33,5 @@ pandas>=2.0.0
 # pip install transformers torch
 # pip install spacy>=3.6,<4
 # python -m spacy download en_core_web_sm
+
+google-genai

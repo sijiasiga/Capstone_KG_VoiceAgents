@@ -1,1 +1,0 @@
-python medical_record_parser.py MR_2.txt

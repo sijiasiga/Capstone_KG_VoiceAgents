@@ -1,0 +1,47 @@
+[
+  {
+    "id": "policy_center",
+    "type": "Policy",
+    "label": "Bariatric Surgery Policy",
+    "description": "Policy rules for bariatric surgery eligibility",
+    "node_size": 2000
+  },
+  {
+    "id": "group_diagnosis",
+    "type": "ConditionGroup",
+    "label": "Diagnosis Conditions",
+    "condition_type": "diagnosis",
+    "node_size": 1500
+  },
+  {
+    "id": "condition_diagnosis_osteoporotic_vcf_0",
+    "type": "Condition",
+    "label": "diagnosis_osteoporotic_vcf ...",
+    "field_name": "diagnosis_osteoporotic_vcf",
+    "operator": "=",
+    "value": "TRUE",
+    "description": "Diagnosis of a vertebral compression fracture caused by osteoporosis.",
+    "section": "Diagnosis",
+    "condition_type": "diagnosis",
+    "node_size": 1000
+  },
+  {
+    "id": "group_other",
+    "type": "ConditionGroup",
+    "label": "Other Conditions",
+    "condition_type": "other",
+    "node_size": 1500
+  },
+  {
+    "id": "condition_exclusion_back_pain_not_primarily_vcf_related_0",
+    "type": "Condition",
+    "label": "exclusion_back_pain_not_pri...",
+    "field_name": "exclusion_back_pain_not_primarily_vcf_related",
+    "operator": "=",
+    "value": "FALSE)",
+    "description": "Exclusion criterion: Current back pain is not primarily due to the identified acute or subacute VCF(s).",
+    "section": "Exclusions",
+    "condition_type": "other",
+    "node_size": 1000
+  }
+]
