@@ -3,8 +3,8 @@
 # Process medical policy: OCR → Extract fields → Extract conditions → Convert to SQL
 # Run from KG/ directory
 
-PDF_FILE="NCD_LCD_Syn_data/L34106/LCD - Percutaneous Vertebral Augmentation (PVA) for Osteoporotic Vertebral Compression Fracture (VCF) (L34106).pdf"
-OUTPUT_DIR="test3"
+PDF_FILE="NCD_LCD_Syn_data/NCD230.4/NCD - Diagnosis and Treatment of Impotence (230.4).pdf"
+OUTPUT_DIR="test4"
 INITIAL_DATA_DIC="test1/Data_dictionary.json"
 DATAFIELD_PROMPT="prompts/DataField/1.txt"
 POLICY_PROMPT="prompts/Policy/1.txt"
@@ -13,23 +13,16 @@ SQL_PROMPT="prompts/SQL/1.txt"
 # Create output directory if it doesn't exist
 mkdir -p "$OUTPUT_DIR"
 
-# Extract policy_id from PDF filename first
-POLICY_ID=$(python -c "
-import re, os
-filename = os.path.basename('$PDF_FILE')
-match = re.search(r'\(([a-zA-Z0-9_]+)\)\s*\.pdf$', filename, re.IGNORECASE)
-if match:
-    print(match.group(1))
-else:
-    policy_id = re.sub(r'\.pdf$', '', filename, flags=re.IGNORECASE)
-    policy_id = re.sub(r'[^a-zA-Z0-9_]', '_', policy_id)
-    policy_id = re.sub(r'_+', '_', policy_id)
-    policy_id = policy_id.strip('_')
-    print(policy_id)
-")
+# Extract policy_id from PDF filename using the utility
+POLICY_ID=$(python utils/extract_policy_id.py --file_dir "$PDF_FILE")
 
 echo "Extracted policy_id: $POLICY_ID"
 echo ""
+
+echo ""
+echo "Saving policy information..."
+python utils/save_policy_id.py --policy-id "$POLICY_ID" --output-dir "$OUTPUT_DIR"
+echo "✓ Policy information saved"
 
 echo "Step 0: Extracting text from PDF..."
 echo "PDF file: $PDF_FILE"
@@ -59,3 +52,18 @@ python process_policy.py \
   --policy-prompt "$POLICY_PROMPT" \
   --sql-prompt "$SQL_PROMPT" \
   --output-dir "$OUTPUT_DIR"
+
+echo ""
+echo "Step 4: Generating Knowledge Graph For Policy $POLICY_ID..."
+SQL_FILE="$OUTPUT_DIR/SQL_$POLICY_ID.txt"
+DATA_DICT_FILE="$OUTPUT_DIR/Data_dictionary_$POLICY_ID.json"
+
+python policy_rule_kg.py \
+  --sql "$SQL_FILE" \
+  --data-dict "$DATA_DICT_FILE" \
+  --policy-id "$POLICY_ID" \
+  --output-dir "$OUTPUT_DIR" \
+  --plot-path "$OUTPUT_DIR/policy_rule_kg_$POLICY_ID.png"
+
+echo "✓ Policy Knowledge Graph generated"
+

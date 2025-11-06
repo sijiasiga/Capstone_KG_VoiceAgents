@@ -20,7 +20,8 @@ streamlit run streamlit_app.py
 ```
 ├── patient_kg.py               # Patient data visualizer with code mapping
 ├── patient_rule_kg.py          # Patient vs policy evaluator  
-├── generate_policy_rule_kg.py  # Policy rule generator
+├── policy_rule_kg.py           # Policy rule generator
+├── process_policy.py           # Agents Orchestration for Policy Extraction
 ├── streamlit_app.py            # Interactive web application
 ├── Database                    # Database management system
 ├── OCR                         # Medical record processing
@@ -305,3 +306,13 @@ streamlit run streamlit_app.py
 
 **SQL Queries & Database Management Page:**
 ![Streamlit SQL Queries Page](Figures/streamlit2.jpg)
+
+## 📝 TODO
+
+- [x] **Agents Orchestration**: Finish multi-agent coordination
+- [x] **Policy Extraction Automation**: End-to-end automation from PDF input to KG generation
+- [ ] **Refinement of Policy OCR**: Enhance accuracy and robustness of medical policy text extraction
+- [ ] **Refinement of Patient Record OCR**: Improve extraction quality from patient medical records
+- [ ] **Refinement of Code Base**: Code optimization, documentation, and maintainability improvements
+- [ ] **Validation Agent**: Design agents to evaluate the results for each agents
+- [ ] **Streamlit Interface**: Add Policy Extraction Function

@@ -29,7 +29,7 @@ sys.path.insert(0, str(kg_dir))
 try:
     from OCR.pdf_ocr import extract_text_from_pdf, format_output
     from OCR.medical_record_parser import MedicalRecordParser, parse_medical_record_file
-    from generate_policy_rule_kg import PolicyRuleKGGenerator
+    from policy_rule_kg import PolicyRuleKGGenerator
     from patient_kg import PatientKGVisualizer
     from patient_rule_kg import PatientRuleKGVisualizer
 except ImportError as e:

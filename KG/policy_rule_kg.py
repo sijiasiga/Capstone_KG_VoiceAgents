@@ -24,11 +24,12 @@ class PolicyCondition:
 class PolicyRuleKGGenerator:
     """Generates a knowledge graph for policy rules with policy as center node."""
 
-    def __init__(self, sql_path: str, data_dictionary_path: str, output_dir: Optional[str] = None):
+    def __init__(self, sql_path: str, data_dictionary_path: str, policy_id: Optional[str] = None, output_dir: Optional[str] = None):
         self.sql_path = Path(sql_path)
         self.data_dictionary_path = Path(data_dictionary_path)
         self.output_dir = Path(output_dir) if output_dir else self.sql_path.parent
-        
+        self.policy_id = policy_id or "policy_center"
+
         self.graph = nx.DiGraph()
         self.data_dictionary = {}
         self.conditions: List[PolicyCondition] = []
@@ -237,13 +238,12 @@ class PolicyRuleKGGenerator:
     def _build_knowledge_graph(self) -> None:
         """Build the knowledge graph with policy as center node."""
         # Create policy center node
-        policy_id = "policy_center"
         self.graph.add_node(
-            policy_id,
-            id=policy_id,
+            self.policy_id,
+            id=self.policy_id,
             type="Policy",
-            label="Bariatric Surgery Policy",
-            description="Policy rules for bariatric surgery eligibility",
+            label=f"Policy {self.policy_id}",
+            description=f"Policy rules for {self.policy_id}",
             node_size=2000
         )
         
@@ -276,7 +276,7 @@ class PolicyRuleKGGenerator:
             
             # Connect group to policy
             self.graph.add_edge(
-                policy_id, group_id,
+                self.policy_id, group_id,
                 relation="contains",
                 edge_type="policy_rule"
             )
@@ -424,24 +424,26 @@ def main():
     parser = argparse.ArgumentParser(description="Generate policy rule knowledge graph")
     parser.add_argument("--sql", required=True, help="Path to SQL file")
     parser.add_argument("--data-dict", required=True, help="Path to data dictionary JSON file")
+    parser.add_argument("--policy-id", help="Policy identifier (default: policy_center)")
     parser.add_argument("--output-dir", help="Output directory (default: same as SQL file)")
     parser.add_argument("--plot-path", help="Path to save the plot (default: policy_rule_kg.png)")
     parser.add_argument("--show-plot", action="store_true", help="Show the plot")
-    
+
     args = parser.parse_args()
-    
+
     # Set default output directory
     if not args.output_dir:
         args.output_dir = Path(args.sql).parent
-    
+
     # Set default plot path
     if not args.plot_path:
         args.plot_path = str(Path(args.output_dir) / "policy_rule_kg.png")
-    
+
     # Generate the knowledge graph
     generator = PolicyRuleKGGenerator(
         sql_path=args.sql,
         data_dictionary_path=args.data_dict,
+        policy_id=args.policy_id,
         output_dir=args.output_dir
     )
     

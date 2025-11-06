@@ -1,0 +1,90 @@
+[
+  {
+    "id": "NCD_230_4",
+    "type": "Policy",
+    "label": "Policy NCD_230_4",
+    "description": "Policy rules for NCD_230_4",
+    "node_size": 2000
+  },
+  {
+    "id": "group_diagnosis",
+    "type": "ConditionGroup",
+    "label": "Diagnosis Conditions",
+    "condition_type": "diagnosis",
+    "node_size": 1500
+  },
+  {
+    "id": "condition_diagnosis_impotence_0",
+    "type": "Condition",
+    "label": "diagnosis_impotence = TRUE",
+    "field_name": "diagnosis_impotence",
+    "operator": "=",
+    "value": "TRUE",
+    "description": "A failure of a body part for which the diagnosis, and frequently the treatment, require medical expertise.",
+    "section": "Diagnosis",
+    "condition_type": "diagnosis",
+    "node_size": 1000
+  },
+  {
+    "id": "group_procedure",
+    "type": "ConditionGroup",
+    "label": "Procedure Conditions",
+    "condition_type": "procedure",
+    "node_size": 1500
+  },
+  {
+    "id": "condition_procedure_penile_prosthesis_implantation_0",
+    "type": "Condition",
+    "label": "procedure_penile_prosthesis...",
+    "field_name": "procedure_penile_prosthesis_implantation",
+    "operator": "=",
+    "value": "TRUE",
+    "description": "Surgical implantation of a penile prosthesis for impotence treatment",
+    "section": "Procedures",
+    "condition_type": "procedure",
+    "node_size": 1000
+  },
+  {
+    "id": "condition_treatment_medical_impotence_1",
+    "type": "Condition",
+    "label": "treatment_medical_impotence...",
+    "field_name": "treatment_medical_impotence",
+    "operator": "=",
+    "value": "TRUE",
+    "description": "Medical treatment for impotence",
+    "section": "Procedures",
+    "condition_type": "procedure",
+    "node_size": 1000
+  },
+  {
+    "id": "condition_treatment_psychotherapeutic_impotence_2",
+    "type": "Condition",
+    "label": "treatment_psychotherapeutic...",
+    "field_name": "treatment_psychotherapeutic_impotence",
+    "operator": "=",
+    "value": "TRUE",
+    "description": "Psychotherapeutic treatment for impotence",
+    "section": "Procedures",
+    "condition_type": "procedure",
+    "node_size": 1000
+  },
+  {
+    "id": "group_eligibility",
+    "type": "ConditionGroup",
+    "label": "Eligibility Conditions",
+    "condition_type": "eligibility",
+    "node_size": 1500
+  },
+  {
+    "id": "condition_patient_hospital_inpatient_flag_0",
+    "type": "Condition",
+    "label": "patient_hospital_inpatient_...",
+    "field_name": "patient_hospital_inpatient_flag",
+    "operator": "=",
+    "value": "FALSE",
+    "description": "Indicates if the patient is a hospital inpatient",
+    "section": "Eligibility",
+    "condition_type": "eligibility",
+    "node_size": 1000
+  }
+]

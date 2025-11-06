@@ -12,6 +12,7 @@ from google import genai
 from pydantic import BaseModel
 from DataField import DataField as DataFieldClass
 from Policy import Policy
+from utils.extract_policy_id import extract_policy_id
 
 # Pydantic models for structured API output
 class DataFieldPydantic(BaseModel):
@@ -43,52 +44,6 @@ if not api_key:
     sys.exit(1)
 
 client = genai.Client(api_key=api_key)
-
-def extract_policy_id(pdf_path):
-    """
-    Extract policy_id from PDF filename.
-    Strategies (in order):
-    1. Look for pattern in parentheses at the end: (L34106).pdf -> L34106
-    2. Use the entire filename without extension, replacing punctuation with underscores
-
-    Rules: only alphanumeric and underscores allowed, cannot start or end with underscore
-
-    Examples:
-    - LCD - PVA (L34106).pdf -> L34106
-    - my_policy_CGSURG83.pdf -> my_policy_CGSURG83
-    - Medical Policy - Test (v1.0).pdf -> Medical_Policy___Test__v1_0_ -> Medical_Policy___Test__v1_0
-    """
-    filename = os.path.basename(pdf_path)
-
-    # Strategy 1: Try to extract from parentheses at the end
-    # Pattern: (something).pdf where something is alphanumeric/underscore
-    match = re.search(r'\(([a-zA-Z0-9_]+)\)\s*\.pdf$', filename, re.IGNORECASE)
-    if match:
-        policy_id = match.group(1)
-    else:
-        # Strategy 2: Use entire filename without extension
-        policy_id = re.sub(r'\.pdf$', '', filename, flags=re.IGNORECASE)
-
-        # Replace any punctuation/special characters (except underscore) with underscore
-        policy_id = re.sub(r'[^a-zA-Z0-9_]', '_', policy_id)
-
-        # Remove consecutive underscores
-        policy_id = re.sub(r'_+', '_', policy_id)
-
-        # Remove leading/trailing underscores
-        policy_id = policy_id.strip('_')
-
-    # Validate: only alphanumeric and underscores
-    if not re.match(r'^[a-zA-Z0-9_]+$', policy_id):
-        print(f"Error: Policy ID '{policy_id}' contains invalid characters (only alphanumeric and _ allowed)")
-        sys.exit(1)
-
-    # Validate: cannot start or end with underscore
-    if policy_id.startswith('_') or policy_id.endswith('_'):
-        print(f"Error: Policy ID '{policy_id}' cannot start or end with underscore")
-        sys.exit(1)
-
-    return policy_id
 
 def load_file(path, file_type='text'):
     """Load a file and return its content"""
@@ -269,8 +224,12 @@ def main():
 
     # Auto-extract policy_id from filename if not provided
     if not args.policy_id:
-        args.policy_id = extract_policy_id(args.policy)
-        print(f"Auto-extracted policy_id: {args.policy_id}")
+        try:
+            args.policy_id = extract_policy_id(args.policy)
+            print(f"Auto-extracted policy_id: {args.policy_id}")
+        except ValueError as e:
+            print(f"Error: {e}")
+            sys.exit(1)
     else:
         print(f"Using provided policy_id: {args.policy_id}")
 

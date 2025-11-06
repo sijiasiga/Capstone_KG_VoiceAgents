@@ -1,0 +1,50 @@
+[
+  {
+    "source": "NCD_230_4",
+    "target": "group_diagnosis",
+    "relation": "contains",
+    "edge_type": "policy_rule"
+  },
+  {
+    "source": "NCD_230_4",
+    "target": "group_procedure",
+    "relation": "contains",
+    "edge_type": "policy_rule"
+  },
+  {
+    "source": "NCD_230_4",
+    "target": "group_eligibility",
+    "relation": "contains",
+    "edge_type": "policy_rule"
+  },
+  {
+    "source": "group_diagnosis",
+    "target": "condition_diagnosis_impotence_0",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_procedure",
+    "target": "condition_procedure_penile_prosthesis_implantation_0",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_procedure",
+    "target": "condition_treatment_medical_impotence_1",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_procedure",
+    "target": "condition_treatment_psychotherapeutic_impotence_2",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_eligibility",
+    "target": "condition_patient_hospital_inpatient_flag_0",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  }
+]
