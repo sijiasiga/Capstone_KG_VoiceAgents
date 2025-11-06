@@ -493,8 +493,9 @@ print(result["response"])
 - **Configuration Guide**: See [`config/README_Config.md`](config/README_Config.md) for all configurable parameters and where to modify them
 - **Safety and Boundaries**: See [`docs/Safety_and_Boundaries.md`](docs/Safety_and_Boundaries.md) for comprehensive safety documentation, clinical boundaries, and triage system explanation
 - **Policy System**: See `policy/` directory for global system behavior and agent-specific policies
-- **Updates**: See [`Updates.md`](Updates.md) for implementation change log
+- **Updates**: See [`DOCUMENTATION/Updates.md`](DOCUMENTATION/Updates.md) for implementation change log
 - **Evaluation**: See `evaluation/README.md` for evaluation documentation
+- **Tests**: See `tests/README.md` for tests documentation
 - **Original Implementation**: See parent `VoiceAgents/` directory for original implementation
 - **Function Comparison**: See `FUNCTION_COMPARISON.md` in parent directory for detailed comparison
 
