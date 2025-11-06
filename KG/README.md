@@ -5,15 +5,16 @@ A Python toolkit for generating and visualizing knowledge graphs from medical po
 ## 🚀 Quick Start
 
 1. **Install dependencies:**
+
 ```bash
 pip install -r requirements.txt
 ```
 
 2. **Run the Streamlit web app:**
+
 ```bash
 streamlit run streamlit_app.py
 ```
-
 
 ## 📁 Project Structure
 
@@ -37,21 +38,21 @@ streamlit run streamlit_app.py
 └── scripts/                    # Automation scripts
 ```
 
-
-
 ## 📋 Policy Rule Extraction: Bariatric Surgery
+
 ### Policy Extraction Agents Workflow
 
 ![Policy Extraction Agents](Figures/policy_extraction_agents.png)
 
 The [`/test1`](test1) directory contains a complete working example analyzing bariatric surgery eligibility.
 
-
-
 ### 1. Data Field Extraction Agent
+
 #### Input
+
 1. **Bariatric Surgery Policy**: https://www.anthem.com/medpolicies/abc/active/gl_pw_d085821.html
-2. [**Initial Data Dictionary**](test1/Data_dictionary.json): 
+2. [**Initial Data Dictionary**](test1/Data_dictionary.json):
+
 ```json
 [
     {
@@ -62,22 +63,30 @@ The [`/test1`](test1) directory contains a complete working example analyzing ba
     }
 ]
 ```
+
 #### Output
+
 1. **Data Dictionary JSON**: [Data_dictionary_CGSURG83.json](https://github.com/sijiasiga/Capstone_KG_VoiceAgents/blob/main/KG/test1/Policy_CGSURG83/Data_dictionary_CGSURG83.json)
 
 ### 2. Policy Extraction Agent
+
 #### Input
+
 1. **Bariatric Surgery Policy**: https://www.anthem.com/medpolicies/abc/active/gl_pw_d085821.html
 2. **Data Dictionary JSON**: [Data_dictionary_CGSURG83.json](https://github.com/sijiasiga/Capstone_KG_VoiceAgents/blob/main/KG/test1/Policy_CGSURG83/Data_dictionary_CGSURG83.json)
 
 #### Output
+
 1. **Policy Condition JSON**: [Policy_CGSURG83.json](https://github.com/sijiasiga/Capstone_KG_VoiceAgents/blob/main/KG/test1/Policy_CGSURG83/Policy_CGSURG83.json)
 
 ### 3. SQL Convertion Agent
+
 #### Input
+
 1. **Policy Condition JSON**: [Policy_CGSURG83.json](https://github.com/sijiasiga/Capstone_KG_VoiceAgents/blob/main/KG/test1/Policy_CGSURG83/Policy_CGSURG83.json)
 
 #### Output
+
 1. **SQL**: [SQL_CGSURG83.txt](https://github.com/sijiasiga/Capstone_KG_VoiceAgents/blob/main/KG/test1/Policy_CGSURG83/SQL_CGSURG83.txt)
 
 ```sql
@@ -117,6 +126,7 @@ bash scripts/run_process_policy.sh
 ```
 
 The script will:
+
 - Extract text from PDF using OCR
 - Run all 3 Gemini agents in sequence
 - Output files with naming format: `{Type}_{policy_id}.{ext}`
@@ -155,7 +165,6 @@ Input: Patient data + Policy rules
 Output: Compliance report + Visualization
 ```
 
-
 ### Generated Outputs
 
 **1. Policy Knowledge Graph** (`Policy_CGSURG83/policy_rule_kg.png`)
@@ -166,6 +175,7 @@ Output: Compliance report + Visualization
 ### ✅ Patient 8472202544 - ELIGIBLE
 
 [PDF](patient_data/patient_8472202544/MR_2.pdf)--[OCR](OCR/pdf_ocr.py)--[Parser](OCR/medical_record_parser.py)-->[JSON](patient_data/patient_8472202544/Patient_data_dictionary_8472202544.json)
+
 ```json
 {
   "patient_id": "8472202544",
@@ -189,6 +199,7 @@ Output: Compliance report + Visualization
 ### ❌ Patient 9384202577 - NOT ELIGIBLE
 
 [PDF](patient_data/patient_9384202577/MR_3.pdf)--[OCR](OCR/pdf_ocr.py)--[Parser](OCR/medical_record_parser.py)-->[JSON](patient_data/patient_9384202577/Patient_data_dictionary_9384202577.json)
+
 ```json
 {
   "patient_id": "9384202577",
@@ -217,6 +228,7 @@ Output: Compliance report + Visualization
 ![Patient 8472202544 - Bariatric KG](patient_data/patient_8472202544/patient_rule_kg.png)
 
 **Compliance Report** (`patient_data/patient_8472202544/pat_8472202544_pol_CGSURG83.json`):
+
 ```json
 {
   "patient_id": "8472202544",
@@ -249,6 +261,7 @@ Output: Compliance report + Visualization
 ![Patient 9384202577 - Bariatric KG](patient_data/patient_9384202577/patient_rule_kg.png)
 
 **Compliance Report** (`patient_data/patient_9384202577/pat_9384202577_pol_CGSURG83.json`):
+
 ```json
 {
   "patient_id": "9384202577",
@@ -283,18 +296,17 @@ Output: Compliance report + Visualization
 }
 ```
 
-
-
 ## 🌐 Streamlit Web Application
 
 The `streamlit_app.py` provides an interactive web interface for the complete workflow:
 
 ### Features:
+
 - **📄 Medical Records Page**: Upload PDFs, extract text, parse patient data, generate knowledge graphs
 - **🗄️ SQL Queries Page**: View database, run policy filters, manage patient records
 
-
 ### Usage:
+
 ```bash
 streamlit run streamlit_app.py
 ```
@@ -309,8 +321,8 @@ streamlit run streamlit_app.py
 
 ## 📝 TODO
 
-- [x] **Agents Orchestration**: Finish multi-agent coordination
-- [x] **Policy Extraction Automation**: End-to-end automation from PDF input to KG generation
+- [X] **Agents Orchestration**: Finish multi-agent coordination
+- [X] **Policy Extraction Automation**: End-to-end automation from PDF input to KG generation
 - [ ] **Refinement of Policy OCR**: Enhance accuracy and robustness of medical policy text extraction
 - [ ] **Refinement of Patient Record OCR**: Improve extraction quality from patient medical records
 - [ ] **Refinement of Code Base**: Code optimization, documentation, and maintainability improvements
