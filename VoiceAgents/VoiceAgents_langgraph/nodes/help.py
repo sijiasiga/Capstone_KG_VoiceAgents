@@ -1,9 +1,22 @@
 """
 Help Node - Provides help information and general LLM conversation
 """
+import os
+import json
 from ..state import VoiceAgentState
 from ..utils.llm_provider import chat_completion, USE_LLM, get_default_model
 from ..utils import say
+
+# Load agent-specific policy
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+POLICY_PATH = os.path.join(BASE_DIR, "..", "policy", "agents", "help_policy.json")
+AGENT_POLICY = {}
+if os.path.exists(POLICY_PATH):
+    with open(POLICY_PATH, "r") as f:
+        AGENT_POLICY = json.load(f)
+    # Log policy summary on startup
+    scope_str = ", ".join(AGENT_POLICY.get("scope", []))
+    print(f"[Policy] Help Agent loaded: scope=[{scope_str}], triage={AGENT_POLICY.get('triage_required', False)}")
 
 
 def help_node(state: VoiceAgentState) -> VoiceAgentState:

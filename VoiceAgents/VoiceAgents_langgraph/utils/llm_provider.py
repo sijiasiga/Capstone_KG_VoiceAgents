@@ -1,9 +1,30 @@
 """
-LLM Provider Manager - Supports OpenAI, Anthropic, and Google with fallback
+LLM Provider Manager - Supports OpenAI, Anthropic, and Google with fallback.
+
+Provider and fallback behavior is controlled by environment variables:
+
+- LLM_PROVIDER: primary provider (e.g., 'anthropic', 'openai', 'google')
+- LLM_FALLBACK_ORDER: comma-separated list of providers in order of preference,
+  e.g. 'anthropic,google,openai'
+
+Model names are also configurable via env:
+
+- OPENAI_MODEL
+- ANTHROPIC_MODEL
+- GOOGLE_MODEL
 """
+
 import os
 from typing import Optional, Dict, List
 from dotenv import load_dotenv
+
+# Import global system prompt
+try:
+    from ..policy.system_behavior import GLOBAL_SYSTEM_PROMPT
+except ImportError:
+    # Fallback if policy module not available
+    GLOBAL_SYSTEM_PROMPT = ""
+
 
 # Load environment variables
 load_dotenv()
@@ -14,11 +35,10 @@ _anthropic_client = None
 _google_client = None
 
 USE_LLM = False
-LLM_PROVIDER = os.getenv("LLM_PROVIDER", "openai").lower()
 
 
 def _get_openai_client():
-    """Get or create OpenAI client"""
+    """Get or create OpenAI client."""
     global _openai_client
     if _openai_client is None:
         try:
@@ -30,7 +50,7 @@ def _get_openai_client():
 
 
 def _get_anthropic_client():
-    """Get or create Anthropic client"""
+    """Get or create Anthropic client."""
     global _anthropic_client
     if _anthropic_client is None:
         try:
@@ -43,7 +63,7 @@ def _get_anthropic_client():
 
 
 def _get_google_client():
-    """Get or create Google client"""
+    """Get or create Google Gemini client."""
     global _google_client
     if _google_client is None:
         try:
@@ -56,8 +76,8 @@ def _get_google_client():
 
 
 def _get_available_providers() -> List[str]:
-    """Get list of available providers based on API keys in environment"""
-    available = []
+    """Get list of available providers based on API keys in environment."""
+    available: List[str] = []
     if os.getenv("OPENAI_API_KEY"):
         available.append("openai")
     if os.getenv("ANTHROPIC_API_KEY"):
@@ -67,23 +87,97 @@ def _get_available_providers() -> List[str]:
     return available
 
 
+def _normalize_provider_name(name: str) -> str:
+    """
+    Normalize provider aliases from env (e.g., 'open' -> 'openai', 'gemini' -> 'google').
+    """
+    if not name:
+        return ""
+    n = name.strip().lower()
+    if n in {"open", "openai", "oai", "gpt"}:
+        return "openai"
+    if n in {"anthropic", "claude"}:
+        return "anthropic"
+    if n in {"google", "gemini", "g"}:
+        return "google"
+    return n
+
+
+def _get_fallback_order() -> List[str]:
+    """
+    Compute fallback order from environment:
+
+    - LLM_PROVIDER is the preferred primary, defaulting to 'anthropic'.
+    - LLM_FALLBACK_ORDER is a comma-separated list, e.g.:
+        'anthropic,google,openai'
+
+    We normalize names and deduplicate while preserving order.
+    If configuration is missing or invalid, a sane default is used.
+    """
+    # Default primary: anthropic
+    primary = _normalize_provider_name(
+        os.getenv("LLM_PROVIDER", "anthropic")
+    )
+
+    # Default fallback list: anthropic -> google -> openai
+    raw_order = os.getenv(
+        "LLM_FALLBACK_ORDER",
+        "anthropic,google,openai"
+    )
+    parts = [
+        _normalize_provider_name(p)
+        for p in raw_order.split(",")
+        if p.strip()
+    ]
+
+    # Ensure primary is first
+    if primary and primary not in parts:
+        parts.insert(0, primary)
+
+    # Deduplicate while preserving order
+    unique_order: List[str] = []
+    for p in parts:
+        if p and p not in unique_order:
+            unique_order.append(p)
+
+    # Fallback safety: if env is empty or invalid, use a sane default
+    if not unique_order:
+        unique_order = ["anthropic", "google", "openai"]
+
+    return unique_order
+
+
 def get_default_model(provider: Optional[str] = None) -> str:
-    """Get default model name for specified provider"""
-    env_provider = os.getenv("LLM_PROVIDER", "openai")
+    """
+    Get default model name for specified provider.
+
+    Model names must match current API offerings:
+
+    - Google: 'gemini-2.0-flash' or 'gemini-pro-latest'
+    - Anthropic: 'claude-3-5-sonnet-20240620' (or updated Claude 3.5 model)
+    - OpenAI: 'gpt-4o-mini', 'gpt-4o', etc.
+    """
+    # DEFAULT PROVIDER: anthropic
+    env_provider = os.getenv("LLM_PROVIDER", "anthropic")
     provider_val = provider or env_provider
-    provider_str = provider_val.lower() if provider_val else "openai"
+    provider_str = provider_val.lower() if provider_val else "anthropic"
+
     if provider_str == "anthropic":
-        return os.getenv("ANTHROPIC_MODEL", "claude-3-5-sonnet-20241022")
+        return os.getenv("ANTHROPIC_MODEL", "claude-3-5-haiku-20241022")
     elif provider_str == "google":
-        return os.getenv("GOOGLE_MODEL", "gemini-pro")
+        # Note: 'gemini-pro' is deprecated on newer APIs; use a current model.
+        return os.getenv("GOOGLE_MODEL", "gemini-2.0-flash")
     else:
+        # Default to OpenAI if provider not recognized
         return os.getenv("OPENAI_MODEL", "gpt-4o-mini")
 
 
-def _try_openai_completion(messages: List[Dict[str, str]],
-                           model: str,
-                           temperature: float) -> Optional[str]:
-    """Try OpenAI completion"""
+def _try_openai_completion(
+    messages: List[Dict[str, str]],
+    model: str,
+    temperature: float,
+) -> Optional[str]:
+    """Try OpenAI completion."""
     client = _get_openai_client()
     if client is None:
         return None
@@ -91,7 +185,7 @@ def _try_openai_completion(messages: List[Dict[str, str]],
         response = client.chat.completions.create(
             model=model,
             messages=messages,
-            temperature=temperature
+            temperature=temperature,
         )
         return response.choices[0].message.content
     except Exception as e:
@@ -99,19 +193,31 @@ def _try_openai_completion(messages: List[Dict[str, str]],
         return None
 
 
-def _try_google_completion(messages: List[Dict[str, str]],
-                           model: str,
-                           temperature: float) -> Optional[str]:
-    """Try Google Gemini completion"""
+def _try_google_completion(
+    messages: List[Dict[str, str]],
+    model: str,
+    temperature: float,
+) -> Optional[str]:
+    """
+    Try Google Gemini completion.
+
+    Uses the model name from get_default_model(), which returns a current model.
+    """
     genai = _get_google_client()
     if genai is None:
         return None
+
+    # Remove 'models/' prefix if present (API might add it)
+    actual_model = model
+    if actual_model.startswith("models/"):
+        actual_model = actual_model.replace("models/", "")
+
     try:
         # Convert messages for Google format
-        model_instance = genai.GenerativeModel(model)
+        model_instance = genai.GenerativeModel(actual_model)
 
-        # Google format: combine system + user messages
-        prompt_parts = []
+        # Google format: combine system + user messages into a single prompt
+        prompt_parts: List[str] = []
         for msg in messages:
             if msg["role"] == "system":
                 prompt_parts.append(f"System: {msg['content']}")
@@ -123,119 +229,178 @@ def _try_google_completion(messages: List[Dict[str, str]],
         prompt = "\n\n".join(prompt_parts)
 
         gen_config = genai.types.GenerationConfig(
-            temperature=temperature)
+            temperature=temperature
+        )
         response = model_instance.generate_content(
-            prompt, generation_config=gen_config)
+            prompt,
+            generation_config=gen_config,
+        )
         return response.text
     except Exception as e:
-        print(f"[LLM Error] Google: {e}")
+        error_msg = str(e)
+        # Provide helpful error message for model name issues
+        if "not found" in error_msg or "404" in error_msg:
+            print(
+                f"[LLM Error] Google: Model '{model}' not found. "
+                f"Update GOOGLE_MODEL in .env to use current model, e.g.: "
+                f"'gemini-2.0-flash' or 'gemini-pro-latest'. "
+                f"Error: {e}"
+            )
+        else:
+            print(f"[LLM Error] Google: {e}")
         return None
 
 
-def _try_anthropic_completion(messages: List[Dict[str, str]],
-                              model: str,
-                              temperature: float) -> Optional[str]:
-    """Try Anthropic Claude completion"""
+def _try_anthropic_completion(
+    messages: List[Dict[str, str]],
+    model: str,
+    temperature: float,
+) -> Optional[str]:
+    """
+    Try Anthropic Claude completion.
+
+    Model names should be like 'claude-3-5-sonnet-20240620'.
+    """
     client = _get_anthropic_client()
     if client is None:
         return None
     try:
         # Convert messages format for Anthropic
         system_msg = None
-        conversation = []
+        conversation: List[Dict[str, str]] = []
         for msg in messages:
             if msg["role"] == "system":
                 system_msg = msg["content"]
             else:
                 # Anthropic uses 'user' and 'assistant' roles
-                role = ("user" if msg["role"] in ["user", "system"]
-                        else "assistant")
-                conversation.append({
-                    "role": role,
-                    "content": msg["content"]
-                })
+                role = "user" if msg["role"] in ["user", "system"] else "assistant"
+                conversation.append(
+                    {
+                        "role": role,
+                        "content": msg["content"],
+                    }
+                )
 
         response = client.messages.create(
             model=model,
             max_tokens=4096,
             temperature=temperature,
             system=system_msg or "",
-            messages=conversation
+            messages=conversation,
         )
         # Anthropic returns content as a list
         if response.content and len(response.content) > 0:
             return response.content[0].text
         return None
     except Exception as e:
-        print(f"[LLM Error] Anthropic: {e}")
+        error_msg = str(e)
+        # Provide helpful error message for model name issues
+        if "not found" in error_msg or "404" in error_msg:
+            print(
+                f"[LLM Error] Anthropic: Model '{model}' not found. "
+                f"Update ANTHROPIC_MODEL in .env to use a current model, e.g.: "
+                f"'claude-3-5-sonnet-20240620'. "
+                f"Error: {e}"
+            )
+        else:
+            print(f"[LLM Error] Anthropic: {e}")
         return None
 
 
+def _inject_system_prompt(
+    messages: List[Dict[str, str]]
+) -> List[Dict[str, str]]:
+    """
+    Inject GLOBAL_SYSTEM_PROMPT into messages if not already present.
+    If a system message exists, prepend global prompt to it.
+    """
+    if not GLOBAL_SYSTEM_PROMPT.strip():
+        return messages
+
+    # Check if system message already exists
+    has_system = any(msg.get("role") == "system" for msg in messages)
+
+    if has_system:
+        # Prepend global prompt to existing system message
+        enhanced_messages: List[Dict[str, str]] = []
+        for msg in messages:
+            if msg.get("role") == "system":
+                global_prompt = GLOBAL_SYSTEM_PROMPT.strip()
+                existing_content = msg.get("content", "")
+                combined = f"{global_prompt}\n\n{existing_content}"
+                enhanced_messages.append(
+                    {"role": "system", "content": combined}
+                )
+            else:
+                enhanced_messages.append(msg)
+        return enhanced_messages
+    else:
+        # Prepend system message with global prompt
+        global_content = GLOBAL_SYSTEM_PROMPT.strip()
+        return [{"role": "system", "content": global_content}] + messages
+
+
 def chat_completion(
-        messages: List[Dict[str, str]],
-        model: Optional[str] = None,
-        temperature: float = 0,
-        provider: Optional[str] = None) -> Optional[str]:
+    messages: List[Dict[str, str]],
+    model: Optional[str] = None,
+    temperature: float = 0,
+    provider: Optional[str] = None,
+) -> Optional[str]:
     """
-    Unified chat completion interface with automatic fallback
-    Fallback order: openai -> google -> anthropic
+    Unified chat completion interface with automatic fallback.
 
-    Args:
-        messages: List of message dicts with 'role' and 'content'
-        model: Model name (optional, uses default for provider)
-        temperature: Temperature for generation
-        provider: Provider name (optional, uses LLM_PROVIDER env var,
-                 but will fallback to others)
+    Fallback behavior is controlled by environment variables:
 
-    Returns:
-        Response text or None if all providers fail
+    - LLM_PROVIDER: primary provider (e.g., 'anthropic', 'openai', 'google')
+      Defaults to 'anthropic'.
+    - LLM_FALLBACK_ORDER: comma-separated list of providers in order of
+      preference, e.g. 'anthropic,google,openai'.
+      Defaults to 'anthropic,google,openai'.
+
+    Only providers with valid API keys are actually attempted.
     """
-    # Get available providers from .env
+    # Inject global system prompt
+    messages = _inject_system_prompt(messages)
+
+    # Get available providers from .env (those with API keys)
     available_providers = _get_available_providers()
-
     if not available_providers:
         print("[LLM Error] No LLM providers available (no API keys found)")
         return None
 
-    # Determine primary provider
-    primary_provider = (provider or LLM_PROVIDER).lower()
+    # Determine fallback order from environment
+    fallback_order = _get_fallback_order()
 
-    # Fallback order: openai -> google -> anthropic
-    # But prioritize the primary provider if specified
-    fallback_order = ["openai", "google", "anthropic"]
+    # Only include providers that have API keys configured
+    providers_to_try = [
+        p for p in fallback_order if p in available_providers
+    ]
 
-    # If primary provider is specified and available, try it first
-    if primary_provider in available_providers:
-        # Reorder: primary first, then others in fallback order
-        providers_to_try = [primary_provider]
-        for p in fallback_order:
-            if p != primary_provider and p in available_providers:
-                providers_to_try.append(p)
-    else:
-        # Use fallback order for available providers
-        providers_to_try = [
-            p for p in fallback_order if p in available_providers]
+    if not providers_to_try:
+        print("[LLM Error] No providers available in configured fallback order")
+        return None
 
-    # Try each provider in order
-    for provider_name in providers_to_try:
-        provider_model = model or get_default_model(provider_name)
-        result = None
+    # Try each provider in sequence order
+    for idx, provider_name in enumerate(providers_to_try):
+        # Always use provider-specific default model (ignore model parameter)
+        provider_model = get_default_model(provider_name)
+        result: Optional[str] = None
 
         if provider_name == "openai":
-            result = _try_openai_completion(
-                messages, provider_model, temperature)
+            result = _try_openai_completion(messages, provider_model, temperature)
         elif provider_name == "google":
-            result = _try_google_completion(
-                messages, provider_model, temperature)
+            result = _try_google_completion(messages, provider_model, temperature)
         elif provider_name == "anthropic":
-            result = _try_anthropic_completion(
-                messages, provider_model, temperature)
+            result = _try_anthropic_completion(messages, provider_model, temperature)
 
         if result is not None:
-            if provider_name != primary_provider:
-                msg = (f"[LLM Fallback] Using {provider_name} "
-                       f"(primary {primary_provider} failed)")
-                print(msg)
+            # Print fallback message if not the first provider
+            if idx > 0:
+                prev_provider = providers_to_try[idx - 1]
+                print(
+                    f"[LLM Fallback] Using {provider_name} "
+                    f"(previous provider '{prev_provider}' failed)"
+                )
             return result
 
     # All providers failed
@@ -243,10 +408,17 @@ def chat_completion(
     return None
 
 
-def audio_transcribe(audio_path: str,
-                     provider: Optional[str] = None) -> Optional[str]:
-    """Transcribe audio file (only OpenAI Whisper supported)"""
-    # Only OpenAI supports audio transcription via API
+def audio_transcribe(
+    audio_path: str,
+    provider: Optional[str] = None,
+) -> Optional[str]:
+    """
+    Transcribe audio file (only OpenAI Whisper supported via API).
+
+    Currently, audio transcription uses OpenAI Whisper ('whisper-1').
+    If no OpenAI API key is available, this will print an informational message.
+    """
+    # Only OpenAI supports audio transcription via API in this implementation
     available_providers = _get_available_providers()
 
     # Try OpenAI first (only provider with audio transcription)
@@ -257,15 +429,17 @@ def audio_transcribe(audio_path: str,
                 with open(audio_path, "rb") as f:
                     response = client.audio.transcriptions.create(
                         model="whisper-1",
-                        file=f
+                        file=f,
                     )
                 return response.text
             except Exception as e:
                 print(f"[STT Error] OpenAI: {e}")
 
     # Audio transcription only supported via OpenAI Whisper API
-    msg = (f"[STT] Audio transcription requires OpenAI provider "
-           f"(available: {available_providers})")
+    msg = (
+        f"[STT] Audio transcription requires OpenAI provider "
+        f"(available: {available_providers})"
+    )
     print(msg)
     return None
 

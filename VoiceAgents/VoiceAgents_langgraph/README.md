@@ -2,16 +2,16 @@
 
 A **standalone, independent** LangGraph-based implementation of the VoiceAgents healthcare voice triage system. This package can be moved anywhere and run independently with full STT (Speech-to-Text) and TTS (Text-to-Speech) support throughout all conversation flows.
 
-## 🎯 Key Features
+## Key Features
 
 - **Standalone Package**: Complete independence from parent directory
 - **LangGraph Architecture**: Graph-based workflow for healthcare interactions
 - **STT/TTS Support**: Speech-to-text and text-to-speech enabled in all nodes
 - **Comprehensive Logging**: All conversation flows logged to `logs/` directory
-- **Multi-Provider LLM**: Supports OpenAI, Anthropic, and Google
+- **Multi-Provider LLM**: Supports OpenAI, Anthropic, and Google with configurable fallback
 - **Full Functionality**: All agent functions from original VoiceAgents preserved
 
-## 📁 File Structure
+## File Structure
 
 ```
 VoiceAgents_langgraph/
@@ -26,6 +26,23 @@ VoiceAgents_langgraph/
 ├── .gitignore                      # Git ignore rules
 ├── requirements.txt                # Python dependencies
 │
+├── policy/                         # Policy and safety configuration
+│   ├── system_behavior.py          # Global system prompt and behavior
+│   ├── safety_rules.json          # RED/ORANGE/GREEN flag definitions
+│   └── agents/                     # Agent-specific policies
+│       ├── appointment_policy.json
+│       ├── followup_policy.json
+│       ├── medication_policy.json
+│       ├── caregiver_policy.json
+│       └── help_policy.json
+│
+├── docs/                           # Documentation
+│   └── Safety_and_Boundaries.md    # Safety and clinical boundaries documentation
+│
+├── validation_datasets/             # Validation datasets for testing
+│   ├── appointment_agent_validation.csv
+│   └── medication_agent_validation.csv
+│
 ├── utils/                          # Utility modules folder
 │   ├── __init__.py                 # Utilities (TTS, STT, timestamps) - exports: say, stt_transcribe, mic_listen_once, now_iso, chat_completion, etc.
 │   ├── llm_provider.py             # Multi-provider LLM abstraction (OpenAI/Anthropic/Google)
@@ -34,11 +51,11 @@ VoiceAgents_langgraph/
 ├── nodes/                          # LangGraph agent nodes
 │   ├── __init__.py
 │   ├── routing.py                  # Intent detection and routing logic
-│   ├── appointment.py              # Appointment management with triage ✅ STT/TTS
-│   ├── followup.py                 # Symptom monitoring with triage ✅ STT/TTS
-│   ├── medication.py               # Medication Q&A ✅ STT/TTS
-│   ├── caregiver.py                # Caregiver summary generation ✅ STT/TTS
-│   └── help.py                     # General conversation and help ✅ STT/TTS
+│   ├── appointment.py              # Appointment management with triage (STT/TTS)
+│   ├── followup.py                 # Symptom monitoring with triage (STT/TTS)
+│   ├── medication.py               # Medication Q&A (STT/TTS)
+│   ├── caregiver.py                # Caregiver summary generation (STT/TTS)
+│   └── help.py                     # General conversation and help (STT/TTS)
 │
 ├── data/                           # Local data files (self-contained)
 │   ├── patients.csv                 # Patient records
@@ -73,7 +90,7 @@ VoiceAgents_langgraph/
     └── README.md                    # Demo documentation
 ```
 
-## 🚀 Quick Start
+## Quick Start
 
 ### 1. Setup (Standalone)
 
@@ -125,7 +142,7 @@ python -m VoiceAgents_langgraph.main
 
 The `main.py` script automatically detects when run from inside the directory and adjusts Python paths accordingly.
 
-## 📖 Usage
+## Usage
 
 ### CLI Commands
 
@@ -157,7 +174,7 @@ You (or command): :stt audio/patient_recording.wav
 Agent: I'd be happy to help you reschedule! Here are some available times...
 ```
 
-## 🏗️ Architecture
+## Architecture
 
 ### Core Components
 
@@ -194,17 +211,17 @@ All nodes support **STT (Speech-to-Text)** input via `main.py` commands and **TT
 
 **nodes/routing.py**: Parses user input to determine intent (appointment/followup/medication/caregiver/help) and extracts 8-digit patient IDs. Uses LLM with rule-based fallback. Prioritizes appointment keywords when scheduling is mentioned alongside symptoms.
 
-**nodes/appointment.py** ✅ **STT/TTS**: Handles appointment operations including status checks, rescheduling, cancellation, and new scheduling. Implements comprehensive triage logic (RED/ORANGE/GREEN) based on symptoms and enforces business rules (minor consent, referral requirements, telehealth policies, post-op windows).
+**nodes/appointment.py** (STT/TTS): Handles appointment operations including status checks, rescheduling, cancellation, and new scheduling. Implements comprehensive triage logic (RED/ORANGE/GREEN) based on symptoms and enforces business rules (minor consent, referral requirements, telehealth policies, post-op windows).
 
-**nodes/followup.py** ✅ **STT/TTS**: Logs patient-reported symptoms with severity scores. Uses LLM-powered symptom extraction with keyword fallback. Implements triage system (RED/ORANGE/GREEN) to flag serious symptoms. All interactions logged to `logs/followup_agent_log.jsonl`.
+**nodes/followup.py** (STT/TTS): Logs patient-reported symptoms with severity scores. Uses LLM-powered symptom extraction with keyword fallback. Implements triage system (RED/ORANGE/GREEN) to flag serious symptoms. All interactions logged to `logs/followup_agent_log.jsonl`.
 
-**nodes/medication.py** ✅ **STT/TTS**: Answers medication questions including side effects, missed dose advice, drug interactions, food guidance, and contraindications. Assesses risk levels (RED/ORANGE/GREEN). All interactions logged to `logs/med_agent_log.jsonl`.
+**nodes/medication.py** (STT/TTS): Answers medication questions including side effects, missed dose advice, drug interactions, food guidance, and contraindications. Assesses risk levels (RED/ORANGE/GREEN). All interactions logged to `logs/med_agent_log.jsonl`.
 
-**nodes/caregiver.py** ✅ **STT/TTS**: Generates weekly caregiver summaries by aggregating symptom trends and medication adherence data. Only processes summaries for patients with linked caregivers and consent on file. Logs to `logs/caregiver_summaries.jsonl` and `.txt`.
+**nodes/caregiver.py** (STT/TTS): Generates weekly caregiver summaries by aggregating symptom trends and medication adherence data. Only processes summaries for patients with linked caregivers and consent on file. Logs to `logs/caregiver_summaries.jsonl` and `.txt`.
 
-**nodes/help.py** ✅ **STT/TTS**: Provides general LLM-powered conversation for greetings, questions, and non-specific requests. Falls back to static help message if LLM unavailable.
+**nodes/help.py** (STT/TTS): Provides general LLM-powered conversation for greetings, questions, and non-specific requests. Falls back to static help message if LLM unavailable.
 
-## 📋 Triage System
+## Triage System
 
 The system implements a three-tier triage system for symptom assessment:
 
@@ -233,7 +250,7 @@ Routine symptoms without immediate concern.
 
 **Response**: Logged for provider review during next appointment
 
-## 📝 Logging
+## Logging
 
 All conversation flows are logged to the `logs/` directory:
 
@@ -253,39 +270,68 @@ Each log entry includes:
 - Agent response
 - Triage tier / risk level (where applicable)
 
-## 🔧 Configuration
+## Configuration
 
 ### Environment Variables (.env)
 
 ```bash
-# LLM Provider (default: openai)
-LLM_PROVIDER=openai          # Options: openai, anthropic, google
+# Provider priority
+LLM_PROVIDER=anthropic
+LLM_FALLBACK_ORDER=anthropic,google,openai   
+# You can change LLM_PROVIDER and LLM_FALLBACK_ORDER here. If the change doesn't work, you might need to modify utils/llm_provider.py
 
-# OpenAI Configuration
-OPENAI_API_KEY=your_key_here
+# Models
 OPENAI_MODEL=gpt-4o-mini
+ANTHROPIC_MODEL=claude-3-5-sonnet-20240620
+GOOGLE_MODEL=gemini-2.0-flash
 
-# Anthropic Configuration (optional)
-ANTHROPIC_API_KEY=your_key_here
-ANTHROPIC_MODEL=claude-3-5-sonnet-20241022
-
-# Google Configuration (optional)
-GOOGLE_API_KEY=your_key_here
-GOOGLE_MODEL=gemini-pro
+# API keys 
+OPENAI_API_KEY=
+ANTHROPIC_API_KEY=
+GOOGLE_API_KEY=
 ```
 
-### Switching LLM Providers
+### LLM Provider Fallback System
 
-Edit `.env` and change `LLM_PROVIDER`:
+The system uses a configurable fallback sequence defined by `LLM_FALLBACK_ORDER` in `.env`. If the primary provider fails (rate limits, API errors), the system automatically tries the next provider in the sequence.
+
+**Default Behavior:**
+- Primary provider: `anthropic` (from `LLM_PROVIDER`)
+- Fallback sequence: `anthropic -> google -> openai` (from `LLM_FALLBACK_ORDER`)
+
+**Customization:**
+Edit `.env` to change the fallback order:
 ```bash
-LLM_PROVIDER=anthropic  # Use Claude
-# or
-LLM_PROVIDER=google     # Use Gemini
+LLM_PROVIDER=anthropic
+LLM_FALLBACK_ORDER=anthropic,google,openai
 ```
 
-No code changes required!
+The system will try providers in the order specified, only using providers that have valid API keys configured.
 
-## 🧪 Evaluation
+## Testing
+
+### Running Tests
+
+**From inside VoiceAgents_langgraph/ directory:**
+
+```bash
+cd VoiceAgents_langgraph
+
+# From VoiceAgents_langgraph/ directory
+pytest tests/test_agents.py -v -s
+```
+
+The test suite includes:
+- Follow-up agent triage tests (GREEN/ORANGE/RED)
+- Appointment agent tests
+- Medication agent tests
+- Routing/orchestration tests
+- Workflow integration tests
+- Triage consistency tests
+
+All tests verify that the system maintains consistent behavior after changes.
+
+## Evaluation
 
 ### Running Evaluation
 
@@ -376,7 +422,7 @@ python evaluation/generate_report.py
 
 - **evaluate_agents.py** - Original evaluation script (may need parent directory context)
 
-## 🚢 Independence & Portability
+## Independence & Portability
 
 This package is **fully independent** and can be moved anywhere:
 
@@ -410,7 +456,7 @@ python -m VoiceAgents_langgraph.main
 
 **No external dependencies on parent directory!**
 
-## 💻 Programmatic Usage
+## Programmatic Usage
 
 ```python
 from VoiceAgents_langgraph.workflow import voice_agent_workflow
@@ -442,72 +488,30 @@ print(result["response"])
 # Logs automatically written to logs/ directory
 ```
 
-## 🐛 Troubleshooting
+## Additional Resources
 
-### Issue: "No module named 'VoiceAgents_langgraph'"
-
-**Solution**: Always run `main.py` directly from inside the `VoiceAgents_langgraph/` directory:
-```bash
-cd VoiceAgents_langgraph
-python main.py
-```
-
-The `main.py` script automatically handles path adjustments. If you encounter this error, it means you're trying to use `python -m` from inside the directory - just use `python main.py` instead.
-
-### Issue: "No module named 'langgraph'"
-
-**Solution**: Install dependencies:
-```bash
-pip install -r requirements.txt
-```
-
-### Issue: "OPENAI_API_KEY not found"
-
-**Solution**: Create `.env` file:
-```bash
-cp .env.example .env
-# Edit .env and add your API keys
-```
-
-### Issue: TTS/STT not working
-
-**Solution**: Ensure required libraries are installed:
-```bash
-pip install pyttsx3 speechrecognition pyaudio
-```
-
-On macOS, you may need to install PortAudio:
-```bash
-brew install portaudio
-```
-
-### Issue: Logs directory not found
-
-**Solution**: The `logs/` directory is auto-created. If issues persist, check write permissions:
-```bash
-mkdir -p logs
-chmod 755 logs
-```
-
-## 📚 Additional Resources
-
+- **Configuration Guide**: See [`config/README_Config.md`](config/README_Config.md) for all configurable parameters and where to modify them
+- **Safety and Boundaries**: See [`docs/Safety_and_Boundaries.md`](docs/Safety_and_Boundaries.md) for comprehensive safety documentation, clinical boundaries, and triage system explanation
+- **Policy System**: See `policy/` directory for global system behavior and agent-specific policies
+- **Updates**: See [`Updates.md`](Updates.md) for implementation change log
 - **Evaluation**: See `evaluation/README.md` for evaluation documentation
 - **Original Implementation**: See parent `VoiceAgents/` directory for original implementation
 - **Function Comparison**: See `FUNCTION_COMPARISON.md` in parent directory for detailed comparison
 
-## ✅ Feature Checklist
+## Feature Checklist
 
-- ✅ All core agent functions preserved
-- ✅ STT support via audio files and microphone
-- ✅ TTS support in all agent nodes
-- ✅ Comprehensive logging to `logs/` directory
-- ✅ Multi-provider LLM support
-- ✅ Standalone independence
-- ✅ Virtual environment included
-- ✅ Environment configuration included
-- ✅ Evaluation scripts included
-- ✅ All data files self-contained
+- All core agent functions preserved
+- STT support via audio files and microphone
+- TTS support in all agent nodes
+- Comprehensive logging to `logs/` directory
+- Multi-provider LLM support with configurable fallback
+- Standalone independence
+- Virtual environment included
+- Environment configuration included
+- Evaluation scripts included
+- All data files self-contained
+- Validation datasets for testing
 
-## 📄 License
+## License
 
 Part of the CMU x Zyter Capstone Project.

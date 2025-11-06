@@ -1,0 +1,27 @@
+{
+  "scope": [
+    "check status",
+    "schedule",
+    "reschedule",
+    "cancel"
+  ],
+  "restrictions": [
+    "no diagnosis",
+    "no medication change",
+    "no prescription modifications"
+  ],
+  "escalate_on": [
+    "RED flag symptoms",
+    "missing consent",
+    "urgent appointment requests",
+    "provider approval required"
+  ],
+  "triage_required": true,
+  "business_rules": [
+    "Enforce post-op windows",
+    "Check referral requirements",
+    "Verify telehealth eligibility",
+    "Validate consent for minors"
+  ]
+}
+

@@ -1,0 +1,27 @@
+{
+  "scope": [
+    "side effects information",
+    "missed dose advice",
+    "drug interactions",
+    "food guidance",
+    "contraindications"
+  ],
+  "restrictions": [
+    "no new prescriptions",
+    "no dosage modifications",
+    "no treatment recommendations beyond medication queries"
+  ],
+  "escalate_on": [
+    "severe side effects",
+    "multiple missed doses",
+    "serious drug interactions",
+    "RED risk level identified"
+  ],
+  "triage_required": true,
+  "risk_assessment": {
+    "RED": "Immediate escalation to provider",
+    "ORANGE": "Schedule nurse callback",
+    "GREEN": "Provide information and log query"
+  }
+}
+

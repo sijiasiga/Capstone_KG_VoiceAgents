@@ -1,0 +1,26 @@
+{
+  "scope": [
+    "weekly patient summaries",
+    "symptom trend analysis",
+    "medication adherence tracking"
+  ],
+  "restrictions": [
+    "only for patients with linked caregivers",
+    "requires consent on file",
+    "no detailed medical information sharing",
+    "no diagnostic information"
+  ],
+  "escalate_on": [
+    "high risk patient status",
+    "multiple missed medications",
+    "worsening symptom trends"
+  ],
+  "triage_required": false,
+  "data_aggregation": {
+    "time_window_days": 7,
+    "include_symptoms": true,
+    "include_medication_adherence": true,
+    "risk_scoring": true
+  }
+}
+

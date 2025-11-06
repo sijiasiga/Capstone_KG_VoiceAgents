@@ -15,3 +15,4 @@ python-dotenv==1.2.1
 pyttsx3==2.99
 SpeechRecognition==3.14.3
 streamlit==1.51.0
+pytest>=7.0.0

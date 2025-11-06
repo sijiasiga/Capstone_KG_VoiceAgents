@@ -3,7 +3,9 @@ Utility functions for VoiceAgents LangGraph implementation
 """
 import os
 import sys
-from typing import Optional
+import json
+from functools import wraps
+from typing import Optional, Callable, Any, Dict
 from datetime import datetime, timezone
 
 # Database is now local to VoiceAgents_langgraph
@@ -40,9 +42,70 @@ def _get_faster_whisper_model():
         _FW_MODEL = WhisperModel("base")
     return _FW_MODEL
 
+def now_iso() -> str:
+    """Return current timestamp in ISO format"""
+    return datetime.now(timezone.utc).replace(microsecond=0).isoformat()
+
+
+# Fallback logging directory
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+LOG_DIR = os.path.join(BASE_DIR, "logs")
+os.makedirs(LOG_DIR, exist_ok=True)
+FALLBACK_LOG = os.path.join(LOG_DIR, "fallback_log.jsonl")
+
+
+def _log_fallback(func_name: str, error: Exception, context: Optional[Dict] = None):
+    """Log fallback events to fallback_log.jsonl"""
+    try:
+        entry = {
+            "timestamp": now_iso(),
+            "function": func_name,
+            "error_type": type(error).__name__,
+            "error_message": str(error),
+            "context": context or {}
+        }
+        with open(FALLBACK_LOG, "a", encoding="utf-8") as f:
+            f.write(json.dumps(entry, ensure_ascii=False) + "\n")
+    except Exception:
+        # Silently fail if logging itself fails
+        pass
+
+
+def safe_call(default_message: str = "Service unavailable. Please try again later."):
+    """
+    Decorator for safe error handling with fallback logging.
+    
+    Args:
+        default_message: Message to return on error
+    """
+    def decorator(func: Callable) -> Callable:
+        @wraps(func)
+        def wrapper(*args, **kwargs) -> Any:
+            try:
+                return func(*args, **kwargs)
+            except Exception as e:
+                # Log the fallback event
+                _log_fallback(
+                    func.__name__,
+                    e,
+                    context={"args": str(args)[:200], "kwargs": str(kwargs)[:200]}
+                )
+                print(f"[FALLBACK] {func.__name__}: {e}")
+                return default_message
+        return wrapper
+    return decorator
+
+
 # LLM Provider (supports OpenAI, Anthropic, Google)
+# Import first, then apply safe_call decorator to avoid circular import
 try:
-    from .llm_provider import chat_completion, audio_transcribe, USE_LLM, LLM_PROVIDER, get_default_model
+    from .llm_provider import (
+        chat_completion as _chat_completion_raw,
+        audio_transcribe as _audio_transcribe_raw,
+        USE_LLM, LLM_PROVIDER, get_default_model)
+    # Apply safe_call decorator after import
+    chat_completion = safe_call(default_message=None)(_chat_completion_raw)
+    audio_transcribe = safe_call(default_message=None)(_audio_transcribe_raw)
 except ImportError:
     # Fallback if dotenv is not available
     USE_LLM = False
@@ -55,33 +118,26 @@ except ImportError:
         return "gpt-4o-mini"
 
 
-def now_iso() -> str:
-    """Return current timestamp in ISO format"""
-    return datetime.now(timezone.utc).replace(microsecond=0).isoformat()
-
-
+@safe_call(default_message="[TTS Error] Text-to-speech unavailable.")
 def say(text: str, voice: bool = False):
     """Print text and optionally speak it"""
     print(f"\nAgent: {text}")
     if voice and pyttsx3 is not None:
-        try:
-            eng = pyttsx3.init()
-            voices = eng.getProperty('voices')
-            english_voice = None
-            for v in voices:
-                if 'english' in v.name.lower() or 'en_' in v.id.lower() or 'en-' in v.id.lower():
-                    english_voice = v.id
-                    break
-                if 'david' in v.name.lower() or 'zira' in v.name.lower() or 'mark' in v.name.lower():
-                    english_voice = v.id
-                    break
-            if english_voice:
-                eng.setProperty('voice', english_voice)
-            eng.setProperty("rate", 155)
-            eng.say(text)
-            eng.runAndWait()
-        except Exception:
-            pass
+        eng = pyttsx3.init()
+        voices = eng.getProperty('voices')
+        english_voice = None
+        for v in voices:
+            if 'english' in v.name.lower() or 'en_' in v.id.lower() or 'en-' in v.id.lower():
+                english_voice = v.id
+                break
+            if 'david' in v.name.lower() or 'zira' in v.name.lower() or 'mark' in v.name.lower():
+                english_voice = v.id
+                break
+        if english_voice:
+            eng.setProperty('voice', english_voice)
+        eng.setProperty("rate", 155)
+        eng.say(text)
+        eng.runAndWait()
 
 
 def stt_transcribe(path: str) -> str:

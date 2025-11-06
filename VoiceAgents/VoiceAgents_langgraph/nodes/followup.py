@@ -15,8 +15,18 @@ from ..utils.logging_utils import log_followup
 # Use local database
 from ..database import DatabaseService
 
-# Symptom codebook - use local data folder
+# Load agent-specific policy
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+POLICY_PATH = os.path.join(BASE_DIR, "..", "policy", "agents", "followup_policy.json")
+AGENT_POLICY = {}
+if os.path.exists(POLICY_PATH):
+    with open(POLICY_PATH, "r") as f:
+        AGENT_POLICY = json.load(f)
+    # Log policy summary on startup
+    scope_str = ", ".join(AGENT_POLICY.get("scope", []))
+    print(f"[Policy] Followup Agent loaded: scope=[{scope_str}], triage={AGENT_POLICY.get('triage_required', False)}")
+
+# Symptom codebook - use local data folder
 DATA_DIR = os.path.join(BASE_DIR, "..", "data")
 CODEBOOK_CSV = os.path.join(DATA_DIR, "symptom_codes.csv")
 

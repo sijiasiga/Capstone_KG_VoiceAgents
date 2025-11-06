@@ -3,6 +3,7 @@ Caregiver Agent Node - LangGraph implementation
 """
 import os
 import sys
+import json
 from typing import Dict, Optional, List, Any
 from ..state import VoiceAgentState
 from ..utils import now_iso, say
@@ -10,6 +11,18 @@ from ..utils.logging_utils import log_caregiver
 
 # Use local database
 from ..database import DatabaseService
+
+# Load agent-specific policy
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+POLICY_PATH = os.path.join(BASE_DIR, "..", "policy", "agents", "caregiver_policy.json")
+AGENT_POLICY = {}
+if os.path.exists(POLICY_PATH):
+    with open(POLICY_PATH, "r") as f:
+        AGENT_POLICY = json.load(f)
+    # Log policy summary on startup
+    scope_str = ", ".join(AGENT_POLICY.get("scope", []))
+    restrictions_str = ", ".join(AGENT_POLICY.get("restrictions", []))
+    print(f"[Policy] Caregiver Agent loaded: scope=[{scope_str}], restrictions=[{restrictions_str}]")
 
 
 def score_risk(avg_sev: float, missed: int) -> str:

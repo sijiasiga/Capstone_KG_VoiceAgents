@@ -1,0 +1,41 @@
+{
+  "red_flags": [
+    "chest pain",
+    "chest tightness",
+    "pain in chest",
+    "shortness of breath",
+    "trouble breathing",
+    "wound complications",
+    "wound opening",
+    "drainage",
+    "infection signs",
+    "high fever",
+    "fever >= 101.5",
+    "severe pain",
+    "pain >= 8/10",
+    "neurological deficits",
+    "numbness",
+    "weakness",
+    "slurred speech",
+    "syncope",
+    "fainting"
+  ],
+  "orange_flags": [
+    "moderate pain",
+    "pain 5-7/10",
+    "low-grade fever",
+    "fever 99.5-101.4",
+    "dizziness",
+    "hyperglycemia",
+    "blood sugar > 300",
+    "wound redness",
+    "wound swelling"
+  ],
+  "green_flags": [
+    "mild discomfort",
+    "routine symptoms",
+    "normal recovery"
+  ],
+  "escalation": "If uncertain, escalate to human nurse."
+}
+

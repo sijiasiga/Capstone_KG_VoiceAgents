@@ -16,6 +16,18 @@ from ..utils.logging_utils import log_appointment
 # Use local database
 from ..database import DatabaseService
 
+# Load agent-specific policy
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+POLICY_PATH = os.path.join(BASE_DIR, "..", "policy", "agents", "appointment_policy.json")
+AGENT_POLICY = {}
+if os.path.exists(POLICY_PATH):
+    with open(POLICY_PATH, "r") as f:
+        AGENT_POLICY = json.load(f)
+    # Log policy summary on startup
+    scope_str = ", ".join(AGENT_POLICY.get("scope", []))
+    restrictions_str = ", ".join(AGENT_POLICY.get("restrictions", []))
+    print(f"[Policy] Appointment Agent loaded: scope=[{scope_str}], restrictions=[{restrictions_str}]")
+
 # Mock data (same as original)
 appointments_data = pd.DataFrame([
     {"appointment_id": 30409, "patient_id": "10000032", "appointment_date": "2025-10-15 09:30:00",

@@ -14,7 +14,17 @@ from ..utils.logging_utils import log_medication
 # Use local database
 from ..database import DatabaseService
 
+# Load agent-specific policy
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+POLICY_PATH = os.path.join(BASE_DIR, "..", "policy", "agents", "medication_policy.json")
+AGENT_POLICY = {}
+if os.path.exists(POLICY_PATH):
+    with open(POLICY_PATH, "r") as f:
+        AGENT_POLICY = json.load(f)
+    # Log policy summary on startup
+    scope_str = ", ".join(AGENT_POLICY.get("scope", []))
+    print(f"[Policy] Medication Agent loaded: scope=[{scope_str}], triage={AGENT_POLICY.get('triage_required', False)}")
+
 DATA_DIR = os.path.join(BASE_DIR, "..", "data")
 KNOWLEDGE_PATH = os.path.join(DATA_DIR, "drug_knowledge.csv")
 LOG_DIR = os.path.join(BASE_DIR, "..", "logs")

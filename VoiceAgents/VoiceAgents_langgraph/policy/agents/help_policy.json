@@ -1,0 +1,25 @@
+{
+  "scope": [
+    "general conversation",
+    "system navigation help",
+    "greetings",
+    "non-specific questions"
+  ],
+  "restrictions": [
+    "no medical advice",
+    "no diagnosis",
+    "no treatment recommendations"
+  ],
+  "escalate_on": [
+    "medical emergency mentions",
+    "RED flag symptoms mentioned",
+    "requests for diagnosis or treatment"
+  ],
+  "triage_required": false,
+  "redirect_to": {
+    "appointment_requests": "appointment agent",
+    "symptom_reports": "followup agent",
+    "medication_questions": "medication agent"
+  }
+}
+
