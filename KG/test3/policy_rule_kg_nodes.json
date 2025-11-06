@@ -1,0 +1,121 @@
+[
+  {
+    "id": "policy_center",
+    "type": "Policy",
+    "label": "Bariatric Surgery Policy",
+    "description": "Policy rules for bariatric surgery eligibility",
+    "node_size": 2000
+  },
+  {
+    "id": "group_eligibility",
+    "type": "ConditionGroup",
+    "label": "Eligibility Conditions",
+    "condition_type": "eligibility",
+    "node_size": 1500
+  },
+  {
+    "id": "condition_vcf_acuity_acute_duration_weeks_0",
+    "type": "Condition",
+    "label": "vcf_acuity_acute_duration_w...",
+    "field_name": "vcf_acuity_acute_duration_weeks",
+    "operator": "<",
+    "value": "6",
+    "description": "Duration for acute osteoporotic vertebral compression fracture (VCF) (less than 6 weeks)",
+    "section": "Eligibility",
+    "condition_type": "eligibility",
+    "node_size": 1000
+  },
+  {
+    "id": "condition_pain_score_nrs_threshold_hospitalized_1",
+    "type": "Condition",
+    "label": "pain_score_nrs_threshold_ho...",
+    "field_name": "pain_score_nrs_threshold_hospitalized",
+    "operator": ">=",
+    "value": "8",
+    "description": "Numeric Rating Scale (NRS) pain score threshold for hospitalized patients with severe pain (>= 8)",
+    "section": "Eligibility",
+    "condition_type": "eligibility",
+    "node_size": 1000
+  },
+  {
+    "id": "group_requirement",
+    "type": "ConditionGroup",
+    "label": "Requirement Conditions",
+    "condition_type": "requirement",
+    "node_size": 1500
+  },
+  {
+    "id": "condition_bone_mineral_density_evaluation_referral_flag_0",
+    "type": "Condition",
+    "label": "bone_mineral_density_evalua...",
+    "field_name": "bone_mineral_density_evaluation_referral_flag",
+    "operator": "=",
+    "value": "TRUE",
+    "description": "Referral for evaluation of Bone Mineral Density (BMD)",
+    "section": "Program Requirements",
+    "condition_type": "requirement",
+    "node_size": 1000
+  },
+  {
+    "id": "group_other",
+    "type": "ConditionGroup",
+    "label": "Other Conditions",
+    "condition_type": "other",
+    "node_size": 1500
+  },
+  {
+    "id": "condition_back_pain_not_primarily_vcf_flag_0",
+    "type": "Condition",
+    "label": "back_pain_not_primarily_vcf...",
+    "field_name": "back_pain_not_primarily_vcf_flag",
+    "operator": "=",
+    "value": "FALSE",
+    "description": "Current back pain is not primarily due to the identified acute or subacute VCF(s)",
+    "section": "Exclusion Criteria",
+    "condition_type": "other",
+    "node_size": 1000
+  },
+  {
+    "id": "group_procedure",
+    "type": "ConditionGroup",
+    "label": "Procedure Conditions",
+    "condition_type": "procedure",
+    "node_size": 1500
+  },
+  {
+    "id": "condition_vertebral_fracture_count_per_procedure_limit_0",
+    "type": "Condition",
+    "label": "vertebral_fracture_count_pe...",
+    "field_name": "vertebral_fracture_count_per_procedure_limit",
+    "operator": "<=",
+    "value": "3",
+    "description": "Maximum number of vertebral fractures per procedure (greater than 3 is a relative contraindication)",
+    "section": "Exclusion Criteria",
+    "condition_type": "procedure",
+    "node_size": 1000
+  },
+  {
+    "id": "condition_procedure_percutaneous_vertebroplasty_1",
+    "type": "Condition",
+    "label": "procedure_percutaneous_vert...",
+    "field_name": "procedure_percutaneous_vertebroplasty",
+    "operator": "=",
+    "value": "TRUE",
+    "description": "Percutaneous Vertebroplasty (PVP) procedure, a type of percutaneous vertebral augmentation (PVA)",
+    "section": "Procedures",
+    "condition_type": "procedure",
+    "node_size": 1000
+  },
+  {
+    "id": "condition_procedure_code_cpt_2",
+    "type": "Condition",
+    "label": "procedure_code_cpt IN 22510...",
+    "field_name": "procedure_code_cpt",
+    "operator": "IN",
+    "value": "22510, 22511, 22512, 22513, 22514, 22515",
+    "description": "Field: procedure_code_cpt",
+    "section": "Unknown",
+    "condition_type": "procedure",
+    "node_size": 1000
+  }
+]
