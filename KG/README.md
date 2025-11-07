@@ -26,15 +26,35 @@ streamlit run streamlit_app.py
 ├── streamlit_app.py            # Interactive web application
 ├── Database                    # Database management system
 ├── OCR                         # Medical record processing
+├── prompts                     # Prompts for Agents
 ├── patient_data/               # Patient case studies
 │   ├── patient_8472202544/     # Patient case 1 (ELIGIBLE)
 │   ├── patient_9384202577/     # Patient case 2 (NOT ELIGIBLE)
 │   └── patient_*/              # Additional patient cases
-├── test1/                      # Complete example with outputs
-│   ├── Patient_data_dictionary/ # Input: Patient JSON files
-│   ├── Patient_KG/             # Output: Patient visualizations
-│   ├── Patient_Rule_KG/        # Output: Compliance reports
-│   └── Policy_CGSURG83/        # Input: Policy data + Output: Policy KG
+├── NCD_LCD_Syn_data/           # Test Policies (Source data)
+│   ├── L34106/                 # LCD Policy 34106 - Vertebral Augmentation
+│   │   ├── LCD - ... (L34106).pdf
+│   │   ├── L34106_Record_001.pdf - L34106_Record_*.pdf   # Synthetic patient records
+│   │   └── L34106_Summary.xlsx # Policy summary data
+├── Policies_test/              # Results of Agent Orchestration (Policy extraction outputs)
+│   ├── Policy_LCD_34106/       # Extracted policy data for L34106
+│   │   ├── Policy_LCD_34106.txt          # OCR extracted policy text
+│   │   ├── Data_dictionary_LCD_34106.json    # Extracted data fields
+│   │   ├── Policy_LCD_34106.json            # Extracted policy conditions
+│   │   ├── SQL_LCD_34106.txt               # Generated SQL queries
+│   │   ├── Info_LCD_34106.json             # Policy metadata
+│   │   ├── policy_rule_kg_LCD_34106.png    # Policy knowledge graph visualization
+│   │   ├── policy_rule_kg_nodes.json       # KG node definitions
+│   │   └── policy_rule_kg_edges.json       # KG edge definitions
+├── test1/                      # Complete working example (Bariatric Surgery Policy CGSURG83)
+│   ├── Policy_CGSURG83/        # Policy extraction outputs
+│   │   ├── Medical_Policy_CGSURG83.txt    # OCR extracted policy text
+│   │   ├── Data_dictionary_CGSURG83.json  # Extracted data fields
+│   │   ├── Policy_CGSURG83.json           # Extracted policy conditions
+│   │   ├── SQL_CGSURG83.txt               # Generated SQL queries
+│   │   ├── Codes_CGSURG83.txt             # Medical codes mapping
+│   │   └── policy_rule_kg.png             # Policy knowledge graph visualization
+│   ├── Data_dictionary.json        # Initial data dictionary template
 └── scripts/                    # Automation scripts
 ```
 
@@ -137,6 +157,14 @@ The script will:
 - `Data_dictionary_{policy_id}.json` - Extracted data fields
 - `Policy_{policy_id}.json` - Extracted policy conditions
 - `SQL_{policy_id}.txt` - Generated SQL queries
+
+### Result of Agent Orchestration
+
+```bash
+bash scripts/run_process_all_policies.sh
+```
+Results are saved under [Policies_test](Policies_test)
+
 
 ### Data Field Validation
 
@@ -328,3 +356,4 @@ streamlit run streamlit_app.py
 - [ ] **Refinement of Code Base**: Code optimization, documentation, and maintainability improvements
 - [ ] **Validation Agent**: Design agents to evaluate the results for each agents
 - [ ] **Streamlit Interface**: Add Policy Extraction Function
+- [ ] **Interactive Interface**: KG plots
