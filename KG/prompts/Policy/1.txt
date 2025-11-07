@@ -10,7 +10,6 @@ Return a JSON list of policy objects with:
 - name: (string) policy title
 - guideline_number: (string|null) policy ID
 - description: (string) brief summary
-- raw_text: (string) COMPLETE original policy text (no abbreviation)
 - restrictions: (list) eligibility conditions
 
 Each restriction must contain:

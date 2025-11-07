@@ -1,0 +1,110 @@
+[
+  {
+    "name": "patient_id",
+    "type": "string",
+    "description": "Unique patient identifier",
+    "section": "Demographics"
+  },
+  {
+    "name": "peripheral_nerve_stimulation_covered",
+    "type": "boolean",
+    "description": "Indicates whether Peripheral Nerve Stimulation (PNS) may be covered for relief of chronic intractable pain for patients with conditions known to be responsive to this therapy.",
+    "section": "Coverage Guidance"
+  },
+  {
+    "name": "chronic_pain_minimum_duration_months",
+    "type": "integer",
+    "description": "Minimum duration of documented chronic and severe pain (in months) required for coverage of PNS trials.",
+    "section": "Eligibility"
+  },
+  {
+    "name": "prior_less_invasive_treatment_failure_required",
+    "type": "boolean",
+    "description": "Requirement for documented failure of less invasive treatment modalities and medications prior to coverage of PNS trials.",
+    "section": "Eligibility"
+  },
+  {
+    "name": "surgical_contraindications_absent",
+    "type": "boolean",
+    "description": "Requirement for the absence of surgical contraindications, including infections and medical risks, for coverage of PNS trials.",
+    "section": "Eligibility"
+  },
+  {
+    "name": "active_substance_abuse_absent",
+    "type": "boolean",
+    "description": "Requirement for the absence of active substance abuse issues for coverage of PNS trials.",
+    "section": "Eligibility"
+  },
+  {
+    "name": "formal_psychological_screening_required",
+    "type": "boolean",
+    "description": "Requirement for a formal psychological screening by a mental health professional for coverage of PNS trials.",
+    "section": "Eligibility"
+  },
+  {
+    "name": "pns_trial_pain_reduction_threshold_percentage",
+    "type": "float",
+    "description": "Minimum percentage reduction in pain intensity required for a successful peripheral nerve stimulation trial before permanent implantation.",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "pns_trial_analgesic_medication_reduction_threshold_percentage",
+    "type": "float",
+    "description": "Minimum percentage reduction in analgesic medications required for a successful peripheral nerve stimulation trial.",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "pns_trial_functional_improvement_required",
+    "type": "boolean",
+    "description": "Requirement for some element of functional improvement for a successful peripheral nerve stimulation trial.",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "physician_pns_trial_to_implant_ratio_threshold_percentage",
+    "type": "float",
+    "description": "Threshold percentage for a physician's trial to permanent implant ratio (less than this value may trigger post-payment review).",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "procedure_code_CPT",
+    "type": "string",
+    "description": "CPT code for Percutaneous implantation of neurostimulator electrodes; peripheral nerve (64555).",
+    "section": "Procedures"
+  },
+  {
+    "name": "cpt_64555_max_services_per_year",
+    "type": "integer",
+    "description": "Maximum number of services for CPT code 64555 allowed per 365 days.",
+    "section": "Utilization Guidelines"
+  },
+  {
+    "name": "pns_trial_max_leads",
+    "type": "integer",
+    "description": "Maximum number of leads allowed for peripheral nerve stimulation trials.",
+    "section": "Utilization Guidelines"
+  },
+  {
+    "name": "pns_trial_max_contacts",
+    "type": "integer",
+    "description": "Maximum number of contacts allowed for peripheral nerve stimulation trials.",
+    "section": "Utilization Guidelines"
+  },
+  {
+    "name": "diagnosis_code_ICD10",
+    "type": "string",
+    "description": "ICD-10-CM code explicitly added to the LCD, for Other dorsalgia (M54.81).",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "pns_covered_indications_string",
+    "type": "string",
+    "description": "Examples of peripheral stimulation indications with evidence of efficacy that may be covered, including occipital neuralgia, post-surgical neuropathic pain, cervicogenic headaches, treatment resistant migraines, post-traumatic and post-surgical neuropathic pain in the face related to trigeminal nerves, complex regional pain syndromes (type 1 and 2), pain due to peripheral nerve injury, post-surgical scar formation, nerve entrapment, painful mononeuropathy, painful amputation neuromas, and post-surgical and post-traumatic neuropathic pain involving intercostal and ilio-inguinal nerve distributions.",
+    "section": "Coverage Guidance"
+  },
+  {
+    "name": "pns_non_covered_indications_string",
+    "type": "string",
+    "description": "Indications for which current peer-reviewed data does not support PNS, including fibromyalgia, phantom limb pain, diffuse polyneuropathy, nociceptive pain in trunk or lower back, or angina pectoris. PNFS is not covered for any condition.",
+    "section": "Coverage Guidance"
+  }
+]

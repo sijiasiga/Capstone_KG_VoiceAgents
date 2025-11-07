@@ -10,7 +10,6 @@ Each policy object must contain:
 - name: (string) policy title  
 - guideline_number: (string|null) policy identifier if provided in text  
 - description: (string) short summary of what the policy covers  
-- raw_text: (string) the relevant raw policy text  
 - restrictions: (list of dicts), each with:  
   - condition: natural language statement of the restriction  
   - rule: SQL-like logical expression referencing canonical field names  
@@ -67,8 +66,6 @@ Raw Policy Text:
     "name": "Bariatric Surgery and Other Treatments for Clinically Severe Obesity",
     "guideline_number": "CG-SURG-83",
     "description": "Policy for surgical and other treatments for clinically severe obesity, including criteria for medically necessary bariatric surgery.",
-    "raw_text": "Gastric bypass and gastric restrictive procedures are considered medically necessary when all of the following criteria are met: Individual is age 18 years or older; the recommended surgery is one of certain procedures; a BMI of 40 or greater, or 35 or greater with an obesity-related comorbid condition.",
-    "restrictions": [
       {
         "condition": "Age ≥ 18",
         "rule": "patient_age >= 18",

@@ -1,0 +1,537 @@
+[
+  {
+    "name": "LCD - Epidural Steroid Injections for Pain Management",
+    "guideline_number": "L39240",
+    "description": "This Local Coverage Determination (LCD) outlines the coverage criteria, limitations, and medical necessity requirements for epidural steroid injections (ESIs) for pain management, aligning with other MAC Contractors' LCDs. It details conditions for coverage, procedural limitations, and contraindications.",
+    "restrictions": [
+      {
+        "condition": "Epidural steroid injection (ESI) requires diagnostic support for lumbar radiculopathy.",
+        "rule": "diagnosis_radiculopathy_lumbar = TRUE",
+        "codes": [],
+        "logic": "OR"
+      },
+      {
+        "condition": "Epidural steroid injection (ESI) requires diagnostic support for cervical radiculopathy.",
+        "rule": "diagnosis_radiculopathy_cervical = TRUE",
+        "codes": [],
+        "logic": "OR"
+      },
+      {
+        "condition": "Epidural steroid injection (ESI) requires diagnostic support for thoracic radiculopathy.",
+        "rule": "diagnosis_radiculopathy_thoracic = TRUE",
+        "codes": [],
+        "logic": "OR"
+      },
+      {
+        "condition": "Epidural steroid injection (ESI) requires diagnostic support for radicular pain.",
+        "rule": "diagnosis_radicular_pain = TRUE",
+        "codes": [],
+        "logic": "OR"
+      },
+      {
+        "condition": "Epidural steroid injection (ESI) requires diagnostic support for neurogenic claudication due to disc herniation.",
+        "rule": "diagnosis_neurogenic_claudication = TRUE AND diagnosis_disc_herniation = TRUE",
+        "codes": [],
+        "logic": "OR"
+      },
+      {
+        "condition": "Epidural steroid injection (ESI) requires diagnostic support for neurogenic claudication due to osteophyte or osteophyte complexes.",
+        "rule": "diagnosis_neurogenic_claudication = TRUE AND diagnosis_osteophyte = TRUE",
+        "codes": [],
+        "logic": "OR"
+      },
+      {
+        "condition": "Epidural steroid injection (ESI) requires diagnostic support for neurogenic claudication due to severe degenerative disc disease producing foraminal or central spinal stenosis.",
+        "rule": "diagnosis_neurogenic_claudication = TRUE AND diagnosis_degenerative_disc_disease_severe = TRUE AND (diagnosis_spinal_stenosis_foraminal = TRUE OR diagnosis_spinal_stenosis_central = TRUE)",
+        "codes": [],
+        "logic": "OR"
+      },
+      {
+        "condition": "Epidural steroid injection (ESI) requires diagnostic support for post-laminectomy syndrome.",
+        "rule": "diagnosis_post_laminectomy_syndrome = TRUE",
+        "codes": [],
+        "logic": "OR"
+      },
+      {
+        "condition": "Epidural steroid injection (ESI) requires diagnostic support for acute herpes zoster associated pain.",
+        "rule": "diagnosis_acute_herpes_zoster_pain = TRUE",
+        "codes": [],
+        "logic": "OR"
+      },
+      {
+        "condition": "Radiculopathy, radicular pain, or neurogenic claudication must be severe enough to greatly impact quality of life or function, with objective pain and functional assessments performed at baseline and follow-up.",
+        "rule": "(diagnosis_radiculopathy_lumbar = TRUE OR diagnosis_radiculopathy_cervical = TRUE OR diagnosis_radiculopathy_thoracic = TRUE OR diagnosis_radicular_pain = TRUE OR diagnosis_neurogenic_claudication = TRUE) AND pain_scale_baseline = TRUE AND functional_assessment_baseline = TRUE AND pain_scale_followup = TRUE AND functional_assessment_followup = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Patient must have pain duration of at least four weeks and either failed noninvasive conservative care or be unable to tolerate it, or have acute herpes zoster refractory to conservative management without a four-week wait.",
+        "rule": "(pain_duration_weeks >= 4 AND (conservative_care_failure = TRUE OR noninvasive_care_intolerance = TRUE)) OR acute_herpes_zoster_refractory = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Epidural steroid injections must be performed under CT or fluoroscopy image guidance with contrast.",
+        "rule": "(image_guidance_ct = TRUE OR image_guidance_fluoroscopy = TRUE) AND contrast_agent_used = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "If a patient has a documented allergy to low molecular weight nonionic contrast or is pregnant, ultrasound guidance without contrast may be considered for ESI.",
+        "rule": "(allergy_contrast_media = TRUE OR patient_pregnancy_status = TRUE) AND image_guidance_ultrasound = TRUE AND contrast_agent_used = FALSE",
+        "codes": [],
+        "logic": "OR"
+      },
+      {
+        "condition": "Transforaminal epidural steroid injections (TFESIs) are limited to a maximum of two levels in one spinal region during a single session.",
+        "rule": "tfesi_spinal_levels_max <= 2 AND tfesi_spinal_region_count_max <= 1",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Caudal epidural steroid injections (CESIs) and interlaminar epidural steroid injections (ILESIs) are limited to a maximum of one level during a single session.",
+        "rule": "cesi_spinal_levels_max <= 1 AND ilesi_spinal_levels_max <= 1",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Transforaminal epidural steroid injections (TFESIs) may be performed bilaterally only when clinically indicated.",
+        "rule": "tfesi_bilateral = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Repeat ESI is medically reasonable and necessary if the first injection provided at least 50% sustained improvement in pain relief and/or function for at least three months.",
+        "rule": "(repeat_esi_pain_relief_min_percent >= 50 OR repeat_esi_function_improvement_min_percent >= 50) AND repeat_esi_improvement_duration_months >= 3",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "If an initial ESI fails to provide sufficient response, a repeat ESI can be performed after 14 days, potentially using a different approach, level, or medication, with documented rationale.",
+        "rule": "conservative_care_failure = TRUE AND repeat_esi_initial_failure_window_days >= 14",
+        "codes": [],
+        "logic": "OR"
+      },
+      {
+        "condition": "An initial injection of contrast is required to confirm epidural placement, unless contraindication to contrast exists.",
+        "rule": "initial_esi_contrast_required = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Subsequent epidural steroid injections should include corticosteroids and may be combined with anesthetics or saline.",
+        "rule": "subsequent_esi_corticosteroid_component = TRUE AND (subsequent_esi_anesthetic_component = TRUE OR subsequent_esi_saline_component = TRUE)",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Epidural steroid injections (ESIs) must be performed in conjunction with conservative treatments.",
+        "rule": "esi_conjunction_conservative_treatment = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Patient must be part of an active rehabilitation program, home exercise program, or functional restoration program.",
+        "rule": "patient_rehabilitation_program = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Injections performed without image guidance are not covered.",
+        "rule": "image_guidance_required = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Ultrasound guidance for ESI is only considered in cases of documented contraindication to contrast media (e.g., allergy) or pregnancy.",
+        "rule": "(allergy_contrast_media = TRUE OR patient_pregnancy_status = TRUE) AND image_guidance_ultrasound = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "ESIs performed with biologicals or other substances not FDA designated for this use are considered investigational and not medically reasonable and necessary.",
+        "rule": "esi_biologicals_not_covered = TRUE AND esi_unapproved_substances_not_covered = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Performing multiple blocks (e.g., sympathetic, facet, trigger point injections) during the same session as ESIs is generally not covered.",
+        "rule": "multiple_blocks_same_session_not_covered = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "An ESI and a facet synovial cyst procedure may be performed in the same session as an exception to the multiple blocks rule.",
+        "rule": "facet_synovial_cyst_esi_same_session_allowed = TRUE",
+        "codes": [],
+        "logic": "OR"
+      },
+      {
+        "condition": "Moderate sedation is not considered medically reasonable and necessary for ESI procedures.",
+        "rule": "sedation_moderate_not_covered = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Deep sedation is not considered medically reasonable and necessary for ESI procedures.",
+        "rule": "sedation_deep_not_covered = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "General anesthesia is not considered medically reasonable and necessary for ESI procedures.",
+        "rule": "anesthesia_general_not_covered = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Monitored Anesthesia Care (MAC) is not considered medically reasonable and necessary for ESI procedures.",
+        "rule": "mac_anesthesia_not_covered = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Oral anxiolytics are typically sufficient for patients with needle phobia or anxiety during ESI procedures.",
+        "rule": "oral_anxiolytics_sufficient = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "ESIs for non-specific low back pain (LBP) are not medically reasonable and necessary.",
+        "rule": "esi_for_nonspecific_LBP_not_covered = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "ESIs for axial spine pain are not medically reasonable and necessary.",
+        "rule": "esi_for_axial_spine_pain_not_covered = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "ESIs for complex regional pain syndrome are not medically reasonable and necessary.",
+        "rule": "esi_for_complex_regional_pain_syndrome_not_covered = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "ESIs for widespread diffuse pain are not medically reasonable and necessary.",
+        "rule": "esi_for_widespread_diffuse_pain_not_covered = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "ESIs for pain from neuropathy from other causes are not medically reasonable and necessary.",
+        "rule": "esi_for_neuropathy_other_causes_not_covered = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "ESIs for cervicogenic headaches are not medically reasonable and necessary.",
+        "rule": "esi_for_cervicogenic_headaches_not_covered = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "ESIs are limited to a maximum of four sessions per spinal region in a rolling twelve-month period.",
+        "rule": "esi_sessions_max_per_region_12months <= 4",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Injecting more than one spinal region in the same session is not considered medically reasonable and necessary.",
+        "rule": "esi_multiple_spinal_regions_same_session_not_covered = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Performing Caudal or Interlaminar Epidural Steroid Injections (CESIs/ILESIs) bilaterally is not medically reasonable and necessary.",
+        "rule": "cesi_ilesi_bilateral_not_covered = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Prescribing a predetermined series of ESIs is not medically reasonable and necessary.",
+        "rule": "predetermined_esi_series_not_covered = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Triamcinolone dose per ESI session should not exceed 80 mg.",
+        "rule": "steroid_dose_triamcinolone_max_mg <= 80",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Betamethasone dose per ESI session should not exceed 12 mg.",
+        "rule": "steroid_dose_betamethasone_max_mg <= 12",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Dexamethasone dose per ESI session should not exceed 15 mg.",
+        "rule": "steroid_dose_dexamethasone_max_mg <= 15",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Methylprednisolone dose per ESI session should not exceed 40 mg (as per WIP Benelux Workgroup recommendation).",
+        "rule": "steroid_dose_methylprednisolone_max_mg <= 40",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Treatment with ESI generally should not extend beyond 12 months.",
+        "rule": "esi_treatment_duration_max_months <= 12",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Frequent continuation of epidural steroid injections over 12 months may trigger a focused medical review.",
+        "rule": "esi_continuation_beyond_12months_review_trigger = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "For ESI continuation beyond 12 months, pain must be severe enough to cause significant functional or vocational disability.",
+        "rule": "(esi_continuation_beyond_12months_functional_disability = TRUE OR esi_continuation_beyond_12months_vocational_disability = TRUE)",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "For ESI continuation beyond 12 months, ESI must provide at least 50% sustained improvement of pain and/or 50% objective improvement in function.",
+        "rule": "(esi_continuation_beyond_12months_pain_relief_min_percent >= 50 OR esi_continuation_beyond_12months_function_improvement_min_percent >= 50)",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "For ESI continuation beyond 12 months, rationale for continuation must be documented.",
+        "rule": "esi_continuation_beyond_12months_rationale_documented = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "For ESI continuation beyond 12 months, the primary care provider must be notified.",
+        "rule": "esi_continuation_beyond_12months_pcp_notification = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Use of ESIs beyond one year must be combined with multimodal therapy.",
+        "rule": "esi_continuation_beyond_12months_multimodal_therapy_required = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "ESIs are contraindicated for suspected or active localized spinal infection.",
+        "rule": "contraindication_spinal_infection = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "ESIs are contraindicated for significant systemic infection.",
+        "rule": "contraindication_systemic_infection = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "ESIs are contraindicated for compressive lesions of the spinal cord.",
+        "rule": "contraindication_spinal_cord_compression = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "ESIs are contraindicated for compressive lesions of the conus medullaris.",
+        "rule": "contraindication_conus_medullaris_compression = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "ESIs are contraindicated for compressive lesions of the cauda equina.",
+        "rule": "contraindication_cauda_equina_compression = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "ESIs are contraindicated for suspicion or major risk factors for cancer.",
+        "rule": "contraindication_cancer_risk = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "ESIs are absolutely contraindicated for infectious spondylitis.",
+        "rule": "contraindication_infectious_spondylitis = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "ESIs are absolutely contraindicated for myelopathy.",
+        "rule": "contraindication_myelopathy = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "ESIs are absolutely contraindicated for inability to obtain informed consent.",
+        "rule": "contraindication_inability_to_obtain_informed_consent = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "ESIs are absolutely contraindicated for infection at the skin puncture site.",
+        "rule": "contraindication_skin_puncture_site_infection = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Uncorrected anticoagulation therapy is a relative contraindication for ESI.",
+        "rule": "relative_contraindication_uncorrected_anticoagulation = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Hypersensitivity to administered agents is a relative contraindication for ESI.",
+        "rule": "relative_contraindication_hypersensitivity_agents = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Hepatitis is a relative contraindication for ESI.",
+        "rule": "relative_contraindication_hepatitis = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Uncontrolled diabetes mellitus is a relative contraindication for ESI.",
+        "rule": "relative_contraindication_uncontrolled_diabetes_mellitus = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Congestive heart failure is a relative contraindication for ESI.",
+        "rule": "relative_contraindication_congestive_heart_failure = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Immunosuppressed state is a relative contraindication for ESI.",
+        "rule": "relative_contraindication_immunosuppressed_state = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Patient improving on medical and physical therapy is a relative contraindication for ESI.",
+        "rule": "relative_contraindication_patient_improving_medical_pt = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Severe spinal canal stenosis is a relative contraindication for ESI.",
+        "rule": "relative_contraindication_severe_spinal_canal_stenosis = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "No response to a previous well-performed ESI is a relative contraindication.",
+        "rule": "relative_contraindication_no_response_previous_esi = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Complication to steroid therapy (e.g., Cushing\u2019s) is a relative contraindication for ESI.",
+        "rule": "relative_contraindication_steroid_therapy_complication = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Minimizing corticosteroid exposure is recommended for high-risk individuals with a prior history of osteoporosis or osteopenia when considering ESI.",
+        "rule": "contraindication_osteoporosis_history = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Interlaminar ESIs (ILESIs) should not be performed above C7.",
+        "rule": "cervical_ilesi_max_level = 'C7'",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Non-particulate steroids are recommended for cervical and thoracic spine ESIs.",
+        "rule": "non_particulate_steroid_use_cervical_thoracic_spine_recommended_nass = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "A maximum of two Transforaminal ESI procedures can be performed at a single setting.",
+        "rule": "tfesi_sessions_max_same_setting_nass <= 2",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "A maximum of one Caudal ESI or Interlaminar ESI procedure can be performed at a single setting.",
+        "rule": "cesi_ilesi_sessions_max_same_setting_nass <= 1",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Caudal ESI or Interlaminar ESI should not be performed in conjunction with a Transforaminal ESI injection.",
+        "rule": "cesi_ilesi_not_in_conjunction_with_tfesi_nass = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Most patients respond to 3 or less ESI injections for a specific episode of back and radicular pain.",
+        "rule": "successful_esi_injections_count_max <= 3",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Performing more than 3 ESI injections requires specific non-evidence-based criteria such as surgical planning, new injuries, inaccurate prior injections, exacerbation, or high-risk surgical candidates.",
+        "rule": "esi_beyond_3_injections_criteria_nass = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Epidural steroid injections (ESIs) are suggested for very short-term reduction (up to two weeks) of radicular low back pain.",
+        "rule": "esi_for_radicular_LBP_short_term_benefit_window_weeks <= 2",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Triamcinolone is not recommended for ESI use due to an FDA label change.",
+        "rule": "steroid_type_triamcinolone_not_for_esi = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Particulate steroids are not recommended for cervical TFESIs due to safety concerns.",
+        "rule": "steroid_type_particulate_not_recommended_cervical_tfesi = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Non-particulate steroids are recommended for cervical TFESIs.",
+        "rule": "steroid_type_non_particulate_recommended_cervical_tfesi = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Non-particulate steroids are recommended for lumbar TFESIs due to improved safety profile.",
+        "rule": "steroid_type_non_particulate_recommended_lumbar_tfesi = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "A period of up to 14 days may be needed to assess the clinical response after an ESI.",
+        "rule": "esi_assess_clinical_response_window_days <= 14",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Systemic effects on the hypothalamic-pituitary-adrenal (HPA) axis may last three weeks or longer after an ESI.",
+        "rule": "hpa_axis_systemic_effects_duration_weeks >= 3",
+        "codes": [],
+        "logic": "AND"
+      }
+    ]
+  }
+]

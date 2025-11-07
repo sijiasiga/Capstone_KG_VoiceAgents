@@ -1,0 +1,14 @@
+[
+  {
+    "source": "NCD_160_24",
+    "target": "group_other",
+    "relation": "contains",
+    "edge_type": "policy_rule"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_dbs_device_fda_approved_0",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  }
+]

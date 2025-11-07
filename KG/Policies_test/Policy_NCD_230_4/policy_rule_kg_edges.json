@@ -1,0 +1,26 @@
+[
+  {
+    "source": "NCD_230_4",
+    "target": "group_diagnosis",
+    "relation": "contains",
+    "edge_type": "policy_rule"
+  },
+  {
+    "source": "NCD_230_4",
+    "target": "group_procedure",
+    "relation": "contains",
+    "edge_type": "policy_rule"
+  },
+  {
+    "source": "group_diagnosis",
+    "target": "condition_diagnosis_impotence_0",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_procedure",
+    "target": "condition_procedure_penile_prosthesis_implantation_0",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  }
+]

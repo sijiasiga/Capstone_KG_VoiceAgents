@@ -76,18 +76,13 @@ Policy JSON object containing:
 
 **Output SQL**:
 ```sql
--- Policy: Bariatric Surgery
--- Total restrictions: 3
 SELECT *
 FROM patients
 WHERE
-  -- Restriction 1: Age requirement
   patient_age >= 18
   AND
-  -- Restriction 2: BMI eligibility criteria
   (patient_bmi >= 40.0 OR (patient_bmi >= 35.0 AND comorbidity_flag = TRUE))
   AND
-  -- Restriction 3: Covered procedure codes
   procedure_code_CPT IN ('43644','43645','43770');
 ```
 

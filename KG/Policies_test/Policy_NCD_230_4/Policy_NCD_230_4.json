@@ -1,0 +1,45 @@
+[
+  {
+    "name": "NCD - Diagnosis and Treatment of Impotence",
+    "guideline_number": "230.4",
+    "description": "Impotence is a failure of a body part for which the diagnosis, and frequently the treatment, require medical expertise. Treatment may be surgical, such as implantation of a penile prosthesis, or nonsurgical, such as medical or psychotherapeutic treatment. Program payment may be made for diagnosis and treatment of sexual impotence.",
+    "restrictions": [
+      {
+        "condition": "Coverage requires a diagnosis of sexual impotence.",
+        "rule": "diagnosis_impotence = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Surgical treatment, such as implantation of a penile prosthesis, is covered for impotence.",
+        "rule": "procedure_penile_prosthesis_implantation = TRUE",
+        "codes": [],
+        "logic": "OR"
+      },
+      {
+        "condition": "Nonsurgical medical treatment for impotence is covered.",
+        "rule": "treatment_type_medical_impotence = TRUE",
+        "codes": [],
+        "logic": "OR"
+      },
+      {
+        "condition": "Nonsurgical psychotherapeutic treatment for impotence is covered.",
+        "rule": "treatment_type_psychotherapeutic_impotence = TRUE",
+        "codes": [],
+        "logic": "OR"
+      },
+      {
+        "condition": "Psychiatric service limitation applies if treatment is furnished to patients who are not hospital inpatients.",
+        "rule": "patient_status_inpatient = FALSE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Psychiatric service limitation applies if treatment is furnished in connection with a mental condition.",
+        "rule": "diagnosis_mental_condition = TRUE",
+        "codes": [],
+        "logic": "AND"
+      }
+    ]
+  }
+]

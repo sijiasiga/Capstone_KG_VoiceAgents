@@ -1,0 +1,123 @@
+```sql
+-- Policy: NCD - Percutaneous Image-Guided Lumbar Decompression for Lumbar Spinal Stenosis
+-- Total Restrictions: 39
+SELECT *
+FROM patients
+WHERE
+  -- Restriction 1: The procedure performed must be Percutaneous Image-Guided Lumbar Decompression (PILD).
+  procedure_percutaneous_image_guided_lumbar_decompression = TRUE
+  AND
+  -- Restriction 2: The beneficiary must have a diagnosis of Lumbar Spinal Stenosis (LSS).
+  diagnosis_lumbar_spinal_stenosis = TRUE
+  AND
+  -- Restriction 3: PILD is covered only when provided in a clinical study under Coverage with Evidence Development (CED).
+  coverage_with_evidence_development_flag = TRUE
+  AND
+  -- Restriction 4: Beneficiaries must be enrolled in an approved clinical study.
+  clinical_study_enrollment_required = TRUE
+  AND
+  -- Restriction 5: The clinical study must have a prospective, randomized, and controlled design.
+  (clinical_study_design LIKE '%prospective%' AND clinical_study_design LIKE '%randomized%' AND clinical_study_design LIKE '%controlled%')
+  AND
+  -- Restriction 6: The clinical study must use current validated and reliable measurement instruments.
+  clinical_study_design LIKE '%validated and reliable measurement instruments%'
+  AND
+  -- Restriction 7: The clinical study must include clinically appropriate comparator treatments (e.g., medical, surgical, or sham-controlled arm).
+  clinical_study_design LIKE '%clinically appropriate comparator treatments%'
+  AND
+  -- Restriction 8: The study protocol must specify a statistical analysis plan.
+  clinical_study_design LIKE '%statistical analysis%'
+  AND
+  -- Restriction 9: The study protocol must specify a minimum length of patient follow-up time.
+  clinical_study_patient_followup_duration IS NOT NULL
+  AND
+  -- Restriction 10: The principal purpose of the research study must be to test whether the intervention potentially improves participants' health outcomes.
+  clinical_study_design LIKE '%principal purpose of the research study is to test whether a particular intervention potentially improves the participants\u2019 health outcomes%'
+  AND
+  -- Restriction 11: The research study must be well supported by available scientific and medical information or clarify health outcomes of interventions already in common clinical use.
+  clinical_study_design LIKE '%well supported by available scientific and medical information%'
+  AND
+  -- Restriction 12: The research study must not unjustifiably duplicate existing studies.
+  clinical_study_design LIKE '%does not unjustifiably duplicate existing studies%'
+  AND
+  -- Restriction 13: The research study design must be appropriate to answer the research question being asked.
+  clinical_study_design LIKE '%design is appropriate to answer the research question%'
+  AND
+  -- Restriction 14: The research study must be sponsored by an organization or individual capable of executing the proposed study successfully.
+  clinical_study_design LIKE '%sponsored by an organization or individual capable of executing the proposed study successfully%'
+  AND
+  -- Restriction 15: The research study must comply with all applicable Federal regulations concerning the protection of human subjects (45 CFR Part 46).
+  human_subjects_protection_compliance = TRUE
+  AND
+  -- Restriction 16: If FDA-regulated, the study must comply with 21 CFR parts 50 and 56.
+  fda_regulatory_compliance = TRUE
+  AND
+  -- Restriction 17: All aspects of the research study must be conducted according to appropriate standards of scientific integrity.
+  clinical_study_design LIKE '%conducted according to appropriate standards of scientific integrity%'
+  AND
+  -- Restriction 18: The research study must have a written protocol that clearly addresses Medicare requirements for CED coverage.
+  clinical_study_design LIKE '%written protocol that clearly addresses%'
+  AND
+  -- Restriction 19: The clinical research study must not be designed to exclusively test toxicity or disease pathophysiology in healthy individuals, unless the condition is life-threatening and there are no other viable treatment options.
+  clinical_study_design LIKE '%not designed to exclusively test toxicity or disease pathophysiology in healthy individuals%'
+  AND
+  -- Restriction 20: Clinical research studies must be registered on ClinicalTrials.gov by the principal sponsor/investigator prior to the enrollment of the first study subject.
+  clinicaltrials_gov_registration_required = TRUE
+  AND
+  -- Restriction 21: The research study protocol must specify the method and timing of public release of all prespecified outcomes.
+  clinical_study_design LIKE '%specifies the method and timing of public release of all prespecified outcomes%'
+  AND
+  -- Restriction 22: The research study protocol must explicitly discuss subpopulations affected by the treatment, particularly traditionally underrepresented groups in clinical studies.
+  clinical_study_subpopulation_discussion_required = TRUE
+  AND
+  -- Restriction 23: The research study protocol must explicitly discuss how the results are or are not expected to be generalizable to the Medicare population.
+  clinical_study_generalizability_discussion_required = TRUE
+  AND
+  -- Restriction 24: For studies covered under Section I, services must be performed on or after January 9, 2014.
+  pild_coverage_effective_date_1 >= '2014-01-09'
+  AND
+  -- Restriction 25: For studies covered under Section I, results must be made public within 24 months of the end of data collection.
+  clinical_study_results_public_release_window_months_1 <= 24
+  AND
+  -- Restriction 26: For studies covered under Section II, services must be performed on or after December 7, 2016.
+  pild_coverage_effective_date_2 >= '2016-12-07'
+  AND
+  -- Restriction 27: PILD procedures must use an FDA-approved/cleared device.
+  fda_approved_device_required = TRUE
+  AND
+  -- Restriction 28: The FDA-approved/cleared device must have completed a CMS-approved randomized control trial (RCT) that met the criteria listed in Section I.
+  randomized_control_trial_completion_required = TRUE
+  AND
+  -- Restriction 29: For studies covered under Section II, the study must be a prospective, longitudinal study.
+  (clinical_study_design LIKE '%prospective%' AND clinical_study_design LIKE '%longitudinal%')
+  AND
+  -- Restriction 30: Eligibility (inclusion and exclusion) criteria from the CMS-approved RCT protocol must be maintained in the new prospective, longitudinal study.
+  rct_eligibility_criteria_maintenance = TRUE
+  AND
+  -- Restriction 31: All study sites and study results must be listed in the ClinicalTrials.gov database.
+  clinicaltrials_gov_registration_required = TRUE
+  AND
+  -- Restriction 32: Registries for clinical research studies must also be registered in the AHRQ Registry of Patient Registries (RoPR).
+  clinical_study_design LIKE '%AHRQ Registry of Patient Registries%'
+  AND
+  -- Restriction 33: For studies covered under Section II, results must be made public within 12 months of the study\u2019s primary completion date.
+  clinical_study_results_public_release_window_months_2 <= 12
+  AND
+  -- Restriction 34: Studies conducted under CED must provide and obtain meaningful informed consent from patients regarding the risks associated with the study items and/or services, and the use and eventual disposition of the collected data.
+  clinical_study_design LIKE '%provide and obtain meaningful informed consent%'
+  AND
+  -- Restriction 35: PILD for LSS is not considered reasonable and necessary under section 1862(a)(1)(A) of the Social Security Act.
+  pild_reasonable_and_necessary_status = FALSE
+  AND
+  -- Restriction 36: Endoscopically assisted laminotomy/laminectomy, which requires open and direct visualization, is not within the scope of this NCD.
+  procedure_endoscopically_assisted_laminotomy_laminectomy = FALSE
+  AND
+  -- Restriction 37: Other open lumbar decompression procedures for LSS are not within the scope of this NCD.
+  procedure_open_lumbar_decompression = FALSE
+  AND
+  -- Restriction 38: Coverage for endoscopically assisted laminotomy/laminectomy and other open lumbar decompression procedures is at contractor discretion.
+  coverage_contractor_discretion_flag = TRUE
+  AND
+  -- Restriction 39: HCPCS procedure code 0275T for PILD is covered only when the procedure is performed within any other CED approved clinical trial.
+  (procedure_code_HCPCS = '0275T' AND coverage_with_evidence_development_flag = TRUE AND clinical_study_enrollment_required = TRUE);
+```

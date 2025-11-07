@@ -57,6 +57,11 @@ for policy_dir in "$DATA_DIR"/*/; do
 
     echo "Policy ID: $POLICY_ID"
 
+    echo ""
+    echo "Saving policy information..."
+    python utils/save_policy_id.py --policy-id "$POLICY_ID" --output-dir "$OUTPUT_DIR"
+    echo "✓ Policy information saved"
+
     # Step 0: Extract text from PDF using OCR
     EXTRACTED_TEXT_FILE="$OUTPUT_DIR/Policy_$POLICY_ID.txt"
     python OCR/policy_ocr.py --input_file "$pdf_file" --output "$EXTRACTED_TEXT_FILE" 2>/dev/null

@@ -3,7 +3,7 @@
 # Process medical policy: OCR → Extract fields → Extract conditions → Convert to SQL
 # Run from KG/ directory
 
-PDF_FILE="NCD_LCD_Syn_data/NCD230.4/NCD - Diagnosis and Treatment of Impotence (230.4).pdf"
+PDF_FILE="NCD_LCD_Syn_data/L34106/LCD - Percutaneous Vertebral Augmentation (PVA) for Osteoporotic Vertebral Compression Fracture (VCF) (L34106).pdf"
 OUTPUT_DIR="test4"
 INITIAL_DATA_DIC="test1/Data_dictionary.json"
 DATAFIELD_PROMPT="prompts/DataField/1.txt"

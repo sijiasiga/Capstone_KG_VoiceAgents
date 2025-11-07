@@ -1,0 +1,164 @@
+[
+  {
+    "name": "patient_id",
+    "type": "string",
+    "description": "Unique patient identifier",
+    "section": "Demographics"
+  },
+  {
+    "name": "diagnosis_chronic_intractable_pain",
+    "type": "boolean",
+    "description": "Patient must have chronic intractable pain for Spinal Cord Stimulator (SCS) coverage consideration",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "pain_type_neuropathic",
+    "type": "boolean",
+    "description": "Indicates if the pain is neuropathic, for which SCS is best suited",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "pain_type_nociceptive_severe_intractable",
+    "type": "boolean",
+    "description": "Indicates if the pain is nociceptive severe, intractable, for which SCS may have limited value",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "scs_trial_required",
+    "type": "boolean",
+    "description": "A short trial with percutaneous neurostimulator electrode(s) is required to assess suitability for permanent implantation",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "scs_effective_trial_prerequisite",
+    "type": "boolean",
+    "description": "Performance and documentation of an effective trial is a prerequisite for permanent nerve stimulation implantation",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "scs_replacement_trial_not_needed",
+    "type": "boolean",
+    "description": "A new trial is not needed for SCS replacement due to battery change, malfunction, or end of stimulator life",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "conservative_therapy_attempted",
+    "type": "boolean",
+    "description": "More conservative attempts (e.g., medications, physical therapy, psychological therapy, or other modalities) must have been tried before SCS therapy",
+    "section": "Eligibility"
+  },
+  {
+    "name": "multidisciplinary_team_evaluation_required",
+    "type": "boolean",
+    "description": "Careful screening, evaluation, and diagnosis by a multidisciplinary team is required prior to implantation",
+    "section": "Eligibility"
+  },
+  {
+    "name": "psychological_evaluation_required",
+    "type": "boolean",
+    "description": "Psychological evaluation is required as part of the multidisciplinary team screening prior to implantation",
+    "section": "Eligibility"
+  },
+  {
+    "name": "physical_evaluation_required",
+    "type": "boolean",
+    "description": "Physical evaluation is required as part of the multidisciplinary team screening prior to implantation",
+    "section": "Eligibility"
+  },
+  {
+    "name": "active_substance_abuse_issues_present",
+    "type": "boolean",
+    "description": "Patient must not have active substance abuse issues",
+    "section": "Eligibility"
+  },
+  {
+    "name": "patient_education_required",
+    "type": "boolean",
+    "description": "Patient must undergo proper education, discussion, and disclosure of SCS therapy risks and benefits",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "temporary_neurostimulator_placement_setting",
+    "type": "string",
+    "description": "The setting for temporary neurostimulator trial (ASC, outpatient hospital, or office with specific requirements)",
+    "section": "Procedures"
+  },
+  {
+    "name": "permanent_neurostimulator_placement_setting",
+    "type": "string",
+    "description": "The setting for permanent neurostimulator implantation (ASC or hospital)",
+    "section": "Procedures"
+  },
+  {
+    "name": "physician_board_certification_or_privileges_required",
+    "type": "boolean",
+    "description": "Physicians performing SCS trials in an office setting must have hospital/ASC privileges or be subspecialty boarded in Pain Medicine by the American Board of Anesthesiology",
+    "section": "Eligibility"
+  },
+  {
+    "name": "trial_success_pain_reduction_percentage",
+    "type": "integer",
+    "description": "A successful SCS trial requires at least a 50% reduction of target pain",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "trial_success_analgesic_reduction_percentage",
+    "type": "integer",
+    "description": "A successful SCS trial requires at least a 50% reduction of analgesic medications",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "trial_success_functional_improvement",
+    "type": "boolean",
+    "description": "A successful SCS trial requires some element of functional improvement",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "physician_trial_to_implant_ratio_threshold",
+    "type": "integer",
+    "description": "Physicians with a trial to permanent implant ratio less than 50% will be subject to post-payment review",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "scs_leads_maximum",
+    "type": "integer",
+    "description": "Maximum of 2 leads reimbursed for SCS placement per patient per lifetime",
+    "section": "Limitations"
+  },
+  {
+    "name": "scs_contacts_maximum",
+    "type": "integer",
+    "description": "Maximum of 16 contacts reimbursed for SCS placement per patient per lifetime",
+    "section": "Limitations"
+  },
+  {
+    "name": "scs_trials_maximum_per_region_per_patient_lifetime",
+    "type": "integer",
+    "description": "Maximum of 2 SCS trials reimbursed per anatomic spinal region per patient per lifetime",
+    "section": "Limitations"
+  },
+  {
+    "name": "repeat_scs_trial_exception",
+    "type": "boolean",
+    "description": "Repeat SCS trial is not appropriate unless there are extenuating circumstances that led to initial trial failure",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "diagnosis_code_ICD10",
+    "type": "string",
+    "description": "ICD-10-CM codes including Z45.42 (Encounter for adjustment and management of neurostimulator); M48.061, M48.062 (replaced M48.06); M48.06 (deleted); G57.73, T85.113A, T85.113D, T85.113S, T85.123A, T85.123D, T85.123S, T85.193A, T85.193D, T85.193S (added 10/1/2016); T85.112A, T85.112D, T85.112S, T85.122A, T85.122D, T85.122S, T85.192A, T85.192D, T85.192S (changed descriptors 10/1/2016)",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "procedure_code_CPT",
+    "type": "string",
+    "description": "CPT codes 63661, 63662, 63688, 95970, 95971, 95972 related to spinal cord stimulator procedures (removed from this LCD's diagnostic criteria effective 10/1/2017)",
+    "section": "Procedures"
+  },
+  {
+    "name": "procedure_code_HCPCS",
+    "type": "string",
+    "description": "HCPCS code L8680 (deleted from Group 2 effective 10/1/2016)",
+    "section": "Procedures"
+  }
+]

@@ -6,7 +6,6 @@ Policy JSON with keys:
 - name  
 - guideline_number  
 - description  
-- raw_text  
 - restrictions (list of dicts, each containing condition, rule, codes, logic)  
 
 ### Output:  

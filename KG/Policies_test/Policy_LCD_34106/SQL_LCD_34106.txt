@@ -1,0 +1,61 @@
+```sql
+SELECT *
+FROM patients
+WHERE
+  -- Restriction 1: Percutaneous Vertebral Augmentation (PVA) procedure must be one of the covered CPT codes.
+  procedure_code_CPT IN ('22510','22511','22512','22513','22514','22515')
+  AND
+  -- Restriction 2: Acute osteoporotic vertebral compression fracture (VCF) of less than 6 weeks duration based on symptom onset.
+  -- Restriction 3: Subacute osteoporotic vertebral compression fracture (VCF) of 6 to 12 weeks duration based on symptom onset.
+  (VCF_acuity_acute_duration_weeks < 6 OR VCF_acuity_subacute_duration_weeks >= 6 AND VCF_acuity_subacute_duration_weeks <= 12)
+  AND
+  -- Restriction 4: Vertebral compression fracture (VCF) located between T1 and L5.
+  VCF_location_T1_L5 = TRUE
+  AND
+  -- Restriction 5: VCF documented by advanced imaging showing bone marrow edema on MRI.
+  -- Restriction 6: VCF documented by advanced imaging showing bone-scan/SPECT/CT uptake.
+  (VCF_advanced_imaging_bone_marrow_edema_MRI = TRUE OR VCF_advanced_imaging_bone_scan_SPECT_CT_uptake = TRUE)
+  AND
+  -- Restriction 7: Patient is hospitalized with severe pain, indicated by a Numeric Rating Scale (NRS) pain score 8 or higher.
+  -- Restriction 8: Patient is hospitalized with severe pain, indicated by a Visual Analog Scale (VAS) pain score 8 or higher.
+  -- Restriction 9: Patient is non-hospitalized with moderate to severe pain, indicated by a Numeric Rating Scale (NRS) pain score 5 or higher.
+  -- Restriction 10: Patient is non-hospitalized with moderate to severe pain, indicated by a Visual Analog Scale (VAS) pain score 5 or higher.
+  (pain_severity_NRS_hospitalized >= 8 OR pain_severity_VAS_hospitalized >= 8 OR pain_severity_NRS_non_hospitalized >= 5 OR pain_severity_VAS_non_hospitalized >= 5)
+  AND
+  -- Restriction 11: Optimal non-surgical management (NSM) has failed for non-hospitalized patients with moderate to severe pain.
+  non_surgical_management_failed = TRUE
+  AND
+  -- Restriction 12: Non-hospitalized patient with worsening pain related to VCF (one of the symptomatic options).
+  -- Restriction 13: Non-hospitalized patient with stable to improved pain (NRS or VAS still >= 5) and progression of vertebral body height loss (one of at least two required conditions for this option).
+  -- Restriction 14: Non-hospitalized patient with stable to improved pain (NRS or VAS still >= 5) and greater than 25% vertebral body height reduction (one of at least two required conditions for this option).
+  -- Restriction 15: Non-hospitalized patient with stable to improved pain (NRS or VAS still >= 5) and presence of kyphotic deformity (one of at least two required conditions for this option).
+  -- Restriction 16: Non-hospitalized patient with stable to improved pain (NRS or VAS still >= 5) and severe impact of VCF on daily functioning (Roland Morris Disability Questionnaire (RDQ) score > 17) (one of at least two required conditions for this option).
+  (VCF_pain_worsening = TRUE OR vertebral_body_height_loss_progression = TRUE OR vertebral_body_height_reduction_percentage > 25 OR kyphotic_deformity = TRUE OR VCF_impact_daily_functioning_RDQ_score > 17)
+  AND
+  -- Restriction 17: Patient with VCF should be referred for evaluation of Bone Mineral Density (BMD) for subsequent treatment as indicated.
+  BMD_evaluation_referred = TRUE
+  AND
+  -- Restriction 18: Patient with VCF should be referred for osteoporosis education for subsequent treatment as indicated.
+  osteoporosis_education_referred = TRUE
+  AND
+  -- Restriction 19: Patient with VCF should be instructed to take part in an osteoporosis prevention/treatment program.
+  osteoporosis_prevention_treatment_program_participation = TRUE
+  AND
+  -- Restriction 20: Current back pain is not primarily due to the identified acute or subacute VCF(s) (absolute contraindication).
+  -- Restriction 21: Presence of osteomyelitis (absolute contraindication).
+  -- Restriction 22: Presence of discitis (absolute contraindication).
+  -- Restriction 23: Presence of active systemic infection (absolute contraindication).
+  -- Restriction 24: Presence of active surgical site infection (absolute contraindication).
+  -- Restriction 25: Patient is pregnant (absolute contraindication).
+  -- Restriction 26: Greater than three vertebral fractures per procedure (relative contraindication).
+  -- Restriction 27: Allergy to bone cement (relative contraindication).
+  -- Restriction 28: Allergy to opacification agents (relative contraindication).
+  -- Restriction 29: Presence of uncorrected coagulopathy (relative contraindication).
+  -- Restriction 30: Presence of spinal instability (relative contraindication).
+  -- Restriction 31: Presence of myelopathy from the fracture (relative contraindication).
+  -- Restriction 32: Presence of neurologic deficit (relative contraindication).
+  -- Restriction 33: Presence of neural impingement (relative contraindication).
+  -- Restriction 34: Presence of fracture retropulsion/canal compromise (relative contraindication).
+  (current_back_pain_not_VCF_primary = TRUE OR osteomyelitis_present = TRUE OR discitis_present = TRUE OR active_systemic_infection_present = TRUE OR active_surgical_site_infection_present = TRUE OR pregnancy_status = TRUE OR vertebral_fractures_per_procedure_count_greater_than > 3 OR allergy_bone_cement_present = TRUE OR allergy_opacification_agents_present = TRUE OR uncorrected_coagulopathy_present = TRUE OR spinal_instability_present = TRUE OR myelopathy_from_fracture_present = TRUE OR neurologic_deficit_present = TRUE OR neural_impingement_present = TRUE OR fracture_retropulsion_canal_compromise_present = TRUE);
+-- Total restrictions: 34
+```

@@ -1,0 +1,22 @@
+```sql
+SELECT *
+FROM patients
+WHERE
+  -- Policy: NCD - Diagnosis and Treatment of Impotence
+  -- Total restrictions: 6
+  diagnosis_impotence = TRUE
+  AND
+  (
+    procedure_penile_prosthesis_implantation = TRUE
+    OR
+    treatment_type_medical_impotence = TRUE
+    OR
+    (
+      treatment_type_psychotherapeutic_impotence = TRUE
+      AND
+      patient_status_inpatient = FALSE
+      AND
+      diagnosis_mental_condition = TRUE
+    )
+  );
+```

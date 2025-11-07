@@ -1,0 +1,260 @@
+[
+  {
+    "name": "patient_id",
+    "type": "string",
+    "description": "Unique patient identifier",
+    "section": "Demographics"
+  },
+  {
+    "name": "diagnosis_VCF_osteoporotic",
+    "type": "boolean",
+    "description": "Diagnosis of osteoporotic vertebral compression fracture (VCF)",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "VCF_advanced_imaging_bone_marrow_edema_MRI",
+    "type": "boolean",
+    "description": "Documentation of bone marrow edema on MRI for VCF",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "VCF_advanced_imaging_bone_scan_SPECT_CT_uptake",
+    "type": "boolean",
+    "description": "Documentation of bone-scan/SPECT/CT uptake for VCF",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "diagnosis_code_ICD10",
+    "type": "string",
+    "description": "Relevant ICD-10 diagnosis codes for VCF (specific codes located in companion article)",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "procedure_PVA",
+    "type": "boolean",
+    "description": "Percutaneous Vertebral Augmentation (PVA)",
+    "section": "Procedures"
+  },
+  {
+    "name": "procedure_PVP",
+    "type": "boolean",
+    "description": "Percutaneous Vertebroplasty (PVP), a type of PVA",
+    "section": "Procedures"
+  },
+  {
+    "name": "procedure_PKP",
+    "type": "boolean",
+    "description": "Kyphoplasty (PKP), a type of PVA",
+    "section": "Procedures"
+  },
+  {
+    "name": "procedure_code_CPT",
+    "type": "string",
+    "description": "Covered CPT codes for percutaneous vertebral augmentation procedures: 22510, 22511, 22512, 22513, 22514, 22515",
+    "section": "Procedures"
+  },
+  {
+    "name": "VCF_acuity_acute_duration_weeks",
+    "type": "integer",
+    "description": "Duration of acute osteoporotic vertebral compression fracture (VCF) in weeks (less than 6)",
+    "section": "Eligibility"
+  },
+  {
+    "name": "VCF_acuity_subacute_duration_weeks",
+    "type": "string",
+    "description": "Duration of subacute osteoporotic vertebral compression fracture (VCF) in weeks (6 to 12)",
+    "section": "Eligibility"
+  },
+  {
+    "name": "VCF_location_T1_L5",
+    "type": "boolean",
+    "description": "Vertebral compression fracture located between T1 and L5",
+    "section": "Eligibility"
+  },
+  {
+    "name": "pain_severity_NRS_hospitalized",
+    "type": "integer",
+    "description": "Numeric Rating Scale (NRS) pain score threshold for hospitalized patients (greater than or equal to 8)",
+    "section": "Eligibility"
+  },
+  {
+    "name": "pain_severity_VAS_hospitalized",
+    "type": "integer",
+    "description": "Visual Analog Scale (VAS) pain score threshold for hospitalized patients (greater than or equal to 8)",
+    "section": "Eligibility"
+  },
+  {
+    "name": "pain_severity_NRS_non_hospitalized",
+    "type": "integer",
+    "description": "Numeric Rating Scale (NRS) pain score threshold for non-hospitalized patients (greater than or equal to 5)",
+    "section": "Eligibility"
+  },
+  {
+    "name": "pain_severity_VAS_non_hospitalized",
+    "type": "integer",
+    "description": "Visual Analog Scale (VAS) pain score threshold for non-hospitalized patients (greater than or equal to 5)",
+    "section": "Eligibility"
+  },
+  {
+    "name": "non_surgical_management_failed",
+    "type": "boolean",
+    "description": "Optimal non-surgical management (NSM) has failed",
+    "section": "Eligibility"
+  },
+  {
+    "name": "VCF_pain_worsening",
+    "type": "boolean",
+    "description": "Worsening pain related to VCF",
+    "section": "Eligibility"
+  },
+  {
+    "name": "vertebral_body_height_loss_progression",
+    "type": "boolean",
+    "description": "Progression of vertebral body height loss",
+    "section": "Eligibility"
+  },
+  {
+    "name": "vertebral_body_height_reduction_percentage",
+    "type": "integer",
+    "description": "Percentage of vertebral body height reduction (greater than 25%)",
+    "section": "Eligibility"
+  },
+  {
+    "name": "kyphotic_deformity",
+    "type": "boolean",
+    "description": "Presence of kyphotic deformity",
+    "section": "Eligibility"
+  },
+  {
+    "name": "VCF_impact_daily_functioning_RDQ_score",
+    "type": "integer",
+    "description": "Roland Morris Disability Questionnaire (RDQ) score indicating severe impact of VCF on daily functioning (greater than 17)",
+    "section": "Eligibility"
+  },
+  {
+    "name": "current_back_pain_not_VCF_primary",
+    "type": "boolean",
+    "description": "Current back pain is not primarily due to identified acute or subacute VCF(s)",
+    "section": "Exclusions"
+  },
+  {
+    "name": "osteomyelitis_present",
+    "type": "boolean",
+    "description": "Presence of osteomyelitis",
+    "section": "Exclusions"
+  },
+  {
+    "name": "discitis_present",
+    "type": "boolean",
+    "description": "Presence of discitis",
+    "section": "Exclusions"
+  },
+  {
+    "name": "active_systemic_infection_present",
+    "type": "boolean",
+    "description": "Presence of active systemic infection",
+    "section": "Exclusions"
+  },
+  {
+    "name": "active_surgical_site_infection_present",
+    "type": "boolean",
+    "description": "Presence of active surgical site infection",
+    "section": "Exclusions"
+  },
+  {
+    "name": "pregnancy_status",
+    "type": "boolean",
+    "description": "Patient is pregnant",
+    "section": "Exclusions"
+  },
+  {
+    "name": "vertebral_fractures_per_procedure_count_greater_than",
+    "type": "integer",
+    "description": "Number of vertebral fractures per procedure (greater than 3) as a relative contraindication",
+    "section": "Exclusions"
+  },
+  {
+    "name": "allergy_bone_cement_present",
+    "type": "boolean",
+    "description": "Allergy to bone cement",
+    "section": "Exclusions"
+  },
+  {
+    "name": "allergy_opacification_agents_present",
+    "type": "boolean",
+    "description": "Allergy to opacification agents",
+    "section": "Exclusions"
+  },
+  {
+    "name": "uncorrected_coagulopathy_present",
+    "type": "boolean",
+    "description": "Presence of uncorrected coagulopathy",
+    "section": "Exclusions"
+  },
+  {
+    "name": "spinal_instability_present",
+    "type": "boolean",
+    "description": "Presence of spinal instability",
+    "section": "Exclusions"
+  },
+  {
+    "name": "myelopathy_from_fracture_present",
+    "type": "boolean",
+    "description": "Presence of myelopathy from the fracture",
+    "section": "Exclusions"
+  },
+  {
+    "name": "neurologic_deficit_present",
+    "type": "boolean",
+    "description": "Presence of neurologic deficit",
+    "section": "Exclusions"
+  },
+  {
+    "name": "neural_impingement_present",
+    "type": "boolean",
+    "description": "Presence of neural impingement",
+    "section": "Exclusions"
+  },
+  {
+    "name": "fracture_retropulsion_canal_compromise_present",
+    "type": "boolean",
+    "description": "Presence of fracture retropulsion/canal compromise",
+    "section": "Exclusions"
+  },
+  {
+    "name": "BMD_evaluation_referred",
+    "type": "boolean",
+    "description": "Patient referred for evaluation of Bone Mineral Density (BMD)",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "osteoporosis_education_referred",
+    "type": "boolean",
+    "description": "Patient referred for osteoporosis education",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "osteoporosis_prevention_treatment_program_participation",
+    "type": "boolean",
+    "description": "Patient instructed to participate in an osteoporosis prevention/treatment program",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "non_operative_medical_therapy_duration_hours",
+    "type": "integer",
+    "description": "Brief duration of nonoperative medical therapy required before PVA consideration (e.g., 24 hours)",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "medical_therapy_failed_window_weeks",
+    "type": "integer",
+    "description": "Duration of failed medical therapy for acute VCFs (less than 3 weeks)",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "opioid_taper_or_transition_window_days",
+    "type": "integer",
+    "description": "Window for patient to taper parenteral opioids or transition to oral opioids after admission (7 days)",
+    "section": "Program Requirements"
+  }
+]

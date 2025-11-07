@@ -1,0 +1,217 @@
+[
+  {
+    "id": "LCD_34106",
+    "type": "Policy",
+    "label": "Policy LCD_34106",
+    "description": "Policy rules for LCD_34106",
+    "node_size": 2000
+  },
+  {
+    "id": "group_procedure",
+    "type": "ConditionGroup",
+    "label": "Procedure Conditions",
+    "condition_type": "procedure",
+    "node_size": 1500
+  },
+  {
+    "id": "condition_procedure_code_cpt_0",
+    "type": "Condition",
+    "label": "procedure_code_cpt IN 22510...",
+    "field_name": "procedure_code_cpt",
+    "operator": "IN",
+    "value": "22510, 22511, 22512, 22513, 22514, 22515",
+    "description": "Field: procedure_code_cpt",
+    "section": "Unknown",
+    "condition_type": "procedure",
+    "node_size": 1000
+  },
+  {
+    "id": "group_other",
+    "type": "ConditionGroup",
+    "label": "Other Conditions",
+    "condition_type": "other",
+    "node_size": 1500
+  },
+  {
+    "id": "condition_vcf_acuity_acute_duration_weeks_0",
+    "type": "Condition",
+    "label": "vcf_acuity_acute_duration_w...",
+    "field_name": "vcf_acuity_acute_duration_weeks",
+    "operator": "<",
+    "value": "6",
+    "description": "Field: vcf_acuity_acute_duration_weeks",
+    "section": "Unknown",
+    "condition_type": "other",
+    "node_size": 1000
+  },
+  {
+    "id": "condition_vcf_location_t1_l5_1",
+    "type": "Condition",
+    "label": "vcf_location_t1_l5 = TRUE",
+    "field_name": "vcf_location_t1_l5",
+    "operator": "=",
+    "value": "TRUE",
+    "description": "Field: vcf_location_t1_l5",
+    "section": "Unknown",
+    "condition_type": "other",
+    "node_size": 1000
+  },
+  {
+    "id": "condition_vcf_advanced_imaging_bone_marrow_edema_mri_2",
+    "type": "Condition",
+    "label": "vcf_advanced_imaging_bone_m...",
+    "field_name": "vcf_advanced_imaging_bone_marrow_edema_mri",
+    "operator": "=",
+    "value": "TRUE",
+    "description": "Field: vcf_advanced_imaging_bone_marrow_edema_mri",
+    "section": "Unknown",
+    "condition_type": "other",
+    "node_size": 1000
+  },
+  {
+    "id": "condition_pain_severity_nrs_hospitalized_3",
+    "type": "Condition",
+    "label": "pain_severity_nrs_hospitali...",
+    "field_name": "pain_severity_nrs_hospitalized",
+    "operator": ">=",
+    "value": "8",
+    "description": "Field: pain_severity_nrs_hospitalized",
+    "section": "Unknown",
+    "condition_type": "other",
+    "node_size": 1000
+  },
+  {
+    "id": "condition_still_4",
+    "type": "Condition",
+    "label": "still >= 5)",
+    "field_name": "still",
+    "operator": ">=",
+    "value": "5)",
+    "description": "Field: still",
+    "section": "Unknown",
+    "condition_type": "other",
+    "node_size": 1000
+  },
+  {
+    "id": "condition_still_5",
+    "type": "Condition",
+    "label": "still >= 5)",
+    "field_name": "still",
+    "operator": ">=",
+    "value": "5)",
+    "description": "Field: still",
+    "section": "Unknown",
+    "condition_type": "other",
+    "node_size": 1000
+  },
+  {
+    "id": "condition_still_6",
+    "type": "Condition",
+    "label": "still >= 5)",
+    "field_name": "still",
+    "operator": ">=",
+    "value": "5)",
+    "description": "Field: still",
+    "section": "Unknown",
+    "condition_type": "other",
+    "node_size": 1000
+  },
+  {
+    "id": "condition_still_7",
+    "type": "Condition",
+    "label": "still >= 5)",
+    "field_name": "still",
+    "operator": ">=",
+    "value": "5)",
+    "description": "Field: still",
+    "section": "Unknown",
+    "condition_type": "other",
+    "node_size": 1000
+  },
+  {
+    "id": "condition_score_8",
+    "type": "Condition",
+    "label": "score > 17)",
+    "field_name": "score",
+    "operator": ">",
+    "value": "17)",
+    "description": "Field: score",
+    "section": "Unknown",
+    "condition_type": "other",
+    "node_size": 1000
+  },
+  {
+    "id": "condition_bmd_evaluation_referred_9",
+    "type": "Condition",
+    "label": "bmd_evaluation_referred = TRUE",
+    "field_name": "bmd_evaluation_referred",
+    "operator": "=",
+    "value": "TRUE",
+    "description": "Field: bmd_evaluation_referred",
+    "section": "Unknown",
+    "condition_type": "other",
+    "node_size": 1000
+  },
+  {
+    "id": "condition_current_back_pain_not_vcf_primary_10",
+    "type": "Condition",
+    "label": "current_back_pain_not_vcf_p...",
+    "field_name": "current_back_pain_not_vcf_primary",
+    "operator": "=",
+    "value": "TRUE",
+    "description": "Field: current_back_pain_not_vcf_primary",
+    "section": "Unknown",
+    "condition_type": "other",
+    "node_size": 1000
+  },
+  {
+    "id": "group_eligibility",
+    "type": "ConditionGroup",
+    "label": "Eligibility Conditions",
+    "condition_type": "eligibility",
+    "node_size": 1500
+  },
+  {
+    "id": "condition_non_surgical_management_failed_0",
+    "type": "Condition",
+    "label": "non_surgical_management_fai...",
+    "field_name": "non_surgical_management_failed",
+    "operator": "=",
+    "value": "TRUE",
+    "description": "Optimal non-surgical management (NSM) has failed",
+    "section": "Eligibility",
+    "condition_type": "eligibility",
+    "node_size": 1000
+  },
+  {
+    "id": "group_requirement",
+    "type": "ConditionGroup",
+    "label": "Requirement Conditions",
+    "condition_type": "requirement",
+    "node_size": 1500
+  },
+  {
+    "id": "condition_osteoporosis_education_referred_0",
+    "type": "Condition",
+    "label": "osteoporosis_education_refe...",
+    "field_name": "osteoporosis_education_referred",
+    "operator": "=",
+    "value": "TRUE",
+    "description": "Patient referred for osteoporosis education",
+    "section": "Program Requirements",
+    "condition_type": "requirement",
+    "node_size": 1000
+  },
+  {
+    "id": "condition_osteoporosis_prevention_treatment_program_participation_1",
+    "type": "Condition",
+    "label": "osteoporosis_prevention_tre...",
+    "field_name": "osteoporosis_prevention_treatment_program_participation",
+    "operator": "=",
+    "value": "TRUE",
+    "description": "Patient instructed to participate in an osteoporosis prevention/treatment program",
+    "section": "Program Requirements",
+    "condition_type": "requirement",
+    "node_size": 1000
+  }
+]

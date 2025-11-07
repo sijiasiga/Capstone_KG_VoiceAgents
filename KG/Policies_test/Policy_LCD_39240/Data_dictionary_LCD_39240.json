@@ -1,0 +1,764 @@
+[
+  {
+    "name": "patient_id",
+    "type": "string",
+    "description": "Unique patient identifier",
+    "section": "Demographics"
+  },
+  {
+    "name": "lcd_id",
+    "type": "string",
+    "description": "Local Coverage Determination (LCD) identifier",
+    "section": "General"
+  },
+  {
+    "name": "original_effective_date",
+    "type": "string",
+    "description": "Original effective date for services (partial date provided)",
+    "section": "General"
+  },
+  {
+    "name": "revision_effective_date",
+    "type": "string",
+    "description": "Revision effective date for services (partial date provided)",
+    "section": "General"
+  },
+  {
+    "name": "patient_pregnancy_status",
+    "type": "boolean",
+    "description": "Indicates if the patient is pregnant, which may affect image guidance options",
+    "section": "Demographics"
+  },
+  {
+    "name": "pain_duration_weeks",
+    "type": "integer",
+    "description": "Minimum duration of pain in weeks required for ESI eligibility (at least 4 weeks)",
+    "section": "Eligibility"
+  },
+  {
+    "name": "conservative_care_failure",
+    "type": "boolean",
+    "description": "Indicates if the patient has failed to respond to at least four weeks of noninvasive conservative care",
+    "section": "Eligibility"
+  },
+  {
+    "name": "noninvasive_care_intolerance",
+    "type": "boolean",
+    "description": "Indicates if the patient is unable to tolerate noninvasive conservative care",
+    "section": "Eligibility"
+  },
+  {
+    "name": "acute_herpes_zoster_refractory",
+    "type": "boolean",
+    "description": "Indicates if acute herpes zoster is refractory to conservative management, potentially bypassing the 4-week wait requirement",
+    "section": "Eligibility"
+  },
+  {
+    "name": "esi_conjunction_conservative_treatment",
+    "type": "boolean",
+    "description": "Indicates if Epidural Steroid Injections should be performed in conjunction with conservative treatments",
+    "section": "Eligibility"
+  },
+  {
+    "name": "patient_rehabilitation_program",
+    "type": "boolean",
+    "description": "Indicates if the patient should be part of an active rehabilitation program, home exercise program, or functional restoration program",
+    "section": "Eligibility"
+  },
+  {
+    "name": "esi_treatment_duration_max_months",
+    "type": "integer",
+    "description": "Maximum duration in months for ESI treatment to be considered medically reasonable and necessary without further review (12 months)",
+    "section": "Eligibility"
+  },
+  {
+    "name": "esi_continuation_beyond_12months_review_trigger",
+    "type": "boolean",
+    "description": "Indicates if frequent continuation of ESIs beyond 12 months may trigger a focused medical review",
+    "section": "Eligibility"
+  },
+  {
+    "name": "esi_continuation_beyond_12months_functional_disability",
+    "type": "boolean",
+    "description": "Criterion for ESI continuation beyond 12 months: pain is severe enough to cause a significant degree of functional disability",
+    "section": "Eligibility"
+  },
+  {
+    "name": "esi_continuation_beyond_12months_vocational_disability",
+    "type": "boolean",
+    "description": "Criterion for ESI continuation beyond 12 months: pain is severe enough to cause a significant degree of vocational disability",
+    "section": "Eligibility"
+  },
+  {
+    "name": "esi_continuation_beyond_12months_pain_relief_min_percent",
+    "type": "integer",
+    "description": "Minimum percentage of sustained pain relief required for ESI continuation beyond 12 months (50%)",
+    "section": "Eligibility"
+  },
+  {
+    "name": "esi_continuation_beyond_12months_function_improvement_min_percent",
+    "type": "integer",
+    "description": "Minimum percentage of objective function improvement required for ESI continuation beyond 12 months (50%)",
+    "section": "Eligibility"
+  },
+  {
+    "name": "esi_continuation_beyond_12months_rationale_documented",
+    "type": "boolean",
+    "description": "Requires documentation of rationale for ESI continuation beyond 12 months",
+    "section": "Eligibility"
+  },
+  {
+    "name": "esi_continuation_beyond_12months_pcp_notification",
+    "type": "boolean",
+    "description": "Requires notification of the primary care provider regarding ESI continuation beyond 12 months",
+    "section": "Eligibility"
+  },
+  {
+    "name": "esi_continuation_beyond_12months_multimodal_therapy_required",
+    "type": "boolean",
+    "description": "Requires ESI use beyond one year to be combined with multimodal therapy",
+    "section": "Eligibility"
+  },
+  {
+    "name": "diagnosis_radiculopathy_lumbar",
+    "type": "boolean",
+    "description": "Diagnosis of lumbar radiculopathy as a covered indication for ESI",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "diagnosis_radiculopathy_cervical",
+    "type": "boolean",
+    "description": "Diagnosis of cervical radiculopathy as a covered indication for ESI",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "diagnosis_radiculopathy_thoracic",
+    "type": "boolean",
+    "description": "Diagnosis of thoracic radiculopathy as a covered indication for ESI",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "diagnosis_radicular_pain",
+    "type": "boolean",
+    "description": "Diagnosis of radicular pain as a covered indication for ESI",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "diagnosis_neurogenic_claudication",
+    "type": "boolean",
+    "description": "Diagnosis of neurogenic claudication as a covered indication for ESI",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "diagnosis_disc_herniation",
+    "type": "boolean",
+    "description": "Diagnosis of disc herniation as a covered indication for ESI",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "diagnosis_osteophyte",
+    "type": "boolean",
+    "description": "Diagnosis of osteophyte as a covered indication for ESI",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "diagnosis_degenerative_disc_disease_severe",
+    "type": "boolean",
+    "description": "Diagnosis of severe degenerative disc disease as a covered indication for ESI",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "diagnosis_spinal_stenosis_foraminal",
+    "type": "boolean",
+    "description": "Diagnosis of foraminal spinal stenosis as a covered indication for ESI",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "diagnosis_spinal_stenosis_central",
+    "type": "boolean",
+    "description": "Diagnosis of central spinal stenosis as a covered indication for ESI",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "diagnosis_post_laminectomy_syndrome",
+    "type": "boolean",
+    "description": "Diagnosis of post-laminectomy syndrome as a covered indication for ESI",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "diagnosis_acute_herpes_zoster_pain",
+    "type": "boolean",
+    "description": "Diagnosis of acute herpes zoster associated pain as a covered indication for ESI",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "tfesi_spinal_levels_max",
+    "type": "integer",
+    "description": "Maximum number of spinal nerve root levels allowed for Transforaminal Epidural Steroid Injections (TFESIs) in one spinal region during a single session (2 levels)",
+    "section": "Procedures"
+  },
+  {
+    "name": "tfesi_spinal_region_count_max",
+    "type": "integer",
+    "description": "Maximum number of spinal regions allowed for Transforaminal Epidural Steroid Injections (TFESIs) in a single session (1 region)",
+    "section": "Procedures"
+  },
+  {
+    "name": "cesi_spinal_levels_max",
+    "type": "integer",
+    "description": "Maximum number of spinal levels allowed for Caudal Epidural Steroid Injections (CESIs) in a single session (1 level)",
+    "section": "Procedures"
+  },
+  {
+    "name": "ilesi_spinal_levels_max",
+    "type": "integer",
+    "description": "Maximum number of spinal levels allowed for Interlaminar Epidural Steroid Injections (ILESIs) in a single session (1 level)",
+    "section": "Procedures"
+  },
+  {
+    "name": "tfesi_bilateral",
+    "type": "boolean",
+    "description": "Indicates if Transforaminal Epidural Steroid Injections (TFESIs) can be performed bilaterally when clinically indicated",
+    "section": "Procedures"
+  },
+  {
+    "name": "repeat_esi_initial_failure_window_days",
+    "type": "integer",
+    "description": "Minimum number of days after initial ESI failure before a repeat ESI can be performed (14 days)",
+    "section": "Procedures"
+  },
+  {
+    "name": "subsequent_esi_corticosteroid_component",
+    "type": "boolean",
+    "description": "Indicates if subsequent epidural steroid injections should include corticosteroids",
+    "section": "Procedures"
+  },
+  {
+    "name": "subsequent_esi_anesthetic_component",
+    "type": "boolean",
+    "description": "Indicates if subsequent epidural steroid injections may be combined with anesthetics",
+    "section": "Procedures"
+  },
+  {
+    "name": "subsequent_esi_saline_component",
+    "type": "boolean",
+    "description": "Indicates if subsequent epidural steroid injections may be combined with saline",
+    "section": "Procedures"
+  },
+  {
+    "name": "multiple_blocks_same_session_not_covered",
+    "type": "boolean",
+    "description": "Indicates that performing multiple blocks (e.g., sympathetic, facet, trigger point injections) during the same session as ESIs is generally not covered",
+    "section": "Procedures"
+  },
+  {
+    "name": "facet_synovial_cyst_esi_same_session_allowed",
+    "type": "boolean",
+    "description": "Indicates that an ESI and a facet synovial cyst procedure performed in the same session is an allowed exception to the multiple blocks rule",
+    "section": "Procedures"
+  },
+  {
+    "name": "sedation_moderate_not_covered",
+    "type": "boolean",
+    "description": "Indicates that moderate sedation is generally not considered medically reasonable and necessary for ESI procedures",
+    "section": "Procedures"
+  },
+  {
+    "name": "sedation_deep_not_covered",
+    "type": "boolean",
+    "description": "Indicates that deep sedation is generally not considered medically reasonable and necessary for ESI procedures",
+    "section": "Procedures"
+  },
+  {
+    "name": "anesthesia_general_not_covered",
+    "type": "boolean",
+    "description": "Indicates that general anesthesia is generally not considered medically reasonable and necessary for ESI procedures",
+    "section": "Procedures"
+  },
+  {
+    "name": "mac_anesthesia_not_covered",
+    "type": "boolean",
+    "description": "Indicates that Monitored Anesthesia Care (MAC) is generally not considered medically reasonable and necessary for ESI procedures",
+    "section": "Procedures"
+  },
+  {
+    "name": "oral_anxiolytics_sufficient",
+    "type": "boolean",
+    "description": "Indicates that oral anxiolytics are typically sufficient for patients with needle phobia or anxiety during ESI procedures",
+    "section": "Procedures"
+  },
+  {
+    "name": "esi_sessions_max_per_region_12months",
+    "type": "integer",
+    "description": "Maximum number of ESI sessions allowed per spinal region in a rolling 12-month period (4 sessions, as per policy limitations)",
+    "section": "Procedures"
+  },
+  {
+    "name": "esi_multiple_spinal_regions_same_session_not_covered",
+    "type": "boolean",
+    "description": "Indicates that injecting more than one spinal region in the same session is not considered medically reasonable and necessary",
+    "section": "Procedures"
+  },
+  {
+    "name": "predetermined_esi_series_not_covered",
+    "type": "boolean",
+    "description": "Indicates that prescribing a predetermined series of ESIs is not considered medically reasonable and necessary",
+    "section": "Procedures"
+  },
+  {
+    "name": "steroid_dose_triamcinolone_max_mg",
+    "type": "integer",
+    "description": "Maximum recommended dose of Triamcinolone per ESI session in milligrams (80mg)",
+    "section": "Procedures"
+  },
+  {
+    "name": "steroid_dose_betamethasone_max_mg",
+    "type": "integer",
+    "description": "Maximum recommended dose of Betamethasone per ESI session in milligrams (12mg)",
+    "section": "Procedures"
+  },
+  {
+    "name": "steroid_dose_dexamethasone_max_mg",
+    "type": "integer",
+    "description": "Maximum recommended dose of Dexamethasone per ESI session in milligrams (15mg)",
+    "section": "Procedures"
+  },
+  {
+    "name": "steroid_dose_methylprednisolone_max_mg",
+    "type": "integer",
+    "description": "Maximum recommended dose of Methylprednisolone per ESI session in milligrams (40mg, recommendation from WIP Benelux Workgroup)",
+    "section": "Procedures"
+  },
+  {
+    "name": "steroid_dose_per_session_unit",
+    "type": "string",
+    "description": "Unit of measurement for steroid doses per ESI session (mg)",
+    "section": "Procedures"
+  },
+  {
+    "name": "esi_ssnb_sessions_max_6months",
+    "type": "integer",
+    "description": "Maximum number of ESI and/or Selective Spinal Nerve Block (SSNB) sessions allowed in a 6-month period (4, NASS guidance)",
+    "section": "Procedures"
+  },
+  {
+    "name": "esi_ssnb_sessions_max_12months",
+    "type": "integer",
+    "description": "Maximum number of ESI and/or Selective Spinal Nerve Block (SSNB) sessions allowed in a 12-month period (6, NASS guidance)",
+    "section": "Procedures"
+  },
+  {
+    "name": "esi_treatment_period_months",
+    "type": "string",
+    "description": "Period(s) in months over which ESI/SSNB sessions limits apply (6 and 12 months)",
+    "section": "Procedures"
+  },
+  {
+    "name": "cervical_ilesi_max_level",
+    "type": "string",
+    "description": "Anatomical limitation for cervical interlaminar ESIs: should not be performed above C7 (NASS guidance)",
+    "section": "Procedures"
+  },
+  {
+    "name": "non_particulate_steroid_use_cervical_thoracic_spine_recommended_nass",
+    "type": "boolean",
+    "description": "Recommendation from NASS to use non-particulate steroids for cervical and thoracic spine ESIs",
+    "section": "Procedures"
+  },
+  {
+    "name": "tfesi_sessions_max_same_setting_nass",
+    "type": "integer",
+    "description": "Maximum number of Transforaminal ESI procedures that can be performed at a single setting (e.g., single level bilaterally or two levels) according to NASS guidance (2)",
+    "section": "Procedures"
+  },
+  {
+    "name": "cesi_ilesi_sessions_max_same_setting_nass",
+    "type": "integer",
+    "description": "Maximum number of Caudal ESI or Interlaminar ESI procedures that can be performed at a single setting according to NASS guidance (1)",
+    "section": "Procedures"
+  },
+  {
+    "name": "cesi_ilesi_not_in_conjunction_with_tfesi_nass",
+    "type": "boolean",
+    "description": "Indicates that CESIs or ILESIs should not be performed in conjunction with a TFESI injection according to NASS guidance",
+    "section": "Procedures"
+  },
+  {
+    "name": "successful_esi_injections_count_max",
+    "type": "integer",
+    "description": "Maximum number of ESI injections most patients respond to for a specific episode of back and radicular pain (3)",
+    "section": "Procedures"
+  },
+  {
+    "name": "esi_beyond_3_injections_criteria_nass",
+    "type": "string",
+    "description": "Non-evidence-based criteria from NASS for medically appropriate performance of more than 3 injections (e.g., SSNBs for surgical planning, new injuries, inaccurate prior injections, exacerbation, high-risk surgical candidates)",
+    "section": "Procedures"
+  },
+  {
+    "name": "esi_for_radicular_LBP_short_term_benefit_window_weeks",
+    "type": "integer",
+    "description": "Short-term benefit window in weeks for epidural steroid injection for radicular low back pain (up to 2 weeks, VA/DoD guidance)",
+    "section": "Procedures"
+  },
+  {
+    "name": "initial_esi_contrast_required",
+    "type": "boolean",
+    "description": "Indicates if an initial injection of contrast is required to confirm epidural placement, unless contraindication exists",
+    "section": "Procedures"
+  },
+  {
+    "name": "steroid_type_triamcinolone_not_for_esi",
+    "type": "boolean",
+    "description": "Indicates if Triamcinolone is not recommended for ESI use due to FDA label change",
+    "section": "Procedures"
+  },
+  {
+    "name": "steroid_type_particulate_not_recommended_cervical_tfesi",
+    "type": "boolean",
+    "description": "Recommendation to avoid particulate steroids for cervical TFESIs due to safety concerns",
+    "section": "Procedures"
+  },
+  {
+    "name": "steroid_type_non_particulate_recommended_cervical_tfesi",
+    "type": "boolean",
+    "description": "Recommendation to use non-particulate steroids for cervical TFESIs",
+    "section": "Procedures"
+  },
+  {
+    "name": "steroid_type_non_particulate_recommended_lumbar_tfesi",
+    "type": "boolean",
+    "description": "Recommendation to use non-particulate steroids for lumbar TFESIs (equivocal efficacy but improved safety profile)",
+    "section": "Procedures"
+  },
+  {
+    "name": "pain_scale_baseline",
+    "type": "string",
+    "description": "Documentation of objective pain scale used at baseline prior to interventions for assessment of response",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "functional_assessment_baseline",
+    "type": "string",
+    "description": "Documentation of objective functional assessment used at baseline prior to interventions for assessment of response",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "pain_scale_followup",
+    "type": "string",
+    "description": "Documentation of objective pain scale used at each follow-up for assessment of response",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "functional_assessment_followup",
+    "type": "string",
+    "description": "Documentation of objective functional assessment used at each follow-up for assessment of response",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "repeat_esi_pain_relief_min_percent",
+    "type": "integer",
+    "description": "Minimum percentage of sustained pain relief required for repeat ESI (at least 50%)",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "repeat_esi_function_improvement_min_percent",
+    "type": "integer",
+    "description": "Minimum percentage of sustained function improvement required for repeat ESI (at least 50%)",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "repeat_esi_improvement_duration_months",
+    "type": "integer",
+    "description": "Minimum duration in months for sustained improvement to qualify for repeat ESI (at least 3 months)",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "pain_assessment_scales",
+    "type": "string",
+    "description": "Acceptable scales for pain assessment (e.g., verbal rating scales, Numerical Rating Scale (NRS), Visual Analog Scale (VAS))",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "disability_assessment_scales",
+    "type": "string",
+    "description": "Acceptable scales for disability assessment (e.g., Pain Disability Assessment Scale (PDAS), Oswestry Disability Index (ODI), Quebec Back Pain Disability Scale (QUE), Roland Morris Pain Scale, Back Pain Functional Scale (BPFS), PROMIS profile domains)",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "esi_success_pain_relief_min_percent",
+    "type": "integer",
+    "description": "Minimum percentage of pain relief to define ESI treatment success (50%)",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "esi_success_function_improvement_min_percent",
+    "type": "integer",
+    "description": "Minimum percentage of function improvement to define ESI treatment success (50%)",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "esi_assess_clinical_response_window_days",
+    "type": "integer",
+    "description": "Time period in days after an ESI to assess the clinical response (up to 14 days)",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "allergy_contrast_media",
+    "type": "boolean",
+    "description": "Indicates a documented allergy to low molecular weight nonionic contrast, which may affect image guidance options",
+    "section": "Contraindications"
+  },
+  {
+    "name": "contraindication_spinal_infection",
+    "type": "boolean",
+    "description": "Contraindication for ESI: suspected or active localized spinal infection",
+    "section": "Contraindications"
+  },
+  {
+    "name": "contraindication_systemic_infection",
+    "type": "boolean",
+    "description": "Contraindication for ESI: significant systemic infection",
+    "section": "Contraindications"
+  },
+  {
+    "name": "contraindication_spinal_cord_compression",
+    "type": "boolean",
+    "description": "Contraindication for ESI: compressive lesions of the spinal cord",
+    "section": "Contraindications"
+  },
+  {
+    "name": "contraindication_conus_medullaris_compression",
+    "type": "boolean",
+    "description": "Contraindication for ESI: compressive lesions of the conus medullaris",
+    "section": "Contraindications"
+  },
+  {
+    "name": "contraindication_cauda_equina_compression",
+    "type": "boolean",
+    "description": "Contraindication for ESI: compressive lesions of the cauda equina",
+    "section": "Contraindications"
+  },
+  {
+    "name": "contraindication_cancer_risk",
+    "type": "boolean",
+    "description": "Contraindication for ESI: suspicion or major risk factors for cancer",
+    "section": "Contraindications"
+  },
+  {
+    "name": "esi_biologicals_not_covered",
+    "type": "boolean",
+    "description": "Indicates that ESIs performed with biologicals are considered investigational and not medically reasonable and necessary",
+    "section": "Contraindications"
+  },
+  {
+    "name": "esi_unapproved_substances_not_covered",
+    "type": "boolean",
+    "description": "Indicates that ESIs performed with other substances not FDA designated for this use are considered investigational and not medically reasonable and necessary",
+    "section": "Contraindications"
+  },
+  {
+    "name": "esi_for_nonspecific_LBP_not_covered",
+    "type": "boolean",
+    "description": "Indicates that ESIs for non-specific low back pain (LBP) are considered investigational and not medically reasonable and necessary",
+    "section": "Contraindications"
+  },
+  {
+    "name": "esi_for_axial_spine_pain_not_covered",
+    "type": "boolean",
+    "description": "Indicates that ESIs for axial spine pain are considered investigational and not medically reasonable and necessary",
+    "section": "Contraindications"
+  },
+  {
+    "name": "esi_for_complex_regional_pain_syndrome_not_covered",
+    "type": "boolean",
+    "description": "Indicates that ESIs for complex regional pain syndrome are considered investigational and not medically reasonable and necessary",
+    "section": "Contraindications"
+  },
+  {
+    "name": "esi_for_widespread_diffuse_pain_not_covered",
+    "type": "boolean",
+    "description": "Indicates that ESIs for widespread diffuse pain are considered investigational and not medically reasonable and necessary",
+    "section": "Contraindications"
+  },
+  {
+    "name": "esi_for_neuropathy_other_causes_not_covered",
+    "type": "boolean",
+    "description": "Indicates that ESIs for pain from neuropathy from other causes are considered investigational and not medically reasonable and necessary",
+    "section": "Contraindications"
+  },
+  {
+    "name": "esi_for_cervicogenic_headaches_not_covered",
+    "type": "boolean",
+    "description": "Indicates that ESIs for cervicogenic headaches are considered investigational and not medically reasonable and necessary",
+    "section": "Contraindications"
+  },
+  {
+    "name": "cesi_ilesi_bilateral_not_covered",
+    "type": "boolean",
+    "description": "Indicates that performing Caudal Epidural Steroid Injections (CESIs) or Interlaminar Epidural Steroid Injections (ILESIs) bilaterally is not considered medically reasonable and necessary",
+    "section": "Contraindications"
+  },
+  {
+    "name": "contraindication_infectious_spondylitis",
+    "type": "boolean",
+    "description": "Absolute contraindication for ESI: infectious spondylitis (ACR guidance)",
+    "section": "Contraindications"
+  },
+  {
+    "name": "contraindication_myelopathy",
+    "type": "boolean",
+    "description": "Absolute contraindication for ESI: myelopathy (ACR guidance)",
+    "section": "Contraindications"
+  },
+  {
+    "name": "contraindication_inability_to_obtain_informed_consent",
+    "type": "boolean",
+    "description": "Absolute contraindication for ESI: inability to obtain informed consent (ACR guidance)",
+    "section": "Contraindications"
+  },
+  {
+    "name": "contraindication_skin_puncture_site_infection",
+    "type": "boolean",
+    "description": "Absolute contraindication for ESI: infection at the skin puncture site (ACR guidance)",
+    "section": "Contraindications"
+  },
+  {
+    "name": "relative_contraindication_uncorrected_anticoagulation",
+    "type": "boolean",
+    "description": "Relative contraindication for ESI: uncorrected anticoagulation therapy (ACR guidance)",
+    "section": "Contraindications"
+  },
+  {
+    "name": "relative_contraindication_hypersensitivity_agents",
+    "type": "boolean",
+    "description": "Relative contraindication for ESI: hypersensitivity to administered agents (ACR guidance)",
+    "section": "Contraindications"
+  },
+  {
+    "name": "relative_contraindication_hepatitis",
+    "type": "boolean",
+    "description": "Relative contraindication for ESI: hepatitis (ACR guidance)",
+    "section": "Contraindications"
+  },
+  {
+    "name": "relative_contraindication_uncontrolled_diabetes_mellitus",
+    "type": "boolean",
+    "description": "Relative contraindication for ESI: uncontrolled diabetes mellitus (ACR guidance)",
+    "section": "Contraindications"
+  },
+  {
+    "name": "relative_contraindication_congestive_heart_failure",
+    "type": "boolean",
+    "description": "Relative contraindication for ESI: congestive heart failure (ACR guidance)",
+    "section": "Contraindications"
+  },
+  {
+    "name": "relative_contraindication_immunosuppressed_state",
+    "type": "boolean",
+    "description": "Relative contraindication for ESI: immunosuppressed state (ACR guidance)",
+    "section": "Contraindications"
+  },
+  {
+    "name": "relative_contraindication_patient_improving_medical_pt",
+    "type": "boolean",
+    "description": "Relative contraindication for ESI: patient improving on medical and physical therapy (ACR guidance)",
+    "section": "Contraindications"
+  },
+  {
+    "name": "relative_contraindication_severe_spinal_canal_stenosis",
+    "type": "boolean",
+    "description": "Relative contraindication for ESI: severe spinal canal stenosis (ACR guidance)",
+    "section": "Contraindications"
+  },
+  {
+    "name": "relative_contraindication_no_response_previous_esi",
+    "type": "boolean",
+    "description": "Relative contraindication for ESI: no response to a previous well-performed ESI (ACR guidance)",
+    "section": "Contraindications"
+  },
+  {
+    "name": "relative_contraindication_steroid_therapy_complication",
+    "type": "boolean",
+    "description": "Relative contraindication for ESI: complication to steroid therapy (e.g., Cushing\u2019s) (ACR guidance)",
+    "section": "Contraindications"
+  },
+  {
+    "name": "contraindication_osteoporosis_history",
+    "type": "boolean",
+    "description": "Contraindication for high-risk individuals with prior history of osteoporosis or osteopenia when considering ESI with corticosteroids (WIP Benelux Workgroup recommendation)",
+    "section": "Contraindications"
+  },
+  {
+    "name": "image_guidance_ct",
+    "type": "boolean",
+    "description": "Indicates if CT image guidance is used for ESI procedures",
+    "section": "Tests"
+  },
+  {
+    "name": "image_guidance_fluoroscopy",
+    "type": "boolean",
+    "description": "Indicates if fluoroscopy image guidance is used for ESI procedures",
+    "section": "Tests"
+  },
+  {
+    "name": "contrast_agent_used",
+    "type": "boolean",
+    "description": "Indicates if a contrast agent is generally used during image-guided ESI procedures (unless contraindications exist)",
+    "section": "Tests"
+  },
+  {
+    "name": "image_guidance_ultrasound",
+    "type": "boolean",
+    "description": "Indicates if ultrasound guidance may be used for ESI procedures under specific conditions (e.g., contraindication to contrast, pregnancy)",
+    "section": "Tests"
+  },
+  {
+    "name": "image_guidance_required",
+    "type": "boolean",
+    "description": "Indicates if image guidance is generally required for ESI procedures",
+    "section": "Tests"
+  },
+  {
+    "name": "image_guidance_fluoroscopy_preferred",
+    "type": "boolean",
+    "description": "Indicates preference for fluoroscopy as image guidance for ESI procedures (NASS guidance)",
+    "section": "Tests"
+  },
+  {
+    "name": "image_guidance_ct_preferred",
+    "type": "boolean",
+    "description": "Indicates preference for CT as image guidance for ESI procedures (NASS guidance)",
+    "section": "Tests"
+  },
+  {
+    "name": "contrast_media_injection_required_nass",
+    "type": "boolean",
+    "description": "Requires injection of contrast media under real-time fluoroscopy or digital subtraction imaging for ESIs (NASS guidance)",
+    "section": "Tests"
+  },
+  {
+    "name": "acute_low_back_pain_duration_weeks",
+    "type": "integer",
+    "description": "Duration defining acute low back pain (up to 6 weeks)",
+    "section": "Temporal Constraints"
+  },
+  {
+    "name": "subacute_pain_duration_weeks",
+    "type": "string",
+    "description": "Duration defining subacute pain (6 to 12 weeks)",
+    "section": "Temporal Constraints"
+  },
+  {
+    "name": "chronic_pain_duration_weeks",
+    "type": "integer",
+    "description": "Duration defining chronic pain (12 weeks after onset)",
+    "section": "Temporal Constraints"
+  },
+  {
+    "name": "hpa_axis_systemic_effects_duration_weeks",
+    "type": "integer",
+    "description": "Duration in weeks the hypothalamic-pituitary-adrenal (HPA) axis systemic effects may last after an ESI (3 weeks or longer)",
+    "section": "Temporal Constraints"
+  }
+]

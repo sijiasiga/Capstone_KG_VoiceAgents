@@ -1,0 +1,189 @@
+[
+  {
+    "name": "Sacral Nerve Stimulation for the Treatment of Urinary and Fecal Incontinence",
+    "guideline_number": "L39543",
+    "description": "This policy outlines limited coverage for sacral nerve stimulation (SNS) for the treatment of urinary urge incontinence, urgency-frequency syndrome, nonobstructive urinary retention, and fecal incontinence, with specific details under Coverage Indications, Limitations, and/or Medical Necessity. It also specifies exclusions for certain conditions and for experimental/investigational uses like chronic constipation or chronic pelvic pain.",
+    "restrictions": [
+      {
+        "condition": "Patient has a diagnosis of urinary urge incontinence.",
+        "rule": "urinary_urge_incontinence_diagnosis = TRUE",
+        "codes": [],
+        "logic": "OR"
+      },
+      {
+        "condition": "Patient has a diagnosis of urgency-frequency syndrome.",
+        "rule": "urgency_frequency_syndrome_diagnosis = TRUE",
+        "codes": [],
+        "logic": "OR"
+      },
+      {
+        "condition": "Patient has a diagnosis of nonobstructive urinary retention.",
+        "rule": "nonobstructive_urinary_retention_diagnosis = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Patient is refractory to conventional therapy for urinary indications, including documented behavioral, pharmacologic, and/or surgical corrective therapy.",
+        "rule": "refractory_to_conventional_therapy_urinary = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Patient is an appropriate surgical candidate such that implantation with anesthesia can occur.",
+        "rule": "surgical_candidate_status = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Patient does not have stress incontinence.",
+        "rule": "stress_incontinence_exclusion = FALSE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Patient does not have urinary obstruction.",
+        "rule": "urinary_obstruction_exclusion = FALSE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Patient does not have diabetes with peripheral nerve involvement associated with secondary manifestations of urinary incontinence indications.",
+        "rule": "diabetes_peripheral_nerve_involvement_exclusion = FALSE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Patient does not have multiple sclerosis associated with secondary manifestations of urinary incontinence indications.",
+        "rule": "multiple_sclerosis_exclusion = FALSE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Patient does not have spinal cord injury associated with secondary manifestations of urinary incontinence indications.",
+        "rule": "spinal_cord_injury_exclusion = FALSE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Patient must have had a successful test stimulation with 50% or greater improvement for urinary indications, measured through voiding diaries.",
+        "rule": "test_stimulation_improvement_percentage_urinary >= 50",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Patient is able to demonstrate adequate ability to record voiding diary data such that clinical results of the implant procedure can be properly evaluated.",
+        "rule": "voiding_diary_data_recording_ability = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Patient has chronic fecal incontinence with greater than 2 incontinent episodes on average per week.",
+        "rule": "fecal_incontinence_episodes_per_week_threshold > 2",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Duration of fecal incontinence is greater than 6 months.",
+        "rule": "fecal_incontinence_duration_months_threshold > 6",
+        "codes": [],
+        "logic": "OR"
+      },
+      {
+        "condition": "Duration of incontinence is more than 12 months after vaginal childbirth.",
+        "rule": "post_vaginal_childbirth_incontinence_duration_months_threshold > 12",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Patient has documented failure or intolerance to conventional therapy for fecal incontinence (e.g., dietary modification, bulking, and pharmacologic treatment).",
+        "rule": "failure_intolerance_conventional_therapy_fecal = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Patient had a successful percutaneous test stimulation with at least 50% sustained improvement for more than 48 hours for fecal incontinence.",
+        "rule": "percutaneous_test_stimulation_improvement_percentage_fecal >= 50 AND percutaneous_test_stimulation_improvement_duration_hours_fecal > 48",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Condition is not related to anorectal malformation (e.g., congenital malformation).",
+        "rule": "congenital_malformation_absence_FI = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Condition is not related to defects of the external anal sphincter over 60 degrees.",
+        "rule": "external_anal_sphincter_defect_severity_absence = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Condition is not related to visible sequelae of pelvic radiation.",
+        "rule": "pelvic_radiation_sequelae_absence = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Condition is not related to active anal abscesses and fistulae.",
+        "rule": "anal_abscesses_fistulae_absence = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Condition is not related to chronic inflammatory bowel disease.",
+        "rule": "chronic_inflammatory_bowel_disease_absence = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Incontinence is not related to peripheral neuropathy.",
+        "rule": "peripheral_neuropathy_absence_FI = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Incontinence is not related to complete spinal cord injury.",
+        "rule": "complete_spinal_cord_injury_absence_FI = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Sacral nerve stimulation is not covered for the treatment of chronic constipation as it is considered experimental/investigational.",
+        "rule": "chronic_constipation_exclusion = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Sacral nerve stimulation is not covered for the treatment of chronic pelvic pain (CPP) as it is considered experimental/investigational.",
+        "rule": "chronic_pelvic_pain_exclusion = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Patient's medical record must contain documentation fully supporting medical necessity for services.",
+        "rule": "medical_record_documentation_necessity = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Documentation of complete history and physical examination, including voiding diaries and urodynamic studies for urinary incontinence, is required.",
+        "rule": "history_physical_examination_documentation = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Documentation that patient is refractory to conventional therapy is required.",
+        "rule": "refractory_to_conventional_therapy_documentation = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Documentation that patient had a successful test stimulation to support subsequent implantation is required.",
+        "rule": "successful_test_stimulation_documentation = TRUE",
+        "codes": [],
+        "logic": "AND"
+      }
+    ]
+  }
+]

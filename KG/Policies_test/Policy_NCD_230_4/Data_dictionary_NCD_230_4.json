@@ -1,0 +1,44 @@
+[
+  {
+    "name": "patient_id",
+    "type": "string",
+    "description": "Unique patient identifier",
+    "section": "Demographics"
+  },
+  {
+    "name": "diagnosis_impotence",
+    "type": "boolean",
+    "description": "Diagnosis of impotence or sexual impotence",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "procedure_penile_prosthesis_implantation",
+    "type": "boolean",
+    "description": "Surgical treatment involving implantation of a penile prosthesis for impotence",
+    "section": "Procedures"
+  },
+  {
+    "name": "treatment_type_medical_impotence",
+    "type": "boolean",
+    "description": "Nonsurgical medical treatment for impotence",
+    "section": "Procedures"
+  },
+  {
+    "name": "treatment_type_psychotherapeutic_impotence",
+    "type": "boolean",
+    "description": "Nonsurgical psychotherapeutic treatment for impotence",
+    "section": "Procedures"
+  },
+  {
+    "name": "patient_status_inpatient",
+    "type": "boolean",
+    "description": "Indicates if the patient is a hospital inpatient (relevant for psychiatric service limitation)",
+    "section": "Eligibility"
+  },
+  {
+    "name": "diagnosis_mental_condition",
+    "type": "boolean",
+    "description": "Diagnosis of a mental condition (relevant for psychiatric service limitation)",
+    "section": "Diagnosis"
+  }
+]

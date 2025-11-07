@@ -379,7 +379,7 @@ class PolicyRuleKGGenerator:
         ]
         plt.legend(handles=legend_elements, loc='upper right', bbox_to_anchor=(1, 1))
         
-        plt.title("Policy Rule Knowledge Graph\nBariatric Surgery Eligibility Criteria", 
+        plt.title(f"Policy Rule Knowledge Graph\n{self.policy_id} Eligibility Criteria",
                  fontsize=16, fontweight='bold', pad=20)
         plt.axis('off')
         plt.tight_layout()

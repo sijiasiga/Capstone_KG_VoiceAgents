@@ -1,0 +1,100 @@
+```sql
+SELECT *
+FROM patients
+WHERE
+  -- This query combines 29 policy restrictions.
+  -- Restriction 1: The implantation of spinal cord stimulators (SCS) may be covered as therapies for the relief of chronic intractable pain.
+  diagnosis_chronic_intractable_pain = TRUE
+  AND
+  (
+    -- Restriction 2: SCS is best suited for neuropathic pain.
+    pain_type_neuropathic = TRUE
+    OR
+    -- Restriction 3: SCS may have some limited value in other types of nociceptive severe, intractable pain.
+    pain_type_nociceptive_severe_intractable = TRUE
+  )
+  AND
+  -- Restriction 4: A short trial with percutaneous neurostimulator electrode(s) in the epidural space is required to assess suitability for ongoing treatment with a permanent surgically implanted nerve stimulator.
+  scs_trial_required = TRUE
+  AND
+  -- Restriction 5: Performance and documentation of an effective trial is a prerequisite for permanent nerve stimulation implantation.
+  scs_effective_trial_prerequisite = TRUE
+  AND
+  -- Restriction 6: A new trial is not needed to replace the stimulator for battery change, malfunction, or end of stimulator life.
+  scs_replacement_trial_not_needed = TRUE
+  AND
+  -- Restriction 7: More conservative attempts (e.g., medications, physical therapy, psychological therapy or other modalities) must have been tried before SCS therapy.
+  conservative_therapy_attempted = TRUE
+  AND
+  -- Restriction 8: Careful screening, evaluation and diagnosis by a multidisciplinary team is required prior to implantation.
+  multidisciplinary_team_evaluation_required = TRUE
+  AND
+  -- Restriction 9: Psychological evaluation is required as part of the multidisciplinary team screening prior to implantation.
+  psychological_evaluation_required = TRUE
+  AND
+  -- Restriction 10: Physical evaluation is required as part of the multidisciplinary team screening prior to implantation.
+  physical_evaluation_required = TRUE
+  AND
+  -- Restriction 11: Patient must not have active substance abuse issues.
+  active_substance_abuse_issues_present = FALSE
+  AND
+  -- Restriction 12: Patient must undergo proper patient education, discussion, and disclosure including an extensive discussion of the risks and benefits of this therapy.
+  patient_education_required = TRUE
+  AND
+  (
+    -- Restriction 13: Temporary neurostimulator placement setting in an ASC.
+    temporary_neurostimulator_placement_setting = 'ASC'
+    OR
+    -- Restriction 14: Temporary neurostimulator placement setting in an outpatient hospital.
+    temporary_neurostimulator_placement_setting = 'outpatient hospital'
+    OR
+    -- Restriction 15: Temporary neurostimulator placement setting in an office (if all sterility, equipment, professional training and support personnel required for proper surgery and follow up are available).
+    temporary_neurostimulator_placement_setting = 'office'
+    OR
+    -- Restriction 16: Permanent neurostimulators must be placed in an ASC.
+    permanent_neurostimulator_placement_setting = 'ASC'
+    OR
+    -- Restriction 17: Permanent neurostimulators must be placed in a hospital.
+    permanent_neurostimulator_placement_setting = 'hospital'
+  )
+  AND
+  -- Restriction 18: Physicians performing SCS trials in the office setting must have hospital/ASC privileges or be subspecialty boarded in Pain Medicine by the American Board of Anesthesiology.
+  (physician_board_certification_or_privileges_required = TRUE AND temporary_neurostimulator_placement_setting = 'office')
+  AND
+  (
+    -- Restriction 19: A successful SCS trial requires at least a 50% reduction of target pain.
+    trial_success_pain_reduction_percentage >= 50
+    OR
+    -- Restriction 20: A successful SCS trial requires at least a 50% reduction of analgesic medications.
+    trial_success_analgesic_reduction_percentage >= 50
+  )
+  AND
+  -- Restriction 21: A successful SCS trial requires some element of functional improvement.
+  trial_success_functional_improvement = TRUE
+  AND
+  -- Restriction 22: Physicians with a trial to permanent implant ratio less than 50% will be subject to post-payment review.
+  physician_trial_to_implant_ratio_threshold < 50
+  AND
+  -- Restriction 23: Maximum of 2 leads reimbursed for SCS placement per patient per lifetime.
+  scs_leads_maximum <= 2
+  AND
+  -- Restriction 24: Maximum of 16 contacts reimbursed for SCS placement per patient per lifetime.
+  scs_contacts_maximum <= 16
+  AND
+  -- Restriction 25: Maximum of 2 SCS trials reimbursed per anatomic spinal region per patient per lifetime.
+  scs_trials_maximum_per_region_per_patient_lifetime <= 2
+  AND
+  -- Restriction 26: Repeat SCS trial is not appropriate unless there are extenuating circumstances that led to initial trial failure.
+  repeat_scs_trial_exception = FALSE
+  AND
+  (
+    -- Restriction 27: Approved ICD-10 diagnosis codes for Spinal Cord Stimulator procedures.
+    diagnosis_code_ICD10 IN ('Z45.42','M48.061','M48.062','G57.73','T85.113A','T85.113D','T85.113S','T85.123A','T85.123D','T85.123S','T85.193A','T85.193D','T85.193S','T85.112A','T85.112D','T85.112S','T85.122A','T85.122D','T85.122S','T85.192A','T85.192D','T85.192S')
+  )
+  AND
+  -- Restriction 28: CPT codes 63661, 63662, 63688, 95970, 95971, 95972 are excluded from coverage under this LCD.
+  procedure_code_CPT NOT IN ('63661','63662','63688','95970','95971','95972')
+  AND
+  -- Restriction 29: HCPCS code L8680 is excluded from coverage under this LCD.
+  procedure_code_HCPCS != 'L8680';
+```

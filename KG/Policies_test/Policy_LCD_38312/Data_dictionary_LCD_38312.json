@@ -1,0 +1,260 @@
+[
+  {
+    "name": "patient_id",
+    "type": "string",
+    "description": "Unique patient identifier",
+    "section": "Demographics"
+  },
+  {
+    "name": "patient_age",
+    "type": "integer",
+    "description": "Patient age in years (must be 22 years or older for eligibility)",
+    "section": "Eligibility"
+  },
+  {
+    "name": "patient_bmi",
+    "type": "float",
+    "description": "Body Mass Index (BMI) threshold for eligibility (less than 35 kg/m^2; equal to or greater than 35 kg/m^2 is a contraindication)",
+    "section": "Eligibility"
+  },
+  {
+    "name": "psg_consultation_window_months",
+    "type": "integer",
+    "description": "Time window within which a polysomnography must be performed relative to the first HGNS implant consultation (within 24 months)",
+    "section": "Eligibility"
+  },
+  {
+    "name": "central_mixed_apneas_percentage",
+    "type": "float",
+    "description": "Percentage of central and mixed apneas relative to total AHI (must be less than 25% for eligibility; more than one-quarter is a contraindication)",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "ahi_score",
+    "type": "float",
+    "description": "Apnea-Hypopnea Index (AHI) score in events per hour for eligibility (range 15 to 65 events/hour)",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "cpap_failure_ahi",
+    "type": "float",
+    "description": "Apnea-Hypopnea Index (AHI) score indicating CPAP failure (greater than 15 despite CPAP usage)",
+    "section": "Eligibility"
+  },
+  {
+    "name": "cpap_usage_hours_per_night",
+    "type": "float",
+    "description": "CPAP usage in hours per night (less than 4 hours indicates intolerance)",
+    "section": "Eligibility"
+  },
+  {
+    "name": "cpap_usage_nights_per_week",
+    "type": "integer",
+    "description": "CPAP usage in nights per week (less than 5 nights indicates intolerance)",
+    "section": "Eligibility"
+  },
+  {
+    "name": "cpap_intolerance_flag",
+    "type": "boolean",
+    "description": "Flag indicating patient intolerance to CPAP therapy (e.g., CPAP returned, or insufficient usage as defined)",
+    "section": "Eligibility"
+  },
+  {
+    "name": "complete_concentric_collapse_flag",
+    "type": "boolean",
+    "description": "Absence of complete concentric collapse at the soft palate level on Drug-Induced Sleep Endoscopy (DISE) procedure (absence required for eligibility)",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "tonsil_size",
+    "type": "string",
+    "description": "Tonsil size per standardized tonsillar hypertrophy grading scale (size 3 or 4 is a contraindication)",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "preexisting_implantable_device_flag",
+    "type": "boolean",
+    "description": "Presence of another implantable device that could interact with HGNS system (contraindication)",
+    "section": "Contraindications"
+  },
+  {
+    "name": "neuromuscular_disease_flag",
+    "type": "boolean",
+    "description": "Presence of neuromuscular disease (contraindication)",
+    "section": "Contraindications"
+  },
+  {
+    "name": "hypoglossal_nerve_palsy_flag",
+    "type": "boolean",
+    "description": "Presence of hypoglossal-nerve palsy (contraindication)",
+    "section": "Contraindications"
+  },
+  {
+    "name": "severe_pulmonary_disease_flag",
+    "type": "boolean",
+    "description": "Presence of severe restrictive or obstructive pulmonary disease (contraindication)",
+    "section": "Contraindications"
+  },
+  {
+    "name": "pulmonary_arterial_hypertension_severity",
+    "type": "string",
+    "description": "Severity of pulmonary arterial hypertension (moderate-to-severe is a contraindication)",
+    "section": "Contraindications"
+  },
+  {
+    "name": "severe_valvular_heart_disease_flag",
+    "type": "boolean",
+    "description": "Presence of severe valvular heart disease (contraindication)",
+    "section": "Contraindications"
+  },
+  {
+    "name": "nyha_heart_failure_class",
+    "type": "string",
+    "description": "New York Heart Association (NYHA) heart failure class (III or IV is a contraindication)",
+    "section": "Contraindications"
+  },
+  {
+    "name": "recent_myocardial_infarction_flag",
+    "type": "boolean",
+    "description": "Presence of a recent myocardial infarction (within the past 6 months is a contraindication)",
+    "section": "Contraindications"
+  },
+  {
+    "name": "severe_cardiac_arrhythmias_flag",
+    "type": "boolean",
+    "description": "Presence of severe cardiac arrhythmias (within the past 6 months is a contraindication)",
+    "section": "Contraindications"
+  },
+  {
+    "name": "recent_cardiac_event_window_months",
+    "type": "integer",
+    "description": "Time window for recent myocardial infarction or severe cardiac arrhythmias (within past 6 months is a contraindication)",
+    "section": "Contraindications"
+  },
+  {
+    "name": "uncontrolled_hypertension_flag",
+    "type": "boolean",
+    "description": "Presence of persistent uncontrolled hypertension despite medication use (contraindication)",
+    "section": "Contraindications"
+  },
+  {
+    "name": "serious_mental_illness_adl_interference_flag",
+    "type": "boolean",
+    "description": "Presence of active, serious mental illness that reduces ADLs and interferes with device operation/reporting (contraindication)",
+    "section": "Contraindications"
+  },
+  {
+    "name": "nonrespiratory_sleep_disorder_flag",
+    "type": "boolean",
+    "description": "Presence of coexisting nonrespiratory sleep disorders confounding functional sleep assessment (contraindication)",
+    "section": "Contraindications"
+  },
+  {
+    "name": "pregnancy_status_flag",
+    "type": "boolean",
+    "description": "Whether patient is pregnant or plans to become pregnant (contraindication)",
+    "section": "Contraindications"
+  },
+  {
+    "name": "mri_required_model_3024_flag",
+    "type": "boolean",
+    "description": "Whether patient requires MRI with HGNS implant model 3024 (contraindication)",
+    "section": "Contraindications"
+  },
+  {
+    "name": "ability_to_operate_device_remote_flag",
+    "type": "boolean",
+    "description": "Patient's inability or lack of necessary assistance to operate the sleep remote (contraindication)",
+    "section": "Contraindications"
+  },
+  {
+    "name": "compromised_upper_airway_neurological_control_flag",
+    "type": "boolean",
+    "description": "Presence of any condition or procedure that has compromised neurological control of the upper airway (contraindication)",
+    "section": "Contraindications"
+  },
+  {
+    "name": "procedure_hypoglossal_nerve_stimulation",
+    "type": "boolean",
+    "description": "Performance of Hypoglossal Nerve Stimulation (HGNS) procedure",
+    "section": "Procedures"
+  },
+  {
+    "name": "diagnosis_obstructive_sleep_apnea",
+    "type": "boolean",
+    "description": "Diagnosis of Obstructive Sleep Apnea (OSA)",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "treatment_continuous_positive_airway_pressure",
+    "type": "boolean",
+    "description": "Use of Continuous Positive Airway Pressure (CPAP) as a treatment modality",
+    "section": "Treatments"
+  },
+  {
+    "name": "device_fda_approval_status",
+    "type": "boolean",
+    "description": "Status of hypoglossal nerve neurostimulation device regarding FDA approval (FDA-approved required for coverage)",
+    "section": "Device Information"
+  },
+  {
+    "name": "device_battery_life_years",
+    "type": "string",
+    "description": "Battery life of the implantable hypoglossal nerve stimulation device components (7 to 10 years)",
+    "section": "Device Information"
+  },
+  {
+    "name": "device_activation_delay_minutes",
+    "type": "integer",
+    "description": "Delay time before the hypoglossal nerve stimulation device activates after patient activation (20 minutes)",
+    "section": "Device Operation"
+  },
+  {
+    "name": "physician_specialty",
+    "type": "string",
+    "description": "Required physician specialty for HGNS insertion (board certified or board eligible otolaryngologist)",
+    "section": "Provider Qualifications"
+  },
+  {
+    "name": "physician_degree",
+    "type": "string",
+    "description": "Required physician degree for HGNS insertion (MD or DO)",
+    "section": "Provider Qualifications"
+  },
+  {
+    "name": "surgeon_device_training_flag",
+    "type": "boolean",
+    "description": "Requirement for surgeons to receive specific training on device implant techniques (classroom instruction and cadaver training)",
+    "section": "Provider Qualifications"
+  },
+  {
+    "name": "sleep_professional_device_titration_training_flag",
+    "type": "boolean",
+    "description": "Requirement for sleep physicians and sleep technicians to receive training on device titration and operation",
+    "section": "Provider Qualifications"
+  },
+  {
+    "name": "sleep_physician_board_certification_flag",
+    "type": "boolean",
+    "description": "Requirement for sleep physicians involved in evaluation, referral, and post-implant evaluation to be board eligible or certified",
+    "section": "Provider Qualifications"
+  },
+  {
+    "name": "sleep_technician_qualifications_reference",
+    "type": "string",
+    "description": "Reference to LCD L34040 for sleep technician qualifications",
+    "section": "Provider Qualifications"
+  },
+  {
+    "name": "sleep_facility_accreditation_flag",
+    "type": "boolean",
+    "description": "Requirement for sleep studies to be performed in an accredited sleep facility as per LCD L34040",
+    "section": "Provider Qualifications"
+  },
+  {
+    "name": "dise_provider_certification_flag",
+    "type": "boolean",
+    "description": "Requirement for inserting provider for Drug Induced Sleep Endoscopy (DISE) to be certified by FDA-approved manufacturer's second opinion service of validation",
+    "section": "Provider Qualifications"
+  }
+]

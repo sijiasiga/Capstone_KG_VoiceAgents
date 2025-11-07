@@ -1,0 +1,152 @@
+[
+  {
+    "name": "patient_id",
+    "type": "string",
+    "description": "Unique patient identifier",
+    "section": "Demographics"
+  },
+  {
+    "name": "diagnosis_lumbar_spinal_stenosis",
+    "type": "string",
+    "description": "Lumbar Spinal Stenosis (LSS), the symptomatic condition for which Percutaneous Image-Guided Lumbar Decompression (PILD) is proposed as a treatment.",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "diagnosis_code_ICD10",
+    "type": "string",
+    "description": "ICD-10 codes relevant to NCD maintenance updates and conversions.",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "procedure_percutaneous_image_guided_lumbar_decompression",
+    "type": "string",
+    "description": "Percutaneous Image-Guided Lumbar Decompression (PILD) is a posterior decompression of the lumbar spine performed under indirect image guidance (e.g., fluoroscopic, CT) using contrast media, without direct visualization, to remove a portion of the lamina and debulk the ligamentum flavum.",
+    "section": "Procedures"
+  },
+  {
+    "name": "procedure_endoscopically_assisted_laminotomy_laminectomy",
+    "type": "string",
+    "description": "Endoscopically assisted laminotomy/laminectomy requiring open and direct visualization, which is not within the scope of this NCD.",
+    "section": "Procedures"
+  },
+  {
+    "name": "procedure_open_lumbar_decompression",
+    "type": "string",
+    "description": "Other open lumbar decompression procedures for Lumbar Spinal Stenosis (LSS), which are not within the scope of this NCD.",
+    "section": "Procedures"
+  },
+  {
+    "name": "procedure_code_HCPCS",
+    "type": "string",
+    "description": "HCPCS procedure code 0275T for Percutaneous Image-Guided Lumbar Decompression (PILD), covered only when performed within any other CED approved clinical trial.",
+    "section": "Procedures"
+  },
+  {
+    "name": "coverage_with_evidence_development_flag",
+    "type": "boolean",
+    "description": "Indicates that PILD is covered by Medicare when provided in a clinical study under Coverage with Evidence Development (CED).",
+    "section": "Coverage Requirements"
+  },
+  {
+    "name": "clinical_study_enrollment_required",
+    "type": "boolean",
+    "description": "Requirement for beneficiaries with LSS to be enrolled in an approved clinical study for PILD coverage.",
+    "section": "Eligibility"
+  },
+  {
+    "name": "pild_coverage_effective_date_1",
+    "type": "string",
+    "description": "Effective date (January 9, 2014) for initial PILD coverage under CED in approved clinical studies.",
+    "section": "Coverage Requirements"
+  },
+  {
+    "name": "pild_coverage_effective_date_2",
+    "type": "string",
+    "description": "Effective date (December 7, 2016) for PILD coverage through a prospective, longitudinal study using an FDA-approved/cleared device that completed a CMS-approved randomized control trial (RCT).",
+    "section": "Coverage Requirements"
+  },
+  {
+    "name": "pild_reasonable_and_necessary_status",
+    "type": "boolean",
+    "description": "Indicates PILD for LSS is not considered reasonable and necessary under section 1862(a)(1)(A) of the Social Security Act.",
+    "section": "Coverage Limitations"
+  },
+  {
+    "name": "coverage_contractor_discretion_flag",
+    "type": "boolean",
+    "description": "Indicates that coverage for procedures such as endoscopically assisted laminotomy/laminectomy and other open lumbar decompression procedures is at contractor discretion.",
+    "section": "Coverage Limitations"
+  },
+  {
+    "name": "clinical_study_design",
+    "type": "string",
+    "description": "Required design for clinical studies to qualify for PILD coverage, including prospective, randomized, controlled design using validated and reliable measurement instruments and clinically appropriate comparator treatments.",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "clinical_study_patient_followup_duration",
+    "type": "string",
+    "description": "Requirement for the study protocol to specify a minimum length of patient follow-up time.",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "human_subjects_protection_compliance",
+    "type": "string",
+    "description": "Requirement for research studies to comply with all applicable Federal regulations concerning the protection of human subjects found at 45 Code of Federal Regulations (CFR) Part 46.",
+    "section": "Regulatory Compliance"
+  },
+  {
+    "name": "fda_regulatory_compliance",
+    "type": "string",
+    "description": "Requirement for FDA-regulated studies to comply with 21 CFR parts 50 and 56.",
+    "section": "Regulatory Compliance"
+  },
+  {
+    "name": "clinicaltrials_gov_registration_required",
+    "type": "boolean",
+    "description": "Requirement for clinical research studies to be registered on the ClinicalTrials.gov website by the principal sponsor/investigator prior to the enrollment of the first study subject, and for study sites and results to be listed in the database.",
+    "section": "Regulatory Compliance"
+  },
+  {
+    "name": "clinical_study_results_public_release_window_months_1",
+    "type": "integer",
+    "description": "Timeframe (24 months) within which clinical study results (for studies under Section I criteria) must be made public after the end of data collection.",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "clinical_study_subpopulation_discussion_required",
+    "type": "boolean",
+    "description": "Requirement for study protocols to explicitly discuss subpopulations affected by the treatment, particularly traditionally underrepresented groups.",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "clinical_study_generalizability_discussion_required",
+    "type": "boolean",
+    "description": "Requirement for study protocols to explicitly discuss how the results are or are not expected to be generalizable to the Medicare population.",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "fda_approved_device_required",
+    "type": "boolean",
+    "description": "Requirement for PILD procedures to use an FDA-approved/cleared device for coverage under Section II criteria.",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "randomized_control_trial_completion_required",
+    "type": "boolean",
+    "description": "Requirement that the FDA-approved/cleared device for PILD procedures completed a CMS-approved randomized control trial (RCT) that met specified criteria.",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "rct_eligibility_criteria_maintenance",
+    "type": "boolean",
+    "description": "Requirement for prospective, longitudinal studies to maintain the eligibility (inclusion and exclusion) criteria specified in the CMS-approved RCT protocol.",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "clinical_study_results_public_release_window_months_2",
+    "type": "integer",
+    "description": "Timeframe (12 months) within which clinical study results (for studies under Section II criteria) must be made public after the study\u2019s primary completion date.",
+    "section": "Program Requirements"
+  }
+]

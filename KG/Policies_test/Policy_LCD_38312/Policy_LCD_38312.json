@@ -1,0 +1,231 @@
+[
+  {
+    "name": "LCD - Hypoglossal Nerve Stimulation for the Treatment of Obstructive Sleep Apnea",
+    "guideline_number": "L38312",
+    "description": "Local Coverage Determination (LCD) for Hypoglossal Nerve Stimulation for the Treatment of Obstructive Sleep Apnea. This policy outlines the medical necessity criteria for FDA-approved hypoglossal nerve neurostimulation for moderate to severe OSA, including patient age, BMI, AHI scores, CPAP failure/intolerance, and contraindications.",
+    "restrictions": [
+      {
+        "condition": "Beneficiary must be 22 years of age or older.",
+        "rule": "patient_age >= 22",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Body Mass Index (BMI) must be less than 35 kg/m2.",
+        "rule": "patient_bmi < 35.0",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "A polysomnography (PSG) must be performed within 24 months of the first consultation for HGNS implant.",
+        "rule": "psg_consultation_window_months <= 24",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Beneficiary must have predominantly obstructive events, defined as central and mixed apneas less than 25% of the total AHI.",
+        "rule": "central_mixed_apneas_percentage < 25.0",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Apnea-Hypopnea Index (AHI) must be between 15 and 65 events per hour.",
+        "rule": "ahi_score >= 15.0 AND ahi_score <= 65.0",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Beneficiary must have documentation demonstrating CPAP failure, defined as AHI greater than 15 despite CPAP usage.",
+        "rule": "cpap_failure_ahi > 15.0 AND treatment_continuous_positive_airway_pressure = TRUE",
+        "codes": [],
+        "logic": "OR"
+      },
+      {
+        "condition": "Beneficiary must have documentation demonstrating CPAP intolerance, defined as less than 4 hours per night usage.",
+        "rule": "cpap_usage_hours_per_night < 4.0",
+        "codes": [],
+        "logic": "OR"
+      },
+      {
+        "condition": "Beneficiary must have documentation demonstrating CPAP intolerance, defined as less than 5 nights per week usage.",
+        "rule": "cpap_usage_nights_per_week < 5",
+        "codes": [],
+        "logic": "OR"
+      },
+      {
+        "condition": "Beneficiary must have documentation demonstrating CPAP intolerance, defined as the CPAP device having been returned.",
+        "rule": "cpap_intolerance_flag = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Absence of complete concentric collapse at the soft palate level as seen on a drug-induced sleep endoscopy (DISE) procedure.",
+        "rule": "complete_concentric_collapse_flag = FALSE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "No other anatomical findings that would compromise performance of device, such as tonsil size 3 or 4 per standardized tonsillar hypertrophy grading scale.",
+        "rule": "tonsil_size != '3' AND tonsil_size != '4'",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "The hypoglossal nerve neurostimulation device must be FDA-approved.",
+        "rule": "device_fda_approval_status = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Beneficiaries must not have central and mixed apneas that make up more than one-quarter of the total AHI.",
+        "rule": "central_mixed_apneas_percentage < 25.0",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Beneficiaries must not have another implantable device that could experience unintended interaction with the HGNS implant system.",
+        "rule": "preexisting_implantable_device_flag = FALSE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Beneficiaries must not have a Body Mass Index (BMI) equal to or greater than 35 kg/m2.",
+        "rule": "patient_bmi < 35.0",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Beneficiaries must not have neuromuscular disease.",
+        "rule": "neuromuscular_disease_flag = FALSE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Beneficiaries must not have hypoglossal-nerve palsy.",
+        "rule": "hypoglossal_nerve_palsy_flag = FALSE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Beneficiaries must not have severe restrictive or obstructive pulmonary disease.",
+        "rule": "severe_pulmonary_disease_flag = FALSE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Beneficiaries must not have moderate-to-severe pulmonary arterial hypertension.",
+        "rule": "pulmonary_arterial_hypertension_severity NOT IN ('Moderate','Severe')",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Beneficiaries must not have severe valvular heart disease.",
+        "rule": "severe_valvular_heart_disease_flag = FALSE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Beneficiaries must not have New York Heart Association (NYHA) class III or IV heart failure.",
+        "rule": "nyha_heart_failure_class NOT IN ('III','IV')",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Beneficiaries must not have had a recent myocardial infarction within the past 6 months.",
+        "rule": "recent_myocardial_infarction_flag = FALSE OR recent_cardiac_event_window_months > 6",
+        "codes": [],
+        "logic": "OR"
+      },
+      {
+        "condition": "Beneficiaries must not have had severe cardiac arrhythmias within the past 6 months.",
+        "rule": "severe_cardiac_arrhythmias_flag = FALSE OR recent_cardiac_event_window_months > 6",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Beneficiaries must not have persistent uncontrolled hypertension despite medication use.",
+        "rule": "uncontrolled_hypertension_flag = FALSE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Beneficiaries must not have an active, serious mental illness that reduces the ability to carry out Activities of Daily Living (ADLs) and would interfere with the patient's ability to operate the HNS and report problems to the attending provider.",
+        "rule": "serious_mental_illness_adl_interference_flag = FALSE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Beneficiaries must not have coexisting nonrespiratory sleep disorders that would confound functional sleep assessment.",
+        "rule": "nonrespiratory_sleep_disorder_flag = FALSE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Beneficiaries must not be pregnant or plan to become pregnant.",
+        "rule": "pregnancy_status_flag = FALSE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Beneficiaries must not require Magnetic Resonance Imaging (MRI) with HGNS implant model 3024.",
+        "rule": "mri_required_model_3024_flag = FALSE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Beneficiaries must be able or have the necessary assistance to operate the sleep remote.",
+        "rule": "ability_to_operate_device_remote_flag = FALSE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Beneficiaries must not have any condition or procedure that has compromised neurological control of the upper airway.",
+        "rule": "compromised_upper_airway_neurological_control_flag = FALSE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Insertion of hypoglossal nerve stimulation must be performed by a qualified physician (MD or DO) who is a board-certified or board-eligible otolaryngologist.",
+        "rule": "physician_degree IN ('MD','DO') AND physician_specialty = 'otolaryngologist'",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Surgeons must receive classroom instruction and cadaver training on device implant techniques by an FDA-approved device manufacturer or equivalent.",
+        "rule": "surgeon_device_training_flag = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Sleep physicians and sleep technicians must receive classroom instruction on how to titrate the device, including hands-on operation.",
+        "rule": "sleep_professional_device_titration_training_flag = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Sleep physicians involved in evaluation, referral, and post-implant evaluation must be board eligible or certified.",
+        "rule": "sleep_physician_board_certification_flag = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Sleep technicians must meet the qualifications outlined in LCD L34040.",
+        "rule": "sleep_technician_qualifications_reference = 'LCD L34040'",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Sleep studies must be performed in an accredited sleep facility as stated in LCD L34040.",
+        "rule": "sleep_facility_accreditation_flag = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "The inserting provider for Drug Induced Sleep Endoscopy (DISE) must be certified by the FDA-approved manufacturer\u2019s second opinion service of validation.",
+        "rule": "dise_provider_certification_flag = TRUE",
+        "codes": [],
+        "logic": "AND"
+      }
+    ]
+  }
+]

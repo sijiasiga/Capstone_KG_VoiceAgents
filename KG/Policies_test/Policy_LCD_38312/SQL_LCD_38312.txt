@@ -1,0 +1,119 @@
+```sql
+-- Policy: LCD - Hypoglossal Nerve Stimulation for the Treatment of Obstructive Sleep Apnea
+-- Total Restrictions: 37
+WHERE
+  -- Restriction 1: Beneficiary must be 22 years of age or older.
+  patient_age >= 22
+  AND
+  -- Restriction 2: Body Mass Index (BMI) must be less than 35 kg/m2.
+  patient_bmi < 35.0
+  AND
+  -- Restriction 3: A polysomnography (PSG) must be performed within 24 months of the first consultation for HGNS implant.
+  psg_consultation_window_months <= 24
+  AND
+  -- Restriction 4: Beneficiary must have predominantly obstructive events, defined as central and mixed apneas less than 25% of the total AHI.
+  central_mixed_apneas_percentage < 25.0
+  AND
+  -- Restriction 5: Apnea-Hypopnea Index (AHI) must be between 15 and 65 events per hour.
+  ahi_score >= 15.0 AND ahi_score <= 65.0
+  AND
+  -- Restriction 6: Beneficiary must have documentation demonstrating CPAP failure, defined as AHI greater than 15 despite CPAP usage.
+  -- Restriction 7: Beneficiary must have documentation demonstrating CPAP intolerance, defined as less than 4 hours per night usage.
+  -- Restriction 8: Beneficiary must have documentation demonstrating CPAP intolerance, defined as less than 5 nights per week usage.
+  (
+    cpap_failure_ahi > 15.0 AND treatment_continuous_positive_airway_pressure = TRUE
+    OR
+    cpap_usage_hours_per_night < 4.0
+    OR
+    cpap_usage_nights_per_week < 5
+  )
+  AND
+  -- Restriction 9: Beneficiary must have documentation demonstrating CPAP intolerance, defined as the CPAP device having been returned.
+  cpap_intolerance_flag = TRUE
+  AND
+  -- Restriction 10: Absence of complete concentric collapse at the soft palate level as seen on a drug-induced sleep endoscopy (DISE) procedure.
+  complete_concentric_collapse_flag = FALSE
+  AND
+  -- Restriction 11: No other anatomical findings that would compromise performance of device, such as tonsil size 3 or 4 per standardized tonsillar hypertrophy grading scale.
+  tonsil_size != '3' AND tonsil_size != '4'
+  AND
+  -- Restriction 12: The hypoglossal nerve neurostimulation device must be FDA-approved.
+  device_fda_approval_status = TRUE
+  AND
+  -- Restriction 13: Beneficiaries must not have central and mixed apneas that make up more than one-quarter of the total AHI.
+  central_mixed_apneas_percentage < 25.0
+  AND
+  -- Restriction 14: Beneficiaries must not have another implantable device that could experience unintended interaction with the HGNS implant system.
+  preexisting_implantable_device_flag = FALSE
+  AND
+  -- Restriction 15: Beneficiaries must not have a Body Mass Index (BMI) equal to or greater than 35 kg/m2.
+  patient_bmi < 35.0
+  AND
+  -- Restriction 16: Beneficiaries must not have neuromuscular disease.
+  neuromuscular_disease_flag = FALSE
+  AND
+  -- Restriction 17: Beneficiaries must not have hypoglossal-nerve palsy.
+  hypoglossal_nerve_palsy_flag = FALSE
+  AND
+  -- Restriction 18: Beneficiaries must not have severe restrictive or obstructive pulmonary disease.
+  severe_pulmonary_disease_flag = FALSE
+  AND
+  -- Restriction 19: Beneficiaries must not have moderate-to-severe pulmonary arterial hypertension.
+  pulmonary_arterial_hypertension_severity NOT IN ('Moderate','Severe')
+  AND
+  -- Restriction 20: Beneficiaries must not have severe valvular heart disease.
+  severe_valvular_heart_disease_flag = FALSE
+  AND
+  -- Restriction 21: Beneficiaries must not have New York Heart Association (NYHA) class III or IV heart failure.
+  nyha_heart_failure_class NOT IN ('III','IV')
+  AND
+  -- Restriction 22: Beneficiaries must not have had a recent myocardial infarction within the past 6 months.
+  (
+    recent_myocardial_infarction_flag = FALSE OR recent_cardiac_event_window_months > 6
+  )
+  AND
+  -- Restriction 23: Beneficiaries must not have had severe cardiac arrhythmias within the past 6 months.
+  severe_cardiac_arrhythmias_flag = FALSE OR recent_cardiac_event_window_months > 6
+  AND
+  -- Restriction 24: Beneficiaries must not have persistent uncontrolled hypertension despite medication use.
+  uncontrolled_hypertension_flag = FALSE
+  AND
+  -- Restriction 25: Beneficiaries must not have an active, serious mental illness that reduces the ability to carry out Activities of Daily Living (ADLs) and would interfere with the patient's ability to operate the HNS and report problems to the attending provider.
+  serious_mental_illness_adl_interference_flag = FALSE
+  AND
+  -- Restriction 26: Beneficiaries must not have coexisting nonrespiratory sleep disorders that would confound functional sleep assessment.
+  nonrespiratory_sleep_disorder_flag = FALSE
+  AND
+  -- Restriction 27: Beneficiaries must not be pregnant or plan to become pregnant.
+  pregnancy_status_flag = FALSE
+  AND
+  -- Restriction 28: Beneficiaries must not require Magnetic Resonance Imaging (MRI) with HGNS implant model 3024.
+  mri_required_model_3024_flag = FALSE
+  AND
+  -- Restriction 29: Beneficiaries must be able or have the necessary assistance to operate the sleep remote.
+  ability_to_operate_device_remote_flag = FALSE
+  AND
+  -- Restriction 30: Beneficiaries must not have any condition or procedure that has compromised neurological control of the upper airway.
+  compromised_upper_airway_neurological_control_flag = FALSE
+  AND
+  -- Restriction 31: Insertion of hypoglossal nerve stimulation must be performed by a qualified physician (MD or DO) who is a board-certified or board-eligible otolaryngologist.
+  physician_degree IN ('MD','DO') AND physician_specialty = 'otolaryngologist'
+  AND
+  -- Restriction 32: Surgeons must receive classroom instruction and cadaver training on device implant techniques by an FDA-approved device manufacturer or equivalent.
+  surgeon_device_training_flag = TRUE
+  AND
+  -- Restriction 33: Sleep physicians and sleep technicians must receive classroom instruction on how to titrate the device, including hands-on operation.
+  sleep_professional_device_titration_training_flag = TRUE
+  AND
+  -- Restriction 34: Sleep physicians involved in evaluation, referral, and post-implant evaluation must be board eligible or certified.
+  sleep_physician_board_certification_flag = TRUE
+  AND
+  -- Restriction 35: Sleep technicians must meet the qualifications outlined in LCD L34040.
+  sleep_technician_qualifications_reference = 'LCD L34040'
+  AND
+  -- Restriction 36: Sleep studies must be performed in an accredited sleep facility as stated in LCD L34040.
+  sleep_facility_accreditation_flag = TRUE
+  AND
+  -- Restriction 37: The inserting provider for Drug Induced Sleep Endoscopy (DISE) must be certified by the FDA-approved manufacturer’s second opinion service of validation.
+  dise_provider_certification_flag = TRUE;
+```

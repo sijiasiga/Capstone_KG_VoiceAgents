@@ -1,0 +1,28 @@
+[
+  {
+    "id": "NCD_160_24",
+    "type": "Policy",
+    "label": "Policy NCD_160_24",
+    "description": "Policy rules for NCD_160_24",
+    "node_size": 2000
+  },
+  {
+    "id": "group_other",
+    "type": "ConditionGroup",
+    "label": "Other Conditions",
+    "condition_type": "other",
+    "node_size": 1500
+  },
+  {
+    "id": "condition_dbs_device_fda_approved_0",
+    "type": "Condition",
+    "label": "dbs_device_fda_approved = TRUE",
+    "field_name": "dbs_device_fda_approved",
+    "operator": "=",
+    "value": "TRUE",
+    "description": "Deep Brain Stimulation (DBS) device is Food and Drug Administration (FDA) approved.",
+    "section": "Medical Devices",
+    "condition_type": "other",
+    "node_size": 1000
+  }
+]

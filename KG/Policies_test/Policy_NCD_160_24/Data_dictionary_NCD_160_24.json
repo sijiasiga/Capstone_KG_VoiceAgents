@@ -1,0 +1,266 @@
+[
+  {
+    "name": "patient_id",
+    "type": "string",
+    "description": "Unique patient identifier",
+    "section": "Demographics"
+  },
+  {
+    "name": "procedure_deep_brain_stimulation_VIM",
+    "type": "string",
+    "description": "Unilateral or bilateral thalamic ventralis intermedius nucleus (VIM) deep brain stimulation (DBS) procedure for essential tremor or Parkinsonian tremor.",
+    "section": "Procedures"
+  },
+  {
+    "name": "procedure_deep_brain_stimulation_STN_GPi",
+    "type": "string",
+    "description": "Unilateral or bilateral subthalamic nucleus (STN) or globus pallidus interna (GPi) deep brain stimulation (DBS) procedure for Parkinson's disease.",
+    "section": "Procedures"
+  },
+  {
+    "name": "diagnosis_essential_tremor",
+    "type": "boolean",
+    "description": "Diagnosis of Essential Tremor (ET).",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "diagnosis_parkinsonian_tremor",
+    "type": "boolean",
+    "description": "Diagnosis of Parkinsonian tremor.",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "diagnosis_parkinsons_disease",
+    "type": "boolean",
+    "description": "Diagnosis of Parkinson's Disease (PD).",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "dbs_device_fda_approved",
+    "type": "boolean",
+    "description": "Deep Brain Stimulation (DBS) device is Food and Drug Administration (FDA) approved.",
+    "section": "Medical Devices"
+  },
+  {
+    "name": "dbs_device_category_b_ide_clinical_trial",
+    "type": "boolean",
+    "description": "Deep Brain Stimulation (DBS) device used in accordance with FDA approved protocols governing Category B Investigational Device Exemption (IDE) DBS clinical trials.",
+    "section": "Medical Devices"
+  },
+  {
+    "name": "diagnosis_et_postural_kinetic_tremors",
+    "type": "boolean",
+    "description": "Diagnosis of Essential Tremor (ET) based on postural or kinetic tremors of hand(s) without other neurologic signs.",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "diagnosis_idiopathic_pd_tremor_dominant",
+    "type": "boolean",
+    "description": "Diagnosis of idiopathic Parkinson's Disease (PD) with presence of at least 2 cardinal PD features (tremor, rigidity or bradykinesia) and of a tremor-dominant form.",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "pd_cardinal_feature_tremor",
+    "type": "boolean",
+    "description": "Presence of tremor as a cardinal Parkinson's Disease feature.",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "pd_cardinal_feature_rigidity",
+    "type": "boolean",
+    "description": "Presence of rigidity as a cardinal Parkinson's Disease feature.",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "pd_cardinal_feature_bradykinesia",
+    "type": "boolean",
+    "description": "Presence of bradykinesia as a cardinal Parkinson's Disease feature.",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "tremor_severity_fahn_tolosa_marin_met",
+    "type": "boolean",
+    "description": "Marked disabling tremor meets criteria of at least level 3 or 4 on the Fahn-Tolosa-Marin Clinical Tremor Rating Scale (or equivalent scale) in the extremity intended for treatment.",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "tremor_impairing_daily_activities",
+    "type": "boolean",
+    "description": "Tremor causing significant limitation in daily activities.",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "optimal_medical_therapy_failure_tremor",
+    "type": "boolean",
+    "description": "Disabling tremor persists despite optimal medical therapy.",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "patient_cooperation_ability",
+    "type": "boolean",
+    "description": "Patient's willingness and ability to cooperate during conscious operative procedure, post-surgical evaluations, and adjustments of medications and stimulator settings.",
+    "section": "Eligibility"
+  },
+  {
+    "name": "diagnosis_pd_at_least_2_cardinal_features",
+    "type": "boolean",
+    "description": "Diagnosis of Parkinson's Disease (PD) based on the presence of at least 2 cardinal PD features (tremor, rigidity or bradykinesia).",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "diagnosis_advanced_idiopathic_pd",
+    "type": "boolean",
+    "description": "Advanced idiopathic Parkinson's Disease (PD) as determined by Hoehn and Yahr stage or Unified Parkinson's Disease Rating Scale (UPDRS) part III motor subscale.",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "l_dopa_responsive",
+    "type": "boolean",
+    "description": "Patient is L-dopa responsive with clearly defined 'on' periods.",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "persistent_disabling_pd_symptoms",
+    "type": "boolean",
+    "description": "Persistent disabling Parkinson's symptoms (e.g., dyskinesias, motor fluctuations, or disabling 'off' periods) despite optimal medical therapy.",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "optimal_medical_therapy_failure_pd",
+    "type": "boolean",
+    "description": "Persistent disabling Parkinson's symptoms or drug side effects despite optimal medical therapy.",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "exclusion_non_idiopathic_pd",
+    "type": "boolean",
+    "description": "Exclusion criterion: Non-idiopathic Parkinson's disease or 'Parkinson's Plus' syndromes.",
+    "section": "Exclusion Criteria"
+  },
+  {
+    "name": "exclusion_cognitive_impairment",
+    "type": "boolean",
+    "description": "Exclusion criterion: Cognitive impairment that would be worsened by or interfere with DBS benefit.",
+    "section": "Exclusion Criteria"
+  },
+  {
+    "name": "exclusion_dementia",
+    "type": "boolean",
+    "description": "Exclusion criterion: Dementia that would be worsened by or interfere with DBS benefit.",
+    "section": "Exclusion Criteria"
+  },
+  {
+    "name": "exclusion_depression",
+    "type": "boolean",
+    "description": "Exclusion criterion: Depression that would be worsened by or interfere with DBS benefit.",
+    "section": "Exclusion Criteria"
+  },
+  {
+    "name": "exclusion_current_psychosis",
+    "type": "boolean",
+    "description": "Exclusion criterion: Current psychosis.",
+    "section": "Exclusion Criteria"
+  },
+  {
+    "name": "exclusion_alcohol_abuse",
+    "type": "boolean",
+    "description": "Exclusion criterion: Alcohol abuse.",
+    "section": "Exclusion Criteria"
+  },
+  {
+    "name": "exclusion_drug_abuse",
+    "type": "boolean",
+    "description": "Exclusion criterion: Other drug abuse.",
+    "section": "Exclusion Criteria"
+  },
+  {
+    "name": "exclusion_structural_lesions",
+    "type": "boolean",
+    "description": "Exclusion criterion: Structural lesions (e.g., basal ganglionic stroke, tumor, vascular malformation) as etiology of the movement disorder.",
+    "section": "Exclusion Criteria"
+  },
+  {
+    "name": "exclusion_previous_movement_disorder_surgery",
+    "type": "boolean",
+    "description": "Exclusion criterion: Previous movement disorder surgery within the affected basal ganglion.",
+    "section": "Exclusion Criteria"
+  },
+  {
+    "name": "exclusion_significant_comorbidities",
+    "type": "boolean",
+    "description": "Exclusion criterion: Significant medical, surgical, neurologic, or orthopedic co-morbidities contraindicating DBS surgery or stimulation.",
+    "section": "Exclusion Criteria"
+  },
+  {
+    "name": "dbs_contraindication_diathermy",
+    "type": "boolean",
+    "description": "Contraindication for patients with DBS implantation: exposure to diathermy (shortwave, microwave, ultrasound deep heat treatment).",
+    "section": "Contraindications"
+  },
+  {
+    "name": "dbs_contraindication_mri",
+    "type": "boolean",
+    "description": "Contraindication for patients with DBS implantation: exposure to any type of MRI.",
+    "section": "Contraindications"
+  },
+  {
+    "name": "dbs_caution_cardiac_pacemakers",
+    "type": "boolean",
+    "description": "DBS procedure should be performed with extreme caution in patients with cardiac pacemakers.",
+    "section": "Contraindications"
+  },
+  {
+    "name": "dbs_caution_electronic_implants",
+    "type": "boolean",
+    "description": "DBS procedure should be performed with extreme caution in patients with other electronically controlled implants.",
+    "section": "Contraindications"
+  },
+  {
+    "name": "neurosurgeon_trained_in_dbs",
+    "type": "boolean",
+    "description": "Neurosurgeon must be properly trained in the Deep Brain Stimulation (DBS) procedure.",
+    "section": "Provider Requirements"
+  },
+  {
+    "name": "neurosurgeon_experience_movement_disorder_surgery",
+    "type": "boolean",
+    "description": "Neurosurgeon must have experience with the surgical management of movement disorders, including DBS therapy.",
+    "section": "Provider Requirements"
+  },
+  {
+    "name": "neurosurgeon_experience_stereotactic_neurosurgery",
+    "type": "boolean",
+    "description": "Neurosurgeon must have experience performing stereotactic neurosurgical procedures.",
+    "section": "Provider Requirements"
+  },
+  {
+    "name": "operative_team_dbs_training_experience",
+    "type": "boolean",
+    "description": "Operative teams must have training and experience with DBS systems, including knowledge of anatomical and neurophysiological characteristics for localizing the targeted nucleus, surgical/implantation techniques, and device operational/functional characteristics.",
+    "section": "Facility Requirements"
+  },
+  {
+    "name": "movement_disorder_physician_involvement",
+    "type": "boolean",
+    "description": "Physicians specializing in movement disorders must be involved in patient selection and post-procedure care for DBS.",
+    "section": "Provider Requirements"
+  },
+  {
+    "name": "facility_brain_imaging_equipment",
+    "type": "boolean",
+    "description": "Hospital medical centers must have brain imaging equipment (MRI and/or CT) for pre-operative stereotactic localization and targeting of surgical sites.",
+    "section": "Facility Requirements"
+  },
+  {
+    "name": "facility_stereotactic_surgery_or_equipment",
+    "type": "boolean",
+    "description": "Hospital medical centers must have operating rooms with all necessary equipment for stereotactic surgery.",
+    "section": "Facility Requirements"
+  },
+  {
+    "name": "facility_support_services",
+    "type": "boolean",
+    "description": "Hospital medical centers must have support services necessary for patient care during and after DBS procedure, including potential complications.",
+    "section": "Facility Requirements"
+  }
+]

@@ -1,0 +1,140 @@
+[
+  {
+    "id": "NCD_150_13",
+    "type": "Policy",
+    "label": "Policy NCD_150_13",
+    "description": "Policy rules for NCD_150_13",
+    "node_size": 2000
+  },
+  {
+    "id": "group_procedure",
+    "type": "ConditionGroup",
+    "label": "Procedure Conditions",
+    "condition_type": "procedure",
+    "node_size": 1500
+  },
+  {
+    "id": "condition_procedure_percutaneous_image_guided_lumbar_decompression_0",
+    "type": "Condition",
+    "label": "procedure_percutaneous_imag...",
+    "field_name": "procedure_percutaneous_image_guided_lumbar_decompression",
+    "operator": "=",
+    "value": "TRUE",
+    "description": "Percutaneous Image-Guided Lumbar Decompression (PILD) is a posterior decompression of the lumbar spine performed under indirect image guidance (e.g., fluoroscopic, CT) using contrast media, without direct visualization, to remove a portion of the lamina and debulk the ligamentum flavum.",
+    "section": "Procedures",
+    "condition_type": "procedure",
+    "node_size": 1000
+  },
+  {
+    "id": "group_diagnosis",
+    "type": "ConditionGroup",
+    "label": "Diagnosis Conditions",
+    "condition_type": "diagnosis",
+    "node_size": 1500
+  },
+  {
+    "id": "condition_diagnosis_lumbar_spinal_stenosis_0",
+    "type": "Condition",
+    "label": "diagnosis_lumbar_spinal_ste...",
+    "field_name": "diagnosis_lumbar_spinal_stenosis",
+    "operator": "=",
+    "value": "TRUE",
+    "description": "Lumbar Spinal Stenosis (LSS), the symptomatic condition for which Percutaneous Image-Guided Lumbar Decompression (PILD) is proposed as a treatment.",
+    "section": "Diagnosis",
+    "condition_type": "diagnosis",
+    "node_size": 1000
+  },
+  {
+    "id": "group_other",
+    "type": "ConditionGroup",
+    "label": "Other Conditions",
+    "condition_type": "other",
+    "node_size": 1500
+  },
+  {
+    "id": "condition_coverage_with_evidence_development_flag_0",
+    "type": "Condition",
+    "label": "coverage_with_evidence_deve...",
+    "field_name": "coverage_with_evidence_development_flag",
+    "operator": "=",
+    "value": "TRUE",
+    "description": "Indicates that PILD is covered by Medicare when provided in a clinical study under Coverage with Evidence Development (CED).",
+    "section": "Coverage Requirements",
+    "condition_type": "other",
+    "node_size": 1000
+  },
+  {
+    "id": "condition_human_subjects_protection_compliance_1",
+    "type": "Condition",
+    "label": "human_subjects_protection_c...",
+    "field_name": "human_subjects_protection_compliance",
+    "operator": "=",
+    "value": "TRUE",
+    "description": "Requirement for research studies to comply with all applicable Federal regulations concerning the protection of human subjects found at 45 Code of Federal Regulations (CFR) Part 46.",
+    "section": "Regulatory Compliance",
+    "condition_type": "other",
+    "node_size": 1000
+  },
+  {
+    "id": "condition_clinicaltrials_gov_registration_required_2",
+    "type": "Condition",
+    "label": "clinicaltrials_gov_registra...",
+    "field_name": "clinicaltrials_gov_registration_required",
+    "operator": "=",
+    "value": "TRUE",
+    "description": "Requirement for clinical research studies to be registered on the ClinicalTrials.gov website by the principal sponsor/investigator prior to the enrollment of the first study subject, and for study sites and results to be listed in the database.",
+    "section": "Regulatory Compliance",
+    "condition_type": "other",
+    "node_size": 1000
+  },
+  {
+    "id": "condition_pild_reasonable_and_necessary_status_3",
+    "type": "Condition",
+    "label": "pild_reasonable_and_necessa...",
+    "field_name": "pild_reasonable_and_necessary_status",
+    "operator": "=",
+    "value": "FALSE",
+    "description": "Indicates PILD for LSS is not considered reasonable and necessary under section 1862(a)(1)(A) of the Social Security Act.",
+    "section": "Coverage Limitations",
+    "condition_type": "other",
+    "node_size": 1000
+  },
+  {
+    "id": "group_eligibility",
+    "type": "ConditionGroup",
+    "label": "Eligibility Conditions",
+    "condition_type": "eligibility",
+    "node_size": 1500
+  },
+  {
+    "id": "condition_clinical_study_enrollment_required_0",
+    "type": "Condition",
+    "label": "clinical_study_enrollment_r...",
+    "field_name": "clinical_study_enrollment_required",
+    "operator": "=",
+    "value": "TRUE",
+    "description": "Requirement for beneficiaries with LSS to be enrolled in an approved clinical study for PILD coverage.",
+    "section": "Eligibility",
+    "condition_type": "eligibility",
+    "node_size": 1000
+  },
+  {
+    "id": "group_requirement",
+    "type": "ConditionGroup",
+    "label": "Requirement Conditions",
+    "condition_type": "requirement",
+    "node_size": 1500
+  },
+  {
+    "id": "condition_clinical_study_subpopulation_discussion_required_0",
+    "type": "Condition",
+    "label": "clinical_study_subpopulatio...",
+    "field_name": "clinical_study_subpopulation_discussion_required",
+    "operator": "=",
+    "value": "TRUE",
+    "description": "Requirement for study protocols to explicitly discuss subpopulations affected by the treatment, particularly traditionally underrepresented groups.",
+    "section": "Program Requirements",
+    "condition_type": "requirement",
+    "node_size": 1000
+  }
+]

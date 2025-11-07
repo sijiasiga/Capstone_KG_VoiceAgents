@@ -1,0 +1,215 @@
+[
+  {
+    "name": "Spinal Cord Stimulators for Chronic Pain",
+    "guideline_number": "L36204",
+    "description": "Policy outlines coverage criteria for spinal cord stimulators (SCS) for chronic intractable pain, including patient selection, trial requirements, psychological and physical evaluations, specific settings for temporary and permanent implants, and limitations on leads, contacts, and trials.",
+    "restrictions": [
+      {
+        "condition": "The implantation of spinal cord stimulators (SCS) may be covered as therapies for the relief of chronic intractable pain.",
+        "rule": "diagnosis_chronic_intractable_pain = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "SCS is best suited for neuropathic pain.",
+        "rule": "pain_type_neuropathic = TRUE",
+        "codes": [],
+        "logic": "OR"
+      },
+      {
+        "condition": "SCS may have some limited value in other types of nociceptive severe, intractable pain.",
+        "rule": "pain_type_nociceptive_severe_intractable = TRUE",
+        "codes": [],
+        "logic": "OR"
+      },
+      {
+        "condition": "A short trial with percutaneous neurostimulator electrode(s) in the epidural space is required to assess suitability for ongoing treatment with a permanent surgically implanted nerve stimulator.",
+        "rule": "scs_trial_required = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Performance and documentation of an effective trial is a prerequisite for permanent nerve stimulation implantation.",
+        "rule": "scs_effective_trial_prerequisite = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "A new trial is not needed to replace the stimulator for battery change, malfunction, or end of stimulator life.",
+        "rule": "scs_replacement_trial_not_needed = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "More conservative attempts (e.g., medications, physical therapy, psychological therapy or other modalities) must have been tried before SCS therapy.",
+        "rule": "conservative_therapy_attempted = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Careful screening, evaluation and diagnosis by a multidisciplinary team is required prior to implantation.",
+        "rule": "multidisciplinary_team_evaluation_required = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Psychological evaluation is required as part of the multidisciplinary team screening prior to implantation.",
+        "rule": "psychological_evaluation_required = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Physical evaluation is required as part of the multidisciplinary team screening prior to implantation.",
+        "rule": "physical_evaluation_required = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Patient must not have active substance abuse issues.",
+        "rule": "active_substance_abuse_issues_present = FALSE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Patient must undergo proper patient education, discussion, and disclosure including an extensive discussion of the risks and benefits of this therapy.",
+        "rule": "patient_education_required = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Temporary neurostimulator placement setting in an ASC.",
+        "rule": "temporary_neurostimulator_placement_setting = 'ASC'",
+        "codes": [],
+        "logic": "OR"
+      },
+      {
+        "condition": "Temporary neurostimulator placement setting in an outpatient hospital.",
+        "rule": "temporary_neurostimulator_placement_setting = 'outpatient hospital'",
+        "codes": [],
+        "logic": "OR"
+      },
+      {
+        "condition": "Temporary neurostimulator placement setting in an office (if all sterility, equipment, professional training and support personnel required for proper surgery and follow up are available).",
+        "rule": "temporary_neurostimulator_placement_setting = 'office'",
+        "codes": [],
+        "logic": "OR"
+      },
+      {
+        "condition": "Permanent neurostimulators must be placed in an ASC.",
+        "rule": "permanent_neurostimulator_placement_setting = 'ASC'",
+        "codes": [],
+        "logic": "OR"
+      },
+      {
+        "condition": "Permanent neurostimulators must be placed in a hospital.",
+        "rule": "permanent_neurostimulator_placement_setting = 'hospital'",
+        "codes": [],
+        "logic": "OR"
+      },
+      {
+        "condition": "Physicians performing SCS trials in the office setting must have hospital/ASC privileges or be subspecialty boarded in Pain Medicine by the American Board of Anesthesiology.",
+        "rule": "physician_board_certification_or_privileges_required = TRUE AND temporary_neurostimulator_placement_setting = 'office'",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "A successful SCS trial requires at least a 50% reduction of target pain.",
+        "rule": "trial_success_pain_reduction_percentage >= 50",
+        "codes": [],
+        "logic": "OR"
+      },
+      {
+        "condition": "A successful SCS trial requires at least a 50% reduction of analgesic medications.",
+        "rule": "trial_success_analgesic_reduction_percentage >= 50",
+        "codes": [],
+        "logic": "OR"
+      },
+      {
+        "condition": "A successful SCS trial requires some element of functional improvement.",
+        "rule": "trial_success_functional_improvement = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Physicians with a trial to permanent implant ratio less than 50% will be subject to post-payment review.",
+        "rule": "physician_trial_to_implant_ratio_threshold < 50",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Maximum of 2 leads reimbursed for SCS placement per patient per lifetime.",
+        "rule": "scs_leads_maximum <= 2",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Maximum of 16 contacts reimbursed for SCS placement per patient per lifetime.",
+        "rule": "scs_contacts_maximum <= 16",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Maximum of 2 SCS trials reimbursed per anatomic spinal region per patient per lifetime.",
+        "rule": "scs_trials_maximum_per_region_per_patient_lifetime <= 2",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Repeat SCS trial is not appropriate unless there are extenuating circumstances that led to initial trial failure.",
+        "rule": "repeat_scs_trial_exception = FALSE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Approved ICD-10 diagnosis codes for Spinal Cord Stimulator procedures.",
+        "rule": "diagnosis_code_ICD10 IN ('Z45.42','M48.061','M48.062','G57.73','T85.113A','T85.113D','T85.113S','T85.123A','T85.123D','T85.123S','T85.193A','T85.193D','T85.193S','T85.112A','T85.112D','T85.112S','T85.122A','T85.122D','T85.122S','T85.192A','T85.192D','T85.192S')",
+        "codes": [
+          "Z45.42",
+          "M48.061",
+          "M48.062",
+          "G57.73",
+          "T85.113A",
+          "T85.113D",
+          "T85.113S",
+          "T85.123A",
+          "T85.123D",
+          "T85.123S",
+          "T85.193A",
+          "T85.193D",
+          "T85.193S",
+          "T85.112A",
+          "T85.112D",
+          "T85.112S",
+          "T85.122A",
+          "T85.122D",
+          "T85.122S",
+          "T85.192A",
+          "T85.192D",
+          "T85.192S"
+        ],
+        "logic": "OR"
+      },
+      {
+        "condition": "CPT codes 63661, 63662, 63688, 95970, 95971, 95972 are excluded from coverage under this LCD.",
+        "rule": "procedure_code_CPT NOT IN ('63661','63662','63688','95970','95971','95972')",
+        "codes": [
+          "63661",
+          "63662",
+          "63688",
+          "95970",
+          "95971",
+          "95972"
+        ],
+        "logic": "AND"
+      },
+      {
+        "condition": "HCPCS code L8680 is excluded from coverage under this LCD.",
+        "rule": "procedure_code_HCPCS != 'L8680'",
+        "codes": [
+          "L8680"
+        ],
+        "logic": "AND"
+      }
+    ]
+  }
+]

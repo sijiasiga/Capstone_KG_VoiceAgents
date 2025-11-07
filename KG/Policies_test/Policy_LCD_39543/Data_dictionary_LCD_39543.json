@@ -1,0 +1,302 @@
+[
+  {
+    "name": "patient_id",
+    "type": "string",
+    "description": "Unique patient identifier",
+    "section": "Demographics"
+  },
+  {
+    "name": "basic_testing_duration_implied",
+    "type": "string",
+    "description": "Length of time for basic testing, to be consistent with FDA language and other payor policies.",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "patient_age_years_threshold",
+    "type": "integer",
+    "description": "Patient age threshold for noninstitutionalized persons (older than 60 years).",
+    "section": "Demographics"
+  },
+  {
+    "name": "patient_sex",
+    "type": "string",
+    "description": "Patient's biological sex, noting prevalence differences for OAB and incontinence between women and men.",
+    "section": "Demographics"
+  },
+  {
+    "name": "fecal_incontinence_diagnosis",
+    "type": "boolean",
+    "description": "Diagnosis of chronic involuntary loss of stool (fecal incontinence).",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "bowel_disturbances_diagnosis",
+    "type": "boolean",
+    "description": "Presence of bowel disturbances as a risk factor for fecal incontinence.",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "diarrhea_diagnosis",
+    "type": "boolean",
+    "description": "Presence of diarrhea as a risk factor for fecal incontinence.",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "rectal_urgency_symptom",
+    "type": "boolean",
+    "description": "Presence of rectal urgency as a symptom and risk factor for fecal incontinence.",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "chronic_illness_burden",
+    "type": "boolean",
+    "description": "Burden of chronic illness as a risk factor for fecal incontinence.",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "sacral_neuromodulation_procedure",
+    "type": "boolean",
+    "description": "Sacral neuromodulation (SNM) delivers nonpainful, electrical pulses to the sacral nerves to modulate reflexes that influence the bladder, sphincter, and pelvic floor to improve or restore function.",
+    "section": "Procedures"
+  },
+  {
+    "name": "voiding_dysfunction_diagnosis",
+    "type": "boolean",
+    "description": "Diagnosis of voiding dysfunction.",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "urgency_symptom",
+    "type": "boolean",
+    "description": "Presence of urgency symptom related to voiding dysfunction.",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "urinary_urge_incontinence_diagnosis",
+    "type": "boolean",
+    "description": "Diagnosis of urinary urge incontinence.",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "urgency_frequency_syndrome_diagnosis",
+    "type": "boolean",
+    "description": "Diagnosis of urgency-frequency syndrome.",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "nonobstructive_urinary_retention_diagnosis",
+    "type": "boolean",
+    "description": "Diagnosis of nonobstructive urinary retention.",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "electrode_array_implantation_procedure",
+    "type": "boolean",
+    "description": "Direct stimulation of the sacral nerve(s) via an electrode array implanted at the level of the sacrum.",
+    "section": "Procedures"
+  },
+  {
+    "name": "temporary_test_stimulation_procedure",
+    "type": "boolean",
+    "description": "Temporary test stimulation to determine if an implantable stimulator would be effective for urinary and fecal incontinence.",
+    "section": "Procedures"
+  },
+  {
+    "name": "permanent_stimulator_implantation_procedure",
+    "type": "boolean",
+    "description": "Permanent implantation of a stimulator in appropriate candidates after successful temporary test stimulation.",
+    "section": "Procedures"
+  },
+  {
+    "name": "refractory_to_conventional_therapy_urinary",
+    "type": "boolean",
+    "description": "Patient must be refractory to conventional therapy (documented behavioral, pharmacologic, and/or surgical corrective therapy) for urinary indications.",
+    "section": "Eligibility"
+  },
+  {
+    "name": "surgical_candidate_status",
+    "type": "boolean",
+    "description": "Patient must be an appropriate surgical candidate such that implantation with anesthesia can occur.",
+    "section": "Eligibility"
+  },
+  {
+    "name": "stress_incontinence_exclusion",
+    "type": "boolean",
+    "description": "Exclusion criteria: Patients with stress incontinence.",
+    "section": "Exclusions"
+  },
+  {
+    "name": "urinary_obstruction_exclusion",
+    "type": "boolean",
+    "description": "Exclusion criteria: Patients with urinary obstruction.",
+    "section": "Exclusions"
+  },
+  {
+    "name": "neurologic_disease_exclusion",
+    "type": "boolean",
+    "description": "Exclusion criteria: Patients with specific neurologic disease (e.g., diabetes with peripheral nerve involvement, multiple sclerosis, spinal cord injury) associated with secondary manifestations of incontinence.",
+    "section": "Exclusions"
+  },
+  {
+    "name": "diabetes_peripheral_nerve_involvement_exclusion",
+    "type": "boolean",
+    "description": "Exclusion criteria: Diabetes with peripheral nerve involvement.",
+    "section": "Exclusions"
+  },
+  {
+    "name": "multiple_sclerosis_exclusion",
+    "type": "boolean",
+    "description": "Exclusion criteria: Multiple sclerosis.",
+    "section": "Exclusions"
+  },
+  {
+    "name": "spinal_cord_injury_exclusion",
+    "type": "boolean",
+    "description": "Exclusion criteria: Spinal cord injury.",
+    "section": "Exclusions"
+  },
+  {
+    "name": "test_stimulation_improvement_percentage_urinary",
+    "type": "integer",
+    "description": "Minimum percentage improvement (50% or greater) required through test stimulation for urinary indications, measured through voiding diaries.",
+    "section": "Eligibility"
+  },
+  {
+    "name": "voiding_diary_data_recording_ability",
+    "type": "boolean",
+    "description": "Patient's ability to demonstrate adequate voiding diary data recording for clinical evaluation of the implant procedure results.",
+    "section": "Eligibility"
+  },
+  {
+    "name": "fecal_incontinence_episodes_per_week_threshold",
+    "type": "integer",
+    "description": "Minimum average incontinent episodes per week (greater than 2) required for chronic fecal incontinence.",
+    "section": "Eligibility"
+  },
+  {
+    "name": "fecal_incontinence_duration_months_threshold",
+    "type": "integer",
+    "description": "Minimum duration of fecal incontinence (greater than 6 months).",
+    "section": "Eligibility"
+  },
+  {
+    "name": "post_vaginal_childbirth_incontinence_duration_months_threshold",
+    "type": "integer",
+    "description": "Minimum duration of incontinence (more than 12 months) after vaginal childbirth.",
+    "section": "Eligibility"
+  },
+  {
+    "name": "failure_intolerance_conventional_therapy_fecal",
+    "type": "boolean",
+    "description": "Documented failure or intolerance to conventional therapy (e.g., dietary modification, bulking, and pharmacologic treatment) for fecal incontinence.",
+    "section": "Eligibility"
+  },
+  {
+    "name": "percutaneous_test_stimulation_improvement_percentage_fecal",
+    "type": "integer",
+    "description": "Minimum percentage improvement (at least 50% sustained) required for successful percutaneous test stimulation for fecal incontinence.",
+    "section": "Eligibility"
+  },
+  {
+    "name": "percutaneous_test_stimulation_improvement_duration_hours_fecal",
+    "type": "integer",
+    "description": "Minimum duration of sustained improvement (more than 48 hours) for percutaneous test stimulation for fecal incontinence.",
+    "section": "Eligibility"
+  },
+  {
+    "name": "anorectal_malformation_absence",
+    "type": "boolean",
+    "description": "Absence of anorectal malformation as a condition related to fecal incontinence.",
+    "section": "Exclusions"
+  },
+  {
+    "name": "congenital_malformation_absence_FI",
+    "type": "boolean",
+    "description": "Absence of congenital malformation as a condition related to fecal incontinence.",
+    "section": "Exclusions"
+  },
+  {
+    "name": "external_anal_sphincter_defect_severity_absence",
+    "type": "boolean",
+    "description": "Absence of defects of the external anal sphincter over 60 degrees as a condition related to fecal incontinence.",
+    "section": "Exclusions"
+  },
+  {
+    "name": "pelvic_radiation_sequelae_absence",
+    "type": "boolean",
+    "description": "Absence of visible sequelae of pelvic radiation as a condition related to fecal incontinence.",
+    "section": "Exclusions"
+  },
+  {
+    "name": "anal_abscesses_fistulae_absence",
+    "type": "boolean",
+    "description": "Absence of active anal abscesses and fistulae as a condition related to fecal incontinence.",
+    "section": "Exclusions"
+  },
+  {
+    "name": "chronic_inflammatory_bowel_disease_absence",
+    "type": "boolean",
+    "description": "Absence of chronic inflammatory bowel disease as a condition related to fecal incontinence.",
+    "section": "Exclusions"
+  },
+  {
+    "name": "peripheral_neuropathy_absence_FI",
+    "type": "boolean",
+    "description": "Absence of peripheral neuropathy as a neurologic condition related to fecal incontinence.",
+    "section": "Exclusions"
+  },
+  {
+    "name": "complete_spinal_cord_injury_absence_FI",
+    "type": "boolean",
+    "description": "Absence of complete spinal cord injury as a neurologic condition related to fecal incontinence.",
+    "section": "Exclusions"
+  },
+  {
+    "name": "chronic_constipation_exclusion",
+    "type": "boolean",
+    "description": "Sacral nerve stimulation is considered experimental/investigational for the treatment of chronic constipation.",
+    "section": "Exclusions"
+  },
+  {
+    "name": "chronic_pelvic_pain_exclusion",
+    "type": "boolean",
+    "description": "Sacral nerve stimulation is considered experimental/investigational for the treatment of chronic pelvic pain (CPP).",
+    "section": "Exclusions"
+  },
+  {
+    "name": "therapeutic_success_FI_reduction_percentage_threshold",
+    "type": "integer",
+    "description": "Threshold for therapeutic success in fecal incontinence: >=50% reduction of incontinent episodes per week at 12 months compared with baseline.",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "therapeutic_success_FI_reduction_duration_months",
+    "type": "integer",
+    "description": "Duration for evaluating therapeutic success in fecal incontinence: 12 months compared with baseline.",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "medical_record_documentation_necessity",
+    "type": "boolean",
+    "description": "Requirement for patient's medical record to contain documentation fully supporting medical necessity for services.",
+    "section": "Documentation Requirements"
+  },
+  {
+    "name": "history_physical_examination_documentation",
+    "type": "boolean",
+    "description": "Requirement for documentation of complete history and physical examination (including voiding diaries, urodynamic studies for urinary incontinence).",
+    "section": "Documentation Requirements"
+  },
+  {
+    "name": "refractory_to_conventional_therapy_documentation",
+    "type": "boolean",
+    "description": "Requirement for documentation that patient is refractory to conventional therapy.",
+    "section": "Documentation Requirements"
+  },
+  {
+    "name": "successful_test_stimulation_documentation",
+    "type": "boolean",
+    "description": "Requirement for documentation that patient had a successful test stimulation to support subsequent implantation.",
+    "section": "Documentation Requirements"
+  }
+]

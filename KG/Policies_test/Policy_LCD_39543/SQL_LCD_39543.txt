@@ -1,0 +1,98 @@
+```sql
+-- Policy: Sacral Nerve Stimulation for the Treatment of Urinary and Fecal Incontinence
+-- Total Restrictions: 30
+SELECT *
+FROM patients
+WHERE
+  (
+  -- Restriction 1: Patient has a diagnosis of urinary urge incontinence.
+    urinary_urge_incontinence_diagnosis = TRUE
+  OR
+  -- Restriction 2: Patient has a diagnosis of urgency-frequency syndrome.
+    urgency_frequency_syndrome_diagnosis = TRUE
+  )
+  AND
+  -- Restriction 3: Patient has a diagnosis of nonobstructive urinary retention.
+  nonobstructive_urinary_retention_diagnosis = TRUE
+  AND
+  -- Restriction 4: Patient is refractory to conventional therapy for urinary indications, including documented behavioral, pharmacologic, and/or surgical corrective therapy.
+  refractory_to_conventional_therapy_urinary = TRUE
+  AND
+  -- Restriction 5: Patient is an appropriate surgical candidate such that implantation with anesthesia can occur.
+  surgical_candidate_status = TRUE
+  AND
+  -- Restriction 6: Patient does not have stress incontinence.
+  stress_incontinence_exclusion = FALSE
+  AND
+  -- Restriction 7: Patient does not have urinary obstruction.
+  urinary_obstruction_exclusion = FALSE
+  AND
+  -- Restriction 8: Patient does not have diabetes with peripheral nerve involvement associated with secondary manifestations of urinary incontinence indications.
+  diabetes_peripheral_nerve_involvement_exclusion = FALSE
+  AND
+  -- Restriction 9: Patient does not have multiple sclerosis associated with secondary manifestations of urinary incontinence indications.
+  multiple_sclerosis_exclusion = FALSE
+  AND
+  -- Restriction 10: Patient does not have spinal cord injury associated with secondary manifestations of urinary incontinence indications.
+  spinal_cord_injury_exclusion = FALSE
+  AND
+  -- Restriction 11: Patient must have had a successful test stimulation with 50% or greater improvement for urinary indications, measured through voiding diaries.
+  test_stimulation_improvement_percentage_urinary >= 50
+  AND
+  -- Restriction 12: Patient is able to demonstrate adequate ability to record voiding diary data such that clinical results of the implant procedure can be properly evaluated.
+  voiding_diary_data_recording_ability = TRUE
+  AND
+  -- Restriction 13: Patient has chronic fecal incontinence with greater than 2 incontinent episodes on average per week.
+  fecal_incontinence_episodes_per_week_threshold > 2
+  AND
+  -- Restriction 14: Duration of fecal incontinence is greater than 6 months.
+  fecal_incontinence_duration_months_threshold > 6
+  AND
+  -- Restriction 15: Duration of incontinence is more than 12 months after vaginal childbirth.
+  post_vaginal_childbirth_incontinence_duration_months_threshold > 12
+  AND
+  -- Restriction 16: Patient has documented failure or intolerance to conventional therapy for fecal incontinence (e.g., dietary modification, bulking, and pharmacologic treatment).
+  failure_intolerance_conventional_therapy_fecal = TRUE
+  AND
+  -- Restriction 17: Patient had a successful percutaneous test stimulation with at least 50% sustained improvement for more than 48 hours for fecal incontinence.
+  percutaneous_test_stimulation_improvement_percentage_fecal >= 50 AND percutaneous_test_stimulation_improvement_duration_hours_fecal > 48
+  AND
+  -- Restriction 18: Condition is not related to anorectal malformation (e.g., congenital malformation).
+  congenital_malformation_absence_FI = TRUE
+  AND
+  -- Restriction 19: Condition is not related to defects of the external anal sphincter over 60 degrees.
+  external_anal_sphincter_defect_severity_absence = TRUE
+  AND
+  -- Restriction 20: Condition is not related to visible sequelae of pelvic radiation.
+  pelvic_radiation_sequelae_absence = TRUE
+  AND
+  -- Restriction 21: Condition is not related to active anal abscesses and fistulae.
+  anal_abscesses_fistulae_absence = TRUE
+  AND
+  -- Restriction 22: Condition is not related to chronic inflammatory bowel disease.
+  chronic_inflammatory_bowel_disease_absence = TRUE
+  AND
+  -- Restriction 23: Incontinence is not related to peripheral neuropathy.
+  peripheral_neuropathy_absence_FI = TRUE
+  AND
+  -- Restriction 24: Incontinence is not related to complete spinal cord injury.
+  complete_spinal_cord_injury_absence_FI = TRUE
+  AND
+  -- Restriction 25: Sacral nerve stimulation is not covered for the treatment of chronic constipation as it is considered experimental/investigational.
+  chronic_constipation_exclusion = TRUE
+  AND
+  -- Restriction 26: Sacral nerve stimulation is not covered for the treatment of chronic pelvic pain (CPP) as it is considered experimental/investigational.
+  chronic_pelvic_pain_exclusion = TRUE
+  AND
+  -- Restriction 27: Patient's medical record must contain documentation fully supporting medical necessity for services.
+  medical_record_documentation_necessity = TRUE
+  AND
+  -- Restriction 28: Documentation of complete history and physical examination, including voiding diaries and urodynamic studies for urinary incontinence, is required.
+  history_physical_examination_documentation = TRUE
+  AND
+  -- Restriction 29: Documentation that patient is refractory to conventional therapy is required.
+  refractory_to_conventional_therapy_documentation = TRUE
+  AND
+  -- Restriction 30: Documentation that patient had a successful test stimulation to support subsequent implantation is required.
+  successful_test_stimulation_documentation = TRUE;
+```

@@ -1,0 +1,126 @@
+[
+  {
+    "id": "LCD_37360",
+    "type": "Policy",
+    "label": "Policy LCD_37360",
+    "description": "Policy rules for LCD_37360",
+    "node_size": 2000
+  },
+  {
+    "id": "group_other",
+    "type": "ConditionGroup",
+    "label": "Other Conditions",
+    "condition_type": "other",
+    "node_size": 1500
+  },
+  {
+    "id": "condition_peripheral_nerve_stimulation_covered_0",
+    "type": "Condition",
+    "label": "peripheral_nerve_stimulatio...",
+    "field_name": "peripheral_nerve_stimulation_covered",
+    "operator": "=",
+    "value": "TRUE",
+    "description": "Indicates whether Peripheral Nerve Stimulation (PNS) may be covered for relief of chronic intractable pain for patients with conditions known to be responsive to this therapy.",
+    "section": "Coverage Guidance",
+    "condition_type": "other",
+    "node_size": 1000
+  },
+  {
+    "id": "group_eligibility",
+    "type": "ConditionGroup",
+    "label": "Eligibility Conditions",
+    "condition_type": "eligibility",
+    "node_size": 1500
+  },
+  {
+    "id": "condition_prior_less_invasive_treatment_failure_required_0",
+    "type": "Condition",
+    "label": "prior_less_invasive_treatme...",
+    "field_name": "prior_less_invasive_treatment_failure_required",
+    "operator": "=",
+    "value": "TRUE",
+    "description": "Requirement for documented failure of less invasive treatment modalities and medications prior to coverage of PNS trials.",
+    "section": "Eligibility",
+    "condition_type": "eligibility",
+    "node_size": 1000
+  },
+  {
+    "id": "condition_chronic_pain_minimum_duration_months_1",
+    "type": "Condition",
+    "label": "chronic_pain_minimum_durati...",
+    "field_name": "chronic_pain_minimum_duration_months",
+    "operator": ">=",
+    "value": "3",
+    "description": "Minimum duration of documented chronic and severe pain (in months) required for coverage of PNS trials.",
+    "section": "Eligibility",
+    "condition_type": "eligibility",
+    "node_size": 1000
+  },
+  {
+    "id": "condition_surgical_contraindications_absent_2",
+    "type": "Condition",
+    "label": "surgical_contraindications_...",
+    "field_name": "surgical_contraindications_absent",
+    "operator": "=",
+    "value": "TRUE",
+    "description": "Requirement for the absence of surgical contraindications, including infections and medical risks, for coverage of PNS trials.",
+    "section": "Eligibility",
+    "condition_type": "eligibility",
+    "node_size": 1000
+  },
+  {
+    "id": "condition_active_substance_abuse_absent_3",
+    "type": "Condition",
+    "label": "active_substance_abuse_abse...",
+    "field_name": "active_substance_abuse_absent",
+    "operator": "=",
+    "value": "TRUE",
+    "description": "Requirement for the absence of active substance abuse issues for coverage of PNS trials.",
+    "section": "Eligibility",
+    "condition_type": "eligibility",
+    "node_size": 1000
+  },
+  {
+    "id": "condition_formal_psychological_screening_required_4",
+    "type": "Condition",
+    "label": "formal_psychological_screen...",
+    "field_name": "formal_psychological_screening_required",
+    "operator": "=",
+    "value": "TRUE",
+    "description": "Requirement for a formal psychological screening by a mental health professional for coverage of PNS trials.",
+    "section": "Eligibility",
+    "condition_type": "eligibility",
+    "node_size": 1000
+  },
+  {
+    "id": "group_requirement",
+    "type": "ConditionGroup",
+    "label": "Requirement Conditions",
+    "condition_type": "requirement",
+    "node_size": 1500
+  },
+  {
+    "id": "condition_pns_trial_pain_reduction_threshold_percentage_0",
+    "type": "Condition",
+    "label": "pns_trial_pain_reduction_th...",
+    "field_name": "pns_trial_pain_reduction_threshold_percentage",
+    "operator": ">=",
+    "value": "50.0",
+    "description": "Minimum percentage reduction in pain intensity required for a successful peripheral nerve stimulation trial before permanent implantation.",
+    "section": "Program Requirements",
+    "condition_type": "requirement",
+    "node_size": 1000
+  },
+  {
+    "id": "condition_physician_pns_trial_to_implant_ratio_threshold_percentage_1",
+    "type": "Condition",
+    "label": "physician_pns_trial_to_impl...",
+    "field_name": "physician_pns_trial_to_implant_ratio_threshold_percentage",
+    "operator": ">=",
+    "value": "50.0",
+    "description": "Threshold percentage for a physician's trial to permanent implant ratio (less than this value may trigger post-payment review).",
+    "section": "Program Requirements",
+    "condition_type": "requirement",
+    "node_size": 1000
+  }
+]

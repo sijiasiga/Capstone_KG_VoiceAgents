@@ -1,0 +1,113 @@
+```sql
+-- Policy: NCD - Deep Brain Stimulation for Essential Tremor and Parkinson’s Disease
+-- Total Restrictions: 35
+SELECT *
+FROM patients
+WHERE
+  (
+  -- Restriction 1: DBS device is Food and Drug Administration (FDA) approved
+  dbs_device_fda_approved = TRUE
+  OR
+  -- Restriction 2: DBS device used in accordance with FDA approved protocols governing Category B Investigational Device Exemption (IDE) DBS clinical trials
+  dbs_device_category_b_ide_clinical_trial = TRUE
+  OR
+  -- Restriction 3: For thalamic VIM DBS: Diagnosis of Essential Tremor (ET) based on postural or kinetic tremors of hand(s) without other neurologic signs
+  procedure_deep_brain_stimulation_VIM = TRUE AND diagnosis_et_postural_kinetic_tremors = TRUE
+  OR
+  -- Restriction 4: For thalamic VIM DBS: Diagnosis of idiopathic Parkinson's Disease (PD) with presence of at least 2 cardinal PD features (tremor, rigidity or bradykinesia) and of a tremor-dominant form
+  procedure_deep_brain_stimulation_VIM = TRUE AND diagnosis_idiopathic_pd_tremor_dominant = TRUE
+  )
+  AND
+  -- Restriction 5: For thalamic VIM DBS: Marked disabling tremor of at least level 3 or 4 on the Fahn-Tolosa-Marin Clinical Tremor Rating Scale (or equivalent scale) in the extremity intended for treatment
+  procedure_deep_brain_stimulation_VIM = TRUE AND tremor_severity_fahn_tolosa_marin_met = TRUE
+  AND
+  -- Restriction 6: For thalamic VIM DBS: Tremor causing significant limitation in daily activities
+  procedure_deep_brain_stimulation_VIM = TRUE AND tremor_impairing_daily_activities = TRUE
+  AND
+  -- Restriction 7: For thalamic VIM DBS: Disabling tremor persists despite optimal medical therapy
+  procedure_deep_brain_stimulation_VIM = TRUE AND optimal_medical_therapy_failure_tremor = TRUE
+  AND
+  -- Restriction 8: For thalamic VIM DBS: Patient's willingness and ability to cooperate during conscious operative procedure, post-surgical evaluations, and adjustments of medications and stimulator settings
+  procedure_deep_brain_stimulation_VIM = TRUE AND patient_cooperation_ability = TRUE
+  AND
+  -- Restriction 9: For STN or GPi DBS: Diagnosis of Parkinson's Disease (PD) based on the presence of at least 2 cardinal PD features (tremor, rigidity or bradykinesia)
+  procedure_deep_brain_stimulation_STN_GPi = TRUE AND diagnosis_pd_at_least_2_cardinal_features = TRUE
+  AND
+  -- Restriction 10: For STN or GPi DBS: Advanced idiopathic Parkinson's Disease (PD) as determined by Hoehn and Yahr stage or Unified Parkinson's Disease Rating Scale (UPDRS) part III motor subscale
+  procedure_deep_brain_stimulation_STN_GPi = TRUE AND diagnosis_advanced_idiopathic_pd = TRUE
+  AND
+  -- Restriction 11: For STN or GPi DBS: Patient is L-dopa responsive with clearly defined 'on' periods
+  procedure_deep_brain_stimulation_STN_GPi = TRUE AND l_dopa_responsive = TRUE
+  AND
+  -- Restriction 12: For STN or GPi DBS: Persistent disabling Parkinson's symptoms or drug side effects (e.g., dyskinesias, motor fluctuations, or disabling 'off' periods) despite optimal medical therapy
+  procedure_deep_brain_stimulation_STN_GPi = TRUE AND optimal_medical_therapy_failure_pd = TRUE
+  AND
+  -- Restriction 13: For STN or GPi DBS: Patient's willingness and ability to cooperate during conscious operative procedure, post-surgical evaluations, and adjustments of medications and stimulator settings
+  procedure_deep_brain_stimulation_STN_GPi = TRUE AND patient_cooperation_ability = TRUE
+  AND
+  -- Restriction 14: Not excluded due to non-idiopathic Parkinson's disease or 'Parkinson's Plus' syndromes
+  exclusion_non_idiopathic_pd = FALSE
+  AND
+  -- Restriction 15: Not excluded due to cognitive impairment that would be worsened by or interfere with DBS benefit
+  exclusion_cognitive_impairment = FALSE
+  AND
+  -- Restriction 16: Not excluded due to dementia that would be worsened by or interfere with DBS benefit
+  exclusion_dementia = FALSE
+  AND
+  -- Restriction 17: Not excluded due to depression that would be worsened by or interfere with DBS benefit
+  exclusion_depression = FALSE
+  AND
+  -- Restriction 18: Not excluded due to current psychosis
+  exclusion_current_psychosis = FALSE
+  AND
+  -- Restriction 19: Not excluded due to alcohol abuse
+  exclusion_alcohol_abuse = FALSE
+  AND
+  -- Restriction 20: Not excluded due to other drug abuse
+  exclusion_drug_abuse = FALSE
+  AND
+  -- Restriction 21: Not excluded due to structural lesions (e.g., basal ganglionic stroke, tumor, vascular malformation) as etiology of the movement disorder
+  exclusion_structural_lesions = FALSE
+  AND
+  -- Restriction 22: Not excluded due to previous movement disorder surgery within the affected basal ganglion
+  exclusion_previous_movement_disorder_surgery = FALSE
+  AND
+  -- Restriction 23: Not excluded due to significant medical, surgical, neurologic, or orthopedic co-morbidities contraindicating DBS surgery or stimulation
+  exclusion_significant_comorbidities = FALSE
+  AND
+  -- Restriction 24: Patients who undergo DBS implantation should not be exposed to diathermy
+  dbs_contraindication_diathermy = FALSE
+  AND
+  -- Restriction 25: Patients who undergo DBS implantation should not be exposed to any type of MRI
+  dbs_contraindication_mri = FALSE
+  AND
+  -- Restriction 26: DBS procedure should be performed with extreme caution in patients with cardiac pacemakers
+  dbs_caution_cardiac_pacemakers = TRUE
+  AND
+  -- Restriction 27: DBS procedure should be performed with extreme caution in patients with other electronically controlled implants
+  dbs_caution_electronic_implants = TRUE
+  AND
+  -- Restriction 28: Neurosurgeon must be properly trained in the Deep Brain Stimulation (DBS) procedure
+  neurosurgeon_trained_in_dbs = TRUE
+  AND
+  -- Restriction 29: Neurosurgeon must have experience with the surgical management of movement disorders, including DBS therapy
+  neurosurgeon_experience_movement_disorder_surgery = TRUE
+  AND
+  -- Restriction 30: Neurosurgeon must have experience performing stereotactic neurosurgical procedures
+  neurosurgeon_experience_stereotactic_neurosurgery = TRUE
+  AND
+  -- Restriction 31: Operative teams must have training and experience with DBS systems
+  operative_team_dbs_training_experience = TRUE
+  AND
+  -- Restriction 32: Physicians specializing in movement disorders must be involved in patient selection and post-procedure care for DBS
+  movement_disorder_physician_involvement = TRUE
+  AND
+  -- Restriction 33: Hospital medical centers must have brain imaging equipment (MRI and/or CT) for pre-operative stereotactic localization and targeting of surgical sites
+  facility_brain_imaging_equipment = TRUE
+  AND
+  -- Restriction 34: Hospital medical centers must have operating rooms with all necessary equipment for stereotactic surgery
+  facility_stereotactic_surgery_or_equipment = TRUE
+  AND
+  -- Restriction 35: Hospital medical centers must have support services necessary for patient care during and after DBS procedure, including potential complications
+  facility_support_services = TRUE;
+```

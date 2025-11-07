@@ -31,7 +31,6 @@ class PolicyPydantic(BaseModel):
     name: str
     guideline_number: str
     description: str
-    raw_text: str
     restrictions: list[Restriction]
 
 # Load API key

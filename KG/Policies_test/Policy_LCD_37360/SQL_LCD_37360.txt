@@ -1,0 +1,59 @@
+```sql
+-- Total restrictions: 19
+SELECT *
+FROM patients
+WHERE
+  -- Restriction 1: Peripheral Nerve Stimulation (PNS) may be covered for relief of chronic intractable pain for patients with conditions known to be responsive to this form of therapy.
+  peripheral_nerve_stimulation_covered = TRUE
+  AND
+  -- Restriction 2: PNS coverage requires documented failure of attempts to cure underlying conditions and appropriate attempts at medication management, physical therapy, psychological therapy, and other less invasive interventional treatments.
+  prior_less_invasive_treatment_failure_required = TRUE
+  AND
+  -- Restriction 3: PNS trial coverage requires documented chronic and severe pain for at least 3 months.
+  chronic_pain_minimum_duration_months >= 3
+  AND
+  -- Restriction 4: PNS trial coverage requires lack of surgical contraindications, including infections and medical risks.
+  surgical_contraindications_absent = TRUE
+  AND
+  -- Restriction 5: PNS trial coverage requires no active substance abuse issues.
+  active_substance_abuse_absent = TRUE
+  AND
+  -- Restriction 6: PNS trial coverage requires formal psychological screening by a mental health professional.
+  formal_psychological_screening_required = TRUE
+  AND
+  -- Restriction 7: Successful PNS trial requires greater than or equal to 50% reduction in pain intensity AND some element of functional improvement before permanent implantation.
+  (pns_trial_pain_reduction_threshold_percentage >= 50.0 AND pns_trial_functional_improvement_required = TRUE OR pns_trial_analgesic_medication_reduction_threshold_percentage >= 50.0 AND pns_trial_functional_improvement_required = TRUE)
+  AND
+  -- Restriction 9: Physician's trial to permanent implant ratio must be 50% or greater to avoid post-payment review.
+  physician_pns_trial_to_implant_ratio_threshold_percentage >= 50.0
+  AND
+  -- Restriction 10: PNS is not covered for fibromyalgia.
+  diagnosis_code_ICD10 NOT IN ('fibromyalgia_code_placeholder')
+  AND
+  -- Restriction 11: PNS is not covered for phantom limb pain.
+  diagnosis_code_ICD10 NOT IN ('phantom_limb_pain_code_placeholder')
+  AND
+  -- Restriction 12: PNS is not covered for diffuse polyneuropathy.
+  diagnosis_code_ICD10 NOT IN ('diffuse_polyneuropathy_code_placeholder')
+  AND
+  -- Restriction 13: PNS is not covered for nociceptive pain in trunk or lower back.
+  diagnosis_code_ICD10 NOT IN ('nociceptive_pain_trunk_lower_back_code_placeholder')
+  AND
+  -- Restriction 14: PNS is not covered for angina pectoris.
+  diagnosis_code_ICD10 NOT IN ('angina_pectoris_code_placeholder')
+  AND
+  -- Restriction 15: Peripheral Nerve Field Stimulation (PNFS) is not covered for any condition.
+  peripheral_nerve_stimulation_covered = FALSE
+  AND
+  -- Restriction 16: No more than two services of CPT code 64555 (Percutaneous implantation of neurostimulator electrodes; peripheral nerve) are allowed per 365 days.
+  cpt_64555_max_services_per_year <= 2
+  AND
+  -- Restriction 17: PNS trials are limited to four leads.
+  pns_trial_max_leads <= 4
+  AND
+  -- Restriction 18: PNS trials are limited to 16 contacts.
+  pns_trial_max_contacts <= 16
+  AND
+  -- Restriction 19: PNS services are covered for ICD-10-CM code M54.81 (Other dorsalgia).
+  diagnosis_code_ICD10 = 'M54.81';
+```

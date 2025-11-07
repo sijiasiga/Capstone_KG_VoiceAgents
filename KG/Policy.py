@@ -1,9 +1,9 @@
 class Policy:
-    def __init__(self, name, guideline_number=None, description=None, raw_text=None):
+    def __init__(self, name, guideline_number=None, description=None):
         self.name = name
         self.guideline_number = guideline_number
         self.description = description
-        self.raw_text = raw_text           # store original policy text
+        # self.raw_text = raw_text           # store original policy text
         self.restrictions = []             # list of dicts
 
     def add_restriction(self, condition, rule, codes=None, logic="OR"):
@@ -26,7 +26,7 @@ class Policy:
             "name": self.name,
             "guideline_number": self.guideline_number,
             "description": self.description,
-            "raw_text": self.raw_text,
+            # "raw_text": self.raw_text,
             "restrictions": self.restrictions
         }
 
@@ -35,8 +35,8 @@ class Policy:
         policy = cls(
             name=data.get("name"),
             guideline_number=data.get("guideline_number"),
-            description=data.get("description"),
-            raw_text=data.get("raw_text")
+            description=data.get("description")
+            # raw_text=data.get("raw_text")
         )
         for r in data.get("restrictions", []):
             policy.add_restriction(
@@ -54,8 +54,8 @@ def create_bariatric_surgery_policy() -> Policy:
     policy = Policy(
         name="Bariatric Surgery and Other Treatments for Clinically Severe Obesity",
         guideline_number="CG-SURG-83",
-        description="Policy for surgical and other treatments for clinically severe obesity, including criteria for medically necessary bariatric surgery, reoperation, revision, and not medically necessary procedures.",
-        raw_text="Gastric bypass and gastric restrictive procedures are considered medically necessary when all of the following criteria are met: Individual is age 18 years or older; the recommended surgery is one of certain procedures; a BMI of 40 or greater, or 35 or greater with an obesity-related comorbid condition; documentation of weight loss program, prior failed conservative therapy, pre-operative medical & mental health evaluations & education; plus a treatment plan. Reoperations or revisions are medically necessary under certain criteria. Not medically necessary when criteria are not met or for specific non-covered procedures."
+        description="Policy for surgical and other treatments for clinically severe obesity, including criteria for medically necessary bariatric surgery, reoperation, revision, and not medically necessary procedures."
+        # raw_text="Gastric bypass and gastric restrictive procedures are considered medically necessary when all of the following criteria are met: Individual is age 18 years or older; the recommended surgery is one of certain procedures; a BMI of 40 or greater, or 35 or greater with an obesity-related comorbid condition; documentation of weight loss program, prior failed conservative therapy, pre-operative medical & mental health evaluations & education; plus a treatment plan. Reoperations or revisions are medically necessary under certain criteria. Not medically necessary when criteria are not met or for specific non-covered procedures."
     )
     
     # Add all restrictions

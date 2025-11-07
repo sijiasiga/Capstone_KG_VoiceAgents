@@ -1,0 +1,127 @@
+[
+  {
+    "name": "LCD - Peripheral Nerve Stimulation",
+    "guideline_number": "L37360",
+    "description": "This Local Coverage Determination (LCD) outlines the criteria for Peripheral Nerve Stimulation (PNS) for chronic intractable pain. It details eligibility requirements, including documented pain duration, failure of less invasive treatments, absence of contraindications, psychological screening, and specific success criteria for trials. The policy also specifies non-covered indications like fibromyalgia and Peripheral Nerve Field Stimulation (PNFS), and outlines utilization limits for CPT code 64555, including lead and contact limits for trials, and covers ICD-10 code M54.81.",
+    "restrictions": [
+      {
+        "condition": "Peripheral Nerve Stimulation (PNS) may be covered for relief of chronic intractable pain for patients with conditions known to be responsive to this form of therapy.",
+        "rule": "peripheral_nerve_stimulation_covered = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "PNS coverage requires documented failure of attempts to cure underlying conditions and appropriate attempts at medication management, physical therapy, psychological therapy, and other less invasive interventional treatments.",
+        "rule": "prior_less_invasive_treatment_failure_required = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "PNS trial coverage requires documented chronic and severe pain for at least 3 months.",
+        "rule": "chronic_pain_minimum_duration_months >= 3",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "PNS trial coverage requires lack of surgical contraindications, including infections and medical risks.",
+        "rule": "surgical_contraindications_absent = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "PNS trial coverage requires no active substance abuse issues.",
+        "rule": "active_substance_abuse_absent = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "PNS trial coverage requires formal psychological screening by a mental health professional.",
+        "rule": "formal_psychological_screening_required = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Successful PNS trial requires greater than or equal to 50% reduction in pain intensity AND some element of functional improvement before permanent implantation.",
+        "rule": "pns_trial_pain_reduction_threshold_percentage >= 50.0 AND pns_trial_functional_improvement_required = TRUE",
+        "codes": [],
+        "logic": "OR"
+      },
+      {
+        "condition": "Successful PNS trial requires at least 50% reduction of analgesic medications AND some element of functional improvement before permanent implantation.",
+        "rule": "pns_trial_analgesic_medication_reduction_threshold_percentage >= 50.0 AND pns_trial_functional_improvement_required = TRUE",
+        "codes": [],
+        "logic": "OR"
+      },
+      {
+        "condition": "Physician's trial to permanent implant ratio must be 50% or greater to avoid post-payment review.",
+        "rule": "physician_pns_trial_to_implant_ratio_threshold_percentage >= 50.0",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "PNS is not covered for fibromyalgia.",
+        "rule": "diagnosis_code_ICD10 NOT IN ('fibromyalgia_code_placeholder')",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "PNS is not covered for phantom limb pain.",
+        "rule": "diagnosis_code_ICD10 NOT IN ('phantom_limb_pain_code_placeholder')",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "PNS is not covered for diffuse polyneuropathy.",
+        "rule": "diagnosis_code_ICD10 NOT IN ('diffuse_polyneuropathy_code_placeholder')",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "PNS is not covered for nociceptive pain in trunk or lower back.",
+        "rule": "diagnosis_code_ICD10 NOT IN ('nociceptive_pain_trunk_lower_back_code_placeholder')",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "PNS is not covered for angina pectoris.",
+        "rule": "diagnosis_code_ICD10 NOT IN ('angina_pectoris_code_placeholder')",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Peripheral Nerve Field Stimulation (PNFS) is not covered for any condition.",
+        "rule": "peripheral_nerve_stimulation_covered = FALSE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "No more than two services of CPT code 64555 (Percutaneous implantation of neurostimulator electrodes; peripheral nerve) are allowed per 365 days.",
+        "rule": "cpt_64555_max_services_per_year <= 2",
+        "codes": [
+          "64555"
+        ],
+        "logic": "AND"
+      },
+      {
+        "condition": "PNS trials are limited to four leads.",
+        "rule": "pns_trial_max_leads <= 4",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "PNS trials are limited to 16 contacts.",
+        "rule": "pns_trial_max_contacts <= 16",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "PNS services are covered for ICD-10-CM code M54.81 (Other dorsalgia).",
+        "rule": "diagnosis_code_ICD10 = 'M54.81'",
+        "codes": [
+          "M54.81"
+        ],
+        "logic": "AND"
+      }
+    ]
+  }
+]
