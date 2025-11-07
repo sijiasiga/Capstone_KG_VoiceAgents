@@ -6,4 +6,4 @@ Welcome to the Zyter Capstone Project repository!
 
 ### 🔗 [Knowledge Graph](./KG/README.md)
 
-### 🔗 [VoiceAgent](./VoiceAgent/README.md)
+### 🔗 [VoiceAgents](./VoiceAgents/README.md)
