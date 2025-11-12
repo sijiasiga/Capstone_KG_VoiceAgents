@@ -210,6 +210,8 @@
 
 ### Appointment Agent Dataset (64 test cases)
 
+**📊 [View Dataset](https://github.com/sijiasiga/Capstone_KG_VoiceAgents/blob/main/VoiceAgents/VoiceAgents_langgraph/validation_datasets/appointment_agent_validation.csv)**
+
 | Category | # Cases | Purpose |
 |----------|---------|---------|
 | **Check Status** | 5 | Verify routine appointment lookup works |
@@ -224,6 +226,8 @@
 | **Multiple Concerns** | 2 | Test combined administrative + symptom requests |
 
 ### Medication Agent Dataset (58 test cases)
+
+**📊 [View Dataset](https://github.com/sijiasiga/Capstone_KG_VoiceAgents/blob/main/VoiceAgents/VoiceAgents_langgraph/validation_datasets/medication_agent_validation.csv)**
 
 | Category | # Cases | Purpose |
 |----------|---------|---------|
