@@ -186,7 +186,6 @@ cd KG
 bash scripts/patient_record_extraction_agent.sh
 ```
 
-
 ### Result of Agent
 
 PDF → OCR → Agent → Knowledge Graph
@@ -198,7 +197,7 @@ For each patient record, we generate:
 
 then we can generate the Patient KG and Patient-Policy KG
 
-### Data Field Validation
+### 🤖 Data Field Validation
 
 ```bash
 cd KG
