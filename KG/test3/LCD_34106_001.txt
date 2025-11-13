@@ -1,0 +1,141 @@
+======================================================================
+PATIENT RECORD PDF TEXT EXTRACTION
+======================================================================
+File: NCD_LCD_Syn_data/L34106/L34106_Record_001.pdf
+Pages: 3
+Extraction method: PyMuPDF text
+Text cleaning: Applied (two-layer)
+Title: Medical Record - L34106_001
+----------------------------------------------------------------------
+EXTRACTED TEXT:
+----------------------------------------------------------------------
+Medical Record - L34106_001
+
+NORTHEAST SPINE & ORTHOPEDIC ASSOCIATES
+
+2500 Medical Center Drive, Suite 400 | Boston, MA 02115
+
+Phone: (617) 555-0123 | Fax: (617) 555-0124
+
+CHIEF COMPLAINT:
+
+Severe lower back pain following mechanical fall 3 weeks ago, not responding to conservative management.
+
+HISTORY OF PRESENT ILLNESS:
+
+Mrs. Anderson is a 77-year-old female who presents with severe thoracolumbar back pain that began approximately 3 weeks ago after
+
+she slipped on wet pavement and fell directly onto her buttocks. She reports immediate onset of sharp, stabbing pain in her mid-to-lower back (T12-L1 region). Pain is constant, rated 8/10 on numeric rating scale, worsening with movement, standing, or sitting upright. She
+has been unable to perform her normal daily activities and requires assistance with basic tasks.
+
+Patient was initially seen in the emergency department on 09/07/2025 where X-rays showed compression deformity at T12. She was discharged with analgesics (acetaminophen, tramadol) and instructed to follow up with orthopedics. Despite 3 weeks of conservative
+management including pain medication, limited activity, and use of a TLSO brace, her pain has not improved and remains at 8/10. She
+
+reports difficulty sleeping, reduced appetite, and increasing dependence on family members for care.
+
+PAST MEDICAL HISTORY:
+
+• Osteoporosis (diagnosed 2018, DEXA T-score -3.2 at lumbar spine)
+• Hypertension (controlled on lisinopril)
+• Hyperlipidemia • Vitamin D deficiency
+• Previous Colles fracture (2020)
+
+MEDICATIONS:
+
+• Alendronate 70mg weekly
+
+• Calcium carbonate 1200mg daily • Vitamin D3 2000 IU daily
+• Lisinopril 10mg daily • Atorvastatin 20mg daily
+• Tramadol 50mg TID PRN pain (taking regularly)
+• Acetaminophen 650mg QID
+
+PHYSICAL EXAMINATION:
+
+Vital Signs: BP 138/82, HR 76, RR 16, T 98.2°F, Weight 128 lbs, Height 5'3"
+
+General: Alert and oriented x3, appears uncomfortable, moving slowly and carefully
+
+Spine: Tenderness to palpation over T12-L1 spinous processes. Mild thoracolumbar kyphosis. No step-offs palpated. No paraspinal muscle spasm.
+
+file:///Users/sanjana/Desktop/CMS_arizona/SYN_data/L34106/medical_record_sample_1.html
+Medical Record - L34106_001 Neurological: Strength 5/5 in bilateral lower extremities in all major muscle groups. Sensation intact to light touch in L1-S1 dermatomes
+bilaterally. Patellar and Achilles reflexes 2+ and symmetric. Negative straight leg raise bilaterally. No saddle anesthesia. Gait cautious but non-antalgic when patient attempts to ambulate.
+
+Skin: No ecchymosis or open wounds over thoracolumbar region.
+
+PAIN ASSESSMENT:
+
+Date NRS Score (0-10) Location Comments
+
+09/07/2025 9 Thoracolumbar Initial ED visit
+
+09/14/2025 8 Thoracolumbar PCP follow-up
+
+09/28/2025 8 T12-L1 Today's visit
+
+IMAGING STUDIES:
+
+MRI Thoracolumbar Spine (09/25/2025):
+
+FINDINGS: Acute compression fracture of T12 vertebral body with approximately 35% anterior height loss. Bone marrow edema pattern present within T12 vertebral body on STIR sequences, consistent with acute/subacute fracture. Moderate posterior cortical bulge but no
+retropulsion into spinal canal. No epidural hematoma. Spinal cord demonstrates normal signal intensity without evidence of compression or myelomalacia. Moderate degenerative changes at L4-L5 and L5-S1 with disc desiccation and mild facet arthropathy. No additional
+
+acute compression fractures identified.
+
+IMPRESSION: Acute osteoporotic compression fracture T12 vertebral body with bone marrow edema, approximately 35% anterior height loss. No canal compromise or neural impingement.
+
+DEXA Scan (03/15/2024):
+Lumbar Spine: T-score -3.1
+
+Left Hip: T-score -2.6 | IMPRESSION: Osteoporosis
+
+FUNCTIONAL ASSESSMENT:
+
+Roland Morris Disability Questionnaire (09/28/2025): Score Patient endorsed severe limitations in daily activities including difficulty with dressing, bathing, standing for more than 10 minutes,
+walking more than 100 feet, and sleeping through the night due to pain. She requires assistance from family members for most activities of daily living.
+
+CONSERVATIVE TREATMENT TRIAL (PAST 3 WEEKS):
+
+• TLSO brace worn daily
+
+• Analgesics: Tramadol 50mg TID, Acetaminophen 650mg QID • Activity modification and bed rest as tolerated
+• Continuation of anti-osteoporosis therapy (alendronate, calcium, vitamin D)
+• Physical therapy consultation scheduled (unable to attend due to pain severity)
+
+Response to Conservative Management: Minimal improvement. Pain remains 8/10 despite maximal medical therapy. Patient reports continued functional limitation and inability to perform ADLs independently.
+
+ASSESSMENT:
+
+1. Acute osteoporotic compression fracture of T12 vertebral body with persistent severe pain despite 3 weeks of conservative
+
+management
+
+file:///Users/sanjana/Desktop/CMS_arizona/SYN_data/L34106/medical_record_sample_1.html
+Medical Record - L34106_001 2. Osteoporosis with history of fragility fractures | 3. Severe functional impairment (RDQ score 21)
+
+PHYSICIAN ASSESSMENT AND RECOMMENDATION:
+
+Mrs. Anderson is a 77-year-old female with documented osteoporosis who sustained an acute T12 compression fracture 3 weeks ago.
+MRI confirms acute fracture with bone marrow edema and 35% vertebral height loss. She continues to experience severe pain (NRS
+
+8/10) and significant functional disability despite appropriate conservative treatment over the past 3 weeks. Her neurological examination is intact without evidence of cord compression or neural deficit.
+
+I have discussed with the patient and her family the treatment options including continued conservative management versus vertebral augmentation procedure. Given her persistent severe symptoms, impact on quality of life, and radiographic findings consistent with acute
+fracture, I recommend proceeding with percutaneous vertebroplasty of T12.
+
+Patient has been counseled regarding the risks and benefits of the procedure including but not limited to cement extravasation, infection,
+
+bleeding, nerve injury, and potential for new fractures. She understands and wishes to proceed. Patient has been referred to endocrinology for comprehensive osteoporosis management and will continue on current anti-resorptive therapy.
+
+PLAN:
+
+1. Pre-authorization request for percutaneous vertebroplasty T12 | 2. Continue current pain management regimen | 3. Referral to endocrinology for osteoporosis optimization | 4. Patient education regarding fall prevention
+
+5. Schedule procedure pending insurance approval
+
+Electronically signed by:
+Robert J. Martinez, MD | Orthopedic Spine Surgery | NPI:
+
+Date/Time: EST
+
+file:///Users/sanjana/Desktop/CMS_arizona/SYN_data/L34106/medical_record_sample_1.html

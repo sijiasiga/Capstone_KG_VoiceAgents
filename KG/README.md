@@ -160,11 +160,43 @@ The script will:
 
 ### Result of Agent Orchestration
 
+PDF → OCR → Agent Orchestration → Knowledge Graph
+
+For each policy, we generate:
+
+- Raw Policy OCR text
+- Extracted data dictionary (JSON)
+- Policy conditions (JSON)
+- Executable SQL query (TXT)
+- Knowledge graph visualization (PNG)
+- Graph structure files (nodes/edges as JSON)
+
 ```bash
 bash scripts/run_process_all_policies.sh
 ```
+
 Results are saved under [Policies_test](Policies_test)
 
+## 🤖 Patient Record Extraction Pipeline (process_patient_record.py)
+
+### Usage
+
+```bash
+cd KG
+bash scripts/patient_record_extraction_agent.sh
+```
+
+
+### Result of Agent
+
+PDF → OCR → Agent → Knowledge Graph
+
+For each patient record, we generate:
+
+- Raw Patient Record OCR text
+- Structured Patient Record data dictionary (JSON)
+
+then we can generate the Patient KG and Patient-Policy KG
 
 ### Data Field Validation
 
