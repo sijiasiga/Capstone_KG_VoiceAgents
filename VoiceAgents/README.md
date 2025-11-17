@@ -135,14 +135,6 @@ VoiceAgents/
 │   ├── Updates.md                      # Implementation change log
 │   ├── EVALUATION_REPORT.md            # Evaluation results
 │   └── Voice_Agent_Triage_Logic_Summary.md  # Triage system documentation
-│
-├── appointment_agent/                  # Original standalone appointment agent (Legacy)
-├── followup_agent/                     # Original standalone symptom monitoring (Legacy)
-├── medication_agent/                   # Original standalone medication Q&A (Legacy)
-├── caregiver_agent/                    # Original standalone caregiver summaries (Legacy)
-├── orchestration_agent/                # Original intent routing agent (Legacy)
-├── common_data/                        # Shared data files (Legacy)
-└── evaluation/                         # Original evaluation scripts (Legacy)
 ```
 
 ## Implementations
@@ -168,21 +160,6 @@ The LangGraph implementation is a complete, standalone system with:
 - **Comprehensive Logging**: All conversation flows logged to `logs/` directory
 - **Multi-Provider LLM**: Supports OpenAI, Anthropic, and Google with configurable fallback
 - **Full Functionality**: All agent functions from original VoiceAgents preserved
-
-### Original Agents (Legacy)
-
-**Status**: Reference implementation, individual agent testing
-
-The original implementation consists of standalone agents in separate directories:
-- `appointment_agent/` - Appointment management
-- `followup_agent/` - Symptom monitoring
-- `medication_agent/` - Medication education
-- `caregiver_agent/` - Caregiver summaries
-- `orchestration_agent/` - Intent routing
-
-**Best for**: Understanding individual agent logic, isolated testing
-
-Each agent has its own README with specific documentation.
 
 ## Core Features
 
@@ -648,36 +625,6 @@ All nodes support **STT (Speech-to-Text)** input via `main.py` commands and **TT
 
 **nodes/help.py** (STT/TTS): Provides general LLM-powered conversation for greetings, questions, and non-specific requests. Falls back to static help message if LLM unavailable.
 
-## Troubleshooting
-
-**No module named 'langgraph'**:
-```bash
-pip install -r requirements.txt
-```
-
-**API key errors**:
-```bash
-cp .env.example .env
-# Add your API keys to .env
-```
-
-**Python version issues**:
-```bash
-python --version  # Must be 3.9+
-```
-
-**TTS/STT not working**:
-```bash
-# macOS
-brew install portaudio
-# Then
-pip install pyttsx3 speechrecognition pyaudio
-```
-
-## Contributing
-
-This project is part of the CMU x Zyter Capstone Project.
-
 ## Testing
 
 ### Running Tests
@@ -701,26 +648,6 @@ The test suite includes:
 
 All tests verify that the system maintains consistent behavior after changes.
 
-## Independence & Portability
-
-The VoiceAgents_langgraph package is **fully independent** and can be moved anywhere:
-
-### Moving the Package
-
-```bash
-# Copy to new location
-cp -r VoiceAgents_langgraph /path/to/new/location/
-
-# Or move
-mv VoiceAgents_langgraph /path/to/new/location/
-
-# From new location:
-cd /path/to/new/location/VoiceAgents_langgraph
-source .venv/bin/activate  # or create new venv
-pip install -r requirements.txt
-cp .env.example .env  # Add your API keys
-python -m VoiceAgents_langgraph.main
-```
 
 ### What's Included
 
@@ -728,38 +655,13 @@ python -m VoiceAgents_langgraph.main
 ✅ All dependencies in `requirements.txt`  
 ✅ Virtual environment in `.venv/` (if copied)  
 ✅ Environment configuration in `.env`  
-✅ All logs in `logs/`  
+✅ All logs in `logs/` 
 ✅ Evaluation scripts in `evaluation/`  
 ✅ Complete STT/TTS support throughout  
 ✅ Comprehensive logging infrastructure  
 
 **No external dependencies on parent directory!**
 
-## Documentation
-
-- **Evaluation**: [VoiceAgents_langgraph/evaluation/README.md](VoiceAgents_langgraph/evaluation/README.md)
-- **Tests**: [VoiceAgents_langgraph/tests/README.md](VoiceAgents_langgraph/tests/README.md)
-- **Prototype Demo**: [VoiceAgents_langgraph/prototype_demo/README.md](VoiceAgents_langgraph/prototype_demo/README.md)
-- **Configuration Guide**: [VoiceAgents_langgraph/config/README_Config.md](VoiceAgents_langgraph/config/README_Config.md) for all configurable parameters
-- **Safety and Boundaries**: [VoiceAgents_langgraph/docs/Safety_and_Boundaries.md](VoiceAgents_langgraph/docs/Safety_and_Boundaries.md) for comprehensive safety documentation
-- **Policy System**: See `VoiceAgents_langgraph/policy/` directory for global system behavior and agent-specific policies
-- **Updates**: [DOCUMENTATION/Updates.md](DOCUMENTATION/Updates.md) for implementation change log
-- **System Report**: [DOCUMENTATION/VOICE_AGENT_REPORT.md](DOCUMENTATION/VOICE_AGENT_REPORT.md) for detailed system documentation
-- **Next Steps**: [DOCUMENTATION/Nextsteps.md](DOCUMENTATION/Nextsteps.md) for remaining work items
-
-## Feature Checklist
-
-- ✅ All core agent functions preserved
-- ✅ STT support via audio files and microphone
-- ✅ TTS support in all agent nodes
-- ✅ Comprehensive logging to `logs/` directory
-- ✅ Multi-provider LLM support with configurable fallback
-- ✅ Standalone independence
-- ✅ Virtual environment included
-- ✅ Environment configuration included
-- ✅ Evaluation scripts included
-- ✅ All data files self-contained
-- ✅ Validation datasets for testing
 
 ## License
 
