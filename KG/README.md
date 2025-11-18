@@ -20,6 +20,7 @@ streamlit run streamlit_app.py
 
 ```bash
 streamlit run streamlit_final.py
+```
 
 ## 📁 Project Structure
 
