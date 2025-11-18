@@ -1,0 +1,63 @@
+[
+  {
+    "name": "NCD - Diagnosis and Treatment of Impotence",
+    "guideline_number": "230.4",
+    "description": "Impotence is a failure of a body part for which the diagnosis, and frequently the treatment, require medical expertise. Depending on the cause of the condition, treatment may be surgical; e.g., implantation of a penile prosthesis, or nonsurgical; e.g., medical or psychotherapeutic treatment.",
+    "restrictions": [
+      {
+        "condition": "Patient has been diagnosed with impotence.",
+        "rule": "impotence_diagnosis_status = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Patient is receiving treatment for impotence.",
+        "rule": "impotence_treatment_status = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Surgical implantation of a penile prosthesis is a covered treatment option.",
+        "rule": "treatment_surgical_penile_prosthesis_implantation = TRUE",
+        "codes": [],
+        "logic": "OR"
+      },
+      {
+        "condition": "Nonsurgical medical treatment for impotence is a covered option.",
+        "rule": "treatment_nonsurgical_medical = TRUE",
+        "codes": [],
+        "logic": "OR"
+      },
+      {
+        "condition": "Nonsurgical psychotherapeutic treatment for impotence is a covered option.",
+        "rule": "treatment_nonsurgical_psychotherapeutic = TRUE",
+        "codes": [],
+        "logic": "OR"
+      },
+      {
+        "condition": "Documentation of appropriateness may be requested if abuse related to the condition or treatment is suspected.",
+        "rule": "abuse_suspected_documentation_request_flag = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Treatment for impotence is furnished in connection with a mental condition.",
+        "rule": "treatment_linked_to_mental_condition_flag = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "The patient receiving treatment in connection with a mental condition is not a hospital inpatient.",
+        "rule": "patient_is_hospital_inpatient_for_mental_condition_treatment = FALSE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "The psychiatric service limitation applies if treatment is furnished to patients (other than hospital inpatients) in connection with a mental condition.",
+        "rule": "psychiatric_service_limitation_applies = TRUE",
+        "codes": [],
+        "logic": "AND"
+      }
+    ]
+  }
+]

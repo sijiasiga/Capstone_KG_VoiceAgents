@@ -2,8 +2,8 @@
   {
     "id": "policy_center",
     "type": "Policy",
-    "label": "Bariatric Surgery Policy",
-    "description": "Policy rules for bariatric surgery eligibility",
+    "label": "Policy policy_center",
+    "description": "Policy rules for policy_center",
     "node_size": 2000
   },
   {

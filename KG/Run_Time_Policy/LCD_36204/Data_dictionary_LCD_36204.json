@@ -1,0 +1,206 @@
+[
+  {
+    "name": "patient_id",
+    "type": "string",
+    "description": "Unique patient identifier",
+    "section": "Demographics"
+  },
+  {
+    "name": "lcd_id",
+    "type": "string",
+    "description": "Local Coverage Determination (LCD) identifier for Spinal Cord Stimulators for Chronic Pain",
+    "section": "Administrative"
+  },
+  {
+    "name": "lcd_title",
+    "type": "string",
+    "description": "Title of the Local Coverage Determination (LCD)",
+    "section": "Administrative"
+  },
+  {
+    "name": "procedure_spinal_cord_stimulator",
+    "type": "string",
+    "description": "Medical device and therapy type for chronic pain relief",
+    "section": "Procedures"
+  },
+  {
+    "name": "diagnosis_chronic_intractable_pain",
+    "type": "boolean",
+    "description": "Condition for which Spinal Cord Stimulators (SCS) may be covered",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "scs_therapy_pain_type_neuropathic",
+    "type": "boolean",
+    "description": "Indicates if SCS therapy is best suited for neuropathic pain",
+    "section": "Eligibility"
+  },
+  {
+    "name": "scs_therapy_pain_type_nociceptive",
+    "type": "boolean",
+    "description": "Indicates if SCS therapy may have limited value in nociceptive severe, intractable pain",
+    "section": "Eligibility"
+  },
+  {
+    "name": "procedure_scs_trial",
+    "type": "string",
+    "description": "Temporary percutaneous implantation of neurostimulator electrode(s) in the epidural space for assessing patient suitability",
+    "section": "Procedures"
+  },
+  {
+    "name": "procedure_scs_permanent_implantation",
+    "type": "string",
+    "description": "Surgical implantation of a permanent nerve stimulator following a successful trial",
+    "section": "Procedures"
+  },
+  {
+    "name": "scs_trial_prerequisite_for_permanent_implant",
+    "type": "boolean",
+    "description": "Performance and documentation of an effective SCS trial is a prerequisite for permanent nerve stimulation",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "scs_replacement_no_trial_needed_reason",
+    "type": "string",
+    "description": "Circumstances where a new SCS trial is not needed for stimulator replacement (battery change, malfunction, or end of stimulator life)",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "prior_conservative_therapy_tried",
+    "type": "boolean",
+    "description": "SCS therapy should be considered a late option after more conservative attempts (medications, physical therapy, psychological therapy, or other modalities) have been tried",
+    "section": "Eligibility"
+  },
+  {
+    "name": "patient_multidisciplinary_screening_required",
+    "type": "boolean",
+    "description": "Patients must undergo careful screening, evaluation and diagnosis by a multidisciplinary team prior to SCS implantation",
+    "section": "Eligibility"
+  },
+  {
+    "name": "patient_psychological_evaluation_required",
+    "type": "boolean",
+    "description": "Psychological evaluation is a required component of patient screening prior to SCS implantation",
+    "section": "Eligibility"
+  },
+  {
+    "name": "patient_physical_evaluation_required",
+    "type": "boolean",
+    "description": "Physical evaluation is a required component of patient screening prior to SCS implantation",
+    "section": "Eligibility"
+  },
+  {
+    "name": "patient_active_substance_abuse_exclusion",
+    "type": "boolean",
+    "description": "Exclusion criteria: patient must not have active substance abuse issues",
+    "section": "Eligibility"
+  },
+  {
+    "name": "patient_education_disclosure_required",
+    "type": "boolean",
+    "description": "Patient must undergo proper education, discussion, and disclosure, including an extensive discussion of the risks and benefits of SCS therapy",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "scs_trial_setting_preferred",
+    "type": "string",
+    "description": "Preferred setting for temporary neurostimulator placement (ASC or outpatient hospital setting)",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "scs_trial_setting_office_criteria",
+    "type": "string",
+    "description": "Conditions required for a temporary neurostimulator trial to be performed in an office setting (sterility, equipment, professional training, and support personnel)",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "scs_permanent_implant_setting_required",
+    "type": "string",
+    "description": "Required setting for permanent neurostimulator placement (ASC or hospital)",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "physician_scs_trial_office_qualifications",
+    "type": "string",
+    "description": "Required physician qualifications for performing SCS trials in an office setting: like privileges at a local hospital or ASC, OR subspecialty boarded in Pain Medicine by the American Board of Anesthesiology",
+    "section": "Provider Requirements"
+  },
+  {
+    "name": "scs_trial_positive_response_for_permanent_implant",
+    "type": "boolean",
+    "description": "Only patients who experience a positive response to an SCS trial should proceed to permanent implantation",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "scs_trial_success_pain_reduction_threshold_percent",
+    "type": "float",
+    "description": "Threshold for a successful SCS trial: at least 50% reduction of target pain",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "scs_trial_success_analgesic_medication_reduction_threshold_percent",
+    "type": "float",
+    "description": "Threshold for a successful SCS trial: at least 50% reduction of analgesic medications",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "scs_trial_success_functional_improvement_required",
+    "type": "boolean",
+    "description": "Threshold for a successful SCS trial: show some element of functional improvement",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "scs_trial_duration_typical_weeks",
+    "type": "string",
+    "description": "Typical duration for an SCS trial, which may be longer for certain conditions",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "diagnosis_reflex_sympathetic_dystrophy_scs_trial_impact",
+    "type": "string",
+    "description": "Consideration for patients with reflex sympathetic dystrophy in SCS trial: may show lower levels of improvement and takes longer periods for improvement",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "physician_trial_to_implant_ratio_threshold_percent",
+    "type": "float",
+    "description": "Physician trial to permanent implant ratio threshold (less than 50%) triggering post-payment review",
+    "section": "Provider Requirements"
+  },
+  {
+    "name": "scs_leads_max_count",
+    "type": "integer",
+    "description": "Maximum number of SCS leads reimbursed by Noridian",
+    "section": "Procedures"
+  },
+  {
+    "name": "scs_contacts_max_count",
+    "type": "integer",
+    "description": "Maximum number of SCS contacts reimbursed by Noridian",
+    "section": "Procedures"
+  },
+  {
+    "name": "scs_trials_max_count_per_region_lifetime",
+    "type": "integer",
+    "description": "Maximum number of SCS trials allowed per anatomic spinal region per patient per lifetime",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "scs_trials_max_count_exception_criteria",
+    "type": "string",
+    "description": "Criteria allowing exceptions to the maximum number of SCS trials (technical limitations for initial trials or use of different modalities of stimulation, including new technology)",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "scs_repeat_trial_allowed_criteria",
+    "type": "string",
+    "description": "Criteria under which a repeat SCS trial is appropriate after an initial failure (extenuating circumstances)",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "diagnosis_code_ICD10",
+    "type": "string",
+    "description": "ICD-10 diagnosis codes related to spinal cord stimulator management and complications, including Z45.42, M48.061, M48.062, G57.73, T85.113A, T85.113D, T85.113S, T85.123A, T85.123D, T85.123S, T85.193A, T85.193D, T85.193S, T85.112A, T85.112D, T85.112S, T85.122A, T85.122D, T85.122S, T85.192A, T85.192D, T85.192S",
+    "section": "Diagnosis"
+  }
+]

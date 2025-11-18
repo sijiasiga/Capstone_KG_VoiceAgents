@@ -46,8 +46,37 @@ def extract_policy_id(file_dir: str) -> str:
     if not input_path.exists():
         raise ValueError(f"Path does not exist: {file_dir}")
 
-    # If it's a file, get its parent directory
+    # If it's a file, try to extract from filename first
     if input_path.is_file():
+        filename = input_path.name
+
+        # Try NCD pattern in filename with more flexible spacing (check first)
+        ncd_file_match = re.search(r'NCD[\s_\-]*(\d+(?:\.\d+)?)', filename, re.IGNORECASE)
+        if ncd_file_match:
+            code = ncd_file_match.group(1)
+            code = code.replace('.', '_')
+            return f"NCD_{code}"
+
+        # Try LCD pattern in filename with more flexible matching
+        lcd_file_match = re.search(r'(?:LCD)?[\s_\-]*[Ll][\s_\-]*(\d+)', filename, re.IGNORECASE)
+        if lcd_file_match:
+            code = lcd_file_match.group(1)
+            return f"LCD_{code}"
+
+        # Try to extract from filename with parentheses pattern (for codes like (230.4) or (L34106))
+        paren_match = re.search(r'\(([A-Za-z]?\d+(?:\.\d+)?)\)', filename)
+        if paren_match:
+            code = paren_match.group(1)
+            if code and code[0].upper() == 'L':
+                # LCD policy
+                code = re.sub(r'[^\d]', '', code)  # Keep only digits
+                return f"LCD_{code}"
+            elif code and code[0].isdigit():
+                # NCD policy (numeric code like 230.4)
+                code = code.replace('.', '_')
+                return f"NCD_{code}"
+
+        # If no match in filename, try the parent directory
         dir_path = input_path.parent
     elif input_path.is_dir():
         dir_path = input_path
@@ -92,22 +121,22 @@ def extract_policy_id(file_dir: str) -> str:
                     code = code.replace('.', '_')
                     return f"NCD_{code}"
 
-            # Try NCD pattern in filename
-            ncd_file_match = re.search(r'NCD[\s_-]?(\d+\.?\d*)', filename, re.IGNORECASE)
+            # Try NCD pattern in filename with more flexible spacing
+            ncd_file_match = re.search(r'NCD[\s_\-]*(\d+(?:\.\d+)?)', filename, re.IGNORECASE)
             if ncd_file_match:
                 code = ncd_file_match.group(1)
                 code = code.replace('.', '_')
                 return f"NCD_{code}"
 
-            # Try LCD pattern in filename
-            lcd_file_match = re.search(r'(?:LCD)?[Ll](\d+)', filename, re.IGNORECASE)
+            # Try LCD pattern in filename with more flexible matching
+            lcd_file_match = re.search(r'(?:LCD)?[\s_\-]*[Ll][\s_\-]*(\d+)', filename, re.IGNORECASE)
             if lcd_file_match:
                 code = lcd_file_match.group(1)
                 return f"LCD_{code}"
 
     # If all else fails, raise an error
     raise ValueError(
-        f"Could not extract policy ID from directory: {directory}\n"
+        f"Could not extract policy ID from directory: {file_dir}\n"
         f"Directory name: {dir_name}\n"
         f"Expected format: NCD<code> or L<code> (e.g., NCD230.4, L34106)"
     )
