@@ -10,11 +10,16 @@ A Python toolkit for generating and visualizing knowledge graphs from medical po
 pip install -r requirements.txt
 ```
 
-2. **Run the Streamlit web app:**
+2. **Run the Streamlit web app (Midterm):**
 
 ```bash
 streamlit run streamlit_app.py
 ```
+
+2. **Run the Streamlit web app (Final):**
+
+```bash
+streamlit run streamlit_final.py
 
 ## 📁 Project Structure
 
