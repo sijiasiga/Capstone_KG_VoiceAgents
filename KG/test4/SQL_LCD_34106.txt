@@ -1,0 +1,73 @@
+```sql
+-- Total restrictions: 22
+SELECT *
+FROM patients
+WHERE
+  -- Restriction 1: Patient must have a diagnosis of osteoporotic vertebral compression fracture (VCF).
+  diagnosis_vertebral_compression_fracture_osteoporotic = TRUE
+  AND
+  -- Restriction 2: VCF symptom onset must be acute (less than 6 weeks) OR subacute (between 6 and 12 weeks).
+  (vcf_onset_duration_weeks = '< 6 weeks' OR vcf_onset_duration_weeks = '6-12 weeks')
+  AND
+  -- Restriction 3: Vertebral compression fracture must be located between T1 and L5.
+  vcf_location IN ('T1', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'T8', 'T9', 'T10', 'T11', 'T12', 'L1', 'L2', 'L3', 'L4', 'L5')
+  AND
+  -- Restriction 4: VCF must be documented by advanced imaging showing bone marrow edema on MRI OR uptake on bone-scan/SPECT/CT.
+  (imaging_mri_bone_marrow_edema = TRUE OR imaging_bone_scan_uptake = TRUE OR imaging_spect_uptake = TRUE OR imaging_ct_uptake = TRUE)
+  AND
+  (
+    -- Restriction 5: Patient is hospitalized with severe pain, defined as Numeric Rating Scale (NRS) or Visual Analog Scale (VAS) pain score of 8 or greater.
+    patient_hospitalization_status = TRUE AND (pain_score_NRS >= 8 OR pain_score_VAS >= 8)
+    OR
+    -- Restriction 6: Patient is non-hospitalized with moderate to severe pain (NRS or VAS pain score of 5 or greater) despite optimal non-surgical management (NSM), AND experiencing worsening pain.
+    patient_hospitalization_status = FALSE AND (pain_score_NRS >= 5 OR pain_score_VAS >= 5) AND non_surgical_management_attempted = TRUE AND pain_worsening_flag = TRUE
+  )
+  AND
+  -- Restriction 7: Patient is non-hospitalized with moderate to severe pain (NRS or VAS pain score of 5 or greater) despite optimal non-surgical management (NSM), AND experiencing stable to improved pain (but still >=5), AND at least two of the following four criteria are met: progression of vertebral body height loss, >25% vertebral body height reduction, kyphotic deformity, or Roland Morris Disability Questionnaire (RDQ) >17.
+  patient_hospitalization_status = FALSE AND (pain_score_NRS >= 5 OR pain_score_VAS >= 5) AND non_surgical_management_attempted = TRUE AND pain_stable_or_improved_flag = TRUE AND ((vertebral_body_height_loss_progression = TRUE AND (vertebral_body_height_reduction_percentage > 25.0 OR kyphotic_deformity_present = TRUE OR roland_morris_disability_questionnaire_score > 17)) OR (vertebral_body_height_reduction_percentage > 25.0 AND (kyphotic_deformity_present = TRUE OR roland_morris_disability_questionnaire_score > 17)) OR (kyphotic_deformity_present = TRUE AND roland_morris_disability_questionnaire_score > 17))
+  AND
+  -- Restriction 8: All patients presenting with VCF must be referred for Bone Mineral Density (BMD) evaluation.
+  bmd_evaluation_referral_required = TRUE
+  AND
+  -- Restriction 9: All patients presenting with VCF must be referred for osteoporosis education.
+  osteoporosis_education_referral_required = TRUE
+  AND
+  -- Restriction 10: All patients with VCF must be instructed to take part in an osteoporosis prevention/treatment program.
+  osteoporosis_program_participation_required = TRUE
+  AND
+  -- Restriction 11: Exclusion: Current back pain is not primarily due to the identified acute or subacute VCF(s).
+  back_pain_non_vcf_etiology = FALSE
+  AND
+  -- Restriction 12: Exclusion: Presence of osteomyelitis, discitis, active systemic infection, or active surgical site infection (all must be absent).
+  (osteomyelitis_present = FALSE AND discitis_present = FALSE AND active_systemic_infection_present = FALSE AND surgical_site_infection_present = FALSE)
+  AND
+  -- Restriction 13: Exclusion: Patient is pregnant.
+  pregnancy_status = FALSE
+  AND
+  -- Restriction 14: Exclusion: Greater than three vertebral fractures per procedure.
+  vertebral_fractures_per_procedure_max <= 3
+  AND
+  -- Restriction 15: Exclusion: Allergy to bone cement or opacification agents (both must be absent).
+  (allergy_bone_cement_present = FALSE AND allergy_opacification_agents_present = FALSE)
+  AND
+  -- Restriction 16: Exclusion: Uncorrected coagulopathy.
+  uncorrected_coagulopathy_present = FALSE
+  AND
+  -- Restriction 17: Exclusion: Spinal instability.
+  spinal_instability_present = FALSE
+  AND
+  -- Restriction 18: Exclusion: Myelopathy from the fracture.
+  myelopathy_from_fracture_present = FALSE
+  AND
+  -- Restriction 19: Exclusion: Neurologic deficit.
+  neurologic_deficit_present = FALSE
+  AND
+  -- Restriction 20: Exclusion: Neural impingement.
+  neural_impingement_present = FALSE
+  AND
+  -- Restriction 21: Exclusion: Fracture retropulsion or canal compromise (both must be absent).
+  (fracture_retropulsion_present = FALSE AND canal_compromise_present = FALSE)
+  AND
+  -- Restriction 22: Procedure must be performed using one of the covered CPT codes for Percutaneous Vertebral Augmentation.
+  procedure_code_CPT IN ('22510', '22511', '22512', '22513', '22514', '22515');
+```

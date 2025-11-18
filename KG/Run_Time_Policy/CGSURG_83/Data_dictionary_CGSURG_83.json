@@ -1,0 +1,650 @@
+[
+  {
+    "name": "patient_id",
+    "type": "string",
+    "description": "Unique patient identifier",
+    "section": "Demographics"
+  },
+  {
+    "name": "patient_age",
+    "type": "integer",
+    "description": "Patient age in years, must be 18 years or older for initial surgery",
+    "section": "Eligibility"
+  },
+  {
+    "name": "procedure_type_biliopancreatic_bypass_duodenal_switch",
+    "type": "string",
+    "description": "Biliopancreatic bypass with duodenal switch procedure",
+    "section": "Procedures"
+  },
+  {
+    "name": "procedure_type_laparoscopic_adjustable_gastric_banding",
+    "type": "string",
+    "description": "Laparoscopic adjustable gastric banding procedure",
+    "section": "Procedures"
+  },
+  {
+    "name": "procedure_type_roux_en_y_gastric_bypass",
+    "type": "string",
+    "description": "Roux-en-Y procedure up to 150 cm limb length",
+    "section": "Procedures"
+  },
+  {
+    "name": "procedure_type_sleeve_gastrectomy",
+    "type": "string",
+    "description": "Sleeve gastrectomy procedure",
+    "section": "Procedures"
+  },
+  {
+    "name": "procedure_type_vertical_banded_gastroplasty",
+    "type": "string",
+    "description": "Vertical banded gastroplasty procedure",
+    "section": "Procedures"
+  },
+  {
+    "name": "patient_bmi_threshold_40",
+    "type": "float",
+    "description": "Patient Body Mass Index (BMI) of 40 or greater for eligibility",
+    "section": "Eligibility"
+  },
+  {
+    "name": "patient_bmi_threshold_35",
+    "type": "float",
+    "description": "Patient Body Mass Index (BMI) of 35 or greater with an obesity-related co-morbid condition for eligibility",
+    "section": "Eligibility"
+  },
+  {
+    "name": "obesity_related_comorbidity_present",
+    "type": "boolean",
+    "description": "Presence of an obesity-related co-morbid condition",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "diagnosis_diabetes_mellitus",
+    "type": "boolean",
+    "description": "Diagnosis of Diabetes mellitus as an obesity-related comorbidity",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "diagnosis_cardiovascular_disease",
+    "type": "boolean",
+    "description": "Diagnosis of Cardiovascular disease as an obesity-related comorbidity",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "diagnosis_hypertension",
+    "type": "boolean",
+    "description": "Diagnosis of Hypertension as an obesity-related comorbidity",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "diagnosis_life_threatening_cardiopulmonary_problems",
+    "type": "boolean",
+    "description": "Diagnosis of life threatening cardio-pulmonary problems (e.g., severe obstructive sleep apnea, Pickwickian syndrome, obesity related cardiomyopathy) as an obesity-related comorbidity",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "diagnosis_obstructive_sleep_apnea",
+    "type": "boolean",
+    "description": "Diagnosis of severe obstructive sleep apnea",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "diagnosis_pickwickian_syndrome",
+    "type": "boolean",
+    "description": "Diagnosis of Pickwickian syndrome",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "diagnosis_obesity_related_cardiomyopathy",
+    "type": "boolean",
+    "description": "Diagnosis of obesity related cardiomyopathy",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "past_weight_loss_program_participation",
+    "type": "boolean",
+    "description": "Documentation of past participation in a weight loss program",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "inadequate_weight_loss_conservative_therapy",
+    "type": "boolean",
+    "description": "Documentation of inadequate weight loss despite conservative medical therapy (diet, exercise, behavioral modifications)",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "preoperative_medical_mental_health_clearance",
+    "type": "boolean",
+    "description": "Documentation of pre-operative medical and mental health evaluations and clearances",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "preoperative_education_complete",
+    "type": "boolean",
+    "description": "Documentation of pre-operative education addressing risks, benefits, expectations, and long-term follow-up",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "bariatric_surgery_treatment_plan",
+    "type": "boolean",
+    "description": "Documentation of a treatment plan addressing pre- and post-operative needs for bariatric surgery",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "surgical_complication_fistula",
+    "type": "boolean",
+    "description": "Documentation of surgical complication: fistula",
+    "section": "Surgical Complications"
+  },
+  {
+    "name": "surgical_complication_obstruction",
+    "type": "boolean",
+    "description": "Documentation of surgical complication: obstruction",
+    "section": "Surgical Complications"
+  },
+  {
+    "name": "surgical_complication_erosion",
+    "type": "boolean",
+    "description": "Documentation of surgical complication: erosion",
+    "section": "Surgical Complications"
+  },
+  {
+    "name": "surgical_complication_suture_staple_leakage",
+    "type": "boolean",
+    "description": "Documentation of surgical complication: disruption/leakage of a suture/staple line",
+    "section": "Surgical Complications"
+  },
+  {
+    "name": "surgical_complication_band_herniation",
+    "type": "boolean",
+    "description": "Documentation of surgical complication: band herniation",
+    "section": "Surgical Complications"
+  },
+  {
+    "name": "surgical_complication_stricture",
+    "type": "boolean",
+    "description": "Documentation of surgical complication: stricture",
+    "section": "Surgical Complications"
+  },
+  {
+    "name": "diagnosis_gastroesophageal_reflux_disease_GERD",
+    "type": "boolean",
+    "description": "Documentation of Gastroesophageal Reflux Disease (GERD) as a surgical complication or for reoperation",
+    "section": "Surgical Complications"
+  },
+  {
+    "name": "surgical_complication_pouch_enlargement_dilation",
+    "type": "boolean",
+    "description": "Documentation of surgical complication: pouch enlargement/dilation",
+    "section": "Surgical Complications"
+  },
+  {
+    "name": "inadequate_weight_loss_or_regain_post_procedure_duration_years",
+    "type": "integer",
+    "description": "Duration of inadequate weight loss or weight gain after prior procedure, 1 year or longer",
+    "section": "Reoperation Criteria"
+  },
+  {
+    "name": "procedure_not_medically_necessary_one_anastomosis_gastric_bypass",
+    "type": "boolean",
+    "description": "One anastomosis gastric bypass (mini gastric bypass) is not medically necessary",
+    "section": "Not Medically Necessary Procedures"
+  },
+  {
+    "name": "procedure_not_medically_necessary_jejunoileal_bypass",
+    "type": "boolean",
+    "description": "Jejunoileal bypass is not medically necessary",
+    "section": "Not Medically Necessary Procedures"
+  },
+  {
+    "name": "procedure_not_medically_necessary_biliopancreatic_bypass_without_duodenal_switch",
+    "type": "boolean",
+    "description": "Biliopancreatic bypass without duodenal switch is not medically necessary",
+    "section": "Not Medically Necessary Procedures"
+  },
+  {
+    "name": "procedure_not_medically_necessary_single_anastomosis_duodenal_switch",
+    "type": "boolean",
+    "description": "Single anastomosis duodenal switch is not medically necessary",
+    "section": "Not Medically Necessary Procedures"
+  },
+  {
+    "name": "procedure_not_medically_necessary_very_long_limb_gastric_bypass",
+    "type": "boolean",
+    "description": "Very long limb (greater than 150 cm) gastric bypass is not medically necessary (other than BPD/DS)",
+    "section": "Not Medically Necessary Procedures"
+  },
+  {
+    "name": "device_not_medically_necessary_endogastric_stomaphyx",
+    "type": "boolean",
+    "description": "EndoGastric StomaphyX\u2122 endoluminal fastener and delivery system is not medically necessary",
+    "section": "Not Medically Necessary Devices"
+  },
+  {
+    "name": "procedure_not_medically_necessary_endoscopic_sleeve_gastroplasty_minimally_invasive",
+    "type": "boolean",
+    "description": "Minimally invasive endoluminal gastric restrictive surgical techniques, such as endoscopic sleeve gastroplasty, are not medically necessary",
+    "section": "Not Medically Necessary Procedures"
+  },
+  {
+    "name": "procedure_not_medically_necessary_laparoscopic_gastric_plication",
+    "type": "boolean",
+    "description": "Laparoscopic gastric plication (LGCP) with or without gastric banding is not medically necessary",
+    "section": "Not Medically Necessary Procedures"
+  },
+  {
+    "name": "device_not_medically_necessary_orbera_intragastric_balloon",
+    "type": "boolean",
+    "description": "Orbera Intragastric Balloon System is not medically necessary",
+    "section": "Not Medically Necessary Devices"
+  },
+  {
+    "name": "device_not_medically_necessary_transpyloric_shuttle",
+    "type": "boolean",
+    "description": "TransPyloric Shuttle balloon system is not medically necessary",
+    "section": "Not Medically Necessary Devices"
+  },
+  {
+    "name": "device_not_medically_necessary_vagus_nerve_blocking_devices",
+    "type": "boolean",
+    "description": "Vagus (or vagal) nerve blocking devices are not medically necessary",
+    "section": "Not Medically Necessary Devices"
+  },
+  {
+    "name": "device_not_medically_necessary_aspireassist",
+    "type": "boolean",
+    "description": "Endoscopically placed percutaneous aspiration tube (AspireAssist\u00ae) is not medically necessary",
+    "section": "Not Medically Necessary Devices"
+  },
+  {
+    "name": "patient_age_pediatric_consideration",
+    "type": "boolean",
+    "description": "Consideration for bariatric surgery for individuals under 18 years old with severe morbid obesity and unique circumstances",
+    "section": "Eligibility"
+  },
+  {
+    "name": "procedure_code_CPT_medically_necessary_bariatric_surgery",
+    "type": "string",
+    "description": "CPT codes for medically necessary gastric bypass and gastric restrictive procedures/reoperations: 43644 (Laparoscopy, surgical, gastric restrictive procedure; with gastric bypass and Roux-en-Y gastroenterostomy (roux limb 150 cm or less)), 43645 (Laparoscopy, surgical, gastric restrictive procedure; with gastric bypass and small intestine reconstruction to limit absorption), 43770 (Laparoscopy, surgical, gastric restrictive procedure; placement of adjustable gastric restrictive device (eg, gastric band and subcutaneous port components)), 43771 (Laparoscopy, surgical, gastric restrictive procedure; revision of adjustable gastric restrictive device component only), 43772 (Laparoscopy, surgical, gastric restrictive procedure; removal of adjustable gastric restrictive device component only), 43773 (Laparoscopy, surgical, gastric restrictive procedure; removal and replacement of adjustable gastric restrictive device component only), 43774 (Laparoscopy, surgical, gastric restrictive procedure; removal of adjustable gastric restrictive device and subcutaneous port components), 43775 (Laparoscopy, surgical, gastric restrictive procedure; longitudinal gastrectomy (ie, sleeve gastrectomy)), 43842 (Gastric restrictive procedure, without gastric bypass, for morbid obesity; vertical-banded gastroplasty), 43843 (Gastric restrictive procedure, without gastric bypass, for morbid obesity; other than vertical- banded gastroplasty), 43845 (Gastric restrictive procedure with partial gastrectomy, pylorus-preserving duodenoileostomy and ileoileostomy (50 to 100 cm common channel) to limit absorption (biliopancreatic diversion with duodenal switch)), 43846 (Gastric restrictive procedure, with gastric bypass for morbid obesity; with short limb (150 cm or less) Roux-en-Y gastroenterostomy), 43847 (Gastric restrictive procedure, with gastric bypass for morbid obesity; with small intestine reconstruction to limit absorption), 43848 (Revision, open, of gastric restrictive procedure for morbid obesity, other than adjustable gastric restrictive device (separate procedure)), 43886 (Gastric restrictive procedure, open; revision of subcutaneous port component only), 43887 (Gastric restrictive procedure, open; removal of subcutaneous port component only), 43888 (Gastric restrictive procedure, open; removal and replacement of subcutaneous port component only)",
+    "section": "Coding"
+  },
+  {
+    "name": "procedure_code_ICD10PCS_medically_necessary_gastric_restrictive_reoperations",
+    "type": "string",
+    "description": "ICD-10-PCS codes for medically necessary gastric restrictive procedures and reoperations: 0DP60CZ (Removal of extraluminal device from stomach, open approach), 0DP64CZ (Removal of extraluminal device from stomach, percutaneous endoscopic approach), 0DV60CZ (Restriction of stomach with extraluminal device, open approach), 0DV64CZ (Restriction of stomach with extraluminal device, percutaneous endoscopic approach), 0DV60ZZ (Restriction of stomach, open approach), 0DV64ZZ (Restriction of stomach, percutaneous endoscopic approach), 0DW60CZ (Revision of extraluminal device in stomach, open approach), 0DW64CZ (Revision of extraluminal device in stomach, percutaneous endoscopic approach)",
+    "section": "Coding"
+  },
+  {
+    "name": "procedure_code_ICD10PCS_medically_necessary_bypass_excision",
+    "type": "string",
+    "description": "ICD-10-PCS codes for medically necessary bypass and excision procedures: 0D160ZA (Bypass stomach to jejunum, open approach), 0D160ZB (Bypass stomach to ileum, open approach), 0D164ZA (Bypass stomach to jejunum, percutaneous endoscopic approach), 0D164ZB (Bypass stomach to ileum, percutaneous endoscopic approach), 0D164Z9 (Bypass stomach to duodenum, percutaneous endoscopic approach), 0D190ZB (Bypass duodenum to ileum, open approach), 0DB60Z3 (Excision of stomach, open approach, vertical), 0DB64Z3 (Excision of stomach, percutaneous endoscopic approach, vertical), 0DB68Z3 (Excision of stomach, via natural or artificial opening endoscopic, vertical), 0DB60ZZ (Excision of stomach, open approach), 0DB64ZZ (Excision of stomach, percutaneous endoscopic approach)",
+    "section": "Coding"
+  },
+  {
+    "name": "diagnosis_code_ICD10_medically_necessary_obesity_bmi",
+    "type": "string",
+    "description": "ICD-10 Diagnosis codes for medically necessary obesity and BMI: E66.01 (Morbid (severe) obesity due to excess calories), E66.09 (Other obesity due to excess calories), E66.1 (Drug-induced obesity), E66.2 (Morbid (severe) obesity with alveolar hypoventilation (Pickwickian syndrome)), E66.3 (Overweight), E66.811 (Obesity, class 1), E66.812 (Obesity, class 2), E66.813 (Obesity, class 3), E66.89 (Other obesity not elsewhere classified), E66.9 (Obesity, unspecified), E88.82 (Obesity due to disruption of MC4R pathway), Z46.51 (Encounter for fitting and adjustment of gastric lap band), Z68.35-Z68.39 (Body mass index [BMI] 35.0-39.9, adult), Z68.41-Z68.45 (Body mass index [BMI] 40 or greater, adult), Z68.51-Z68.56 (Body mass index [BMI] pediatric [special consideration]), Z98.84 (Bariatric surgery status)",
+    "section": "Coding"
+  },
+  {
+    "name": "diagnosis_code_ICD10_not_medically_necessary_bmi_range",
+    "type": "string",
+    "description": "ICD-10 Diagnosis codes indicating BMI ranges considered not medically necessary: Z68.20-Z68.29 (Body mass index [BMI] 20.0-29.9, adult), Z68.30-Z68.34 (Body mass index [BMI] 30.0-34.9, adult)",
+    "section": "Coding"
+  },
+  {
+    "name": "procedure_code_CPT_not_medically_necessary_other_procedures",
+    "type": "string",
+    "description": "CPT codes for procedures identified as not medically necessary: 43290 (Esophagogastroduodenoscopy, flexible, transoral; with deployment of intragastric bariatric balloon), 43291 (Esophagogastroduodenoscopy, flexible, transoral; with removal of intragastric bariatric balloon(s)), 43632 (Gastrectomy, partial distal; with gastrojejunostomy (Billroth II) [when specified as bariatric surgery]), 43633 (Gastrectomy, partial, distal; with Roux-en-Y reconstruction [when specified as bariatric surgery]), 43659 (Unlisted laparoscopy procedure, stomach [when specified as gastric plication (LGCP) with or without gastric banding, sleeve gastroplasty, or mini-gastric bypass procedure]), 43999 (Unlisted procedure, stomach [when specified as endoluminal gastric restrictive surgery, or aspiration therapy]), 44238 (Unlisted laparoscopy procedure, intestine (except rectum) [when specified as a bariatric procedure identified as not medically necessary such as SADI-S]), 64999 (Unlisted procedure, nervous system [when specified as implantation, revision, replacement, or removal of vagus nerve blocking neurostimulator electrode array or pulse generator at the esophagogastric junction]), 0813T (Esophagogastroduodenoscopy, flexible, transoral, with volume adjustment of intragastric bariatric balloon)",
+    "section": "Coding"
+  },
+  {
+    "name": "procedure_code_HCPCS_not_medically_necessary_other_procedures",
+    "type": "string",
+    "description": "HCPCS codes for procedures identified as not medically necessary: C9784 (Gastric restrictive procedure, endoscopic sleeve gastroplasty, with esophagogastroduodenoscopy and intraluminal tube insertion, if performed, including all system and tissue anchoring components), C9785 (Endoscopic outlet reduction, gastric pouch application, with endoscopy and intraluminal tube insertion, if performed, including all system and tissue anchoring components)",
+    "section": "Coding"
+  },
+  {
+    "name": "procedure_code_ICD10PCS_not_medically_necessary_other_procedures",
+    "type": "string",
+    "description": "ICD-10-PCS codes for procedures identified as not medically necessary: 0D160ZA (Bypass stomach to jejunum, open approach [when specified as Billroth II]), 0DV60DZ (Restriction of stomach with intraluminal device, open approach), 0DV63DZ (Restriction of stomach with intraluminal device, percutaneous approach), 0DV64DZ (Restriction of stomach with intraluminal device, percutaneous endoscopic approach), 0DV67DZ (Restriction of stomach with intraluminal device, via natural or artificial opening), 0DV68DZ (Restriction of stomach with intraluminal device, via natural or artificial opening endoscopic), 0DP60DZ (Removal of intraluminal device from stomach, open approach), 0DP63DZ (Removal of intraluminal device from stomach, percutaneous approach), 0DP64DZ (Removal of intraluminal device from stomach, percutaneous endoscopic approach), 0DP67DZ (Removal of intraluminal device from stomach, via natural or artificial opening), 0DP68DZ (Removal of intraluminal device from stomach, via natural or artificial opening endoscopic)",
+    "section": "Coding"
+  },
+  {
+    "name": "behavioral_intervention_duration_years",
+    "type": "integer",
+    "description": "Duration of intensive behavioral weight loss interventions (1 to 2 years)",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "behavioral_intervention_sessions_first_year",
+    "type": "integer",
+    "description": "Number of sessions in the first year for intensive behavioral weight loss interventions (12 or more)",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "patient_bmi_threshold_30_to_34_9",
+    "type": "float",
+    "description": "Patient Body Mass Index (BMI) range of 30 to 34.9 kg/m2 for consideration with diabetes or metabolic syndrome",
+    "section": "Eligibility"
+  },
+  {
+    "name": "diagnosis_metabolic_syndrome",
+    "type": "boolean",
+    "description": "Diagnosis of metabolic syndrome for consideration with BMI 30-34.9 kg/m2",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "patient_bmi_threshold_asian_american_diabetes",
+    "type": "float",
+    "description": "BMI threshold for Asian Americans with type 2 diabetes (27.5 kg/m2 or greater) for metabolic surgery consideration",
+    "section": "Eligibility"
+  },
+  {
+    "name": "patient_ethnicity_asian_american",
+    "type": "boolean",
+    "description": "Patient ethnicity is Asian American",
+    "section": "Demographics"
+  },
+  {
+    "name": "weight_loss_assessment_duration_years",
+    "type": "integer",
+    "description": "Duration after surgery for weight loss assessment (1 year for studies)",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "short_term_outcome_window_years",
+    "type": "integer",
+    "description": "Short-term outcome window from surgery (within 2 years)",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "blood_glucose_improvement_window_months",
+    "type": "integer",
+    "description": "Time to observe improvements in blood glucose measures post-surgery (as early as 1-month)",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "patient_bmi_pediatric_threshold_35_or_120th_percentile",
+    "type": "float",
+    "description": "Pediatric BMI threshold of 35 kg/m2 or 120% of the 95th percentile with a clinically significant co-morbid condition(s) for surgical consideration",
+    "section": "Eligibility"
+  },
+  {
+    "name": "patient_bmi_pediatric_threshold_40_or_140th_percentile",
+    "type": "float",
+    "description": "Pediatric BMI threshold of 40 kg/m2 or 140% of the 95th percentile (whichever is lower) for surgical consideration",
+    "section": "Eligibility"
+  },
+  {
+    "name": "patient_age_adolescent_range_start",
+    "type": "integer",
+    "description": "Start of adolescent age range for bariatric surgery consideration (10 years)",
+    "section": "Demographics"
+  },
+  {
+    "name": "patient_age_adolescent_range_end",
+    "type": "integer",
+    "description": "End of adolescent age range for bariatric surgery consideration (19 years)",
+    "section": "Demographics"
+  },
+  {
+    "name": "procedure_type_laparoscopic_rygb_pediatric",
+    "type": "boolean",
+    "description": "Laparoscopic Roux-en-Y Gastric Bypass (RYGB) is a common and effective procedure in pediatric population",
+    "section": "Procedures"
+  },
+  {
+    "name": "procedure_type_vertical_sleeve_gastrectomy_pediatric",
+    "type": "boolean",
+    "description": "Vertical Sleeve Gastrectomy is a common and effective procedure in pediatric population",
+    "section": "Procedures"
+  },
+  {
+    "name": "pediatric_reoperation_window_years",
+    "type": "integer",
+    "description": "Window for subsequent procedures after initial bariatric surgery in pediatric population (up to 5 years)",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "patient_tanner_stage",
+    "type": "string",
+    "description": "Patient's Tanner pubertal development stage (4 or 5) for pediatric bariatric surgery eligibility",
+    "section": "Eligibility"
+  },
+  {
+    "name": "patient_adult_height_achieved_flag",
+    "type": "boolean",
+    "description": "Patient has achieved final or near final adult height for pediatric bariatric surgery eligibility",
+    "section": "Eligibility"
+  },
+  {
+    "name": "postoperative_followup_duration",
+    "type": "string",
+    "description": "Requirement for life-long post-operative follow-up after bariatric surgery",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "postoperative_evaluation_first_year_months",
+    "type": "integer",
+    "description": "Initial postoperative evaluation period (6 months)",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "postoperative_annual_evaluation_duration_years",
+    "type": "integer",
+    "description": "Duration of annual postoperative evaluations (5 years)",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "adolescent_diabetes_class2_obesity_bmi_threshold",
+    "type": "string",
+    "description": "BMI threshold for adolescents with type 2 diabetes and Class 2 obesity or higher (BMI > 35 kg/m2 or 120% of 95th percentile for age and sex, whichever is lower) for metabolic surgery consideration",
+    "section": "Eligibility"
+  },
+  {
+    "name": "patient_A1C_elevated_flag",
+    "type": "boolean",
+    "description": "Patient has elevated A1C despite lifestyle and pharmacologic intervention",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "patient_serious_comorbidities_flag",
+    "type": "boolean",
+    "description": "Patient has serious comorbidities despite lifestyle and pharmacologic intervention for adolescent metabolic surgery consideration",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "patient_skeletal_maturity_flag",
+    "type": "boolean",
+    "description": "Patient is skeletally mature for surgery consideration under 18 years old",
+    "section": "Eligibility"
+  },
+  {
+    "name": "patient_psychiatric_profile_suitable",
+    "type": "boolean",
+    "description": "Patient's psychiatric profile and developmental stage are suitable for pre- and post-operative care compliance and long-term follow-up",
+    "section": "Eligibility"
+  },
+  {
+    "name": "informed_consent_documentation",
+    "type": "boolean",
+    "description": "Informed consent is conducted including documentation that the individual has received and can fully understand a thorough explanation of the risks, benefits, and uncertainties of the procedure",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "maximum_weight_loss_achievement_window_years",
+    "type": "integer",
+    "description": "Timeframe to reach maximum weight loss after bariatric surgery (up to 2 years)",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "excess_weight_loss_percentage_threshold",
+    "type": "integer",
+    "description": "Threshold for adequate excess weight loss (50%)",
+    "section": "Outcome Measures"
+  },
+  {
+    "name": "ideal_body_weight_deviation_percentage_threshold",
+    "type": "integer",
+    "description": "Threshold for body weight relative to ideal weight ranges (within 30%)",
+    "section": "Outcome Measures"
+  },
+  {
+    "name": "diagnostic_ambulatory_reflux_monitoring",
+    "type": "boolean",
+    "description": "Ambulatory esophageal reflux monitoring is indicated for GERD diagnosis/evaluation (e.g., non-erosive disease, refractory to PPI therapy, or when diagnosis is in question)",
+    "section": "Diagnostic Tests"
+  },
+  {
+    "name": "diagnosis_gerd_non_erosive_disease_NERD",
+    "type": "boolean",
+    "description": "Diagnosis of non-erosive gastroesophageal reflux disease (NERD)",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "patient_refractory_to_PPI_therapy",
+    "type": "boolean",
+    "description": "Patient is refractory to PPI therapy for GERD",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "procedure_type_biliopancreatic_bypass",
+    "type": "string",
+    "description": "Biliopancreatic bypass procedure (Scopinaro procedure)",
+    "section": "Procedures"
+  },
+  {
+    "name": "surgical_complication_iron_deficiency_anemia",
+    "type": "boolean",
+    "description": "Documentation of surgical complication: iron deficiency anemia (associated with BPB)",
+    "section": "Surgical Complications"
+  },
+  {
+    "name": "surgical_complication_protein_malnutrition",
+    "type": "boolean",
+    "description": "Documentation of surgical complication: protein malnutrition (associated with BPB)",
+    "section": "Surgical Complications"
+  },
+  {
+    "name": "surgical_complication_hypocalcemia",
+    "type": "boolean",
+    "description": "Documentation of surgical complication: hypocalcemia (associated with BPB)",
+    "section": "Surgical Complications"
+  },
+  {
+    "name": "surgical_complication_bone_demineralization",
+    "type": "boolean",
+    "description": "Documentation of surgical complication: bone demineralization (associated with BPB)",
+    "section": "Surgical Complications"
+  },
+  {
+    "name": "patient_bmi_calculation_method",
+    "type": "string",
+    "description": "Method for calculating Body Mass Index (BMI): weight in kilograms (kg) divided by height in meters (m) squared",
+    "section": "Definitions"
+  },
+  {
+    "name": "obesity_classification_adult_bmi_30_to_35",
+    "type": "string",
+    "description": "Adult obesity classification: BMI of 30 to less than 35",
+    "section": "Eligibility"
+  },
+  {
+    "name": "obesity_classification_adult_bmi_35_to_40",
+    "type": "string",
+    "description": "Adult obesity classification: BMI of 35 to less than 40",
+    "section": "Eligibility"
+  },
+  {
+    "name": "obesity_classification_adult_bmi_40_or_higher",
+    "type": "string",
+    "description": "Adult obesity classification: BMI of 40 or higher",
+    "section": "Eligibility"
+  },
+  {
+    "name": "obesity_classification_child_bmi_95th_percentile",
+    "type": "string",
+    "description": "Child obesity classification: BMI greater than or equal to 95th percentile for age and gender",
+    "section": "Eligibility"
+  },
+  {
+    "name": "obesity_classification_child_bmi_120th_percentile",
+    "type": "string",
+    "description": "Child obesity classification: BMI greater than or equal to 120% of 95th percentile for age and gender (severe obesity)",
+    "section": "Eligibility"
+  },
+  {
+    "name": "obesity_classification_child_bmi_140th_percentile",
+    "type": "string",
+    "description": "Child obesity classification: BMI greater than or equal to 140% of 95th percentile for age and gender (severe obesity)",
+    "section": "Eligibility"
+  },
+  {
+    "name": "excess_body_weight_definition",
+    "type": "string",
+    "description": "Definition of excess body weight: the difference between an individual\u2019s actual (measured) and ideal body weight",
+    "section": "Definitions"
+  },
+  {
+    "name": "diagnosis_gerd_erosive_disease_ERD",
+    "type": "boolean",
+    "description": "Diagnosis of erosive gastroesophageal reflux disease (ERD) confirmed by endoscopic exam",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "diagnostic_endoscopy_for_gerd",
+    "type": "boolean",
+    "description": "Objective testing for GERD diagnosis via endoscopy",
+    "section": "Diagnostic Tests"
+  },
+  {
+    "name": "diagnostic_ph_monitoring_for_gerd",
+    "type": "boolean",
+    "description": "Objective testing for GERD diagnosis via abnormal pH monitoring",
+    "section": "Diagnostic Tests"
+  },
+  {
+    "name": "obesity_definition_nih_bmi_40_or_greater",
+    "type": "string",
+    "description": "NIH definition of severe obesity: BMI of 40 kg/m2 or greater",
+    "section": "Definitions"
+  },
+  {
+    "name": "obesity_definition_nih_bmi_35_or_greater_with_complications",
+    "type": "string",
+    "description": "NIH definition of severe obesity: BMI of 35 kg/m2 or greater along with other medical complications",
+    "section": "Definitions"
+  },
+  {
+    "name": "obesity_definition_nih_bmi_30_or_greater",
+    "type": "string",
+    "description": "NIH definition of obesity: BMI of greater than or equal to 30 kg/m2",
+    "section": "Definitions"
+  },
+  {
+    "name": "overweight_definition_nih_bmi_25_to_29_9",
+    "type": "string",
+    "description": "NIH definition of overweight: BMI of 25 to 29.9 kg/m2",
+    "section": "Definitions"
+  },
+  {
+    "name": "surgical_complication_dumping_syndrome",
+    "type": "boolean",
+    "description": "Documentation of surgical complication: dumping syndrome (associated with RYGB)",
+    "section": "Surgical Complications"
+  },
+  {
+    "name": "postoperative_vitamin_mineral_supplementation_required",
+    "type": "boolean",
+    "description": "Requirement for post-operative vitamin and mineral supplementation due to decreased nutrient absorption (associated with RYGB)",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "long_term_follow_up_requirement",
+    "type": "boolean",
+    "description": "Requirement for long-term follow-up after bariatric surgery",
+    "section": "Program Requirements"
+  }
+]

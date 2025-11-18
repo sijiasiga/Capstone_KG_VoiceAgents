@@ -842,33 +842,21 @@ def policy_conversion_page():
             status_text = st.empty()
 
             try:
-                # Step 0: Extract policy ID using the utility function
-                from utils.extract_policy_id import extract_policy_id as extract_policy_id_func
+                # Step 0: Extract policy ID from filename
+                from utils.extract_policy_id import extract_policy_id_from_filename
                 from utils.save_policy_id import save_policy_info
 
                 status_text.text("📝 Extracting policy ID...")
                 progress_bar.progress(8)
 
-                # Create a temporary directory to save the uploaded file for ID extraction
-                temp_extract_dir = kg_dir / "temp_policy_extract"
-                temp_extract_dir.mkdir(exist_ok=True)
-                temp_pdf_path = temp_extract_dir / uploaded_file.name
-                with open(temp_pdf_path, "wb") as f:
-                    f.write(uploaded_file.getbuffer())
-
+                # Extract policy ID from filename
                 try:
-                    # Extract policy ID from the PDF file path
-                    policy_id = extract_policy_id_func(str(temp_pdf_path))
+                    policy_id = extract_policy_id_from_filename(uploaded_file.name)
                     st.info(f"📝 Policy ID extracted: {policy_id}")
-                except ValueError as e:
-                    st.error(f"❌ Failed to extract policy ID: {e}")
+                except Exception as e:
+                    st.warning(f"⚠️ Could not extract policy ID: {e}")
                     st.info("Using filename as fallback...")
-                    import re
-                    policy_id_match = re.search(r'([LN]CD[_\s-]*\d+|[LN]\d+)', uploaded_file.name, re.IGNORECASE)
-                    if policy_id_match:
-                        policy_id = policy_id_match.group(1).replace(' ', '').replace('-', '').upper()
-                    else:
-                        policy_id = Path(uploaded_file.name).stem.replace(' ', '_')
+                    policy_id = Path(uploaded_file.name).stem.replace(' ', '_')
 
                 # Step 1: Create policy folder in Run_Time_Policy
                 status_text.text("📁 Creating policy folder...")
@@ -892,17 +880,15 @@ def policy_conversion_page():
                 except Exception as e:
                     st.warning(f"⚠️ Could not save policy info: {e}")
 
-                # Step 2: Save uploaded PDF (move from temp to policy dir)
+                # Step 2: Save uploaded PDF directly to policy dir
                 status_text.text("💾 Saving policy PDF...")
                 progress_bar.progress(15)
 
                 pdf_path = policy_dir / uploaded_file.name
-                shutil.move(str(temp_pdf_path), str(pdf_path))
+                with open(pdf_path, "wb") as f:
+                    f.write(uploaded_file.getbuffer())
 
                 st.success(f"✅ PDF saved: {pdf_path}")
-
-                # Clean up temp directory
-                shutil.rmtree(temp_extract_dir)
 
                 # Step 3: Run OCR to extract text
                 status_text.text("🔍 Running OCR on policy PDF...")
@@ -1051,7 +1037,7 @@ def policy_conversion_page():
 
                     # Try to generate interactive HTML plot
                     try:
-                        plot_path = policy_dir / f"policy_rule_kg_{policy_id}_interactive.html"
+                        plot_path = policy_dir / f"policy_rule_kg_interactive_{policy_id}.html"
                         html_result = generator.plot_interactive(output_path=str(plot_path))
                         if html_result:
                             st.success(f"✅ Interactive HTML generated")
@@ -1065,7 +1051,7 @@ def policy_conversion_page():
                     # Always generate static PNG version as fallback
                     try:
                         png_path = policy_dir / f"policy_rule_kg_{policy_id}.png"
-                        png_result = generator.plot_static(output_path=str(png_path), show=False)
+                        png_result = generator.plot(output_path=str(png_path), show=False)
                         if png_result:
                             st.success(f"✅ Static PNG generated")
                         else:
@@ -1443,8 +1429,8 @@ def policy_gallery_page():
         st.markdown("---")
 
         # Check for required files
-        interactive_html = policy_dir / f"{selected_policy}_interactive.html"
-        static_png = policy_dir / f"{selected_policy}_static.png"
+        interactive_html = policy_dir / f"policy_rule_kg_interactive_{selected_policy}.html"
+        static_png = policy_dir / f"policy_rule_kg_{selected_policy}.png"
         nodes_json = policy_dir / "policy_rule_kg_nodes.json"
         edges_json = policy_dir / "policy_rule_kg_edges.json"
         data_dict_json = policy_dir / f"Data_dictionary_{selected_policy}.json"

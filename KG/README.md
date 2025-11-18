@@ -24,6 +24,7 @@ streamlit run streamlit_app.py
 ├── policy_rule_kg.py           # Policy rule generator
 ├── process_policy.py           # Agents Orchestration for Policy Extraction
 ├── streamlit_app.py            # Interactive web application
+├── streamlit_app.py            # Interactive web application with more funcs
 ├── Database                    # Database management system
 ├── OCR                         # Medical record processing
 ├── prompts                     # Prompts for Agents

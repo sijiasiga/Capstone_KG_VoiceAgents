@@ -325,3 +325,41 @@ class PolicyRuleKGGenerator_WithInteractive(PolicyRuleKGGenerator):
     def plot_static(self, output_path: Optional[str] = None, show: bool = False) -> Optional[Path]:
         """Generate static matplotlib plot (from original class)."""
         return self.plot(output_path=output_path, show=show)
+
+
+def main():
+    """Main function to run the interactive policy rule KG generator."""
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Generate interactive policy rule knowledge graph")
+    parser.add_argument("--sql", required=True, help="Path to SQL file")
+    parser.add_argument("--data-dict", required=True, help="Path to data dictionary JSON file")
+    parser.add_argument("--policy-id", help="Policy identifier (default: policy_center)")
+    parser.add_argument("--output-dir", help="Output directory (default: same as SQL file)")
+
+    args = parser.parse_args()
+
+    # Set default output directory
+    if not args.output_dir:
+        args.output_dir = Path(args.sql).parent
+
+    # Generate the knowledge graph
+    generator = PolicyRuleKGGenerator_WithInteractive(
+        sql_path=args.sql,
+        data_dictionary_path=args.data_dict,
+        policy_id=args.policy_id,
+        output_dir=args.output_dir
+    )
+
+    print("Generating interactive policy rule knowledge graph...")
+    nodes, edges = generator.generate()
+
+    # Generate and save interactive plot
+    interactive_plot_path = str(Path(args.output_dir) / f"policy_rule_kg_interactive_{generator.policy_id}.html")
+    saved_path = generator.plot_interactive(output_path=interactive_plot_path)
+    if saved_path:
+        print(f"Interactive plot saved to: {saved_path}")
+
+
+if __name__ == "__main__":
+    main()

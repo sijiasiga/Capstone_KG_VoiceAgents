@@ -7,18 +7,66 @@ It can accept either a directory path or a PDF file path.
 The extraction rules are:
 - For NCD policies: extract the code from directory (e.g., NCD230.4 -> NCD_230_4)
 - For LCD policies: extract the code from directory (e.g., L34106 -> LCD_34106)
+- For other policies without LCD/NCD pattern: preserve the directory name as-is (e.g., CGSURG_83 -> CGSURG_83)
 - Preserve dots in the ID, convert to underscores for clean formatting
 - If a PDF file path is provided, extract the policy ID from its parent directory
 
 Examples:
     NCD_LCD_Syn_data/NCD230.4/ -> NCD_230_4
     NCD_LCD_Syn_data/L34106/ -> LCD_34106
+    NCD_LCD_Syn_data/CGSURG_83/ -> CGSURG_83
     NCD_LCD_Syn_data/L34106/LCD - Percutaneous Vertebral Augmentation (L34106).pdf -> LCD_34106
 """
 
 import re
 import os
 from pathlib import Path
+
+
+def extract_policy_id_from_filename(filename: str) -> str:
+    """
+    Extract policy ID directly from a filename without needing the full path.
+    This is useful for uploaded files where we only have the filename.
+
+    Args:
+        filename: Just the filename (e.g., "LCD - Spinal Cord (L34106).pdf" or "NCD230.4.pdf")
+
+    Returns:
+        Extracted policy ID string (e.g., "LCD_34106", "NCD_230_4")
+
+    Raises:
+        ValueError: If policy ID cannot be extracted from filename
+    """
+    # Try NCD pattern in filename with flexible spacing
+    ncd_match = re.search(r'NCD[\s_\-]*(\d+(?:\.\d+)?)', filename, re.IGNORECASE)
+    if ncd_match:
+        code = ncd_match.group(1)
+        code = code.replace('.', '_')
+        return f"NCD_{code}"
+
+    # Try LCD pattern in filename with flexible matching
+    lcd_match = re.search(r'(?:LCD)?[\s_\-]*[Ll][\s_\-]*(\d+)', filename, re.IGNORECASE)
+    if lcd_match:
+        code = lcd_match.group(1)
+        return f"LCD_{code}"
+
+    # Try to extract from filename with parentheses pattern
+    paren_match = re.search(r'\(([A-Za-z]?\d+(?:\.\d+)?)\)', filename)
+    if paren_match:
+        code = paren_match.group(1)
+        if code and code[0].upper() == 'L':
+            # LCD policy
+            code = re.sub(r'[^\d]', '', code)  # Keep only digits
+            return f"LCD_{code}"
+        elif code and code[0].isdigit():
+            # NCD policy (numeric code like 230.4)
+            code = code.replace('.', '_')
+            return f"NCD_{code}"
+
+    # If no LCD/NCD pattern found, use stem as fallback
+    from pathlib import Path
+    stem = Path(filename).stem.replace(' ', '_')
+    return stem
 
 
 def extract_policy_id(file_dir: str) -> str:
@@ -30,11 +78,12 @@ def extract_policy_id(file_dir: str) -> str:
                   Should be a directory containing PDF files like:
                   - NCD_LCD_Syn_data/NCD230.4/
                   - NCD_LCD_Syn_data/L34106/
+                  - NCD_LCD_Syn_data/CGSURG_83/
                   Or a PDF file path like:
                   - NCD_LCD_Syn_data/L34106/LCD - Percutaneous Vertebral Augmentation (L34106).pdf
 
     Returns:
-        Extracted policy ID string (e.g., "NCD_230_4", "LCD_34106")
+        Extracted policy ID string (e.g., "NCD_230_4", "LCD_34106", "CGSURG_83")
 
     Raises:
         ValueError: If the path doesn't exist or policy ID cannot be extracted
@@ -134,12 +183,8 @@ def extract_policy_id(file_dir: str) -> str:
                 code = lcd_file_match.group(1)
                 return f"LCD_{code}"
 
-    # If all else fails, raise an error
-    raise ValueError(
-        f"Could not extract policy ID from directory: {file_dir}\n"
-        f"Directory name: {dir_name}\n"
-        f"Expected format: NCD<code> or L<code> (e.g., NCD230.4, L34106)"
-    )
+    # Rule 4: If no LCD/NCD pattern found, return the directory name as-is (e.g., CGSURG_83)
+    return dir_name
 
 
 if __name__ == "__main__":

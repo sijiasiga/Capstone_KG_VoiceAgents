@@ -67,3 +67,12 @@ python policy_rule_kg.py \
 
 echo "✓ Policy Knowledge Graph generated"
 
+echo ""
+echo "Step 5: Generating Interactive Knowledge Graph For Policy $POLICY_ID..."
+python policy_rule_kg_interactive.py \
+  --sql "$SQL_FILE" \
+  --data-dict "$DATA_DICT_FILE" \
+  --policy-id "$POLICY_ID" \
+  --output-dir "$OUTPUT_DIR"
+
+echo "✓ Interactive Knowledge Graph generated"
