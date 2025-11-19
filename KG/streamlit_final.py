@@ -14,11 +14,8 @@ Author: AI Assistant
 import streamlit as st
 import os
 import json
-import tempfile
-import subprocess
 import sys
-import sqlite3
-import pandas as pd
+import re
 from pathlib import Path
 from typing import Dict, Any, Optional, Tuple, List
 import shutil
@@ -35,6 +32,7 @@ try:
     from policy_rule_kg_interactive import PolicyRuleKGGenerator_WithInteractive
     from patient_kg import PatientKGVisualizer
     from patient_rule_kg import PatientRuleKGVisualizer
+    from patient_rule_kg_interactive import PatientRuleKGVisualizer as PatientRuleKGVisualizerInteractive
 except ImportError as e:
     st.error(f"Error importing modules: {e}")
     st.stop()
@@ -85,248 +83,6 @@ st.markdown("""
     }
 </style>
 """, unsafe_allow_html=True)
-
-def get_database_path() -> str:
-    """Get the path to the policy database."""
-    return str(kg_dir / "Database" / "policy_CGSURG83.db")
-
-def clean_dataframe_columns(df: pd.DataFrame) -> pd.DataFrame:
-    """Clean DataFrame by removing duplicate columns and handling data issues."""
-    if df is None or df.empty:
-        return df
-
-    # Remove duplicate columns (keep first occurrence)
-    if df.columns.duplicated().any():
-        df = df.loc[:, ~df.columns.duplicated()]
-
-    return df
-
-def check_database_duplicates() -> Dict[str, Any]:
-    """Check for duplicate patients in the database."""
-    try:
-        db_path = get_database_path()
-        if not os.path.exists(db_path):
-            return {"error": "Database not found"}
-
-        conn = sqlite3.connect(db_path)
-        cursor = conn.cursor()
-
-        # Check for duplicate patient_ids
-        cursor.execute("""
-            SELECT patient_id, COUNT(*) as count
-            FROM patients
-            GROUP BY patient_id
-            HAVING COUNT(*) > 1
-        """)
-        duplicate_patients = cursor.fetchall()
-
-        # Get total patient count
-        cursor.execute("SELECT COUNT(*) FROM patients")
-        total_patients = cursor.fetchone()[0]
-
-        # Get unique patient count
-        cursor.execute("SELECT COUNT(DISTINCT patient_id) FROM patients")
-        unique_patients = cursor.fetchone()[0]
-
-        conn.close()
-
-        return {
-            "total_patients": total_patients,
-            "unique_patients": unique_patients,
-            "duplicate_patients": duplicate_patients,
-            "has_duplicates": len(duplicate_patients) > 0
-        }
-    except Exception as e:
-        return {"error": str(e)}
-
-def delete_patient_by_id(patient_id: str) -> bool:
-    """Delete a specific patient record from the database."""
-    try:
-        db_path = get_database_path()
-        if not os.path.exists(db_path):
-            st.error("Database not found")
-            return False
-
-        conn = sqlite3.connect(db_path)
-        cursor = conn.cursor()
-
-        # Check if patient exists
-        cursor.execute("SELECT COUNT(*) FROM patients WHERE patient_id = ?", (patient_id,))
-        count = cursor.fetchone()[0]
-
-        if count == 0:
-            st.warning(f"Patient {patient_id} not found in database")
-            conn.close()
-            return False
-
-        # Delete the patient
-        cursor.execute("DELETE FROM patients WHERE patient_id = ?", (patient_id,))
-        conn.commit()
-        conn.close()
-
-        return True
-    except Exception as e:
-        st.error(f"Error deleting patient: {e}")
-        return False
-
-def remove_duplicates_from_database() -> bool:
-    """Remove duplicate patients from the database, keeping only the latest record."""
-    try:
-        db_path = get_database_path()
-        if not os.path.exists(db_path):
-            st.error("Database not found")
-            return False
-
-        conn = sqlite3.connect(db_path)
-        cursor = conn.cursor()
-
-        # Check table structure
-        cursor.execute("PRAGMA table_info(patients)")
-        columns = cursor.fetchall()
-
-        # Get all duplicate patient_ids
-        cursor.execute("""
-            SELECT patient_id, COUNT(*) as count
-            FROM patients
-            GROUP BY patient_id
-            HAVING COUNT(*) > 1
-        """)
-        duplicates = cursor.fetchall()
-
-        if not duplicates:
-            conn.close()
-            return True
-
-        # Get all records and create a unique set
-        cursor.execute("SELECT * FROM patients")
-        all_records = cursor.fetchall()
-
-        # Get column names
-        column_names = [col[1] for col in columns]
-
-        # Create a dictionary to track unique patients
-        unique_patients = {}
-        duplicates_removed = 0
-
-        for record in all_records:
-            record_dict = dict(zip(column_names, record))
-            patient_id = record_dict.get('patient_id')
-
-            if patient_id not in unique_patients:
-                unique_patients[patient_id] = record
-            else:
-                duplicates_removed += 1
-
-        if duplicates_removed == 0:
-            conn.close()
-            return True
-
-        # Clear the table
-        cursor.execute("DELETE FROM patients")
-
-        # Insert only unique records
-        for patient_id, record in unique_patients.items():
-            placeholders = ','.join(['?' for _ in record])
-            cursor.execute(f"INSERT INTO patients VALUES ({placeholders})", record)
-
-        conn.commit()
-        conn.close()
-
-        return True
-    except Exception as e:
-        st.error(f"Error removing duplicates: {e}")
-        return False
-
-def add_patient_to_database(patient_data: Dict[str, Any]) -> bool:
-    """Add patient data to the database with proper duplicate handling."""
-    try:
-        db_path = get_database_path()
-        if not os.path.exists(db_path):
-            st.error(f"Database not found: {db_path}")
-            return False
-
-        conn = sqlite3.connect(db_path)
-        cursor = conn.cursor()
-
-        patient_id = patient_data.get('patient_id')
-        if not patient_id:
-            st.error("Patient ID is required")
-            conn.close()
-            return False
-
-        # First, delete any existing records for this patient_id
-        cursor.execute("DELETE FROM patients WHERE patient_id = ?", (patient_id,))
-
-        # Get field names and values from patient data
-        field_names = list(patient_data.keys())
-        values = list(patient_data.values())
-
-        # Insert the new record
-        placeholders = ','.join(['?' for _ in field_names])
-        insert_sql = f"INSERT INTO patients ({','.join(field_names)}) VALUES ({placeholders})"
-
-        cursor.execute(insert_sql, values)
-        conn.commit()
-        conn.close()
-
-        return True
-    except Exception as e:
-        st.error(f"Error adding patient to database: {e}")
-        return False
-
-def get_all_patients() -> Optional[pd.DataFrame]:
-    """Get all patient data from the database, automatically removing duplicates first."""
-    try:
-        # First, remove duplicates automatically (silent)
-        remove_duplicates_from_database()
-
-        db_path = get_database_path()
-        if not os.path.exists(db_path):
-            st.error(f"Database not found: {db_path}")
-            return None
-
-        conn = sqlite3.connect(db_path)
-        query = "SELECT * FROM patients"
-        df = pd.read_sql_query(query, conn)
-        conn.close()
-
-        # Clean the DataFrame
-        df = clean_dataframe_columns(df)
-
-        return df
-    except Exception as e:
-        st.error(f"Error retrieving patient data: {e}")
-        return None
-
-def run_policy_sql_filter() -> Optional[pd.DataFrame]:
-    """Run the policy SQL filter on the database."""
-    try:
-        db_path = get_database_path()
-        sql_path = kg_dir / "test1" / "Policy_CGSURG83" / "SQL_CGSURG83.txt"
-
-        if not os.path.exists(db_path):
-            st.error(f"Database not found: {db_path}")
-            return None
-
-        if not os.path.exists(sql_path):
-            st.error(f"SQL file not found: {sql_path}")
-            return None
-
-        # Load SQL query
-        with open(sql_path, 'r', encoding='utf-8') as f:
-            sql_query = f.read().strip()
-
-        conn = sqlite3.connect(db_path)
-        df = pd.read_sql_query(sql_query, conn)
-        conn.close()
-
-        # Clean the DataFrame
-        df = clean_dataframe_columns(df)
-
-        return df
-    except Exception as e:
-        st.error(f"Error running SQL filter: {e}")
-        return None
 
 def display_node_info_sidebar(nodes: List[Dict]) -> None:
     """Display node information selector in sidebar."""
@@ -472,72 +228,744 @@ def generate_policy_kg(patient_dir: str, show_plot: bool = True) -> Optional[str
         st.error(f"Error generating policy KG: {e}")
         return None
 
-def generate_patient_kg(patient_data: Dict[str, Any], patient_dir: str, show_plot: bool = True) -> Optional[str]:
-    """Generate patient knowledge graph."""
+def generate_patient_kg(patient_data: Dict[str, Any], patient_dir: str, show_plot: bool = True, show_text: bool = True, force_regenerate: bool = False) -> Optional[str]:
+    """Generate patient knowledge graph (interactive HTML).
+
+    Args:
+        patient_data: Patient data dictionary
+        patient_dir: Directory to save the plot
+        show_plot: Whether to show the plot (default: True)
+        show_text: Whether to show text labels on nodes (default: True)
+        force_regenerate: Force regeneration even if file exists (default: False)
+
+    Returns:
+        Path to the generated HTML file
+    """
     try:
+        patient_dir_path = Path(patient_dir)
+
+        # Determine filename based on show_text setting
+        html_filename = "patient_kg_text_interactive.html" if show_text else "patient_kg_interactive.html"
+        png_filename = "patient_kg_text_interactive.png" if show_text else "patient_kg_interactive.png"
+
+        html_path = patient_dir_path / html_filename
+        png_path = patient_dir_path / png_filename
+
+        # Check if HTML file already exists
+        if not force_regenerate and html_path.exists():
+            st.info(f"ℹ️ Using existing Patient KG: {html_filename}")
+            return str(html_path)
+
+        # Load patient data from JSON file if available (for consistency)
+        json_file = None
+        for json_candidate in patient_dir_path.glob("Patient_data_*.json"):
+            # Prefer the one matching the patient ID
+            if patient_data.get('patient_id'):
+                patient_id_clean = re.sub(r'[^a-zA-Z0-9]', '', str(patient_data.get('patient_id')))
+                if patient_id_clean in json_candidate.name:
+                    json_file = json_candidate
+                    break
+            else:
+                json_file = json_candidate
+                break
+
+        if json_file and json_file.exists():
+            try:
+                with open(json_file, 'r', encoding='utf-8') as f:
+                    loaded_patient_data = json.load(f)
+                patient_data = loaded_patient_data
+                st.info(f"ℹ️ Loaded patient data from: {json_file.name}")
+            except Exception as json_error:
+                st.warning(f"⚠️ Could not load patient data from JSON: {json_error}")
+
         # Create visualizer
         visualizer = PatientKGVisualizer(patient_data)
         visualizer.build_graph()
 
-        # Generate plot
-        plot_path = Path(patient_dir) / "patient_kg"
-        visualizer.create_matplotlib_visualization(
-            output_file=str(plot_path),
-            no_show=not show_plot
+        # Generate interactive plot as HTML
+        plot_path_prefix = str(html_path.with_suffix(''))  # Remove .html suffix for the function
+        result_path = visualizer.create_plotly_visualization(
+            layout='spring',
+            output_file=plot_path_prefix,
+            input_file_path=None,
+            show_text=show_text
         )
 
-        # The visualizer adds .png extension, so update the path
-        plot_path = Path(patient_dir) / "patient_kg.png"
+        # PNG backup generation is optional (requires kaleido package)
+        # Skipping for now as HTML visualization is the primary format
 
-        return str(plot_path)
+        return result_path
     except Exception as e:
         st.error(f"Error generating patient KG: {e}")
+        import traceback
+        st.error(traceback.format_exc())
         return None
 
-def generate_patient_rule_kg(patient_data: Dict[str, Any], patient_dir: str, show_plot: bool = True) -> Optional[str]:
-    """Generate patient rule knowledge graph."""
+def generate_patient_rule_kg(patient_data: Dict[str, Any], patient_dir: str, show_plot: bool = True, policy_id: str = None, policy_sql: str = None, policy_json: Dict = None, show_text: bool = True, force_regenerate: bool = False) -> Optional[str]:
+    """Generate interactive patient rule knowledge graph using specified policy.
+
+    Args:
+        patient_data: Patient data dictionary
+        patient_dir: Directory to save the plot
+        show_plot: Whether to show the plot (default: True)
+        policy_id: Policy identifier
+        policy_sql: SQL rules
+        policy_json: Policy JSON data
+        show_text: Whether to show text labels on nodes (default: True)
+        force_regenerate: Force regeneration even if file exists (default: False)
+
+    Returns:
+        Path to the generated HTML file
+    """
     try:
-        # Load required files
-        sql_path = kg_dir / "test1" / "Policy_CGSURG83" / "SQL_CGSURG83.txt"
-        policy_path = kg_dir / "test1" / "Policy_CGSURG83" / "Policy_CGSURG83.json"
+        patient_dir_path = Path(patient_dir)
 
-        if not sql_path.exists() or not policy_path.exists():
-            st.warning("Policy files not found for patient rule KG.")
-            return None
+        # Load patient data from JSON file if available (for consistency)
+        json_file = None
+        for json_candidate in patient_dir_path.glob("Patient_data_*.json"):
+            # Prefer the one matching the patient ID
+            if patient_data.get('patient_id'):
+                patient_id_clean = re.sub(r'[^a-zA-Z0-9]', '', str(patient_data.get('patient_id')))
+                if patient_id_clean in json_candidate.name:
+                    json_file = json_candidate
+                    break
+            else:
+                json_file = json_candidate
+                break
 
-        # Load data
-        with open(sql_path, 'r', encoding='utf-8') as f:
-            sql_text = f.read()
+        if json_file and json_file.exists():
+            try:
+                with open(json_file, 'r', encoding='utf-8') as f:
+                    loaded_patient_data = json.load(f)
+                patient_data = loaded_patient_data
+                st.info(f"ℹ️ Loaded patient data from: {json_file.name}")
+            except Exception as json_error:
+                st.warning(f"⚠️ Could not load patient data from JSON: {json_error}")
 
-        with open(policy_path, 'r', encoding='utf-8') as f:
-            policy_data = json.load(f)
+        # If policy info is provided, use it; otherwise fall back to CGSURG83
+        if policy_sql and policy_json:
+            sql_text = policy_sql
+            policy_data = policy_json
+            policy_name = policy_id or "custom_policy"
+        else:
+            # Fallback to CGSURG83
+            sql_path = kg_dir / "test1" / "Policy_CGSURG83" / "SQL_CGSURG83.txt"
+            policy_path = kg_dir / "test1" / "Policy_CGSURG83" / "Policy_CGSURG83.json"
 
-        # Create visualizer
-        visualizer = PatientRuleKGVisualizer(patient_data, sql_text, policy_data)
+            if not sql_path.exists() or not policy_path.exists():
+                st.warning("Policy files not found for patient rule KG.")
+                return None
+
+            # Load data
+            with open(sql_path, 'r', encoding='utf-8') as f:
+                sql_text = f.read()
+
+            with open(policy_path, 'r', encoding='utf-8') as f:
+                policy_data = json.load(f)
+
+            policy_name = "CGSURG83"
+
+        # Determine filename based on show_text setting
+        html_filename = f"patient_rule_kg_{policy_name}_text.html" if show_text else f"patient_rule_kg_{policy_name}.html"
+        png_filename = f"patient_rule_kg_{policy_name}_text.png" if show_text else f"patient_rule_kg_{policy_name}.png"
+
+        html_path = patient_dir_path / html_filename
+        png_path = patient_dir_path / png_filename
+
+        # Check if HTML file already exists
+        if not force_regenerate and html_path.exists():
+            st.info(f"ℹ️ Using existing Compliance KG: {html_filename}")
+            return str(html_path)
+
+        # Create interactive visualizer
+        visualizer = PatientRuleKGVisualizerInteractive(patient_data, sql_text, policy_data)
         visualizer.parse_and_evaluate_conditions()
         visualizer.apply_logical_operators()
         visualizer.build_knowledge_graph()
 
-        # Generate plot
-        plot_path = Path(patient_dir) / "patient_rule_kg"
-        visualizer.create_visualization(
-            output_file=str(plot_path),
-            no_show=not show_plot
-        )
+        # Generate interactive plot as HTML
+        saved_path = visualizer.plot_interactive(output_path=str(html_path), show_text=show_text)
 
-        # The visualizer adds .png extension, so update the path
-        plot_path = Path(patient_dir) / "patient_rule_kg.png"
+        # PNG backup generation is optional (requires kaleido package)
+        # Skipping for now as HTML visualization is the primary format
 
         # Generate compliance report
         patient_id = patient_data.get('patient_id', 'unknown')
         compliance_path = visualizer.generate_compliance_report(
-            patient_id, "CGSURG83", patient_dir
+            patient_id, policy_name, patient_dir
         )
 
-        return str(plot_path)
+        return str(saved_path) if saved_path else str(html_path)
     except Exception as e:
         st.error(f"Error generating patient rule KG: {e}")
         return None
+
+def run_patient_record_ocr(pdf_path: str, patient_dir: str) -> str:
+    """Run patient record OCR to extract text using patient_record_ocr module."""
+    txt_path = Path(patient_dir) / f"{Path(pdf_path).stem}.txt"
+
+    try:
+        # Import patient record OCR module
+        sys.path.insert(0, str(kg_dir / "OCR"))
+        from patient_record_ocr import PatientRecordOCRCleaner
+        import fitz  # PyMuPDF
+
+        # Extract text using patient record OCR
+        doc = fitz.open(pdf_path)
+        full_text = ""
+        for page in doc:
+            full_text += page.get_text()
+        doc.close()
+
+        # Clean the text
+        cleaner = PatientRecordOCRCleaner()
+        cleaned_text = cleaner.clean_text(full_text)
+
+        # Save the cleaned text
+        with open(txt_path, 'w', encoding='utf-8') as f:
+            f.write(cleaned_text)
+
+        return str(txt_path)
+    except Exception as e:
+        st.error(f"Error in patient record OCR: {e}")
+        return None
+
+def process_patient_record_data(txt_path: str, patient_dir: str, data_dictionary: Dict[str, Any], prompt_path: str) -> Optional[Dict[str, Any]]:
+    """Process patient record text to extract structured data using process_patient_record module."""
+    try:
+        # Read the text file
+        with open(txt_path, 'r', encoding='utf-8') as f:
+            record_text = f.read()
+
+        # Load the prompt
+        with open(prompt_path, 'r', encoding='utf-8') as f:
+            prompt = f.read()
+
+        # Import process_patient_record module
+        sys.path.insert(0, str(kg_dir))
+        from process_patient_record import extract_patient_record
+
+        # Extract patient record using Gemini API
+        extracted_data = extract_patient_record(record_text, data_dictionary, prompt)
+
+        # Handle if the API returns a list instead of dict (extract first element if it's a list)
+        if isinstance(extracted_data, list):
+            if len(extracted_data) > 0:
+                patient_data = extracted_data[0] if isinstance(extracted_data[0], dict) else extracted_data
+            else:
+                st.error("Empty response from patient record extraction")
+                return None
+        elif isinstance(extracted_data, dict):
+            patient_data = extracted_data
+        else:
+            st.error(f"Unexpected data type from extraction: {type(extracted_data)}")
+            return None
+
+        # Ensure patient_data is a dictionary
+        if not isinstance(patient_data, dict):
+            st.error("Failed to extract patient data as dictionary")
+            return None
+
+        # Save the extracted data
+        patient_id = patient_data.get('patient_id', 'unknown')
+        patient_dir_path = Path(patient_dir).resolve()  # Ensure absolute path
+        json_path = patient_dir_path / f"Patient_data_{patient_id}.json"
+
+        with open(str(json_path), 'w', encoding='utf-8') as f:
+            json.dump(patient_data, f, indent=2)
+
+        return patient_data
+    except Exception as e:
+        st.error(f"Error processing patient record: {e}")
+        import traceback
+        st.error(traceback.format_exc())
+        return None
+
+def get_available_policies() -> Dict[str, Path]:
+    """Get all available policies from Run_Time_Policy directory."""
+    policies_dir = kg_dir / "Run_Time_Policy"
+    policies = {}
+
+    if policies_dir.exists():
+        for policy_folder in policies_dir.iterdir():
+            if policy_folder.is_dir():
+                policies[policy_folder.name] = policy_folder
+
+    return policies
+
+def load_policy_data(policy_dir: Path, policy_id: str) -> Optional[Dict[str, Any]]:
+    """Load policy data (SQL, conditions, data dictionary) from a policy folder."""
+    try:
+        policy_data = {
+            "policy_id": policy_id,
+            "sql_path": None,
+            "sql_content": None,
+            "policy_json": None,
+            "data_dictionary": None
+        }
+
+        # Load SQL file
+        sql_file = policy_dir / f"SQL_{policy_id}.txt"
+        if sql_file.exists():
+            with open(sql_file, 'r', encoding='utf-8') as f:
+                policy_data["sql_content"] = f.read()
+                policy_data["sql_path"] = str(sql_file)
+
+        # Load policy JSON
+        policy_json_file = policy_dir / f"Policy_{policy_id}.json"
+        if policy_json_file.exists():
+            with open(policy_json_file, 'r', encoding='utf-8') as f:
+                policy_data["policy_json"] = json.load(f)
+
+        # Load data dictionary
+        data_dict_file = policy_dir / f"Data_dictionary_{policy_id}.json"
+        if data_dict_file.exists():
+            with open(data_dict_file, 'r', encoding='utf-8') as f:
+                policy_data["data_dictionary"] = json.load(f)
+
+        return policy_data
+    except Exception as e:
+        st.error(f"Error loading policy data: {e}")
+        return None
+
+def patient_compliance_page():
+    """Patient Compliance Assessment Page - Process patient records and check policy compliance."""
+
+    # Header
+    st.markdown('<h1 class="main-header">👤 Patient Compliance Assessment</h1>', unsafe_allow_html=True)
+
+    st.markdown("""
+    <div class="info-box">
+    <h4>📋 About Patient Compliance</h4>
+    <p>This tool processes patient records and evaluates their compliance against selected medical policies:</p>
+    <ul>
+        <li><strong>Patient Record OCR:</strong> Extracts and cleans text from patient record PDFs</li>
+        <li><strong>Data Extraction:</strong> Extracts structured data from patient records using AI</li>
+        <li><strong>Policy Selection:</strong> Choose which policy to evaluate compliance against</li>
+        <li><strong>Compliance Analysis:</strong> Generate compliance assessment and visualizations</li>
+    </ul>
+    <p>All patient data is organized in <code>Run_Time_Patient/Patient_{patient_id}/</code></p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    # Sidebar
+    st.sidebar.title("📋 Compliance Options")
+
+    # Step 1: Policy Selection
+    st.markdown('<h2 class="section-header">1️⃣ Select Policy</h2>', unsafe_allow_html=True)
+
+    available_policies = get_available_policies()
+
+    if not available_policies:
+        st.error("❌ No policies found in Run_Time_Policy directory")
+        st.info("Please create at least one policy using the Policy Conversion page first.")
+        return
+
+    policy_names = sorted(list(available_policies.keys()))
+    selected_policy = st.selectbox(
+        "Choose a policy to evaluate against:",
+        policy_names,
+        key="patient_compliance_policy_selector"
+    )
+
+    if selected_policy:
+        policy_dir = available_policies[selected_policy]
+        policy_data = load_policy_data(policy_dir, selected_policy)
+
+        if policy_data:
+            st.success(f"✅ Policy selected: {selected_policy}")
+
+            # Display policy info
+            col1, col2, col3 = st.columns(3)
+            with col1:
+                if policy_data["data_dictionary"]:
+                    st.metric("📊 Fields", len(policy_data["data_dictionary"]))
+            with col2:
+                if policy_data["policy_json"]:
+                    st.metric("📋 Rules", len(policy_data["policy_json"]))
+            with col3:
+                st.metric("✅ Ready", "Yes")
+
+            # Step 2: Patient Record Upload
+            st.markdown('<h2 class="section-header">2️⃣ Upload Patient Record</h2>', unsafe_allow_html=True)
+
+            uploaded_file = st.file_uploader(
+                "Choose a patient record PDF file",
+                type="pdf",
+                help="Upload a patient record PDF to process",
+                key="patient_compliance_upload"
+            )
+
+            if uploaded_file is not None:
+                # Display file info
+                st.success(f"✅ File uploaded: {uploaded_file.name}")
+                st.info(f"📊 File size: {uploaded_file.size:,} bytes")
+
+                # Step 3: Processing Options
+                st.markdown('<h2 class="section-header">3️⃣ Processing Configuration</h2>', unsafe_allow_html=True)
+
+                col1, col2, col3 = st.columns(3)
+
+                with col1:
+                    auto_process = st.checkbox("Auto Process", value=True, help="Automatically process after upload")
+                    show_patient_kg = st.checkbox("Show Patient KG", value=True, help="Display patient knowledge graph")
+
+                with col2:
+                    show_compliance_kg = st.checkbox("Show Compliance KG", value=True, help="Display compliance assessment graph")
+
+                # Check if this file has already been processed (to prevent re-processing on checkbox changes)
+                current_file_id = f"{uploaded_file.name}_{uploaded_file.size}_{selected_policy}"
+                file_already_processed = (
+                    hasattr(st.session_state, 'last_processed_file_id') and
+                    st.session_state.last_processed_file_id == current_file_id
+                )
+
+                # Process button
+                should_process = (st.button("🚀 Process Patient Record", type="primary") or auto_process) and not file_already_processed
+
+                if should_process:
+
+                    # Create progress bar
+                    progress_bar = st.progress(0)
+                    status_text = st.empty()
+
+                    try:
+                        # Step 1: Create Run_Time_Patient folder structure
+                        status_text.text("📁 Setting up patient folder...")
+                        progress_bar.progress(5)
+
+                        runtime_patient_dir = kg_dir / "Run_Time_Patient"
+                        runtime_patient_dir.mkdir(exist_ok=True)
+
+                        # Extract patient ID from filename (or use a placeholder if not found)
+                        patient_id_candidate = Path(uploaded_file.name).stem
+                        # For now, we'll use the filename stem as patient ID
+                        patient_id = patient_id_candidate if patient_id_candidate and patient_id_candidate != "MR_2" else "patient_temp"
+
+                        # Create patient-specific folder
+                        patient_dir = runtime_patient_dir / f"Patient_{patient_id}"
+                        patient_dir.mkdir(exist_ok=True)
+
+                        st.success(f"✅ Patient folder created: {patient_dir}")
+
+                        # Step 2: Save uploaded file
+                        status_text.text("💾 Saving patient record PDF...")
+                        progress_bar.progress(10)
+
+                        pdf_path = patient_dir / uploaded_file.name
+                        with open(pdf_path, "wb") as f:
+                            f.write(uploaded_file.getbuffer())
+
+                        st.success(f"✅ PDF saved: {pdf_path}")
+
+                        # Step 3: Run patient record OCR
+                        status_text.text("🔍 Running patient record OCR...")
+                        progress_bar.progress(25)
+
+                        txt_path = run_patient_record_ocr(str(pdf_path), str(patient_dir))
+                        if txt_path:
+                            st.success(f"✅ OCR complete: {txt_path}")
+                        else:
+                            st.error("❌ Failed to extract text from patient record")
+                            return
+
+                        # Display extracted text preview
+                        with st.expander("📄 View Extracted Text (Preview)", expanded=False):
+                            with open(txt_path, 'r', encoding='utf-8') as f:
+                                preview_text = f.read()[:2000]
+                            st.text_area("Extracted Text", preview_text, height=200)
+
+                        progress_bar.progress(40)
+
+                        # Step 4: Process patient record data
+                        status_text.text("🤖 Processing patient record data...")
+                        progress_bar.progress(50)
+
+                        # Check if patient data is already cached in session state (to prevent re-running Gemini on checkbox changes)
+                        # Note: current_file_id is already defined at line 617 above
+                        if (hasattr(st.session_state, 'patient_compliance_data') and
+                            st.session_state.patient_compliance_data.get('selected_policy') == selected_policy and
+                            st.session_state.patient_compliance_data.get('file_id') == current_file_id):
+                            # Reuse cached data
+                            patient_data = st.session_state.patient_compliance_data['patient_data']
+                            patient_dir = Path(st.session_state.patient_compliance_data['patient_dir'])
+                            st.info("ℹ️ Using cached patient data (no re-extraction needed)")
+                            st.success("✅ Patient record processed successfully (cached)")
+                        else:
+                            # Check if we have a prompt file for patient record extraction
+                            patient_prompt_path = kg_dir / "prompts" / "Patient_Record_Parser" / "0.txt"
+
+                            if patient_prompt_path.exists() and policy_data["data_dictionary"]:
+                                # Debug info
+                                st.info(f"📋 Using data dictionary from policy: {selected_policy}")
+                                st.info(f"📄 Using prompt: {patient_prompt_path.name}")
+
+                                patient_data = process_patient_record_data(
+                                    txt_path,
+                                    str(patient_dir),
+                                    policy_data["data_dictionary"],
+                                    str(patient_prompt_path)
+                                )
+
+                            else:
+                                patient_data = None
+
+                            if patient_data:
+                                st.success("✅ Patient record processed successfully")
+
+                                # Update patient_id if extracted from data
+                                extracted_patient_id = patient_data.get('patient_id', patient_id)
+                                if extracted_patient_id and extracted_patient_id != patient_id:
+                                    # Remove all special characters, keep alphanumeric only
+                                    patient_id = re.sub(r'[^a-zA-Z0-9]', '', str(extracted_patient_id))
+                                    # Rename folder if patient ID changed
+                                    new_patient_dir = runtime_patient_dir / f"Patient_{patient_id}"
+
+                                    # Move files from old directory to new directory
+                                    if new_patient_dir != patient_dir:
+                                        try:
+                                            # Create new directory if it doesn't exist
+                                            new_patient_dir.mkdir(exist_ok=True)
+
+                                            # Move all files from old to new directory
+                                            for item in patient_dir.iterdir():
+                                                if item.is_file():
+                                                    shutil.move(str(item), str(new_patient_dir / item.name))
+
+                                            # Remove old empty directory
+                                            if patient_dir != new_patient_dir and list(patient_dir.iterdir()) == []:
+                                                patient_dir.rmdir()
+
+                                            patient_dir = new_patient_dir
+                                            st.success(f"✅ Patient folder renamed to: {patient_dir.name}")
+
+                                            # Rename JSON file to match new patient_id
+                                            old_json = list(patient_dir.parent.glob(f"Patient_data_*.json"))
+                                            if old_json:
+                                                old_json_path = old_json[0]
+                                                new_json_path = patient_dir / f"Patient_data_{patient_id}.json"
+                                                shutil.move(str(old_json_path), str(new_json_path))
+                                                st.success(f"✅ Patient data file renamed")
+                                        except Exception as e:
+                                            st.warning(f"⚠️ Could not rename folder: {e}")
+                                            # Continue with processing even if rename fails
+
+                                # Display extracted data
+                                with st.expander("📊 Extracted Patient Data", expanded=True):
+                                    st.json(patient_data)
+                            else:
+                                st.error("❌ Failed to process patient record")
+                                st.info("💡 Troubleshooting tips:")
+                                st.write("- Check if the data dictionary format is correct")
+                                st.write("- Check if the prompt file is appropriate for this data dictionary")
+                                st.write("- Verify the patient record PDF contains relevant information")
+                                return
+
+                        progress_bar.progress(60)
+
+                        # Store patient data in session state to prevent re-processing on checkbox changes
+                        # Include file_id to ensure cache is only used for the SAME uploaded file
+                        st.session_state.patient_compliance_data = {
+                            'patient_dir': str(patient_dir),
+                            'patient_data': patient_data,
+                            'selected_policy': selected_policy,
+                            'file_id': current_file_id
+                        }
+                        st.session_state.show_compliance_kg_options = True
+
+                        # Step 5: Configure Regeneration Options
+                        st.markdown('<h2 class="section-header">4️⃣ Regeneration Options</h2>', unsafe_allow_html=True)
+
+                        force_regenerate = st.checkbox("Force Regenerate", value=False, help="Regenerate KGs even if files exist", key="force_regenerate_checkbox")
+
+                        # Fixed text display settings
+                        show_patient_kg_text = False  # Patient KG without text
+                        show_compliance_kg_text = True  # Compliance KG with text
+
+                        # Step 6: Generate Knowledge Graphs
+                        # Check if KGs have already been generated for this patient (avoiding re-generation on checkbox toggle)
+                        # Include patient_dir in the key to ensure KGs are only generated once per patient+policy combination
+                        kg_generation_key = f"kg_generated_{patient_id}_{selected_policy}"
+
+                        if kg_generation_key not in st.session_state or force_regenerate:
+                            status_text.text("🎨 Generating knowledge graphs...")
+
+                            # Patient KG - Generate BOTH text and no-text versions
+                            if show_patient_kg and patient_data:
+                                with st.spinner("Generating Patient KG (both versions)..."):
+                                    # Generate text version
+                                    generate_patient_kg(patient_data, str(patient_dir), show_plot=False, show_text=True, force_regenerate=force_regenerate)
+                                    # Generate no-text version
+                                    generate_patient_kg(patient_data, str(patient_dir), show_plot=False, show_text=False, force_regenerate=force_regenerate)
+                                    st.success("✅ Patient KG generated (both versions)")
+                                progress_bar.progress(80)
+
+                            # Compliance KG - Generate BOTH text and no-text versions
+                            if show_compliance_kg and patient_data and policy_data["policy_json"]:
+                                with st.spinner("Generating Compliance Assessment (both versions)..."):
+                                    # Generate text version
+                                    generate_patient_rule_kg(
+                                        patient_data,
+                                        str(patient_dir),
+                                        show_plot=False,
+                                        policy_id=selected_policy,
+                                        policy_sql=policy_data["sql_content"],
+                                        policy_json=policy_data["policy_json"],
+                                        show_text=True,
+                                        force_regenerate=force_regenerate
+                                    )
+                                    # Generate no-text version
+                                    generate_patient_rule_kg(
+                                        patient_data,
+                                        str(patient_dir),
+                                        show_plot=False,
+                                        policy_id=selected_policy,
+                                        policy_sql=policy_data["sql_content"],
+                                        policy_json=policy_data["policy_json"],
+                                        show_text=False,
+                                        force_regenerate=force_regenerate
+                                    )
+                                    st.success("✅ Compliance assessment generated (both versions)")
+                                progress_bar.progress(90)
+
+                            # Mark KGs as generated for this policy
+                            st.session_state[kg_generation_key] = True
+                        else:
+                            st.info("✅ Using previously generated knowledge graphs")
+                            progress_bar.progress(90)
+
+                        # Step 7: Determine which plots to display based on checkbox state
+                        generated_plots = {}
+
+                        # Patient KG - select based on checkbox
+                        if show_patient_kg and patient_data:
+                            patient_kg_filename = "patient_kg_text_interactive.html" if show_patient_kg_text else "patient_kg_interactive.html"
+                            patient_kg_path = Path(patient_dir) / patient_kg_filename
+                            if patient_kg_path.exists():
+                                generated_plots["Patient KG"] = str(patient_kg_path)
+
+                        # Compliance KG - select based on checkbox
+                        if show_compliance_kg and patient_data and policy_data["policy_json"]:
+                            compliance_kg_filename = f"patient_rule_kg_{selected_policy}_text.html" if show_compliance_kg_text else f"patient_rule_kg_{selected_policy}.html"
+                            compliance_kg_path = Path(patient_dir) / compliance_kg_filename
+                            if compliance_kg_path.exists():
+                                generated_plots["Compliance Assessment"] = str(compliance_kg_path)
+
+                        progress_bar.progress(100)
+                        status_text.text("✅ Processing complete!")
+
+                        # Step 8: Display Results
+                        st.markdown('<h2 class="section-header">📊 Results</h2>', unsafe_allow_html=True)
+
+                        if generated_plots:
+                            # Create tabs for different plots
+                            tab_names = list(generated_plots.keys())
+                            tabs = st.tabs(tab_names)
+
+                            for i, (plot_name, plot_path) in enumerate(generated_plots.items()):
+                                with tabs[i]:
+                                    st.subheader(f"{plot_name}")
+
+                                    if os.path.exists(plot_path):
+                                        # Check if it's an HTML file (interactive) or image file (static)
+                                        if plot_path.endswith('.html'):
+                                            # Display interactive HTML plot
+                                            with open(plot_path, 'r', encoding='utf-8') as f:
+                                                html_content = f.read()
+                                            st.components.v1.html(html_content, height=900, scrolling=True)
+
+                                            # Download button for HTML
+                                            with open(plot_path, "rb") as file:
+                                                st.download_button(
+                                                    label=f"📥 Download {plot_name} (HTML)",
+                                                    data=file.read(),
+                                                    file_name=os.path.basename(plot_path),
+                                                    mime="text/html",
+                                                    key=f"download_{plot_name}_{patient_id}"
+                                                )
+                                        else:
+                                            # Display image plot
+                                            st.image(plot_path, use_container_width=True)
+
+                                            # Download button for image
+                                            with open(plot_path, "rb") as file:
+                                                st.download_button(
+                                                    label=f"📥 Download {plot_name}",
+                                                    data=file.read(),
+                                                    file_name=os.path.basename(plot_path),
+                                                    mime="image/png",
+                                                    key=f"download_{plot_name}_{patient_id}"
+                                                )
+                                    else:
+                                        st.error(f"Plot file not found: {plot_path}")
+
+                        # Step 9: Display Policy Information
+                        st.markdown('<h2 class="section-header">📋 Policy Information</h2>', unsafe_allow_html=True)
+
+                        with st.expander("View SQL Query", expanded=False):
+                            if policy_data["sql_content"]:
+                                st.code(policy_data["sql_content"], language='sql')
+                            else:
+                                st.info("SQL query not available")
+
+                        with st.expander("View Policy JSON", expanded=False):
+                            if policy_data["policy_json"]:
+                                st.json(policy_data["policy_json"])
+                            else:
+                                st.info("Policy JSON not available")
+
+                        # Step 10: File Organization
+                        st.markdown('<h2 class="section-header">📁 Generated Files</h2>', unsafe_allow_html=True)
+
+                        if st.button("📂 Show Patient Files"):
+                            st.info(f"Patient files are saved in: {patient_dir}")
+
+                            # List files in patient directory
+                            patient_files = list(patient_dir.glob("*"))
+                            if patient_files:
+                                st.write("**Files in patient folder:**")
+                                for file_path in sorted(patient_files):
+                                    file_size = file_path.stat().st_size
+                                    st.write(f"- {file_path.name} ({file_size:,} bytes)")
+                            else:
+                                st.write("No files found in patient folder.")
+
+                        # Mark this file as processed to prevent re-processing on checkbox changes
+                        st.session_state.last_processed_file_id = current_file_id
+
+                    except Exception as e:
+                        st.error(f"❌ Error during processing: {e}")
+                        import traceback
+                        st.error(traceback.format_exc())
+                        progress_bar.progress(0)
+                        status_text.text("❌ Processing failed")
+
+            else:
+                # Instructions when no file is uploaded
+                st.markdown("""
+                <div class="info-box">
+                <h3>📋 How to use this page:</h3>
+                <ol>
+                    <li><strong>Select Policy:</strong> Choose a policy to evaluate compliance against (from Policy Conversion)</li>
+                    <li><strong>Upload Patient Record:</strong> Click the file uploader to select a patient record PDF</li>
+                    <li><strong>Configure Options:</strong> Choose which visualizations to generate</li>
+                    <li><strong>Process:</strong> Click "Process Patient Record" or enable "Auto Process"</li>
+                    <li><strong>View Results:</strong> Examine compliance assessment and knowledge graphs</li>
+                </ol>
+
+                <h4>📁 Folder Structure:</h4>
+                <p>All patient records are organized in: <code>Run_Time_Patient/Patient_{patient_id}/</code></p>
+                <ul>
+                    <li>Original patient record PDF</li>
+                    <li>Extracted and cleaned text file</li>
+                    <li>Structured patient data (JSON)</li>
+                    <li>Patient knowledge graph visualizations</li>
+                    <li>Compliance assessment visualizations</li>
+                </ul>
+                </div>
+                """, unsafe_allow_html=True)
+        else:
+            st.error("Failed to load policy data")
 
 def medical_record_page():
     """Medical Record Processing Page."""
@@ -677,14 +1105,10 @@ def medical_record_page():
 
                 st.success("✅ Files organized in patient folder")
 
-                # Step 6.5: Add patient to database
-                status_text.text("💾 Adding patient to database...")
-                progress_bar.progress(58)
-
-                if add_patient_to_database(patient_data):
-                    st.success("✅ Patient added to database")
-                else:
-                    st.warning("⚠️ Failed to add patient to database")
+                # Store in session state to prevent re-processing on checkbox changes
+                st.session_state.patient_dir = str(patient_dir)
+                st.session_state.patient_data = patient_data
+                st.session_state.show_kg_options = True
 
                 # Step 7: Generate knowledge graphs
                 status_text.text("🎨 Generating knowledge graphs...")
@@ -735,16 +1159,35 @@ def medical_record_page():
                             st.subheader(f"{plot_name}")
 
                             if os.path.exists(plot_path):
-                                st.image(plot_path, use_container_width=True)
+                                # Check if it's an HTML file (interactive) or image file (static)
+                                if plot_path.endswith('.html'):
+                                    # Display interactive HTML plot
+                                    with open(plot_path, 'r', encoding='utf-8') as f:
+                                        html_content = f.read()
+                                    st.components.v1.html(html_content, height=900, scrolling=True)
 
-                                # Download button
-                                with open(plot_path, "rb") as file:
-                                    st.download_button(
-                                        label=f"📥 Download {plot_name}",
-                                        data=file.read(),
-                                        file_name=os.path.basename(plot_path),
-                                        mime="image/png"
-                                    )
+                                    # Download button for HTML
+                                    with open(plot_path, "rb") as file:
+                                        st.download_button(
+                                            label=f"📥 Download {plot_name} (HTML)",
+                                            data=file.read(),
+                                            file_name=os.path.basename(plot_path),
+                                            mime="text/html",
+                                            key=f"download_{plot_name}_med"
+                                        )
+                                else:
+                                    # Display image plot
+                                    st.image(plot_path, use_container_width=True)
+
+                                    # Download button for image
+                                    with open(plot_path, "rb") as file:
+                                        st.download_button(
+                                            label=f"📥 Download {plot_name}",
+                                            data=file.read(),
+                                            file_name=os.path.basename(plot_path),
+                                            mime="image/png",
+                                            key=f"download_{plot_name}_med"
+                                        )
                             else:
                                 st.error(f"Plot file not found: {plot_path}")
                 else:
@@ -1202,197 +1645,6 @@ def policy_conversion_page():
         </div>
         """, unsafe_allow_html=True)
 
-def sql_queries_page():
-    """SQL Queries and Database Management Page."""
-
-    # Header
-    st.markdown('<h1 class="main-header">🗄️ SQL Queries & Database Management</h1>', unsafe_allow_html=True)
-
-    # Sidebar
-    st.sidebar.title("📊 Database Options")
-
-    # Check if database exists
-    db_path = get_database_path()
-    if not os.path.exists(db_path):
-        st.error(f"❌ Database not found: {db_path}")
-        st.info("Please ensure the database exists before using SQL queries.")
-        return
-
-    st.success(f"✅ Database found: {db_path}")
-
-    # Main content
-    st.markdown('<h2 class="section-header">📋 Available Operations</h2>', unsafe_allow_html=True)
-
-    # Create tabs for different operations
-    tab1, tab2, tab3 = st.tabs(["📊 View All Data", "🔍 Run Policy Filters", "🗑️ Delete Patient"])
-
-    with tab1:
-        st.markdown('<h3 class="section-header">View All Patient Data</h3>', unsafe_allow_html=True)
-        st.write("Display all patient records in the database. Duplicates are automatically removed before displaying data.")
-
-        if st.button("📊 Load All Patient Data (Auto-Remove Duplicates)", type="primary"):
-            with st.spinner("Loading patient data and removing duplicates..."):
-                df = get_all_patients()
-
-                if df is not None and not df.empty:
-                    st.success(f"✅ Loaded {len(df)} patient records (duplicates automatically removed)")
-
-                    # Display basic statistics
-                    col1, col2 = st.columns(2)
-                    with col1:
-                        st.metric("Total Patients", len(df))
-                    with col2:
-                        st.metric("Database Size", f"{os.path.getsize(db_path):,} bytes")
-
-                    # Display the data
-                    st.markdown('<h4 class="section-header">Patient Data Table</h4>', unsafe_allow_html=True)
-                    st.dataframe(df, use_container_width=True)
-
-                    # Download options
-                    col1, col2 = st.columns(2)
-                    with col1:
-                        csv = df.to_csv(index=False)
-                        st.download_button(
-                            label="📥 Download as CSV",
-                            data=csv,
-                            file_name="patient_data.csv",
-                            mime="text/csv"
-                        )
-                    with col2:
-                        json_data = df.to_json(orient='records', indent=2)
-                        st.download_button(
-                            label="📥 Download as JSON",
-                            data=json_data,
-                            file_name="patient_data.json",
-                            mime="application/json"
-                        )
-                else:
-                    st.warning("No patient data found in the database.")
-
-    with tab2:
-        st.markdown('<h3 class="section-header">Run Policy SQL Filters</h3>', unsafe_allow_html=True)
-        st.write("Execute the policy SQL filter to find patients who meet the bariatric surgery criteria.")
-
-        # Show the SQL query
-        sql_path = kg_dir / "test1" / "Policy_CGSURG83" / "SQL_CGSURG83.txt"
-        if os.path.exists(sql_path):
-            with st.expander("📄 View SQL Query", expanded=False):
-                with open(sql_path, 'r', encoding='utf-8') as f:
-                    sql_query = f.read()
-                st.code(sql_query, language='sql')
-
-        if st.button("🔍 Run Policy Filter", type="primary"):
-            with st.spinner("Running policy SQL filter..."):
-                df = run_policy_sql_filter()
-
-                if df is not None and not df.empty:
-                    st.success(f"✅ Found {len(df)} patients meeting policy criteria")
-
-                    # Display basic statistics
-                    st.metric("Eligible Patients", len(df))
-
-                    # Display the filtered data
-                    st.markdown('<h4 class="section-header">Eligible Patients</h4>', unsafe_allow_html=True)
-                    st.dataframe(df, use_container_width=True)
-
-                    # Download options
-                    col1, col2 = st.columns(2)
-                    with col1:
-                        csv = df.to_csv(index=False)
-                        st.download_button(
-                            label="📥 Download as CSV",
-                            data=csv,
-                            file_name="eligible_patients.csv",
-                            mime="text/csv"
-                        )
-                    with col2:
-                        json_data = df.to_json(orient='records', indent=2)
-                        st.download_button(
-                            label="📥 Download as JSON",
-                            data=json_data,
-                            file_name="eligible_patients.json",
-                            mime="application/json"
-                        )
-                else:
-                    st.warning("No patients found meeting the policy criteria.")
-
-    with tab3:
-        st.markdown('<h3 class="section-header">Delete Specific Patient</h3>', unsafe_allow_html=True)
-        st.write("Delete a specific patient record from the database. You can either type the patient ID or select from the table below.")
-
-        # Load and display current patients
-        with st.spinner("Loading current patients..."):
-            df = get_all_patients()
-
-            if df is not None and not df.empty:
-                st.success(f"Found {len(df)} patients in database")
-
-                # Display the patient table
-                st.markdown('<h4 class="section-header">Current Patients</h4>', unsafe_allow_html=True)
-                st.dataframe(df, use_container_width=True)
-
-                # Get patient IDs for selection
-                patient_ids = df['patient_id'].tolist() if 'patient_id' in df.columns else []
-
-                if patient_ids:
-                    st.markdown("---")
-                    st.markdown("**Select Patient to Delete:**")
-
-                    # Single dropdown selection
-                    patient_id_to_delete = st.selectbox(
-                        "Choose Patient ID:",
-                        options=[""] + patient_ids,
-                        help="Select a patient ID from the dropdown"
-                    )
-
-                    if patient_id_to_delete:
-                        # Show patient details before deletion
-                        patient_data = df[df['patient_id'] == patient_id_to_delete]
-
-                        if not patient_data.empty:
-                            st.markdown("---")
-                            st.markdown("**Patient Details to be Deleted:**")
-                            st.dataframe(patient_data, use_container_width=True)
-
-                            # Show confirmation
-                            st.warning(f"⚠️ You are about to delete patient: **{patient_id_to_delete}**")
-                            st.write("This action cannot be undone!")
-
-                            col1, col2 = st.columns(2)
-                            with col1:
-                                if st.button("🗑️ Confirm Delete", type="primary"):
-                                    with st.spinner("Deleting patient..."):
-                                        if delete_patient_by_id(patient_id_to_delete):
-                                            st.success(f"✅ Patient {patient_id_to_delete} deleted successfully!")
-                                            st.rerun()  # Refresh the page
-                                        else:
-                                            st.error(f"❌ Failed to delete patient {patient_id_to_delete}")
-
-                            with col2:
-                                if st.button("❌ Cancel", type="secondary"):
-                                    st.info("Deletion cancelled")
-                        else:
-                            st.error(f"Patient ID '{patient_id_to_delete}' not found in the current data")
-                else:
-                    st.warning("No patient IDs found in the data")
-            else:
-                st.warning("No patients found in the database")
-
-    # Database info section
-    st.markdown('<h2 class="section-header">ℹ️ Database Information</h2>', unsafe_allow_html=True)
-
-    col1, col2 = st.columns(2)
-    with col1:
-        st.info(f"**Database Path:** `{db_path}`")
-        st.info(f"**Database Size:** {os.path.getsize(db_path):,} bytes")
-
-    with col2:
-        st.info(f"**SQL File:** `{sql_path}`")
-        if os.path.exists(sql_path):
-            st.success("✅ SQL file found")
-        else:
-            st.error("❌ SQL file not found")
-
 def policy_gallery_page():
     """Display available policies with interactive KG visualization."""
     st.markdown('<h1 class="main-header">📚 Policy Gallery</h1>', unsafe_allow_html=True)
@@ -1588,7 +1840,7 @@ def main():
     st.sidebar.title("🏥 Medical KG App")
     page = st.sidebar.selectbox(
         "Choose a page:",
-        ["📚 Policy Gallery", "📄 Medical Records", "📋 Policy Conversion", "🗄️ SQL Queries"]
+        ["📚 Policy Gallery", "📄 Medical Records", "📋 Policy Conversion", "👤 Patient Compliance"]
     )
 
     # Route to appropriate page
@@ -1598,8 +1850,8 @@ def main():
         medical_record_page()
     elif page == "📋 Policy Conversion":
         policy_conversion_page()
-    elif page == "🗄️ SQL Queries":
-        sql_queries_page()
+    elif page == "👤 Patient Compliance":
+        patient_compliance_page()
 
 if __name__ == "__main__":
     main()

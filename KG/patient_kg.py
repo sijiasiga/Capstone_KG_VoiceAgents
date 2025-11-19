@@ -190,20 +190,20 @@ class PatientKGVisualizer:
     def create_patient_record_graph(self) -> None:
         """Create graph from patient record data."""
         patient_id = self.json_data.get('patient_id', 'Unknown')
-        
+
         # Add patient node
         self.graph.add_node(patient_id, type='patient', **self.json_data)
         self.node_colors[patient_id] = self.color_schemes['patient']
-        self.node_sizes[patient_id] = 1000
+        self.node_sizes[patient_id] = 25
         self.node_labels[patient_id] = f"Patient {patient_id}"
-        
+
         # Add attribute nodes
         for key, value in self.json_data.items():
             if key != 'patient_id':
                 attr_id = f"{patient_id}_{key}"
                 self.graph.add_node(attr_id, type='attribute', field=key, value=value)
                 self.graph.add_edge(patient_id, attr_id, relation='has_attribute')
-                
+
                 # Color based on value type
                 if isinstance(value, bool):
                     self.node_colors[attr_id] = '#90EE90' if value else '#FFB6C1'
@@ -211,8 +211,8 @@ class PatientKGVisualizer:
                     self.node_colors[attr_id] = '#87CEEB'
                 else:
                     self.node_colors[attr_id] = self.color_schemes['data_field']
-                
-                self.node_sizes[attr_id] = 500
+
+                self.node_sizes[attr_id] = 15
                 
                 # Enrich labels with code descriptions
                 enriched_value = self.enrich_with_code_descriptions(str(value))
@@ -469,8 +469,18 @@ class PatientKGVisualizer:
         if not no_show:
             plt.show()
     
-    def create_plotly_visualization(self, layout: str = 'spring', output_file: Optional[str] = None, input_file_path: Optional[str] = None) -> None:
-        """Create an interactive Plotly visualization of the knowledge graph."""
+    def create_plotly_visualization(self, layout: str = 'spring', output_file: Optional[str] = None, input_file_path: Optional[str] = None, show_text: bool = True) -> Optional[str]:
+        """Create an interactive Plotly visualization of the knowledge graph.
+
+        Args:
+            layout: Layout algorithm ('spring', 'circular')
+            output_file: Output file path prefix
+            input_file_path: Input file path for directory reference
+            show_text: Whether to show text labels on nodes (default: True)
+
+        Returns:
+            Path to the saved HTML file
+        """
         # Choose layout
         if layout == 'spring':
             pos = nx.spring_layout(self.graph, k=3, iterations=50)
@@ -478,21 +488,21 @@ class PatientKGVisualizer:
             pos = nx.circular_layout(self.graph)
         else:
             pos = nx.spring_layout(self.graph)
-        
+
         # Prepare data for Plotly
         edge_x = []
         edge_y = []
         edge_info = []
-        
+
         for edge in self.graph.edges():
             x0, y0 = pos[edge[0]]
             x1, y1 = pos[edge[1]]
             edge_x.extend([x0, x1, None])
             edge_y.extend([y0, y1, None])
-            
+
             edge_data = self.graph.edges[edge]
             edge_info.append(f"Relation: {edge_data.get('relation', 'related')}")
-        
+
         # Create edge trace
         edge_trace = go.Scatter(
             x=edge_x, y=edge_y,
@@ -500,7 +510,7 @@ class PatientKGVisualizer:
             hoverinfo='none',
             mode='lines'
         )
-        
+
         # Prepare node data
         node_x = []
         node_y = []
@@ -508,17 +518,17 @@ class PatientKGVisualizer:
         node_hover = []
         node_colors = []
         node_sizes = []
-        
+
         for node in self.graph.nodes():
             x, y = pos[node]
             node_x.append(x)
             node_y.append(y)
-            
+
             node_data = self.graph.nodes[node]
             node_text.append(self.node_labels.get(node, node))
-            node_hover.append(f"<b>{node}</b><br>" + 
+            node_hover.append(f"<b>{node}</b><br>" +
                             "<br>".join([f"{k}: {v}" for k, v in node_data.items() if k != 'type']))
-            
+
             # Convert color to RGB
             color = self.node_colors.get(node, self.color_schemes['default'])
             if color.startswith('#'):
@@ -526,24 +536,27 @@ class PatientKGVisualizer:
                 node_colors.append(f'rgb({rgb[0]},{rgb[1]},{rgb[2]})')
             else:
                 node_colors.append('rgb(176,176,176)')
-            
+
             node_sizes.append(self.node_sizes.get(node, 20))
-        
-        # Create node trace
+
+        # Create node trace - optionally show text labels
+        mode = 'markers+text' if show_text else 'markers'
         node_trace = go.Scatter(
             x=node_x, y=node_y,
-            mode='markers+text',
-            hoverinfo='text',
-            text=node_text,
+            mode=mode,
+            text=node_text if show_text else [],
             textposition="middle center",
+            textfont=dict(size=8, color='black'),
+            hoverinfo='text',
             hovertext=node_hover,
             marker=dict(
                 size=node_sizes,
                 color=node_colors,
-                line=dict(width=2, color='black')
-            )
+                line=dict(width=2, color='white')
+            ),
+            showlegend=False
         )
-        
+
         # Determine title based on data structure
         structure_type = self.detect_data_structure()
         if structure_type == 'patient_record':
@@ -554,12 +567,11 @@ class PatientKGVisualizer:
             title = 'Data Dictionary KG'
         else:
             title = 'Interactive Knowledge Graph'
-        
+
         # Create figure
         fig = go.Figure(data=[edge_trace, node_trace],
                        layout=go.Layout(
-                           title=title,
-                           titlefont_size=16,
+                           title=dict(text=title, font=dict(size=16)),
                            showlegend=False,
                            hovermode='closest',
                            margin=dict(b=20,l=5,r=5,t=40),
@@ -575,24 +587,24 @@ class PatientKGVisualizer:
                            yaxis=dict(showgrid=False, zeroline=False, showticklabels=False),
                            plot_bgcolor='white'
                        ))
-        
+
         # Save the interactive plot
         if output_file:
             output_filename = f"{output_file}.html"
         else:
             output_filename = f"patient_kg_{layout}_interactive.html"
-        
+
         # Determine output directory (same as input file if provided)
         if input_file_path:
             output_dir = os.path.dirname(os.path.abspath(input_file_path))
             output_path = os.path.join(output_dir, output_filename)
         else:
             output_path = output_filename
-            
+
         fig.write_html(output_path)
         print(f"📊 Interactive knowledge graph saved as: {output_path}")
-        
-        fig.show()
+
+        return output_path
     
     def print_graph_summary(self) -> None:
         """Print a summary of the knowledge graph."""
