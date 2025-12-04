@@ -23,7 +23,9 @@ try:
         parse_intent_llm, parse_intent_rules
     )
     from VoiceAgents_langgraph.utils import stt_transcribe, now_iso
-    from VoiceAgents_langgraph.utils.logging_utils import log_orchestration
+    from VoiceAgents_langgraph.utils.logging_utils import (
+        log_orchestration, setup_console_logging, log_turn_summary
+    )
 except Exception as e:
     st.error(f"Failed to import LangGraph workflow: {e}")
     st.stop()
@@ -43,7 +45,28 @@ ORCH_LOG = LOG_DIR / "orchestration_log.jsonl"
 
 def process_message(user_text: str, patient_id: str, voice_enabled: bool, session_id: str):
     """Process user message through LangGraph workflow"""
+    # Set up console logging on first call
+    if not hasattr(st.session_state, '_console_logging_setup'):
+        setup_console_logging()
+        st.session_state._console_logging_setup = True
+    
     st.session_state.chat.append({"role": "user", "text": user_text})
+    
+    # Initialize turn_index if not exists
+    if "turn_index" not in st.session_state:
+        st.session_state.turn_index = 0
+    
+    user_turn_idx = st.session_state.turn_index * 2  # User turns are even (0, 2, 4...)
+    
+    # Log user turn to conversation_log.txt
+    log_turn_summary(
+        timestamp=now_iso(),
+        conversation_id=session_id,
+        turn_index=user_turn_idx,
+        role="user",
+        message=user_text,
+        input_channel="typed",  # Streamlit input is typed
+    )
 
     intent_info = {}
     try:
@@ -82,6 +105,45 @@ def process_message(user_text: str, patient_id: str, voice_enabled: bool, sessio
             "pid": detected_pid
         })
 
+        # Determine which agent responded
+        intent = final_state.get("intent", "help")
+        agent_name = intent if intent in ["appointment", "followup", "medication", "caregiver", "help"] else "help"
+        
+        # Extract provider/model info from log_entry if available
+        log_entry_data = final_state.get("log_entry", {})
+        provider = log_entry_data.get("provider")
+        model = log_entry_data.get("model")
+        actions = log_entry_data.get("actions", {})
+        policies = log_entry_data.get("policies", {})
+        latency_ms = log_entry_data.get("latency_ms")
+        
+        assistant_turn_idx = st.session_state.turn_index * 2 + 1  # Assistant turns are odd (1, 3, 5...)
+        
+        # TTS is not used in Streamlit (voice_enabled is False by default)
+        tts_backend = None
+        tts_used = 0
+        
+        # Log assistant turn to conversation_log.txt
+        log_turn_summary(
+            timestamp=now_iso(),
+            conversation_id=session_id,
+            turn_index=assistant_turn_idx,
+            role="assistant",
+            agent=agent_name,
+            provider=provider,
+            model=model,
+            message=reply,
+            actions=actions,
+            policies=policies,
+            used_llm=1 if (provider and model) else 0,
+            latency_ms=latency_ms,
+            tts_used=tts_used,
+            tts_backend=tts_backend,
+        )
+        
+        # Increment turn index for next turn
+        st.session_state.turn_index += 1
+
         log_entry = {
             "ts": now_iso(),
             "agent": "OrchestrationAgent",
@@ -90,7 +152,7 @@ def process_message(user_text: str, patient_id: str, voice_enabled: bool, sessio
             "intent": final_state.get("intent"),
             "patient_id": final_state.get("patient_id"),
             "routed_reply": reply,
-            "log_entry": final_state.get("log_entry")
+            "log_entry": log_entry_data
         }
         log_orchestration(log_entry)
 
@@ -102,6 +164,19 @@ def process_message(user_text: str, patient_id: str, voice_enabled: bool, sessio
             "intent": "error",
             "pid": detected_pid
         })
+        
+        error_turn_idx = st.session_state.turn_index * 2 + 1
+        
+        # Log error turn to conversation_log.txt
+        log_turn_summary(
+            timestamp=now_iso(),
+            conversation_id=session_id,
+            turn_index=error_turn_idx,
+            role="system",
+            agent="error",
+            error=str(e),
+        )
+        
         st.error(error_msg)
 
     st.rerun()
@@ -137,33 +212,70 @@ st.markdown("""
          font-weight: 600;
          padding: 0.75rem;
          transition: all 0.2s;
-         border: 2px solid #1d4ed8 !important; /* blue outline */
+         border: 2px solid #6366f1 !important; /* indigo/purple outline */
          outline: none !important;
      }
      
      .stButton > button[kind="primary"] {
-         background: linear-gradient(135deg, #2563eb, #1d4ed8);
+         background: linear-gradient(135deg, #6366f1, #4f46e5);
          color: white;
-         box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+         box-shadow: 0 4px 12px rgba(99, 102, 241, 0.25);
      }
      
      .stButton > button[kind="primary"]:focus {
          outline: none !important;
-         box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.35);
+         box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.35);
      }
      
      .stTextInput input {
          border-radius: 10px !important;
-         border: 2px solid #2563eb !important; /* blue outline */
+         border: 2px solid #6366f1 !important; /* indigo/purple outline */
          padding: 1rem !important;
          font-size: 1rem !important;
          outline: none !important;
          box-shadow: none !important;
      }
      .stTextInput input:focus {
-         border-color: #2563eb !important;
-         box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15) !important;
+         border-color: #6366f1 !important;
+         box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15) !important;
          outline: none !important;
+     }
+     
+     /* Force remove all red borders - override all validation states */
+     input,
+     input[type="text"],
+     input[data-testid="textInput"],
+     input:invalid,
+     input:valid,
+     input:required,
+     input:optional,
+     input:focus,
+     input:active,
+     input:focus:invalid,
+     input:focus:valid,
+     input:active:invalid,
+     input:active:valid,
+     input[aria-invalid="true"],
+     input[aria-invalid="false"],
+     .stTextInput input,
+     .stTextInput input:invalid,
+     .stTextInput input:valid,
+     .stTextInput input:focus,
+     .stTextInput input:active,
+     .stTextInput input:focus:invalid,
+     .stTextInput input:active:invalid {
+         border-color: #6366f1 !important;
+         box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15) !important;
+         outline: none !important;
+     }
+     
+     /* Remove browser default validation styling */
+     input:-webkit-autofill,
+     input:-webkit-autofill:hover,
+     input:-webkit-autofill:focus {
+         border-color: #6366f1 !important;
+         -webkit-box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15) !important;
+         box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15) !important;
      }
     
     .stChatMessage {
@@ -179,7 +291,7 @@ st.markdown("""
     }
     
     .recording-indicator {
-        background: linear-gradient(135deg, #ef4444, #dc2626);
+        background: linear-gradient(135deg, #a855f7, #9333ea);
         color: white;
         padding: 0.75rem 1rem;
         border-radius: 8px;
@@ -222,6 +334,8 @@ if "show_logs" not in st.session_state:
     st.session_state.show_logs = False
 if "max_logs" not in st.session_state:
     st.session_state.max_logs = 10
+if "turn_index" not in st.session_state:
+    st.session_state.turn_index = 0
 
 # Sidebar - persistent settings
 with st.sidebar:
@@ -291,7 +405,7 @@ if 'bg_stop' not in st.session_state:
 if st.session_state.recording_status == 'recording':
     st.markdown('<div class="recording-indicator"><b>● RECORDING</b> - Speak now...</div>', unsafe_allow_html=True)
 elif st.session_state.recording_status == 'processing':
-    st.markdown('<div style="background: #3b82f6; color: white; padding: 0.75rem; border-radius: 8px; text-align: center; margin-bottom: 1rem;"><b>⏳ PROCESSING</b> - Transcribing...</div>', unsafe_allow_html=True)
+    st.markdown('<div style="background: linear-gradient(135deg, #6366f1, #4f46e5); color: white; padding: 0.75rem; border-radius: 8px; text-align: center; margin-bottom: 1rem;"><b>⏳ PROCESSING</b> - Transcribing...</div>', unsafe_allow_html=True)
 
 # Text input area (shared)
 compose_input = st.text_input(
@@ -301,11 +415,13 @@ compose_input = st.text_input(
     label_visibility="collapsed",
     key=f"compose_{st.session_state.get('text_key', 0)}"
 )
+
+# Update session state
 if compose_input != st.session_state.compose_text:
     st.session_state.compose_text = compose_input
 
-# Input controls row
-col1, col2, col3 = st.columns([1, 1, 1])
+# Input controls row - Voice and Send buttons
+col1, col2 = st.columns([1, 1])
 
 with col1:
     # Voice recording button
@@ -393,19 +509,18 @@ with col1:
                 st.rerun()
 
 with col2:
-     # Clear button (same size/color as others)
-     if st.button("Clear", type="primary", use_container_width=True):
-        st.session_state.compose_text = ""
-        st.session_state.text_key = st.session_state.get('text_key', 0) + 1
-        st.rerun()
-
-with col3:
      # Send button (same size/color as others)
-     if st.button("Send", type="primary", use_container_width=True):
-        msg = st.session_state.compose_text.strip()
+     if st.button("Send", type="primary", use_container_width=True, key="send_btn"):
+        # Get message from current input or session state
+        current_key = st.session_state.get('text_key', 0)
+        input_key = f'compose_{current_key}'
+        msg = st.session_state.get(input_key, '').strip()
+        if not msg:
+            msg = st.session_state.compose_text.strip()
+        
         if msg:
             st.session_state.compose_text = ""
-            st.session_state.text_key = st.session_state.get('text_key', 0) + 1
+            st.session_state.text_key = current_key + 1
             process_message(
                 msg, 
                 st.session_state.patient_id, 

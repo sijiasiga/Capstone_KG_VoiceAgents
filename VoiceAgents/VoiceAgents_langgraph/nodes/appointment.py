@@ -24,9 +24,11 @@ if os.path.exists(POLICY_PATH):
     with open(POLICY_PATH, "r") as f:
         AGENT_POLICY = json.load(f)
     # Log policy summary on startup
+    from ..utils.logging_utils import get_conversation_logger
+    logger = get_conversation_logger()
     scope_str = ", ".join(AGENT_POLICY.get("scope", []))
     restrictions_str = ", ".join(AGENT_POLICY.get("restrictions", []))
-    print(f"[Policy] Appointment Agent loaded: scope=[{scope_str}], restrictions=[{restrictions_str}]")
+    logger.info(f"[Policy] Appointment Agent loaded: scope=[{scope_str}], restrictions=[{restrictions_str}]")
 
 # Mock data (same as original)
 appointments_data = pd.DataFrame([
@@ -97,26 +99,42 @@ def appt_summary(appt: pd.Series) -> str:
     return f"{appt['appointment_type']} with {appt['doctor']} on {dt}"
 
 
-def llm_json(prompt: str, temperature: float = 0) -> Dict:
+def llm_json(prompt: str, temperature: float = 0) -> Tuple[Dict, Optional[str], Optional[str], Optional[int]]:
+    """Returns (parsed_dict, provider, model, latency_ms) tuple"""
     if not USE_LLM:
-        return {"action": "general", "patient_id": None, "preferred_date": None, "reason": None,
-                "symptoms": {"present": False}}
+        return ({"action": "general", "patient_id": None, "preferred_date": None, "reason": None,
+                "symptoms": {"present": False}}, None, None, None)
     msg = [
         {"role": "system", "content": "Return ONLY valid JSON. No prose."},
         {"role": "user", "content": prompt}
     ]
     try:
-        content = chat_completion(messages=msg, temperature=temperature, model=get_default_model())
+        result = chat_completion(messages=msg, temperature=temperature, model=get_default_model())
+        if not result:
+            return ({"action": "general", "patient_id": None, "preferred_date": None, "reason": None,
+                    "symptoms": {"present": False}}, None, None, None)
+        # Handle tuple return: (text, provider, model, latency_ms) or (text, provider, model)
+        if isinstance(result, tuple):
+            if len(result) == 4:
+                content, provider, model, latency_ms = result
+            else:
+                content, provider, model = result[:3]
+                latency_ms = result[3] if len(result) > 3 else None
+        else:
+            content = result
+            provider = None
+            model = None
+            latency_ms = None
         if not content:
-            return {"action": "general", "patient_id": None, "preferred_date": None, "reason": None,
-                    "symptoms": {"present": False}}
-        return json.loads(content.strip())
+            return ({"action": "general", "patient_id": None, "preferred_date": None, "reason": None,
+                    "symptoms": {"present": False}}, provider, model, latency_ms)
+        return (json.loads(content.strip()), provider, model, latency_ms)
     except Exception:
-        return {"action": "general", "patient_id": None, "preferred_date": None, "reason": None,
-                "symptoms": {"present": False}}
+        return ({"action": "general", "patient_id": None, "preferred_date": None, "reason": None,
+                "symptoms": {"present": False}}, None, None, None)
 
 
-def parse_patient_input(user_input: str, last_patient_id: Optional[str]) -> Dict:
+def parse_patient_input(user_input: str, last_patient_id: Optional[str]) -> Tuple[Dict, Optional[str], Optional[str], Optional[int]]:
     # extraction includes symptoms for triage
     # Note: Debug print removed for cleaner output - can be re-enabled if needed
     prompt = f"""
@@ -132,7 +150,7 @@ Fields:
 
 Input: "{user_input}"
     """.strip()
-    parsed = llm_json(prompt, temperature=0)
+    parsed, provider, model, latency_ms = llm_json(prompt, temperature=0)
     
     # Simple regex fallback for patient id
     m = re.search(r'\b\d{8}\b', user_input)
@@ -140,7 +158,7 @@ Input: "{user_input}"
         parsed["patient_id"] = m.group(0)
     if not parsed.get("patient_id") and last_patient_id:
         parsed["patient_id"] = last_patient_id
-    return parsed
+    return (parsed, provider, model, latency_ms)
 
 
 def triage_category(symptoms: Dict) -> Tuple[str, List[str]]:
@@ -325,21 +343,62 @@ def appointment_node(state: VoiceAgentState) -> VoiceAgentState:
     patient_id = state.get("patient_id")
     
     service = AppointmentService()
-    parsed = parse_patient_input(user_input, patient_id)
+    parsed_result = parse_patient_input(user_input, patient_id)
+    # parse_patient_input now returns (parsed_dict, provider, model, latency_ms)
+    if isinstance(parsed_result, tuple):
+        if len(parsed_result) == 4:
+            parsed, llm_provider, llm_model, latency_ms = parsed_result
+        else:
+            parsed, llm_provider, llm_model = parsed_result[:3]
+            latency_ms = parsed_result[3] if len(parsed_result) > 3 else None
+    else:
+        parsed = parsed_result
+        llm_provider = None
+        llm_model = None
+        latency_ms = None
+    
     response = service.process(parsed, use_voice=state.get("voice_enabled", False))
     
     state["appointment_response"] = response
     state["response"] = response
     state["parsed_data"] = parsed
     
-    # Log entry
+    # Extract actions from actual parsed data (not hardcoded mapping)
+    # Use the actual action from parsing, don't transform it
+    actions = {
+        "action": parsed.get("action"),           # Actual action from LLM/parsing
+        "preferred_date": parsed.get("preferred_date"),  # Actual date if provided
+        "reason": parsed.get("reason")             # Actual reason if provided
+    }
+    
+    # Extract policies that were actually applied/checked during processing
+    # Check what policies were relevant based on the actual processing
+    policies_applied = []
+    symptoms = parsed.get("symptoms", {})
+    if symptoms.get("present"):  # Triage was performed if symptoms present
+        policies_applied.append("triage_required")
+    if parsed.get("minor", {}).get("stated_age"):  # Minor consent check was performed
+        policies_applied.append("minor_consent_check")
+    
+    policies = {
+        "policies_applied": policies_applied,  # Only policies that were actually checked
+        "scope": AGENT_POLICY.get("scope", []),  # Available scope from policy file
+        "triage_required": AGENT_POLICY.get("triage_required", False)  # From policy file
+    }
+    
+    # Log entry with provider/model info
     log_entry = {
         "ts": now_iso(),
         "agent": "AppointmentAgent",
         "patient_id": patient_id,
         "input": user_input,
         "parsed": parsed,
-        "response": response
+        "response": response,
+        "provider": llm_provider,
+        "model": llm_model,
+        "latency_ms": latency_ms,  # Store latency for conversation log
+        "actions": actions,
+        "policies": policies
     }
     state["log_entry"] = log_entry
     log_appointment(log_entry)

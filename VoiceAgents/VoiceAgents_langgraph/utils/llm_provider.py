@@ -15,8 +15,10 @@ Model names are also configurable via env:
 """
 
 import os
-from typing import Optional, Dict, List
+import time
+from typing import Optional, Dict, List, Tuple
 from dotenv import load_dotenv
+from .logging_utils import get_conversation_logger
 
 # Import global system prompt
 try:
@@ -107,22 +109,22 @@ def _get_fallback_order() -> List[str]:
     """
     Compute fallback order from environment:
 
-    - LLM_PROVIDER is the preferred primary, defaulting to 'anthropic'.
+    - LLM_PROVIDER is the preferred primary, defaulting to 'openai'.
     - LLM_FALLBACK_ORDER is a comma-separated list, e.g.:
-        'anthropic,google,openai'
+        'openai,anthropic,google'
 
     We normalize names and deduplicate while preserving order.
     If configuration is missing or invalid, a sane default is used.
     """
-    # Default primary: anthropic
+    # Default primary: openai
     primary = _normalize_provider_name(
-        os.getenv("LLM_PROVIDER", "anthropic")
+        os.getenv("LLM_PROVIDER", "openai")
     )
 
-    # Default fallback list: anthropic -> google -> openai
+    # Default fallback list: openai -> anthropic -> google
     raw_order = os.getenv(
         "LLM_FALLBACK_ORDER",
-        "anthropic,google,openai"
+        "openai,anthropic,google"
     )
     parts = [
         _normalize_provider_name(p)
@@ -142,7 +144,7 @@ def _get_fallback_order() -> List[str]:
 
     # Fallback safety: if env is empty or invalid, use a sane default
     if not unique_order:
-        unique_order = ["anthropic", "google", "openai"]
+        unique_order = ["openai", "anthropic", "google"]
 
     return unique_order
 
@@ -153,20 +155,21 @@ def get_default_model(provider: Optional[str] = None) -> str:
 
     Model names must match current API offerings:
 
-    - Google: 'gemini-2.0-flash' or 'gemini-pro-latest'
-    - Anthropic: 'claude-3-5-sonnet-20240620' (or updated Claude 3.5 model)
     - OpenAI: 'gpt-4o-mini', 'gpt-4o', etc.
+    - Anthropic: 'claude-3.7-sonnet' (or updated Claude model)
+    - Google: 'gemini-1.5-flash' or 'gemini-1.5-pro'
     """
-    # DEFAULT PROVIDER: anthropic
-    env_provider = os.getenv("LLM_PROVIDER", "anthropic")
+    # DEFAULT PROVIDER: openai
+    env_provider = os.getenv("LLM_PROVIDER", "openai")
     provider_val = provider or env_provider
-    provider_str = provider_val.lower() if provider_val else "anthropic"
+    provider_str = provider_val.lower() if provider_val else "openai"
 
-    if provider_str == "anthropic":
-        return os.getenv("ANTHROPIC_MODEL", "claude-3-5-haiku-20241022")
+    if provider_str == "openai":
+        return os.getenv("OPENAI_MODEL", "gpt-4o-mini")
+    elif provider_str == "anthropic":
+        return os.getenv("ANTHROPIC_MODEL", "claude-3.7-sonnet")
     elif provider_str == "google":
-        # Note: 'gemini-pro' is deprecated on newer APIs; use a current model.
-        return os.getenv("GOOGLE_MODEL", "gemini-2.0-flash")
+        return os.getenv("GOOGLE_MODEL", "gemini-1.5-flash")
     else:
         # Default to OpenAI if provider not recognized
         return os.getenv("OPENAI_MODEL", "gpt-4o-mini")
@@ -189,7 +192,8 @@ def _try_openai_completion(
         )
         return response.choices[0].message.content
     except Exception as e:
-        print(f"[LLM Error] OpenAI: {e}")
+        logger = get_conversation_logger()
+        logger.error(f"[LLM Error] OpenAI: {e}")
         return None
 
 
@@ -238,16 +242,17 @@ def _try_google_completion(
         return response.text
     except Exception as e:
         error_msg = str(e)
+        logger = get_conversation_logger()
         # Provide helpful error message for model name issues
         if "not found" in error_msg or "404" in error_msg:
-            print(
+            logger.warning(
                 f"[LLM Error] Google: Model '{model}' not found. "
                 f"Update GOOGLE_MODEL in .env to use current model, e.g.: "
                 f"'gemini-2.0-flash' or 'gemini-pro-latest'. "
                 f"Error: {e}"
             )
         else:
-            print(f"[LLM Error] Google: {e}")
+            logger.error(f"[LLM Error] Google: {e}")
         return None
 
 
@@ -294,16 +299,17 @@ def _try_anthropic_completion(
         return None
     except Exception as e:
         error_msg = str(e)
+        logger = get_conversation_logger()
         # Provide helpful error message for model name issues
         if "not found" in error_msg or "404" in error_msg:
-            print(
+            logger.warning(
                 f"[LLM Error] Anthropic: Model '{model}' not found. "
                 f"Update ANTHROPIC_MODEL in .env to use a current model, e.g.: "
                 f"'claude-3-5-sonnet-20240620'. "
                 f"Error: {e}"
             )
         else:
-            print(f"[LLM Error] Anthropic: {e}")
+            logger.error(f"[LLM Error] Anthropic: {e}")
         return None
 
 
@@ -345,27 +351,32 @@ def chat_completion(
     model: Optional[str] = None,
     temperature: float = 0,
     provider: Optional[str] = None,
-) -> Optional[str]:
+) -> Optional[Tuple[str, str, str, int]]:
     """
     Unified chat completion interface with automatic fallback.
 
     Fallback behavior is controlled by environment variables:
 
-    - LLM_PROVIDER: primary provider (e.g., 'anthropic', 'openai', 'google')
-      Defaults to 'anthropic'.
+    - LLM_PROVIDER: primary provider (e.g., 'openai', 'anthropic', 'google')
+      Defaults to 'openai'.
     - LLM_FALLBACK_ORDER: comma-separated list of providers in order of
-      preference, e.g. 'anthropic,google,openai'.
-      Defaults to 'anthropic,google,openai'.
+      preference, e.g. 'openai,anthropic,google'.
+      Defaults to 'openai,anthropic,google'.
 
     Only providers with valid API keys are actually attempted.
+    
+    Returns:
+        Tuple of (response_text, provider_name, model_name) or None if all providers failed.
     """
     # Inject global system prompt
     messages = _inject_system_prompt(messages)
 
+    logger = get_conversation_logger()
+    
     # Get available providers from .env (those with API keys)
     available_providers = _get_available_providers()
     if not available_providers:
-        print("[LLM Error] No LLM providers available (no API keys found)")
+        logger.error("[LLM Error] No LLM providers available (no API keys found)")
         return None
 
     # Determine fallback order from environment
@@ -377,7 +388,7 @@ def chat_completion(
     ]
 
     if not providers_to_try:
-        print("[LLM Error] No providers available in configured fallback order")
+        logger.error("[LLM Error] No providers available in configured fallback order")
         return None
 
     # Try each provider in sequence order
@@ -385,62 +396,68 @@ def chat_completion(
         # Always use provider-specific default model (ignore model parameter)
         provider_model = get_default_model(provider_name)
         result: Optional[str] = None
+        latency_ms: int = 0
 
+        start_time = time.time()
         if provider_name == "openai":
             result = _try_openai_completion(messages, provider_model, temperature)
         elif provider_name == "google":
             result = _try_google_completion(messages, provider_model, temperature)
         elif provider_name == "anthropic":
             result = _try_anthropic_completion(messages, provider_model, temperature)
+        elapsed_ms = int((time.time() - start_time) * 1000)
 
         if result is not None:
-            # Print fallback message if not the first provider
+            # Log fallback message if not the first provider
             if idx > 0:
                 prev_provider = providers_to_try[idx - 1]
-                print(
+                logger.warning(
                     f"[LLM Fallback] Using {provider_name} "
                     f"(previous provider '{prev_provider}' failed)"
                 )
-            return result
+            return (result, provider_name, provider_model, elapsed_ms)
 
     # All providers failed
-    print(f"[LLM Error] All available providers failed: {providers_to_try}")
+    logger.error(f"[LLM Error] All available providers failed: {providers_to_try}")
     return None
 
 
 def audio_transcribe(
     audio_path: str,
     provider: Optional[str] = None,
-) -> Optional[str]:
+) -> Optional[tuple[str, str]]:
     """
-    Transcribe audio file (only OpenAI Whisper supported via API).
+    Transcribe audio file using OpenAI Whisper API.
 
-    Currently, audio transcription uses OpenAI Whisper ('whisper-1').
-    If no OpenAI API key is available, this will print an informational message.
+    Returns tuple of (transcription_text, backend_name) where backend_name is
+    "openai_whisper" for OpenAI API or None if failed.
+    
+    Model name is read from ASR_MODEL environment variable (defaults to 'whisper-1').
     """
-    # Only OpenAI supports audio transcription via API in this implementation
     available_providers = _get_available_providers()
+    asr_model = os.getenv("ASR_MODEL", "whisper-1")
 
-    # Try OpenAI first (only provider with audio transcription)
+    # Try OpenAI Whisper API first
     if "openai" in available_providers:
         client = _get_openai_client()
         if client is not None:
             try:
                 with open(audio_path, "rb") as f:
                     response = client.audio.transcriptions.create(
-                        model="whisper-1",
+                        model=asr_model,
                         file=f,
                     )
-                return response.text
+                logger = get_conversation_logger()
+                logger.info(f"[ASR] Using backend: {asr_model}")
+                return (response.text, "openai_whisper")
             except Exception as e:
-                print(f"[STT Error] OpenAI: {e}")
+                logger = get_conversation_logger()
+                logger.error(f"[STT Error] OpenAI Whisper API failed: {e}")
+    else:
+        logger = get_conversation_logger()
+        logger.warning(f"[ASR] OpenAI not available for Whisper (available: {available_providers})")
 
-    # Audio transcription only supported via OpenAI Whisper API
-    msg = (
-        f"[STT] Audio transcription requires OpenAI provider "
-        f"(available: {available_providers})"
-    )
-    print(msg)
+    # OpenAI Whisper API not available or failed
     return None
 
 

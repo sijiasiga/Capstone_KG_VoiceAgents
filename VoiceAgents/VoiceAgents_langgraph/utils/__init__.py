@@ -38,8 +38,10 @@ def _get_faster_whisper_model():
     if not FW_AVAILABLE:
         return None
     if _FW_MODEL is None:
-        # Choose a small model for speed; user can upgrade later ("small", "medium")
-        _FW_MODEL = WhisperModel("base")
+        # Model size from env var (defaults to "base" for speed)
+        # Options: "tiny", "base", "small", "medium", "large-v2", "large-v3"
+        model_size = os.getenv("FASTER_WHISPER_MODEL", "base")
+        _FW_MODEL = WhisperModel(model_size)
     return _FW_MODEL
 
 def now_iso() -> str:
@@ -102,10 +104,23 @@ try:
     from .llm_provider import (
         chat_completion as _chat_completion_raw,
         audio_transcribe as _audio_transcribe_raw,
-        USE_LLM, LLM_PROVIDER, get_default_model)
-    # Apply safe_call decorator after import
-    chat_completion = safe_call(default_message=None)(_chat_completion_raw)
-    audio_transcribe = safe_call(default_message=None)(_audio_transcribe_raw)
+        USE_LLM, get_default_model)
+    # chat_completion returns tuple (text, provider, model, latency_ms) or None
+    # We wrap it to handle errors but preserve the tuple return
+    def chat_completion(*args, **kwargs):
+        try:
+            result = _chat_completion_raw(*args, **kwargs)
+            # If result is a 3-tuple (old format), add latency_ms=0 for backward compatibility
+            if result and isinstance(result, tuple) and len(result) == 3:
+                return (*result, 0)  # Add latency_ms=0
+            return result
+        except Exception as e:
+            from .logging_utils import get_conversation_logger
+            logger = get_conversation_logger()
+            logger.error(f"[FALLBACK] chat_completion: {e}")
+            return None
+    # audio_transcribe is used directly (returns tuple, not wrapped)
+    audio_transcribe = _audio_transcribe_raw
 except ImportError:
     # Fallback if dotenv is not available
     USE_LLM = False
@@ -118,34 +133,150 @@ except ImportError:
         return "gpt-4o-mini"
 
 
-@safe_call(default_message="[TTS Error] Text-to-speech unavailable.")
-def say(text: str, voice: bool = False):
-    """Print text and optionally speak it"""
-    print(f"\nAgent: {text}")
-    if voice and pyttsx3 is not None:
-        eng = pyttsx3.init()
-        voices = eng.getProperty('voices')
-        english_voice = None
-        for v in voices:
-            if 'english' in v.name.lower() or 'en_' in v.id.lower() or 'en-' in v.id.lower():
-                english_voice = v.id
-                break
-            if 'david' in v.name.lower() or 'zira' in v.name.lower() or 'mark' in v.name.lower():
-                english_voice = v.id
-                break
-        if english_voice:
-            eng.setProperty('voice', english_voice)
-        eng.setProperty("rate", 155)
-        eng.say(text)
-        eng.runAndWait()
+def say(text: str, voice: bool = False) -> Optional[str]:
+    """
+    Print text and optionally speak it.
+    
+    Priority order:
+    1. OpenAI TTS API (tts-1)
+    2. Local pyttsx3
+    
+    Logs which backend was used.
+    Returns: TTS backend name if voice=True, None otherwise
+    """
+    from .logging_utils import get_conversation_logger
+    logger = get_conversation_logger()
+    # Log to console only (message will be in metadata line via log_turn_summary)
+    # Use a different logger level or just print to console
+    import sys
+    print(f"\nAgent: {text}", file=sys.stdout)
+    
+    if not voice:
+        return None
+    
+    backend_used = None
+    tts_model = os.getenv("TTS_MODEL", "tts-1")
+    
+    # 1) Try OpenAI TTS API first (primary TTS)
+    try:
+        if USE_LLM:
+            from .llm_provider import _get_openai_client
+            client = _get_openai_client()
+            if client is not None:
+                try:
+                    response = client.audio.speech.create(
+                        model=tts_model,
+                        voice="alloy",  # Options: alloy, echo, fable, onyx, nova, shimmer
+                        input=text,
+                    )
+                    # Save to temporary file and play
+                    import tempfile
+                    with tempfile.NamedTemporaryFile(delete=False, suffix=".mp3") as tmp_file:
+                        tmp_file.write(response.content)
+                        tmp_path = tmp_path = tmp_file.name
+                    
+                    # Play audio file (platform-dependent)
+                    import platform
+                    import subprocess
+                    system = platform.system()
+                    if system == "Darwin":  # macOS
+                        subprocess.run(["afplay", tmp_path], check=False)
+                    elif system == "Linux":
+                        subprocess.run(["aplay", tmp_path], check=False)
+                    elif system == "Windows":
+                        subprocess.run(["start", tmp_path], shell=True, check=False)
+                    
+                    # Clean up
+                    try:
+                        os.unlink(tmp_path)
+                    except Exception:
+                        pass
+                    
+                    backend_used = "openai_tts"
+                    from .logging_utils import get_conversation_logger
+                    logger = get_conversation_logger()
+                    logger.info(f"[TTS] Using backend: {backend_used}")
+                    return backend_used
+                except Exception as e:
+                    from .logging_utils import get_conversation_logger
+                    logger = get_conversation_logger()
+                    logger.error(f"[TTS] OpenAI TTS failed: {e}")
+    except Exception as e:
+        from .logging_utils import get_conversation_logger
+        logger = get_conversation_logger()
+        logger.error(f"[TTS] OpenAI TTS error: {e}")
+    
+    # 2) Fallback to local pyttsx3
+    if pyttsx3 is not None:
+        try:
+            eng = pyttsx3.init()
+            voices = eng.getProperty('voices')
+            english_voice = None
+            for v in voices:
+                if 'english' in v.name.lower() or 'en_' in v.id.lower() or 'en-' in v.id.lower():
+                    english_voice = v.id
+                    break
+                if 'david' in v.name.lower() or 'zira' in v.name.lower() or 'mark' in v.name.lower():
+                    english_voice = v.id
+                    break
+            if english_voice:
+                eng.setProperty('voice', english_voice)
+            eng.setProperty("rate", 155)
+            eng.say(text)
+            eng.runAndWait()
+            backend_used = "pyttsx3"
+            from .logging_utils import get_conversation_logger
+            logger = get_conversation_logger()
+            logger.info(f"[TTS] Using backend: {backend_used}")
+            return backend_used
+        except Exception as e:
+            from .logging_utils import get_conversation_logger
+            logger = get_conversation_logger()
+            logger.error(f"[TTS] Local pyttsx3 failed: {e}")
+            logger.error("[TTS Error] Text-to-speech unavailable.")
+    else:
+        from .logging_utils import get_conversation_logger
+        logger = get_conversation_logger()
+        logger.error("[TTS Error] Text-to-speech unavailable (no pyttsx3).")
+    
+    return None
 
 
 def stt_transcribe(path: str) -> str:
-    """Transcribe audio file to text"""
+    """
+    Transcribe audio file to text.
+    
+    Priority order:
+    1. OpenAI Whisper API (whisper-1)
+    2. Local faster-whisper
+    
+    Returns transcription text. Logs which backend was used.
+    """
+    from .logging_utils import get_conversation_logger
+    logger = get_conversation_logger()
+    
     if not os.path.exists(path):
         return ""
 
-    # 1) Prefer local faster-whisper if available (robust, no quota)
+    backend_used = None
+    text = None
+
+    # 1) Try OpenAI Whisper API first (primary ASR)
+    # Note: audio_transcribe() internally checks if OpenAI is available
+    try:
+        if USE_LLM:
+            result = audio_transcribe(path)
+            if result is not None:
+                text, backend_used = result
+                if text:
+                    # Backend already logged in audio_transcribe()
+                    return text.strip()
+    except Exception as e:
+        from .logging_utils import get_conversation_logger
+        logger = get_conversation_logger()
+        logger.error(f"[ASR] OpenAI Whisper failed: {e}")
+
+    # 2) Fallback to local faster-whisper
     try:
         if FW_AVAILABLE:
             model = _get_faster_whisper_model()
@@ -161,21 +292,17 @@ def stt_transcribe(path: str) -> str:
                         out.append(seg.text.strip())
                 text = " ".join(out).strip()
                 if text:
+                    backend_used = "local_faster_whisper"
+                    from .logging_utils import get_conversation_logger
+                    logger = get_conversation_logger()
+                    logger.info(f"[ASR] Using backend: local_faster_whisper")
                     return text
-    except Exception:
-        # fall through to other methods
-        pass
+    except Exception as e:
+        from .logging_utils import get_conversation_logger
+        logger = get_conversation_logger()
+        logger.error(f"[ASR] Local faster-whisper failed: {e}")
 
-    # 2) Try LLM provider audio transcription (OpenAI Whisper API)
-    try:
-        if USE_LLM:
-            text = audio_transcribe(path)
-            if text:
-                return text.strip()
-    except Exception:
-        pass
-
-    # 3) Fallback to speech_recognition (original behavior)
+    # 3) Last resort: Google Speech Recognition (optional fallback)
     if sr is not None:
         ext = os.path.splitext(path)[-1].lower()
         if ext in [".wav", ".aif", ".aiff", ".flac", ".mp3", ".m4a"]:
@@ -184,17 +311,29 @@ def stt_transcribe(path: str) -> str:
                 with sr.AudioFile(path) as source:
                     audio = r.record(source)
                 try:
-                    return r.recognize_google(audio)
+                    text = r.recognize_google(audio)
+                    backend_used = "google_stt"
+                    print(f"[ASR] Using backend: {backend_used}")
+                    return text
                 except Exception:
-                    return ""
+                    pass
             except Exception:
-                return ""
+                pass
 
+    if backend_used is None:
+        print("[ASR] All transcription methods failed")
     return ""
 
 
 def mic_listen_once(timeout=5, phrase_time_limit=10) -> str:
-    """Listen to microphone once and transcribe"""
+    """
+    Listen to microphone once and transcribe using Whisper (same priority as stt_transcribe).
+    
+    Priority order:
+    1. OpenAI Whisper API (whisper-1)
+    2. Local faster-whisper
+    3. Google Speech Recognition (last resort fallback)
+    """
     if sr is None:
         print("❌ Speech recognition not available - install SpeechRecognition and pyaudio")
         return ""
@@ -218,15 +357,57 @@ def mic_listen_once(timeout=5, phrase_time_limit=10) -> str:
             audio = r.listen(source, timeout=timeout, phrase_time_limit=phrase_time_limit)
         
         print("[Processing...] Transcribing audio")
-        # Try Google Speech Recognition with show_all to get alternatives
+        
+        # Save audio to temporary file for Whisper processing
+        import tempfile
+        import wave
+        
+        with tempfile.NamedTemporaryFile(delete=False, suffix=".wav") as tmp_file:
+            tmp_path = tmp_file.name
+        
         try:
-            # First try: standard recognition
+            # Write audio data to WAV file
+            with wave.open(tmp_path, "wb") as wf:
+                wf.setnchannels(1)  # Mono
+                wf.setsampwidth(audio.sample_width)
+                wf.setframerate(audio.sample_rate)
+                wf.writeframes(audio.get_raw_data())
+            
+            # Use the same Whisper pipeline as stt_transcribe()
+            text = stt_transcribe(tmp_path)
+            
+            # Clean up temp file
+            try:
+                os.unlink(tmp_path)
+            except Exception:
+                pass
+            
+            if text:
+                return text
+        except Exception as e:
+            # Clean up temp file on error
+            try:
+                os.unlink(tmp_path)
+            except Exception:
+                pass
+            print(f"[ASR] Whisper transcription failed: {e}")
+        
+        # Last resort: Google Speech Recognition (only if Whisper failed)
+        try:
             text = r.recognize_google(audio, language='en-US', show_all=False)
+            print("[ASR] Using backend: google_speech_recognition (fallback)")
             return text
-        except:
-            # Fallback: try without language specification
-            text = r.recognize_google(audio)
-            return text
+        except Exception:
+            try:
+                text = r.recognize_google(audio)
+                print("[ASR] Using backend: google_speech_recognition (fallback)")
+                return text
+            except Exception:
+                pass
+        
+        print("[ASR] All transcription methods failed")
+        return ""
+        
     except sr.WaitTimeoutError:
         print("[Error] No speech detected within timeout")
         return ""

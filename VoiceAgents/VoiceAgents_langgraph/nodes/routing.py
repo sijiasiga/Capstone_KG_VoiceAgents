@@ -29,7 +29,7 @@ def parse_intent_rules(text: str) -> dict:
             intent = "followup"
         else:
             intent = "appointment"  # If mentions both, prioritize appointment
-    elif any(k in t for k in ["med", "medication", "pill", "dose", "side effect", "missed dose", "take with food"]):
+    elif any(k in t for k in ["med", "medication", "pill", "dose", "dosage", "prescription", "taking", "side effect", "missed dose", "take with food", "what medication", "my medication"]):
         intent = "medication"
     elif any(k in t for k in ["caregiver", "weekly summary", "check on them", "update for parent", "mother", "father"]):
         intent = "caregiver"
@@ -68,10 +68,21 @@ def parse_intent_llm(text: str) -> dict:
             {"role": "system", "content": SYSTEM_PROMPT.strip()},
             {"role": "user", "content": text}
         ]
-        raw = chat_completion(messages=messages, temperature=0, model=get_default_model())
+        result = chat_completion(messages=messages, temperature=0, model=get_default_model())
+        if not result:
+            return parse_intent_rules(text)
+        # Handle tuple return: (text, provider, model)
+        if isinstance(result, tuple):
+            raw, provider, model = result
+        else:
+            raw = result
+            provider = None
+            model = None
         if not raw:
             return parse_intent_rules(text)
         out = json.loads(raw.strip())
+        # Store provider/model info in the result for potential logging
+        # (Note: routing node doesn't set log_entry, but this info could be used if needed)
         intent = (out.get("intent") or "help").lower()
         if intent not in INTENT_LABELS:
             intent = "help"

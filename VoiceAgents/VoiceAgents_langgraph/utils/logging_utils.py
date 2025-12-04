@@ -4,7 +4,9 @@ Writes agent-specific logs to logs/ directory with unified schema
 """
 import os
 import json
+import logging
 from typing import Dict, Any, Optional
+from datetime import datetime, timezone
 from . import now_iso
 
 # Log directory (go up two levels from utils/ to VoiceAgents_langgraph/)
@@ -19,6 +21,217 @@ MEDICATION_LOG = os.path.join(LOG_DIR, "med_agent_log.jsonl")
 CAREGIVER_LOG = os.path.join(LOG_DIR, "caregiver_summaries.jsonl")
 CAREGIVER_TXT = os.path.join(LOG_DIR, "caregiver_summaries.txt")
 ORCHESTRATION_LOG = os.path.join(LOG_DIR, "orchestration_log.jsonl")
+CONVERSATION_TXT = os.path.join(LOG_DIR, "conversation_log.txt")
+
+# Global conversation logger (replaces TeeOutput)
+_conversation_logger = None
+
+
+def get_conversation_logger():
+    """
+    Get or create the global conversation logger.
+    Configured with StreamHandler (console) and FileHandler (conversation_log.txt).
+    """
+    global _conversation_logger
+    
+    if _conversation_logger is not None:
+        return _conversation_logger
+    
+    # Create logger
+    logger = logging.getLogger("conversation")
+    logger.setLevel(logging.INFO)
+    
+    # Remove existing handlers to avoid duplicates
+    logger.handlers.clear()
+    
+    # Console handler (StreamHandler)
+    console_handler = logging.StreamHandler()
+    console_handler.setLevel(logging.INFO)
+    console_formatter = logging.Formatter("%(message)s")
+    console_handler.setFormatter(console_formatter)
+    logger.addHandler(console_handler)
+    
+    # File handler (conversation_log.txt)
+    # Note: We include timestamp in the message itself, so formatter doesn't add another one
+    file_handler = logging.FileHandler(CONVERSATION_TXT, mode="a", encoding="utf-8")
+    file_handler.setLevel(logging.INFO)
+    file_formatter = logging.Formatter("%(message)s")  # No timestamp - we add it in the message
+    file_handler.setFormatter(file_formatter)
+    logger.addHandler(file_handler)
+    
+    # Prevent propagation to root logger
+    logger.propagate = False
+    
+    _conversation_logger = logger
+    return logger
+
+
+def setup_console_logging():
+    """
+    Set up conversation logging (backward compatibility).
+    Now uses Python logging module instead of TeeOutput.
+    """
+    get_conversation_logger()
+
+
+def restore_console_logging():
+    """
+    Restore console logging (backward compatibility - no-op now).
+    """
+    pass
+
+
+def _extract_action_label(actions: Optional[Dict[str, Any]], agent: Optional[str]) -> Optional[str]:
+    """
+    Extract a simple action label from actions dict or agent context.
+    Returns short labels like: check_status, schedule, reschedule, cancel, symptom_triage, medication_info, help_message, error_handler
+    """
+    if not actions:
+        return None
+    
+    # Appointment actions
+    action = actions.get("action")
+    if action:
+        if action in ["check_status", "schedule", "reschedule", "cancel"]:
+            return action
+        elif action == "schedule_new":
+            return "schedule"
+        elif action == "general":
+            return "check_status"  # Default for appointment general queries
+    
+    # Medication actions
+    intent = actions.get("intent")
+    if intent and agent == "medication":
+        if intent in ["general", "info", "education"]:
+            return "medication_info"
+        elif intent == "side_effects":
+            return "medication_info"
+    
+    # Followup actions
+    if agent == "followup":
+        triage_tier = actions.get("triage_tier")
+        if triage_tier:
+            return "symptom_triage"
+        if actions.get("symptoms_logged"):
+            return "symptom_triage"
+    
+    # Caregiver actions
+    if agent == "caregiver":
+        return "caregiver_summary"
+    
+    # Help actions
+    if agent == "help":
+        if actions.get("used_llm"):
+            return "help_message"
+        return "help_message"
+    
+    # Error
+    if agent == "error":
+        return "error_handler"
+    
+    return None
+
+
+def log_turn_summary(
+    timestamp: str,
+    conversation_id: str,
+    turn_index: int,
+    role: str,
+    agent: Optional[str] = None,
+    provider: Optional[str] = None,
+    model: Optional[str] = None,
+    message: Optional[str] = None,
+    actions: Optional[Dict[str, Any]] = None,
+    policies: Optional[Dict[str, Any]] = None,
+    used_llm: Optional[int] = None,
+    latency_ms: Optional[int] = None,
+    tts_used: Optional[int] = None,
+    tts_backend: Optional[str] = None,
+    input_channel: Optional[str] = None,
+    error: Optional[str] = None,
+) -> None:
+    """
+    Log a turn summary to conversation_log.txt following todo.md format.
+    
+    For user turns: timestamp, conversation_id, role=user, message
+    For assistant turns: timestamp, conversation_id, role=assistant, agent, used_llm, provider, model, latency_ms, tts_used, action
+    For errors: timestamp, conversation_id, role=system, agent, level=ERROR, error
+    """
+    logger = get_conversation_logger()
+    
+    # Format timestamp to match todo.md (ISO format with Z)
+    try:
+        dt = datetime.fromisoformat(timestamp.replace("Z", "+00:00"))
+        ts_str = dt.strftime("%Y-%m-%dT%H:%M:%SZ")
+    except Exception:
+        ts_str = timestamp
+    
+    if role == "user":
+        # User turn format: [timestamp] | cid=... | role=user | msg="..."
+        msg_preview = message[:200] + "..." if message and len(message) > 200 else (message or "")
+        # Escape quotes in message
+        msg_preview = msg_preview.replace('"', '\\"')
+        parts = [f"[{ts_str}]", f"cid={conversation_id}", "role=user", f'msg="{msg_preview}"']
+        if input_channel:
+            parts.append(f"input={input_channel}")
+        logger.info(" | ".join(parts))
+    
+    elif role == "assistant":
+        # Assistant turn format: [timestamp] | cid=... | role=assistant | agent=... | used_llm=... | provider=... | model=... | latency_ms=... | tts_used=... | action=... | msg="..."
+        parts = [f"[{ts_str}]", f"cid={conversation_id}", "role=assistant"]
+        
+        if agent:
+            parts.append(f"agent={agent}")
+        
+        # LLM usage
+        if used_llm is not None:
+            parts.append(f"used_llm={used_llm}")
+        elif provider and model:
+            parts.append("used_llm=1")
+        else:
+            parts.append("used_llm=0")
+        
+        if provider and model:
+            parts.append(f"provider={provider}")
+            parts.append(f"model={model}")
+        
+        if latency_ms is not None:
+            parts.append(f"latency_ms={latency_ms}")
+        
+        # TTS usage
+        if tts_used is not None:
+            parts.append(f"tts_used={tts_used}")
+        elif tts_backend:
+            parts.append("tts_used=1")
+        
+        if tts_backend:
+            parts.append(f"tts_backend={tts_backend}")
+        
+        # Action label
+        action_label = _extract_action_label(actions, agent)
+        if action_label:
+            parts.append(f"action={action_label}")
+        
+        # Include message text (truncated if too long)
+        if message:
+            msg_preview = message[:200] + "..." if len(message) > 200 else message
+            msg_preview = msg_preview.replace('"', '\\"').replace('\n', ' ')  # Escape quotes and newlines
+            parts.append(f'msg="{msg_preview}"')
+        
+        logger.info(" | ".join(parts))
+    
+    elif role == "system" and error:
+        # Error format: [timestamp] | cid=... | role=system | agent=... | level=ERROR | error="..."
+        error_msg = error.replace('"', '\\"')
+        parts = [
+            f"[{ts_str}]",
+            f"cid={conversation_id}",
+            "role=system",
+            f"agent={agent or 'unknown'}",
+            "level=ERROR",
+            f'error="{error_msg}"'
+        ]
+        logger.error(" | ".join(parts))
 
 
 def log_to_file(log_path: str, obj: Dict[str, Any]) -> None:
@@ -74,6 +287,12 @@ def log_appointment(entry: Dict[str, Any]) -> None:
         entry["timestamp"] = now_iso()
     
     # Ensure consistent schema
+    # Exclude provider/model/actions/policies - these only go to conversation_log
+    excluded_fields = [
+        "timestamp", "agent", "level", "message", "risk",
+        "patient_id", "input", "parsed", "response",
+        "provider", "model", "actions", "policies"
+    ]
     normalized = {
         "timestamp": entry.get("timestamp", now_iso()),
         "agent": entry.get("agent", "appointment"),
@@ -86,8 +305,7 @@ def log_appointment(entry: Dict[str, Any]) -> None:
             "parsed": entry.get("parsed"),
             "response": entry.get("response"),
             **{k: v for k, v in entry.items()
-               if k not in ["timestamp", "agent", "level", "message", "risk",
-                           "patient_id", "input", "parsed", "response"]}
+               if k not in excluded_fields}
         }
     }
     log_to_file(APPOINTMENT_LOG, normalized)
@@ -102,6 +320,12 @@ def log_followup(entry: Dict[str, Any]) -> None:
         entry["timestamp"] = now_iso()
     
     # Ensure consistent schema
+    # Exclude provider/model/actions/policies - these only go to conversation_log
+    excluded_fields = [
+        "timestamp", "agent", "level", "message", "risk",
+        "triage", "patient_id", "input", "symptom",
+        "severity", "response", "provider", "model", "actions", "policies"
+    ]
     normalized = {
         "timestamp": entry.get("timestamp", now_iso()),
         "agent": entry.get("agent", "followup"),
@@ -115,9 +339,7 @@ def log_followup(entry: Dict[str, Any]) -> None:
             "severity": entry.get("severity"),
             "response": entry.get("response"),
             **{k: v for k, v in entry.items()
-               if k not in ["timestamp", "agent", "level", "message", "risk",
-                           "triage", "patient_id", "input", "symptom",
-                           "severity", "response"]}
+               if k not in excluded_fields}
         }
     }
     log_to_file(FOLLOWUP_LOG, normalized)
@@ -132,6 +354,12 @@ def log_medication(entry: Dict[str, Any]) -> None:
         entry["timestamp"] = now_iso()
     
     # Ensure consistent schema
+    # Exclude provider/model/actions/policies - these only go to conversation_log
+    excluded_fields = [
+        "timestamp", "agent", "level", "message", "risk",
+        "patient_id", "input", "intent", "drug", "response",
+        "provider", "model", "actions", "policies"
+    ]
     normalized = {
         "timestamp": entry.get("timestamp", now_iso()),
         "agent": entry.get("agent", "medication"),
@@ -145,8 +373,7 @@ def log_medication(entry: Dict[str, Any]) -> None:
             "drug": entry.get("drug"),
             "response": entry.get("response"),
             **{k: v for k, v in entry.items()
-               if k not in ["timestamp", "agent", "level", "message", "risk",
-                           "patient_id", "input", "intent", "drug", "response"]}
+               if k not in excluded_fields}
         }
     }
     log_to_file(MEDICATION_LOG, normalized)
@@ -161,6 +388,12 @@ def log_caregiver(entry: Dict[str, Any], write_txt: bool = True) -> None:
         entry["timestamp"] = now_iso()
     
     # Ensure consistent schema
+    # Exclude provider/model/actions/policies - these only go to conversation_log
+    excluded_fields = [
+        "timestamp", "agent", "level", "message", "risk",
+        "patient_id", "caregiver_id", "summary",
+        "provider", "model", "actions", "policies"
+    ]
     normalized = {
         "timestamp": entry.get("timestamp", now_iso()),
         "agent": entry.get("agent", "caregiver"),
@@ -172,8 +405,7 @@ def log_caregiver(entry: Dict[str, Any], write_txt: bool = True) -> None:
             "caregiver_id": entry.get("caregiver_id"),
             "summary": entry.get("summary"),
             **{k: v for k, v in entry.items()
-               if k not in ["timestamp", "agent", "level", "message", "risk",
-                           "patient_id", "caregiver_id", "summary"]}
+               if k not in excluded_fields}
         }
     }
     log_to_file(CAREGIVER_LOG, normalized)
@@ -193,6 +425,12 @@ def log_orchestration(entry: Dict[str, Any]) -> None:
         entry["timestamp"] = now_iso()
     
     # Ensure consistent schema
+    # Exclude provider/model/actions/policies - these only go to conversation_log
+    excluded_fields = [
+        "timestamp", "agent", "level", "message", "risk",
+        "patient_id", "input", "intent",
+        "provider", "model", "actions", "policies"
+    ]
     normalized = {
         "timestamp": entry.get("timestamp", now_iso()),
         "agent": entry.get("agent", "orchestration"),
@@ -204,9 +442,7 @@ def log_orchestration(entry: Dict[str, Any]) -> None:
             "input": entry.get("input"),
             "intent": entry.get("intent"),
             **{k: v for k, v in entry.items()
-               if k not in ["timestamp", "agent", "level", "message", "risk",
-                           "patient_id", "input", "intent"]}
+               if k not in excluded_fields}
         }
     }
     log_to_file(ORCHESTRATION_LOG, normalized)
-

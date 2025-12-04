@@ -3,8 +3,7 @@ Medication Agent Node - LangGraph implementation
 """
 import json
 import os
-import sys
-from typing import Dict, Optional
+from typing import Dict, Optional, Tuple
 import pandas as pd
 from ..state import VoiceAgentState
 from ..utils import now_iso, say
@@ -22,8 +21,10 @@ if os.path.exists(POLICY_PATH):
     with open(POLICY_PATH, "r") as f:
         AGENT_POLICY = json.load(f)
     # Log policy summary on startup
+    from ..utils.logging_utils import get_conversation_logger
+    logger = get_conversation_logger()
     scope_str = ", ".join(AGENT_POLICY.get("scope", []))
-    print(f"[Policy] Medication Agent loaded: scope=[{scope_str}], triage={AGENT_POLICY.get('triage_required', False)}")
+    logger.info(f"[Policy] Medication Agent loaded: scope=[{scope_str}], triage={AGENT_POLICY.get('triage_required', False)}")
 
 DATA_DIR = os.path.join(BASE_DIR, "..", "data")
 KNOWLEDGE_PATH = os.path.join(DATA_DIR, "drug_knowledge.csv")
@@ -31,8 +32,9 @@ LOG_DIR = os.path.join(BASE_DIR, "..", "logs")
 os.makedirs(LOG_DIR, exist_ok=True)
 
 
-def llm_parse_query(user_text: str) -> Dict:
-    """Use LLM to extract intent, drugs, and symptoms."""
+def llm_parse_query(user_text: str) -> Tuple[Dict, Optional[str], Optional[str], Optional[int]]:
+    """Use LLM to extract intent, drugs, and symptoms.
+    Returns: (parsed_dict, provider, model) tuple"""
     if not USE_LLM:
         text = user_text.lower()
         intent = "general"
@@ -48,14 +50,16 @@ def llm_parse_query(user_text: str) -> Dict:
             intent = "instruction"
         elif "pregnan" in text or "kidney" in text or "liver" in text:
             intent = "contraindication"
-        return {"intent": intent, "language": "en"}
+        elif "prescription" in text or "dosage" in text or "dose" in text or "taking" in text or "medication" in text:
+            intent = "prescription_info"
+        return ({"intent": intent, "language": "en"}, None, None, None)
     
-    sys = {"role": "system", "content": "Return ONLY valid JSON. No prose."}
+    sys_msg = {"role": "system", "content": "Return ONLY valid JSON. No prose."}
     user = {
         "role": "user",
         "content": f"""
 Parse this medication question. Return JSON with:
-- intent: one of ["missed_dose","double_dose","side_effect","interaction_check","instruction","contraindication","general"]
+- intent: one of ["missed_dose","double_dose","side_effect","interaction_check","instruction","contraindication","prescription_info","general"]
 - drugs_mentioned: [{{"raw":string,"norm_name":string|null}}]
 - language: "en"
 
@@ -63,36 +67,65 @@ Question: "{user_text}"
 """,
     }
     try:
-        messages = [sys, user]
-        content = chat_completion(messages=messages, temperature=0, model=get_default_model())
+        messages = [sys_msg, user]
+        result = chat_completion(messages=messages, temperature=0, model=get_default_model())
+        if not result:
+            return ({"intent": "general", "language": "en"}, None, None, None)
+        # Handle tuple return: (text, provider, model, latency_ms) or (text, provider, model)
+        if isinstance(result, tuple):
+            if len(result) == 4:
+                content, provider, model, latency_ms = result
+            else:
+                content, provider, model = result[:3]
+                latency_ms = result[3] if len(result) > 3 else None
+        else:
+            content = result
+            provider = None
+            model = None
+            latency_ms = None
         if not content:
-            return {"intent": "general", "language": "en"}
-        return json.loads(content.strip())
+            return ({"intent": "general", "language": "en"}, provider, model, latency_ms)
+        return (json.loads(content.strip()), provider, model, latency_ms)
     except Exception:
-        return {"intent": "general", "language": "en"}
+        return ({"intent": "general", "language": "en"}, None, None, None)
 
 
-def llm_score_risk(parsed: Dict) -> str:
-    """Return RED / ORANGE / GREEN risk."""
+def llm_score_risk(parsed: Dict) -> Tuple[str, Optional[str], Optional[str], Optional[int]]:
+    """Return (risk_level, provider, model) tuple.
+    Risk level is RED / ORANGE / GREEN."""
     if not USE_LLM:
         intent = parsed.get("intent")
         if intent == "double_dose":
-            return "RED"
+            return ("RED", None, None, None)
         if intent in ["interaction_check", "missed_dose"]:
-            return "ORANGE"
-        return "GREEN"
+            return ("ORANGE", None, None, None)
+        return ("GREEN", None, None, None)
     
     messages = [
         {"role": "system", "content": "Return ONLY a single word: RED, ORANGE, or GREEN."},
         {"role": "user", "content": json.dumps(parsed, ensure_ascii=False)}
     ]
     try:
-        content = chat_completion(messages=messages, temperature=0, model=get_default_model())
+        result = chat_completion(messages=messages, temperature=0, model=get_default_model())
+        if not result:
+            return ("GREEN", None, None, None)
+        # Handle tuple return: (text, provider, model, latency_ms) or (text, provider, model)
+        if isinstance(result, tuple):
+            if len(result) == 4:
+                content, provider, model, latency_ms = result
+            else:
+                content, provider, model = result[:3]
+                latency_ms = result[3] if len(result) > 3 else None
+        else:
+            content = result
+            provider = None
+            model = None
+            latency_ms = None
         if not content:
-            return "GREEN"
-        return content.strip().upper()
+            return ("GREEN", provider, model, latency_ms)
+        return (content.strip().upper(), provider, model, latency_ms)
     except Exception:
-        return "GREEN"
+        return ("GREEN", None, None, None)
 
 
 class MedicationService:
@@ -110,25 +143,48 @@ class MedicationService:
         match = df[df["drug_name"].str.lower() == name.lower()]
         return match.iloc[0].to_dict() if not match.empty else None
     
-    def handle(self, patient_id: str, user_text: str, use_voice: bool = False) -> str:
+    def handle(self, patient_id: str, user_text: str, use_voice: bool = False) -> Tuple[str, Dict, str, Optional[str], Optional[str], Optional[int]]:
+        """Handle medication query and return (response, parsed, risk, provider, model, latency_ms)"""
         patient = self.db.get_patient(patient_id)
         if not patient:
-            return "Patient not found."
+            return ("Patient not found.", {}, "GREEN", None, None, None)
         
-        parsed = llm_parse_query(user_text)
+        parsed, parse_provider, parse_model, parse_latency = llm_parse_query(user_text)
         intent = parsed.get("intent", "general")
         
         prescriptions = self.db.get_prescriptions(patient_id)
         if not prescriptions:
-            return "No prescriptions found for this patient."
+            return ("No prescriptions found for this patient.", parsed, "GREEN", parse_provider, parse_model, parse_latency)
         
-        risk = llm_score_risk(parsed)
+        risk, risk_provider, risk_model, risk_latency = llm_score_risk(parsed)
+        
+        # Use provider/model from the last LLM call (risk scoring), or fallback to parse call
+        llm_provider = risk_provider or parse_provider
+        llm_model = risk_model or parse_model
+        # Sum latencies from both LLM calls
+        total_latency = (parse_latency or 0) + (risk_latency or 0) if (parse_latency or risk_latency) else None
         
         responses = []
         for p in prescriptions:
+            # Handle prescription_info intent - show actual prescription data from database
+            if intent == "prescription_info":
+                # Use actual prescription data from database (safe to share per policy)
+                dose = p.get("dose", "N/A")
+                frequency = p.get("frequency", "N/A")
+                route = p.get("route", "oral")
+                condition = p.get("condition", "")
+                responses.append(f"{p['drug_name']}: {dose} {frequency} ({route}) for {condition}.")
+                continue
+            
+            # For other intents, use drug knowledge base
             info = self._get_drug_info(p["drug_name"])
             if not info:
+                # If no drug knowledge, at least show prescription info
+                dose = p.get("dose", "N/A")
+                frequency = p.get("frequency", "N/A")
+                responses.append(f"{p['drug_name']}: {dose} {frequency}.")
                 continue
+            
             if intent == "side_effect":
                 responses.append(f"{p['drug_name']}: Common side effects include {info['common_side_effects']}.")
             elif intent == "missed_dose":
@@ -140,7 +196,13 @@ class MedicationService:
             elif intent == "contraindication":
                 responses.append(f"{p['drug_name']}: Contraindicated in {info['contraindications']}.")
             else:
-                responses.append(f"{p['drug_name']} is used for {p['condition']} ({info['drug_class']} class).")
+                # For general queries, show both prescription info and drug class
+                dose = p.get("dose", "")
+                frequency = p.get("frequency", "")
+                if dose and frequency:
+                    responses.append(f"{p['drug_name']}: {dose} {frequency} for {p.get('condition', '')} ({info.get('drug_class', 'Unknown')} class).")
+                else:
+                    responses.append(f"{p['drug_name']} is used for {p.get('condition', '')} ({info.get('drug_class', 'Unknown')} class).")
         
         if intent == "interaction_check" and len(responses) > 1:
             responses.insert(0, "You're taking multiple medications. Here are the interaction warnings:")
@@ -154,7 +216,7 @@ class MedicationService:
         elif risk == "ORANGE":
             combined = "[ALERT] Please contact your clinician soon. " + combined
         
-        return combined
+        return (combined, parsed, risk, llm_provider, llm_model, total_latency)
 
 
 def medication_node(state: VoiceAgentState) -> VoiceAgentState:
@@ -169,14 +231,33 @@ def medication_node(state: VoiceAgentState) -> VoiceAgentState:
         return state
     
     service = MedicationService()
-    response = service.handle(patient_id, user_input, use_voice=state.get("voice_enabled", False))
+    response, parsed, risk, llm_provider, llm_model, latency_ms = service.handle(
+        patient_id, user_input, use_voice=state.get("voice_enabled", False)
+    )
     
     state["medication_response"] = response
     state["response"] = response
     
-    # Log entry
-    parsed = llm_parse_query(user_input)
-    risk = llm_score_risk(parsed)
+    # Extract actions from actual parsed data (not hardcoded)
+    actions = {
+        "intent": parsed.get("intent"),  # Actual intent from LLM/parsing
+        "drug": parsed.get("drug"),      # Actual drug mentioned
+        "risk_level": risk                # Actual risk assessment result
+    }
+    
+    # Extract policies that were actually applied/checked
+    # Only log policies that were relevant to this interaction
+    policies_applied = []
+    if risk:  # Risk assessment was performed
+        policies_applied.append("risk_assessment")
+    if risk == "RED":  # Escalation policy was triggered
+        policies_applied.append("escalate_on_red_risk")
+    
+    policies = {
+        "policies_applied": policies_applied,
+        "risk_level": risk,
+        "triage_required": AGENT_POLICY.get("triage_required", False)  # From policy file
+    }
     
     log_entry = {
         "ts": now_iso(),
@@ -186,6 +267,11 @@ def medication_node(state: VoiceAgentState) -> VoiceAgentState:
         "intent": parsed.get("intent"),
         "risk_level": risk,
         "response": response,
+        "provider": llm_provider,
+        "model": llm_model,
+        "latency_ms": latency_ms,  # Store latency for conversation log
+        "actions": actions,
+        "policies": policies
     }
     state["log_entry"] = log_entry
     log_medication(log_entry)

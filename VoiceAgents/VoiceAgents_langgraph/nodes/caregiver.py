@@ -20,9 +20,11 @@ if os.path.exists(POLICY_PATH):
     with open(POLICY_PATH, "r") as f:
         AGENT_POLICY = json.load(f)
     # Log policy summary on startup
+    from ..utils.logging_utils import get_conversation_logger
+    logger = get_conversation_logger()
     scope_str = ", ".join(AGENT_POLICY.get("scope", []))
     restrictions_str = ", ".join(AGENT_POLICY.get("restrictions", []))
-    print(f"[Policy] Caregiver Agent loaded: scope=[{scope_str}], restrictions=[{restrictions_str}]")
+    logger.info(f"[Policy] Caregiver Agent loaded: scope=[{scope_str}], restrictions=[{restrictions_str}]")
 
 
 def score_risk(avg_sev: float, missed: int) -> str:
@@ -145,24 +147,97 @@ def caregiver_node(state: VoiceAgentState) -> VoiceAgentState:
         response = "Please provide an 8-digit patient ID to generate a caregiver summary."
         state["caregiver_response"] = response
         state["response"] = response
+        # Log entry for error case
+        log_entry = {
+            "ts": now_iso(),
+            "agent": "CaregiverCommunicationAgent",
+            "patient_id": None,
+            "input": state.get("user_input", ""),
+            "response": response,
+            "provider": None,
+            "model": None,
+            "actions": {"action": "error", "reason": "missing_patient_id"},
+            "policies": {
+                "scope": AGENT_POLICY.get("scope", []),
+                "restrictions": AGENT_POLICY.get("restrictions", [])
+            }
+        }
+        state["log_entry"] = log_entry
         return state
     
     service = CaregiverService()
-    record = service.summarize_one(patient_id, days=7)
+    # Get time window from policy file (actual value used)
+    time_window_days = AGENT_POLICY.get("data_aggregation", {}).get("time_window_days", 7)
+    record = service.summarize_one(patient_id, days=time_window_days)
     
     if not record:
         response = f"Patient {patient_id} has no linked caregiver with consent on file."
         state["caregiver_response"] = response
         state["response"] = response
+        # Extract consent requirement from policy/restrictions
+        consent_required = "requires consent on file" in AGENT_POLICY.get("restrictions", [])
+        # Log entry for no caregiver case
+        log_entry = {
+            "ts": now_iso(),
+            "agent": "CaregiverCommunicationAgent",
+            "patient_id": patient_id,
+            "input": state.get("user_input", ""),
+            "response": response,
+            "provider": None,
+            "model": None,
+            "actions": {"action": "error", "reason": "no_caregiver_or_consent"},
+            "policies": {
+                "scope": AGENT_POLICY.get("scope", []),
+                "restrictions": AGENT_POLICY.get("restrictions", []),
+                "consent_required": consent_required  # From policy restrictions
+            }
+        }
+        state["log_entry"] = log_entry
         return state
     
     response = record["summary_text"]
     state["caregiver_response"] = response
     state["response"] = response
-    state["log_entry"] = record
+    
+    # Extract actions from actual execution (what actually happened)
+    # Use the actual time_window_days that was used in the function call
+    actions = {
+        "patient_id": patient_id,                    # Actual patient processed
+        "caregiver_id": record.get("caregiver_id"),  # Actual caregiver ID
+        "risk_level": record.get("risk_level"),      # Actual risk calculated
+        "days": time_window_days,                    # Actual time window used (from policy)
+        "symptom_trends_count": len(record.get("symptom_trends", [])),  # Actual trends found
+        "missed_doses": record.get("missed_doses", 0)  # Actual missed doses
+    }
+    
+    # Extract policies that were actually applied/checked
+    policies_applied = []
+    if record.get("caregiver_id"):  # Consent check was performed
+        policies_applied.append("consent_verification")
+    
+    # Extract consent requirement from policy restrictions (not hardcoded)
+    consent_required = "requires consent on file" in AGENT_POLICY.get("restrictions", [])
+    
+    policies = {
+        "policies_applied": policies_applied,  # Only policies that were actually checked
+        "scope": AGENT_POLICY.get("scope", []),  # Available scope from policy file
+        "consent_required": consent_required,  # From policy restrictions
+        "time_window_days": time_window_days  # Actual time window from policy
+    }
+    
+    # Enhance log entry with actions, policies, and provider/model (null for caregiver as it doesn't use LLM)
+    log_entry = {
+        **record,
+        "provider": None,  # Caregiver doesn't use LLM
+        "model": None,
+        "actions": actions,
+        "policies": policies
+    }
+    state["log_entry"] = log_entry
     
     # Log to file
-    log_caregiver(record, write_txt=True)
+    # Caregiver logging disabled per user request
+    # log_caregiver(record, write_txt=True)
     
     # Output with TTS if enabled
     if state.get("voice_enabled", False):

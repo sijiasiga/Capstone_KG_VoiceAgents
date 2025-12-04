@@ -135,13 +135,23 @@ class LangGraphEvaluator:
 
             # Parse query
             start_time = time.time()
-            parsed = llm_parse_query(query)
+            result = llm_parse_query(query)
+            # Handle new 4-tuple return: (parsed, provider, model, latency_ms)
+            if isinstance(result, tuple) and len(result) >= 3:
+                parsed = result[0]
+            else:
+                parsed = result if not isinstance(result, tuple) else result[0]
             elapsed = time.time() - start_time
 
             detected_intent = parsed.get("intent", "general")
 
             # Score risk
-            detected_risk = llm_score_risk(parsed)
+            result = llm_score_risk(parsed)
+            # Handle new 4-tuple return: (risk, provider, model, latency_ms)
+            if isinstance(result, tuple) and len(result) >= 1:
+                detected_risk = result[0]
+            else:
+                detected_risk = result if not isinstance(result, tuple) else result[0]
 
             intent_match = (detected_intent == expected_intent)
             risk_match = (detected_risk == expected_risk)

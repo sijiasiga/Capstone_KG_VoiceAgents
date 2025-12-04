@@ -23,8 +23,10 @@ if os.path.exists(POLICY_PATH):
     with open(POLICY_PATH, "r") as f:
         AGENT_POLICY = json.load(f)
     # Log policy summary on startup
+    from ..utils.logging_utils import get_conversation_logger
+    logger = get_conversation_logger()
     scope_str = ", ".join(AGENT_POLICY.get("scope", []))
-    print(f"[Policy] Followup Agent loaded: scope=[{scope_str}], triage={AGENT_POLICY.get('triage_required', False)}")
+    logger.info(f"[Policy] Followup Agent loaded: scope=[{scope_str}], triage={AGENT_POLICY.get('triage_required', False)}")
 
 # Symptom codebook - use local data folder
 DATA_DIR = os.path.join(BASE_DIR, "..", "data")
@@ -57,7 +59,11 @@ def normalize_symptom(text: str) -> Dict:
             {"role": "user", "content": f"Map this symptom phrase to a canonical term and SNOMED code if possible, else guess canonical='other' and snomed='NA'. Phrase: {text}"}
         ]
         try:
-            content = chat_completion(messages=messages, temperature=0, model=get_default_model())
+            result = chat_completion(messages=messages, temperature=0, model=get_default_model())
+            if not result:
+                return {"canonical": "other", "snomed": "NA"}
+            # Handle tuple return: (text, provider, model)
+            content = result[0] if isinstance(result, tuple) else result
             if not content:
                 return {"canonical": "other", "snomed": "NA"}
             j = json.loads(content.strip())
@@ -83,7 +89,11 @@ def llm_parse_symptom(user_text: str) -> Dict:
         {"role": "user", "content": f"Extract symptom and optional numeric severity from: {user_text}"}
     ]
     try:
-        content = chat_completion(messages=messages, temperature=0, model=get_default_model())
+        result = chat_completion(messages=messages, temperature=0, model=get_default_model())
+        if not result:
+            return {"symptom_text": user_text, "severity_0_10": None}
+        # Handle tuple return: (text, provider, model)
+        content = result[0] if isinstance(result, tuple) else result
         if not content:
             return {"symptom_text": user_text, "severity_0_10": None}
         return json.loads(content.strip())
@@ -105,7 +115,6 @@ TRIAGE_RED_FLAGS = [
     {"name": "neuro_deficit", "pattern": ["numbness", "weakness", "slurred speech"], "threshold": None},
     {"name": "syncope", "pattern": ["fainted", "syncope"], "threshold": None},
 ]
-
 TRIAGE_ORANGE_FLAGS = [
     {"name": "moderate_pain", "pattern": ["pain"], "range": (5,7)},
     {"name": "fever_low", "pattern": ["fever"], "range": (99.5, 101.4)},
@@ -192,6 +201,9 @@ def followup_node(state: VoiceAgentState) -> VoiceAgentState:
             pass
     
     # Use LLM to extract symptoms if available
+    llm_provider = None
+    llm_model = None
+    latency_ms = None
     if USE_LLM:
         symptom_extraction_prompt = f"""Extract all symptoms mentioned in this text. Return ONLY a JSON array of symptom names.
 Text: "{user_input}"
@@ -206,25 +218,38 @@ Return: ["symptom1", "symptom2", ...] or [] if no symptoms."""
                 {"role": "system", "content": "Return ONLY valid JSON array. No prose."},
                 {"role": "user", "content": symptom_extraction_prompt}
             ]
-            content = chat_completion(messages=messages, temperature=0, model=get_default_model())
-            if content:
-                try:
-                    llm_symptoms = json.loads(content.strip())
-                    if isinstance(llm_symptoms, list):
-                        # Normalize symptom names for better matching
-                        normalized = []
-                        for s in llm_symptoms:
-                            s_lower = s.lower()
-                            # Normalize common variations
-                            if "chest" in s_lower and "tight" in s_lower:
-                                normalized.append("chest tightness")
-                            elif "chest" in s_lower and "pain" in s_lower:
-                                normalized.append("chest pain")
-                            else:
-                                normalized.append(s_lower)
-                        symptoms.extend(normalized)
-                except:
-                    pass
+            result = chat_completion(messages=messages, temperature=0, model=get_default_model())
+            if result:
+                # Handle tuple return: (text, provider, model, latency_ms) or (text, provider, model)
+                if isinstance(result, tuple):
+                    if len(result) == 4:
+                        content, llm_provider, llm_model, latency_ms = result
+                    else:
+                        content, llm_provider, llm_model = result[:3]
+                        latency_ms = result[3] if len(result) > 3 else None
+                else:
+                    content = result
+                    llm_provider = None
+                    llm_model = None
+                    latency_ms = None
+                if content:
+                    try:
+                        llm_symptoms = json.loads(content.strip())
+                        if isinstance(llm_symptoms, list):
+                            # Normalize symptom names for better matching
+                            normalized = []
+                            for s in llm_symptoms:
+                                s_lower = s.lower()
+                                # Normalize common variations
+                                if "chest" in s_lower and "tight" in s_lower:
+                                    normalized.append("chest tightness")
+                                elif "chest" in s_lower and "pain" in s_lower:
+                                    normalized.append("chest pain")
+                                else:
+                                    normalized.append(s_lower)
+                            symptoms.extend(normalized)
+                    except Exception:
+                        pass
         except Exception:
             pass
     
@@ -275,6 +300,27 @@ Return: ["symptom1", "symptom2", ...] or [] if no symptoms."""
         response += " this could be a serious symptom. Please go to the nearest emergency department immediately or call 911 if this is an emergency. I'm also alerting your healthcare provider right away."
         state["followup_response"] = response
         state["response"] = response
+        
+        # Extract actions and policies for RED tier
+        actions = {
+            "symptoms_logged": symptoms,
+            "severity": severity,
+            "triage_tier": triage_tier
+        }
+        policies_applied = []
+        if triage_tier:
+            policies_applied.append("triage_classification")
+        if matched_flags:
+            policies_applied.append("flag_matching")
+        if triage_tier in ["RED", "ORANGE"]:
+            policies_applied.append("escalate_on_flags")
+        policies = {
+            "policies_applied": policies_applied,
+            "matched_flags": matched_flags,
+            "triage_tier": triage_tier,
+            "triage_required": AGENT_POLICY.get("triage_required", False)
+        }
+        
         log_entry = {
             "ts": now_iso(),
             "agent": "FollowUpAgent",
@@ -284,7 +330,12 @@ Return: ["symptom1", "symptom2", ...] or [] if no symptoms."""
             "severity": severity,
             "triage_tier": "RED",
             "matched_flags": matched_flags,
-            "response": response
+            "response": response,
+            "provider": llm_provider,
+            "model": llm_model,
+            "latency_ms": latency_ms,  # Store latency for conversation log
+            "actions": actions,
+            "policies": policies
         }
         state["log_entry"] = log_entry
         log_followup(log_entry)
@@ -302,6 +353,27 @@ Return: ["symptom1", "symptom2", ...] or [] if no symptoms."""
             response += f" I also notice you reported {', '.join(unique_symptoms[:-1])} earlier this week."
         state["followup_response"] = response
         state["response"] = response
+        
+        # Extract actions and policies for ORANGE tier
+        actions = {
+            "symptoms_logged": symptoms,
+            "severity": severity,
+            "triage_tier": triage_tier
+        }
+        policies_applied = []
+        if triage_tier:
+            policies_applied.append("triage_classification")
+        if matched_flags:
+            policies_applied.append("flag_matching")
+        if triage_tier in ["RED", "ORANGE"]:
+            policies_applied.append("escalate_on_flags")
+        policies = {
+            "policies_applied": policies_applied,
+            "matched_flags": matched_flags,
+            "triage_tier": triage_tier,
+            "triage_required": AGENT_POLICY.get("triage_required", False)
+        }
+        
         log_entry = {
             "ts": now_iso(),
             "agent": "FollowUpAgent",
@@ -311,7 +383,12 @@ Return: ["symptom1", "symptom2", ...] or [] if no symptoms."""
             "severity": severity,
             "triage_tier": "ORANGE",
             "matched_flags": matched_flags,
-            "response": response
+            "response": response,
+            "provider": llm_provider,
+            "model": llm_model,
+            "latency_ms": latency_ms,  # Store latency for conversation log
+            "actions": actions,
+            "policies": policies
         }
         state["log_entry"] = log_entry
         log_followup(log_entry)
@@ -342,6 +419,30 @@ Return: ["symptom1", "symptom2", ...] or [] if no symptoms."""
     state["followup_response"] = response
     state["response"] = response
     
+    # Extract actions from actual execution (what actually happened)
+    actions = {
+        "symptoms_logged": symptoms,      # Actual symptoms that were logged
+        "severity": severity,            # Actual severity score
+        "triage_tier": triage_tier       # Actual triage classification
+    }
+    
+    # Extract policies that were actually applied/checked
+    # Only log policies relevant to this interaction
+    policies_applied = []
+    if triage_tier:  # Triage was performed
+        policies_applied.append("triage_classification")
+    if matched_flags:  # Flag matching was performed
+        policies_applied.append("flag_matching")
+    if triage_tier in ["RED", "ORANGE"]:  # Escalation was triggered
+        policies_applied.append("escalate_on_flags")
+    
+    policies = {
+        "policies_applied": policies_applied,
+        "matched_flags": matched_flags,  # Actual flags that matched
+        "triage_tier": triage_tier,      # Actual triage result
+        "triage_required": AGENT_POLICY.get("triage_required", False)  # From policy file
+    }
+    
     # Log entry (triage_tier already set above in RED/ORANGE cases)
     log_entry = {
         "ts": now_iso(),
@@ -352,7 +453,12 @@ Return: ["symptom1", "symptom2", ...] or [] if no symptoms."""
         "severity": severity,
         "triage_tier": triage_tier,
         "matched_flags": matched_flags,
-        "response": response
+        "response": response,
+        "provider": llm_provider,
+        "model": llm_model,
+        "latency_ms": latency_ms,  # Store latency for conversation log
+        "actions": actions,
+        "policies": policies
     }
     state["log_entry"] = log_entry
     log_followup(log_entry)
