@@ -3,6 +3,21 @@
 This document tracks incremental updates and improvements to the VoiceAgents system.
 
 ---
+## Nov 12th Updates
+
+### Clinical Validation Feedback Implementation
+
+**Files:** `nodes/medication.py`, `nodes/appointment.py`
+
+**Changes:**
+- Fixed medication agent to only discuss the specific medication requested by the user, preventing confusion from displaying all patient medications
+- Added urgent handling for hypoglycemia detection with immediate escalation and actionable guidance (eat fast-acting carbs, immediate nurse transfer)
+- Enhanced triage documentation with detailed probing question framework for fever, severe pain, wound issues, and dizziness
+- Medication filtering logic now extracts drug names from user queries and shows only relevant information
+
+**Impact:** Agent responses are more focused and clinically appropriate. Hypoglycemia is now treated as time-sensitive emergency. Clear roadmap for Phase 2 multi-turn probing conversations.
+
+---
 ## Nov 5th Updates
 
 ### Policy and Safety Framework

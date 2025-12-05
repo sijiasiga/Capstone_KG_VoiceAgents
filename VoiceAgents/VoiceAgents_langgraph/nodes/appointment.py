@@ -162,13 +162,46 @@ Input: "{user_input}"
 
 
 def triage_category(symptoms: Dict) -> Tuple[str, List[str]]:
-    """Return tier ('RED'|'ORANGE'|'GREEN') and matched rules."""
+    """Return tier ('RED'|'ORANGE'|'GREEN') and matched rules.
+
+    PHASE 2 ENHANCEMENT (Based on Heather's Clinical Feedback):
+    Before auto-escalating RED flags to ER, add probing questions to gather context:
+
+    For HIGH FEVER (≥101.5°F):
+        - Ask: "Do you have flu-like symptoms (body aches, cough, runny nose)?"
+        - Ask: "When did the fever start?"
+        - Ask: "Have you taken fever-reducing medication?"
+        → If flu symptoms present: Route to nurse callback (not ER)
+        → If post-op or sudden onset with no flu: Route to ER
+
+    For SEVERE PAIN (≥8/10):
+        - Ask: "What type of pain? (sharp, dull, burning, throbbing)"
+        - Ask: "Where exactly is the pain?"
+        - Ask: "Is this new pain or has it been ongoing?"
+        → New sharp chest pain: ER
+        → Chronic pain flare-up: Nurse callback + pain management
+        → Post-op pain at surgical site: Surgeon office visit
+
+    For WOUND ISSUES (pus, drainage, opening):
+        - Ask: "How much drainage? (small amount, large amount, continuous)"
+        - Ask: "What color? (clear, yellow, green, bloody)"
+        - Ask: "How much has incision opened? (small gap, large opening)"
+        → Minor pus + small opening: Surgeon office visit
+        → Heavy green drainage + large opening: ER
+        → Mild redness only: Nurse callback
+
+    For DIZZINESS:
+        - Ask: "Experiencing chest pain, shortness of breath, weakness, slurred speech with it?"
+        - Ask: "Did it come on suddenly or gradually?"
+        → With stroke/cardiac symptoms: ER
+        → Isolated dizziness: Warm transfer to RN
+    """
     if not symptoms or not symptoms.get("present"):
         return "GREEN", []
     text_blob = " ".join([s.lower() for s in symptoms.get("list", [])])
     sev = symptoms.get("severity_0_10")
     fever = symptoms.get("fever_f")
-    
+
     # RED
     for rule in POLICY["red_flags"]:
         name, patt, thr = rule["name"], rule["pattern"], rule.get("threshold")

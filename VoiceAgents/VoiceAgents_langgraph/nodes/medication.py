@@ -155,17 +155,58 @@ class MedicationService:
         prescriptions = self.db.get_prescriptions(patient_id)
         if not prescriptions:
             return ("No prescriptions found for this patient.", parsed, "GREEN", parse_provider, parse_model, parse_latency)
-        
+
         risk, risk_provider, risk_model, risk_latency = llm_score_risk(parsed)
-        
+
         # Use provider/model from the last LLM call (risk scoring), or fallback to parse call
         llm_provider = risk_provider or parse_provider
         llm_model = risk_model or parse_model
         # Sum latencies from both LLM calls
         total_latency = (parse_latency or 0) + (risk_latency or 0) if (parse_latency or risk_latency) else None
-        
+
+        # CRITICAL FIX: Only discuss medications that user asked about
+        # Extract drug names mentioned in user's question
+        drugs_mentioned = parsed.get("drugs_mentioned", [])
+        mentioned_drug_names = []
+        if drugs_mentioned:
+            for drug in drugs_mentioned:
+                if isinstance(drug, dict):
+                    # Try normalized name first, then raw
+                    drug_name = drug.get("norm_name") or drug.get("raw")
+                    if drug_name:
+                        mentioned_drug_names.append(drug_name.lower())
+                elif isinstance(drug, str):
+                    mentioned_drug_names.append(drug.lower())
+
+        # Filter prescriptions to only those mentioned (or all if it's a general query)
+        filtered_prescriptions = prescriptions
+        if mentioned_drug_names and intent not in ["general", "prescription_info"]:
+            # User asked about specific drug(s) - only show those
+            filtered_prescriptions = [
+                p for p in prescriptions
+                if any(mentioned_name in p["drug_name"].lower() for mentioned_name in mentioned_drug_names)
+            ]
+            # If no matches found, fallback to all prescriptions with a note
+            if not filtered_prescriptions:
+                filtered_prescriptions = prescriptions
+
+        # CRITICAL FIX: Hypoglycemia requires immediate urgency (Heather feedback Row 55)
+        # Check for low blood sugar symptoms - this is time-sensitive
+        user_lower = user_text.lower()
+        hypoglycemia_keywords = ["low blood sugar", "blood sugar is low", "hypoglycemia", "hypoglycemic",
+                                  "shaky after insulin", "dizzy after insulin", "sweating after insulin"]
+        if any(keyword in user_lower for keyword in hypoglycemia_keywords):
+            # Override risk to RED - this is urgent
+            risk = "RED"
+            urgent_response = "[URGENT - HYPOGLYCEMIA] Low blood sugar can be serious. "
+            urgent_response += "If you can, check your blood sugar level now. "
+            urgent_response += "Eat or drink 15g of fast-acting carbs (juice, glucose tablets, or candy). "
+            urgent_response += "I'm connecting you to a nurse RIGHT NOW for immediate guidance. "
+            urgent_response += "If you feel confused, have seizures, or can't swallow, call 911 immediately."
+            return (urgent_response, parsed, risk, llm_provider, llm_model, total_latency)
+
         responses = []
-        for p in prescriptions:
+        for p in filtered_prescriptions:
             # Handle prescription_info intent - show actual prescription data from database
             if intent == "prescription_info":
                 # Use actual prescription data from database (safe to share per policy)
