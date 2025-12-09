@@ -7,6 +7,7 @@ A Python toolkit for generating and visualizing knowledge graphs from medical po
 1. **Install dependencies:**
 
 ```bash
+cd KG
 pip install -r requirements.txt
 ```
 
