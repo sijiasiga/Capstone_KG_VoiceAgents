@@ -253,7 +253,12 @@ class PolicyRuleKGGenerator:
             if condition.condition_type not in condition_groups:
                 condition_groups[condition.condition_type] = []
             condition_groups[condition.condition_type].append(condition)
-        
+
+        # Handle case where no conditions were found
+        if not condition_groups:
+            print("Warning: No conditions found in SQL. Creating minimal graph with policy node only.")
+            return
+
         # Create group nodes and condition nodes
         group_positions = {}
         angle_step = 2 * math.pi / len(condition_groups)

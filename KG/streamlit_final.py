@@ -642,8 +642,8 @@ def patient_compliance_page():
                         # For now, we'll use the filename stem as patient ID
                         patient_id = patient_id_candidate if patient_id_candidate and patient_id_candidate != "MR_2" else "patient_temp"
 
-                        # Create patient-specific folder
-                        patient_dir = runtime_patient_dir / f"Patient_{patient_id}"
+                        # Create patient-specific folder with policy ID
+                        patient_dir = runtime_patient_dir / f"Patient_{patient_id}_Policy_{selected_policy}"
                         patient_dir.mkdir(exist_ok=True)
 
                         st.success(f"✅ Patient folder created: {patient_dir}")
@@ -719,7 +719,7 @@ def patient_compliance_page():
                                     # Remove all special characters, keep alphanumeric only
                                     patient_id = re.sub(r'[^a-zA-Z0-9]', '', str(extracted_patient_id))
                                     # Rename folder if patient ID changed
-                                    new_patient_dir = runtime_patient_dir / f"Patient_{patient_id}"
+                                    new_patient_dir = runtime_patient_dir / f"Patient_{patient_id}_Policy_{selected_policy}"
 
                                     # Move files from old directory to new directory
                                     if new_patient_dir != patient_dir:
@@ -899,8 +899,43 @@ def patient_compliance_page():
                                     else:
                                         st.error(f"Plot file not found: {plot_path}")
 
-                        # Step 9: Display Policy Information
-                        st.markdown('<h2 class="section-header">📋 Policy Information</h2>', unsafe_allow_html=True)
+                        # Step 9: Display Policy Information and Compliance Report
+                        st.markdown('<h2 class="section-header">📋 Policy Information & Compliance Report</h2>', unsafe_allow_html=True)
+
+                        # Display Compliance Report
+                        with st.expander("📊 View Compliance Report", expanded=True):
+                            # Look for compliance report file
+                            compliance_report_files = list(patient_dir.glob(f"pat_*_pol_{selected_policy}.json"))
+                            if compliance_report_files:
+                                compliance_report_path = compliance_report_files[0]
+                                with open(compliance_report_path, 'r', encoding='utf-8') as f:
+                                    compliance_report = json.load(f)
+
+                                # Display summary
+                                col1, col2, col3 = st.columns(3)
+                                with col1:
+                                    st.metric("Patient ID", compliance_report.get('patient_id', 'N/A'))
+                                with col2:
+                                    st.metric("Policy ID", compliance_report.get('policy_id', 'N/A'))
+                                with col3:
+                                    policy_met = compliance_report.get('patient_met_policy', False)
+                                    st.metric("Policy Met", "✅ YES" if policy_met else "❌ NO")
+
+                                # Display full JSON
+                                st.markdown("**Full Compliance Report:**")
+                                st.json(compliance_report)
+
+                                # Download button
+                                with open(compliance_report_path, "rb") as file:
+                                    st.download_button(
+                                        label="📥 Download Compliance Report (JSON)",
+                                        data=file.read(),
+                                        file_name=compliance_report_path.name,
+                                        mime="application/json",
+                                        key=f"download_compliance_report_{patient_id}"
+                                    )
+                            else:
+                                st.info("Compliance report not generated yet")
 
                         with st.expander("View SQL Query", expanded=False):
                             if policy_data["sql_content"]:
@@ -1840,14 +1875,12 @@ def main():
     st.sidebar.title("🏥 Medical KG App")
     page = st.sidebar.selectbox(
         "Choose a page:",
-        ["📚 Policy Gallery", "📄 Medical Records", "📋 Policy Conversion", "👤 Patient Compliance"]
+        ["📚 Policy Gallery", "📋 Policy Conversion", "👤 Patient Compliance"]
     )
 
     # Route to appropriate page
     if page == "📚 Policy Gallery":
         policy_gallery_page()
-    elif page == "📄 Medical Records":
-        medical_record_page()
     elif page == "📋 Policy Conversion":
         policy_conversion_page()
     elif page == "👤 Patient Compliance":

@@ -1,0 +1,12 @@
+{
+  "patient_id": "8472-2025-445",
+  "impotence_diagnosis_status": null,
+  "impotence_treatment_status": null,
+  "treatment_surgical_penile_prosthesis_implantation": null,
+  "treatment_nonsurgical_medical": null,
+  "treatment_nonsurgical_psychotherapeutic": null,
+  "abuse_suspected_documentation_request_flag": null,
+  "treatment_linked_to_mental_condition_flag": null,
+  "patient_is_hospital_inpatient_for_mental_condition_treatment": false,
+  "psychiatric_service_limitation_applies": null
+}
