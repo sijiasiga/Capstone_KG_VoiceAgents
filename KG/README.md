@@ -17,7 +17,17 @@ pip install -r requirements.txt
 streamlit run streamlit_app.py
 ```
 
-2. **Run the Streamlit web app (Final):**
+3. **Run the Streamlit web app (Final):**
+
+Before running, create `api.json` in the KG directory:
+
+```json
+{
+  "gemini": "your-gemini-api-key-here"
+}
+```
+
+then run this in the terminal
 
 ```bash
 streamlit run streamlit_final.py
