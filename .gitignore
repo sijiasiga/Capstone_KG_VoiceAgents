@@ -8,7 +8,8 @@
 /KG/*.pyo
 
 # OS files
-/KG/.DS_Store
-/KG/.DS_Store?
+.DS_Store
+*.DS_Store
+.DS_Store?
 .claude/
 /KG/api.json
