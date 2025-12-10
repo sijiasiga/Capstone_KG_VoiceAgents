@@ -30,64 +30,53 @@ if os.path.exists(POLICY_PATH):
     restrictions_str = ", ".join(AGENT_POLICY.get("restrictions", []))
     logger.info(f"[Policy] Appointment Agent loaded: scope=[{scope_str}], restrictions=[{restrictions_str}]")
 
-# Mock data (same as original)
-appointments_data = pd.DataFrame([
-    {"appointment_id": 30409, "patient_id": "10000032", "appointment_date": "2025-10-15 09:30:00",
-     "appointment_type": "Surgery - Cardiac Bypass", "doctor": "Dr. Smith", "status": "Scheduled",
-     "urgency": "high", "can_reschedule": False, "plan_id": "HMO_A"},
-    {"appointment_id": 30220, "patient_id": "10004235", "appointment_date": "2025-10-08 14:20:00",
-     "appointment_type": "Follow-up - Cardiology", "doctor": "Dr. Johnson", "status": "Scheduled",
-     "urgency": "medium", "can_reschedule": True, "plan_id": "PPO_A"},
-    {"appointment_id": 30384, "patient_id": "10001217", "appointment_date": "2025-09-28 11:00:00",
-     "appointment_type": "Consultation - Diabetes", "doctor": "Dr. Wilson", "status": "Scheduled",
-     "urgency": "low", "can_reschedule": True, "plan_id": "HMO_A"}
-])
+# Load data from CSV files
+DATA_DIR = os.path.join(BASE_DIR, "..", "data")
+appointments_data = pd.read_csv(os.path.join(DATA_DIR, "appointments.csv"))
+available_slots = pd.read_csv(os.path.join(DATA_DIR, "available_slots.csv"))
+patients = pd.read_csv(os.path.join(DATA_DIR, "patients.csv"))
+caregivers = pd.read_csv(os.path.join(DATA_DIR, "caregivers.csv"))
 
-available_slots = pd.DataFrame([
-    {"date": "2025-10-09 10:00:00", "doctor": "Dr. Johnson", "appointment_type": "Follow-up - Cardiology", "location": "Clinic A", "modality": "in_person"},
-    {"date": "2025-10-10 15:30:00", "doctor": "Dr. Johnson", "appointment_type": "Follow-up - Cardiology", "location": "Clinic A", "modality": "in_person"},
-    {"date": "2025-09-30 09:00:00", "doctor": "Dr. Wilson", "appointment_type": "Consultation - Diabetes", "location": "Clinic B", "modality": "video"}
-])
+# Handle chronic_conditions: convert from string to list if needed
+if "chronic_conditions" in patients.columns:
+    def parse_conditions(val):
+        if pd.isna(val) or val == "None" or val == "":
+            return []
+        if isinstance(val, list):
+            return val
+        # Split comma-separated string
+        return [c.strip() for c in str(val).split(",") if c.strip()]
+    patients["chronic_conditions"] = patients["chronic_conditions"].apply(parse_conditions)
 
-patients = pd.DataFrame([
-    {"patient_id": "10004235", "name": "Alice Lee", "dob": "2001-08-08", "age": 24, "language": "ENGLISH", "chronic_conditions": ["None"], "primary_caregiver_id": None},
-    {"patient_id": "10000032", "name": "Bob Chen", "dob": "1971-03-10", "age": 54, "language": "ENGLISH", "chronic_conditions": ["Diabetes"], "primary_caregiver_id": None},
-    {"patient_id": "10001217", "name": "Cara Wong", "dob": "2008-02-01", "age": 17, "language": "ENGLISH", "chronic_conditions": ["None"], "primary_caregiver_id": "C001"}
-])
+# Handle consent_on_file: convert to boolean
+if "consent_on_file" in caregivers.columns:
+    caregivers["consent_on_file"] = caregivers["consent_on_file"].astype(bool)
 
-caregivers = pd.DataFrame([
-    {"caregiver_id": "C001", "name": "Wong, Parent", "relationship": "Mother", "consent_on_file": True}
-])
-
-POLICY = {
-    "postop_windows": {
-        "Cardiac Bypass": (7, 14),
-        "Valve Repair": (7, 14),
-    },
-    "telehealth_allowed": {
-        "Follow-up - Cardiology": True,
-        "Consultation - Diabetes": True,
-        "Suture Removal": False,
-    },
-    "referral_required_plans": ["HMO_A"],
-    "red_flags": [
-        {"name": "chest_pain", "pattern": ["chest pain", "pain in my chest", "chest tightness", "tightness in my chest"], "threshold": None},
-        {"name": "shortness_of_breath", "pattern": ["shortness of breath", "short of breath", "trouble breathing"], "threshold": None},
-        {"name": "wound_dehiscence", "pattern": ["incision opening", "wound opening", "dehiscence", "yellow drainage", "pus", "green drainage", "greenish fluid", "ooze", "warm to the touch", "warm", "swelling"], "threshold": None},
-        {"name": "fever_high", "pattern": ["fever"], "threshold": 101.5},
-        {"name": "severe_pain", "pattern": ["pain"], "threshold": 8},
-        {"name": "neuro_deficit", "pattern": ["numbness", "weakness", "slurred speech"], "threshold": None},
-        {"name": "syncope", "pattern": ["fainted", "syncope"], "threshold": None},
-    ],
-    "orange_flags": [
-        {"name": "moderate_pain", "pattern": ["pain"], "range": (5,7)},
-        {"name": "fever_low", "pattern": ["fever"], "range": (99.5, 101.4)},
-        {"name": "hyperglycemia", "pattern": ["glucose", "blood sugar"], "threshold": 300},
-        {"name": "wound_redness", "pattern": ["redness", "swelling"], "threshold": None},
-        {"name": "wound_redness", "pattern": ["redness"], "threshold": None},
-        {"name": "dizziness", "pattern": ["dizzy", "dizziness"], "threshold": None},
-    ]
-}
+# Load triage policy from JSON file
+TRIAGE_POLICY_PATH = os.path.join(BASE_DIR, "..", "policy", "agents", "appointment_triage_policy.json")
+POLICY = {}
+if os.path.exists(TRIAGE_POLICY_PATH):
+    with open(TRIAGE_POLICY_PATH, "r") as f:
+        POLICY = json.load(f)
+    # Convert JSON arrays back to tuples for postop_windows (for compatibility with existing code)
+    if "postop_windows" in POLICY:
+        for key, value in POLICY["postop_windows"].items():
+            if isinstance(value, list):
+                POLICY["postop_windows"][key] = tuple(value)
+    # Convert JSON arrays back to tuples for orange_flags ranges
+    if "orange_flags" in POLICY:
+        for flag in POLICY["orange_flags"]:
+            if "range" in flag and isinstance(flag["range"], list):
+                flag["range"] = tuple(flag["range"])
+else:
+    # Fallback to empty policy if file doesn't exist
+    POLICY = {
+        "postop_windows": {},
+        "telehealth_allowed": {},
+        "referral_required_plans": [],
+        "red_flags": [],
+        "orange_flags": []
+    }
 
 
 def to_dt(s: str) -> datetime:
@@ -225,13 +214,15 @@ def triage_category(symptoms: Dict) -> Tuple[str, List[str]]:
                 low, high = rng
                 if low <= sev <= high:
                     return "ORANGE", [name]
-            elif thr and name == "fever_low" and fever is not None:
+            elif rng and name == "fever_low" and fever is not None:
+                # Check fever range: 99.5-101.4°F is ORANGE
                 low, high = rng
                 if low <= fever <= high:
                     return "ORANGE", [name]
-            elif thr and name == "hyperglycemia":
-                return "ORANGE", [name]
-            else:
+                # If fever mentioned but outside range, skip (don't assume)
+                continue
+            elif name == "dizziness" or name in ["wound_redness", "hyperglycemia"]:
+                # These flags don't require threshold/range checks
                 return "ORANGE", [name]
     return "GREEN", []
 
@@ -333,7 +324,15 @@ class AppointmentService:
             # TRIAGE - check symptoms mentioned in context of appointment request
             triage, rules = triage_category(parsed.get("symptoms", {}))
             if triage == "RED":
-                return "I understand you need to schedule an appointment, but based on the symptoms you've described, this sounds like it could be serious. Please go to the nearest emergency department right away. I'm also alerting the on-call nurse about this."
+                # Check if this is a high fever case that needs probing
+                is_fever_high = "fever_high" in rules
+                if is_fever_high:
+                    # Start fever probing phase instead of immediate ER
+                    # Return a special marker that will be handled in appointment_node
+                    return "__FEVER_PROBE_START__"
+                else:
+                    # All other RED cases: immediate ER (unchanged behavior)
+                    return "I understand you need to schedule an appointment, but based on the symptoms you've described, this sounds like it could be serious. Please go to the nearest emergency department right away. I'm also alerting the on-call nurse about this."
             if triage == "ORANGE":
                 return "I hear you'd like to schedule an appointment, and I've also noted the symptoms you mentioned. Let me have a nurse call you today to discuss both your symptoms and find the best appointment time. I can also place a tentative hold for a visit in the next 24 to 48 hours."
             
@@ -375,6 +374,60 @@ def appointment_node(state: VoiceAgentState) -> VoiceAgentState:
     user_input = state.get("user_input", "")
     patient_id = state.get("patient_id")
     
+    # Handle fever probing phase (multi-turn conversation)
+    triage_phase = state.get("triage_phase")
+    if triage_phase == "fever_probe":
+        # User is answering fever probing questions
+        triage_context = state.get("triage_context", {})
+        user_lower = user_input.lower()
+        
+        # Simple decision logic based on user's answer
+        # Check for flu-like symptoms (handles both singular and plural forms)
+        has_flu_symptoms = any(keyword in user_lower for keyword in [
+            "flu", "body ache", "body aches", "cough", "runny nose", 
+            "congestion", "sore throat", "aches"
+        ])
+        
+        # Get original fever temperature from context
+        fever_temp = triage_context.get("fever_temperature")
+        fever_str = f"{fever_temp:.1f}°F" if fever_temp else "high fever"
+        
+        # Determine escalation path
+        if has_flu_symptoms:
+            # Flu symptoms + high fever → Nurse callback (not ER)
+            escalation_path = "warm_transfer_rn"
+            response = f"Thank you for answering those questions. Based on your responses, you have flu-like symptoms along with your {fever_str} fever. This combination is often expected with the flu and typically doesn't require emergency care. I'm connecting you with a nurse right now who can provide guidance and help determine if you need to be seen sooner."
+        else:
+            # High fever without flu symptoms → ER (more serious)
+            escalation_path = "er"
+            response = f"Thank you for answering those questions. Based on your responses, your {fever_str} fever without flu-like symptoms could indicate something more serious. Please go to the nearest emergency department right away. I'm also alerting the on-call nurse about this."
+        
+        # Update state and clear probing phase
+        state["triage_phase"] = None
+        state["triage_context"] = None
+        state["escalation_path"] = escalation_path
+        state["appointment_response"] = response
+        state["response"] = response
+        
+        # Log the decision
+        log_entry = {
+            "ts": now_iso(),
+            "agent": "AppointmentAgent",
+            "patient_id": patient_id,
+            "input": user_input,
+            "response": response,
+            "triage_phase": "fever_probe_completed",
+            "escalation_path": escalation_path,
+            "triage_context": triage_context
+        }
+        state["log_entry"] = log_entry
+        log_appointment(log_entry)
+        
+        if state.get("voice_enabled", False):
+            say(response, voice=True)
+        
+        return state
+    
     service = AppointmentService()
     parsed_result = parse_patient_input(user_input, patient_id)
     # parse_patient_input now returns (parsed_dict, provider, model, latency_ms)
@@ -391,6 +444,56 @@ def appointment_node(state: VoiceAgentState) -> VoiceAgentState:
         latency_ms = None
     
     response = service.process(parsed, use_voice=state.get("voice_enabled", False))
+    
+    # Check if service returned fever probe start marker
+    if response == "__FEVER_PROBE_START__":
+        # Initialize fever probing phase
+        symptoms = parsed.get("symptoms", {})
+        fever_temp = symptoms.get("fever_f")
+        
+        # Set up probing phase
+        state["triage_phase"] = "fever_probe"
+        state["triage_context"] = {
+            "initial_symptoms": symptoms,
+            "fever_temperature": fever_temp,
+            "user_input": user_input,
+            "originating_agent": "appointment"  # Track which agent started the probe
+        }
+        
+        # DEBUG: Log that we're setting up probing phase
+        logger.info(f"[DEBUG] AppointmentAgent - Setting triage_phase to 'fever_probe' (patient: {patient_id}, session: {state.get('session_id')})")
+        
+        # Ask probing questions
+        response = "I understand you're experiencing a high fever. To help determine the best course of action, I need to ask a few quick questions: "
+        response += "Do you have any flu-like symptoms, such as body aches, cough, or runny nose? "
+        response += "When did the fever start? "
+        response += "And have you taken any fever-reducing medication like Tylenol or Advil?"
+        
+        state["appointment_response"] = response
+        state["response"] = response
+        
+        # Log the start of probing phase
+        log_entry = {
+            "ts": now_iso(),
+            "agent": "AppointmentAgent",
+            "patient_id": patient_id,
+            "input": user_input,
+            "parsed": parsed,
+            "response": response,
+            "provider": llm_provider,
+            "model": llm_model,
+            "latency_ms": latency_ms,
+            "triage_phase": "fever_probe_started",
+            "actions": {"action": parsed.get("action")},
+            "policies": {"policies_applied": ["triage_required"]}
+        }
+        state["log_entry"] = log_entry
+        log_appointment(log_entry)
+        
+        if state.get("voice_enabled", False):
+            say(response, voice=True)
+        
+        return state
     
     state["appointment_response"] = response
     state["response"] = response

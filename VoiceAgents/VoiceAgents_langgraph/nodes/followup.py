@@ -4,7 +4,6 @@ Follow-Up Agent Node - LangGraph implementation
 import json
 import csv
 import os
-import sys
 import re
 from typing import Dict, Optional, List, Tuple
 from ..state import VoiceAgentState
@@ -105,27 +104,52 @@ RED_SEVERITY = 8
 REPEAT_WINDOW_DAYS = 7
 REPEAT_THRESHOLD = 2
 
-# Triage flags - shared with appointment agent
-TRIAGE_RED_FLAGS = [
-    {"name": "chest_pain", "pattern": ["chest pain", "pain in my chest", "chest tightness", "tightness in my chest"], "threshold": None},
-    {"name": "shortness_of_breath", "pattern": ["shortness of breath", "short of breath", "trouble breathing"], "threshold": None},
-    {"name": "wound_dehiscence", "pattern": ["incision opening", "wound opening", "dehiscence", "yellow drainage", "pus", "green drainage", "greenish fluid", "ooze", "warm to the touch", "warm", "swelling"], "threshold": None},
-    {"name": "fever_high", "pattern": ["fever"], "threshold": 101.5},
-    {"name": "severe_pain", "pattern": ["pain"], "threshold": 8},
-    {"name": "neuro_deficit", "pattern": ["numbness", "weakness", "slurred speech"], "threshold": None},
-    {"name": "syncope", "pattern": ["fainted", "syncope"], "threshold": None},
-]
-TRIAGE_ORANGE_FLAGS = [
-    {"name": "moderate_pain", "pattern": ["pain"], "range": (5,7)},
-    {"name": "fever_low", "pattern": ["fever"], "range": (99.5, 101.4)},
-    {"name": "hyperglycemia", "pattern": ["glucose", "blood sugar"], "threshold": 300},
-    {"name": "wound_redness", "pattern": ["redness", "swelling"], "threshold": None},
-    {"name": "wound_redness", "pattern": ["redness"], "threshold": None},
-    {"name": "dizziness", "pattern": ["dizzy", "dizziness"], "threshold": None},
-]
+
+# Load triage flags from policy file
+def load_triage_flags():
+    """Load RED and ORANGE triage flags from policy file."""
+    red_flags = AGENT_POLICY.get("red_flags", [])
+    orange_flags = AGENT_POLICY.get("orange_flags", [])
+    
+    # Convert range arrays to tuples for Python compatibility
+    for flag in orange_flags:
+        if "range" in flag and isinstance(flag["range"], list):
+            flag["range"] = tuple(flag["range"])
+    
+    return red_flags, orange_flags
 
 
-def check_symptom_triage(symptoms: List[str], severity: Optional[int], text_lower: str) -> Tuple[str, List[str]]:
+# Initialize triage flags after policy is loaded
+TRIAGE_RED_FLAGS, TRIAGE_ORANGE_FLAGS = load_triage_flags()
+
+
+def parse_fever_value(text: str) -> Optional[float]:
+    """Parse numeric fever value from user input (e.g., 'fever of 103', 'fever is 100 degrees')."""
+    text_lower = text.lower()
+    
+    # Pattern 1: "fever of 103", "fever of 103 degrees", "fever is 100"
+    patterns = [
+        r'fever\s+(?:of|is|at)\s+(\d+(?:\.\d+)?)\s*(?:degrees?|°f?)?',
+        r'(\d+(?:\.\d+)?)\s*(?:degrees?|°f?)\s+(?:fever|temperature)',
+        r'fever\s+(\d+(?:\.\d+)?)',
+        r'(\d+(?:\.\d+)?)\s*fever'
+    ]
+    
+    for pattern in patterns:
+        match = re.search(pattern, text_lower)
+        if match:
+            try:
+                value = float(match.group(1))
+                # Reasonable fever range: 95-110°F
+                if 95.0 <= value <= 110.0:
+                    return value
+            except (ValueError, IndexError):
+                continue
+    
+    return None
+
+
+def check_symptom_triage(symptoms: List[str], severity: Optional[int], text_lower: str, fever_value: Optional[float] = None) -> Tuple[str, List[str]]:
     """Check symptoms against RED/ORANGE flags. Returns (tier, matched_flags)."""
     if not symptoms:
         return "GREEN", []
@@ -138,7 +162,10 @@ def check_symptom_triage(symptoms: List[str], severity: Optional[int], text_lowe
         name, patt, thr = rule["name"], rule["pattern"], rule.get("threshold")
         if any(p in text_blob for p in patt):
             if name == "fever_high" and thr is not None:
-                # Would need fever value to check threshold - skip for now
+                # Check fever threshold: >= 101.5°F is RED
+                if fever_value is not None and fever_value >= thr:
+                    return "RED", [name]
+                # If fever mentioned but value not parsed, skip (don't assume)
                 continue
             elif name == "severe_pain" and severity is not None and thr is not None:
                 if severity >= thr:
@@ -152,7 +179,15 @@ def check_symptom_triage(symptoms: List[str], severity: Optional[int], text_lowe
         rng = rule.get("range")
         thr = rule.get("threshold")
         if any(p in text_blob for p in patt):
-            if rng and severity is not None and name == "moderate_pain":
+            if name == "fever_low" and rng is not None:
+                # Check fever range: 99.5-101.4°F is ORANGE
+                if fever_value is not None:
+                    low, high = rng
+                    if low <= fever_value <= high:
+                        return "ORANGE", [name]
+                # If fever mentioned but value not parsed, skip
+                continue
+            elif rng and severity is not None and name == "moderate_pain":
                 low, high = rng
                 if low <= severity <= high:
                     return "ORANGE", [name]
@@ -183,6 +218,81 @@ def followup_node(state: VoiceAgentState) -> VoiceAgentState:
         state["response"] = response
         return state
     
+    # Handle fever probing phase (multi-turn conversation)
+    triage_phase = state.get("triage_phase")
+    if triage_phase == "fever_probe":
+        # User is answering fever probing questions
+        triage_context = state.get("triage_context", {})
+        user_lower = user_input.lower()
+        
+        # Simple decision logic based on user's answer
+        # Check for flu-like symptoms (handles both singular and plural forms)
+        has_flu_symptoms = any(keyword in user_lower for keyword in [
+            "flu", "body ache", "body aches", "cough", "runny nose", 
+            "congestion", "sore throat", "aches"
+        ])
+        
+        # Get original fever temperature from context
+        fever_temp = triage_context.get("fever_temperature") if triage_context else None
+        fever_str = f"{fever_temp:.1f}°F" if fever_temp else "high fever"
+        
+        # Determine escalation path
+        if has_flu_symptoms:
+            # Flu symptoms + high fever → Nurse callback (not ER)
+            escalation_path = "warm_transfer_rn"
+            triage_tier = "ORANGE"  # Downgrade from RED to ORANGE due to flu context
+            response = f"Thank you for answering those questions. Based on your responses, you have flu-like symptoms along with your {fever_str} fever. This combination is often expected with the flu and typically doesn't require emergency care. I'm connecting you with a nurse right now who can provide guidance and help determine if you need to be seen sooner."
+        else:
+            # High fever without flu symptoms → ER (more serious)
+            escalation_path = "er"
+            triage_tier = "RED"
+            response = f"Thank you for answering those questions. Based on your responses, your {fever_str} fever without flu-like symptoms could indicate something more serious. Please go to the nearest emergency department right away. I'm also alerting the on-call nurse about this."
+        
+        # Update state and clear probing phase
+        state["triage_phase"] = None
+        state["triage_context"] = None
+        state["escalation_path"] = escalation_path
+        state["followup_response"] = response
+        state["response"] = response
+        
+        # Separate policy recording structure
+        policies = {
+            "triage_classification": {
+                "triage_tier": triage_tier,
+                "triage_required": AGENT_POLICY.get("triage_required", False)
+            },
+            "flag_matching": {
+                "matched_flags": ["fever_high"]
+            },
+            "escalation_policy": {
+                "escalation_path": escalation_path,
+                "escalated": True
+            }
+        }
+        
+        # Log the decision
+        log_entry = {
+            "ts": now_iso(),
+            "agent": "FollowUpAgent",
+            "patient_id": patient_id,
+            "input": user_input,
+            "response": response,
+            "triage_phase": "fever_probe_completed",
+            "escalation_path": escalation_path,
+            "triage_tier": triage_tier,
+            "matched_flags": ["fever_high"],
+            "fever_value": fever_temp,
+            "triage_context": triage_context,
+            "policies": policies
+        }
+        state["log_entry"] = log_entry
+        log_followup(log_entry)
+        
+        if state.get("voice_enabled", False):
+            say(response, voice=True)
+        
+        return state
+    
     db = DatabaseService()
     text_lower = user_input.lower()
     
@@ -199,6 +309,9 @@ def followup_node(state: VoiceAgentState) -> VoiceAgentState:
                 severity = val
         except Exception:
             pass
+    
+    # Extract fever value (numeric temperature)
+    fever_value = parse_fever_value(user_input)
     
     # Use LLM to extract symptoms if available
     llm_provider = None
@@ -280,7 +393,7 @@ Return: ["symptom1", "symptom2", ...] or [] if no symptoms."""
         return state
     
     # Check triage flags FIRST (before logging)
-    triage_tier, matched_flags = check_symptom_triage(symptoms, severity, text_lower)
+    triage_tier, matched_flags = check_symptom_triage(symptoms, severity, text_lower, fever_value)
     
     # Log symptoms
     db.add_symptom_log(patient_id, symptoms, severity)
@@ -294,10 +407,79 @@ Return: ["symptom1", "symptom2", ...] or [] if no symptoms."""
     
     # RED FLAG - Serious symptoms
     if triage_tier == "RED":
+        # Check if this is a high fever case that needs probing
+        is_fever_high = "fever_high" in matched_flags and fever_value is not None and fever_value >= 101.5
+        if is_fever_high:
+            # Start fever probing phase instead of immediate ER
+            state["triage_phase"] = "fever_probe"
+            state["triage_context"] = {
+                "initial_symptoms": symptoms,
+                "fever_temperature": fever_value,
+                "user_input": user_input,
+                "originating_agent": "followup"  # Track which agent started the probe
+            }
+            
+            # Ask probing questions
+            response = "I understand you're experiencing a high fever. To help determine the best course of action, I need to ask a few quick questions: "
+            response += "Do you have any flu-like symptoms, such as body aches, cough, or runny nose? "
+            response += "When did the fever start? "
+            response += "And have you taken any fever-reducing medication like Tylenol or Advil?"
+            
+            state["followup_response"] = response
+            state["response"] = response
+            
+            # Separate policy recording structure
+            policies = {
+                "triage_classification": {
+                    "triage_tier": "RED",
+                    "triage_required": AGENT_POLICY.get("triage_required", False)
+                },
+                "flag_matching": {
+                    "matched_flags": matched_flags
+                },
+                "escalation_policy": {
+                    "escalation_path": "fever_probe_started",
+                    "escalated": False  # Not escalated yet, probing first
+                }
+            }
+            
+            log_entry = {
+                "ts": now_iso(),
+                "agent": "FollowUpAgent",
+                "patient_id": patient_id,
+                "input": user_input,
+                "symptoms": symptoms,
+                "severity": severity,
+                "fever_value": fever_value,
+                "triage_tier": "RED",
+                "matched_flags": matched_flags,
+                "response": response,
+                "provider": llm_provider,
+                "model": llm_model,
+                "latency_ms": latency_ms,
+                "triage_phase": "fever_probe_started",
+                "actions": {
+                    "symptoms_logged": symptoms,
+                    "severity": severity,
+                    "triage_tier": "RED"
+                },
+                "policies": policies
+            }
+            state["log_entry"] = log_entry
+            log_followup(log_entry)
+            
+            if state.get("voice_enabled", False):
+                say(response, voice=True)
+            
+            return state
+        
+        # All other RED cases: immediate ER (unchanged behavior)
         response = f"I understand you're experiencing {symptom_str}."
         if severity is not None:
             response += f" With a severity of {severity} out of 10,"
-        response += " this could be a serious symptom. Please go to the nearest emergency department immediately or call 911 if this is an emergency. I'm also alerting your healthcare provider right away."
+            response += " this could be a serious symptom. Please go to the nearest emergency department immediately or call 911 if this is an emergency. I'm also alerting your healthcare provider right away."
+        else:
+            response += " this could be a serious symptom. Please go to the nearest emergency department immediately or call 911 if this is an emergency. I'm also alerting your healthcare provider right away."
         state["followup_response"] = response
         state["response"] = response
         
@@ -307,18 +489,20 @@ Return: ["symptom1", "symptom2", ...] or [] if no symptoms."""
             "severity": severity,
             "triage_tier": triage_tier
         }
-        policies_applied = []
-        if triage_tier:
-            policies_applied.append("triage_classification")
-        if matched_flags:
-            policies_applied.append("flag_matching")
-        if triage_tier in ["RED", "ORANGE"]:
-            policies_applied.append("escalate_on_flags")
+        
+        # Separate policy recording structure
         policies = {
-            "policies_applied": policies_applied,
-            "matched_flags": matched_flags,
-            "triage_tier": triage_tier,
-            "triage_required": AGENT_POLICY.get("triage_required", False)
+            "triage_classification": {
+                "triage_tier": triage_tier,
+                "triage_required": AGENT_POLICY.get("triage_required", False)
+            },
+            "flag_matching": {
+                "matched_flags": matched_flags
+            },
+            "escalation_policy": {
+                "escalation_path": "er",
+                "escalated": True
+            }
         }
         
         log_entry = {
@@ -328,6 +512,7 @@ Return: ["symptom1", "symptom2", ...] or [] if no symptoms."""
             "input": user_input,
             "symptoms": symptoms,
             "severity": severity,
+            "fever_value": fever_value,  # Include parsed fever value
             "triage_tier": "RED",
             "matched_flags": matched_flags,
             "response": response,
@@ -346,9 +531,14 @@ Return: ["symptom1", "symptom2", ...] or [] if no symptoms."""
     # ORANGE FLAG - Concerning symptoms
     if triage_tier == "ORANGE":
         response = f"I've noted that you're experiencing {symptom_str}."
-        if severity is not None:
+        # Special handling for low-moderate fever
+        if "fever_low" in matched_flags and fever_value is not None:
+            response += f" With a fever of {fever_value:.1f}°F, I'm going to have a nurse call you today to review your symptoms and discuss next steps. They can help determine if you need to be seen sooner. In the meantime, monitor your temperature and watch for any worsening symptoms."
+        elif severity is not None:
             response += f" With a severity of {severity} out of 10,"
-        response += " I'm going to have a nurse call you today to review your symptoms and discuss next steps. They can help determine if you need to be seen sooner."
+            response += " I'm going to have a nurse call you today to review your symptoms and discuss next steps. They can help determine if you need to be seen sooner."
+        else:
+            response += " I'm going to have a nurse call you today to review your symptoms and discuss next steps. They can help determine if you need to be seen sooner."
         if len(unique_symptoms) > 1:
             response += f" I also notice you reported {', '.join(unique_symptoms[:-1])} earlier this week."
         state["followup_response"] = response
@@ -360,18 +550,20 @@ Return: ["symptom1", "symptom2", ...] or [] if no symptoms."""
             "severity": severity,
             "triage_tier": triage_tier
         }
-        policies_applied = []
-        if triage_tier:
-            policies_applied.append("triage_classification")
-        if matched_flags:
-            policies_applied.append("flag_matching")
-        if triage_tier in ["RED", "ORANGE"]:
-            policies_applied.append("escalate_on_flags")
+        
+        # Separate policy recording structure
         policies = {
-            "policies_applied": policies_applied,
-            "matched_flags": matched_flags,
-            "triage_tier": triage_tier,
-            "triage_required": AGENT_POLICY.get("triage_required", False)
+            "triage_classification": {
+                "triage_tier": triage_tier,
+                "triage_required": AGENT_POLICY.get("triage_required", False)
+            },
+            "flag_matching": {
+                "matched_flags": matched_flags
+            },
+            "escalation_policy": {
+                "escalation_path": "nurse_callback",
+                "escalated": True
+            }
         }
         
         log_entry = {
@@ -381,6 +573,7 @@ Return: ["symptom1", "symptom2", ...] or [] if no symptoms."""
             "input": user_input,
             "symptoms": symptoms,
             "severity": severity,
+            "fever_value": fever_value,  # Include parsed fever value
             "triage_tier": "ORANGE",
             "matched_flags": matched_flags,
             "response": response,
@@ -426,21 +619,19 @@ Return: ["symptom1", "symptom2", ...] or [] if no symptoms."""
         "triage_tier": triage_tier       # Actual triage classification
     }
     
-    # Extract policies that were actually applied/checked
-    # Only log policies relevant to this interaction
-    policies_applied = []
-    if triage_tier:  # Triage was performed
-        policies_applied.append("triage_classification")
-    if matched_flags:  # Flag matching was performed
-        policies_applied.append("flag_matching")
-    if triage_tier in ["RED", "ORANGE"]:  # Escalation was triggered
-        policies_applied.append("escalate_on_flags")
-    
+    # Separate policy recording structure
     policies = {
-        "policies_applied": policies_applied,
-        "matched_flags": matched_flags,  # Actual flags that matched
-        "triage_tier": triage_tier,      # Actual triage result
-        "triage_required": AGENT_POLICY.get("triage_required", False)  # From policy file
+        "triage_classification": {
+            "triage_tier": triage_tier,
+            "triage_required": AGENT_POLICY.get("triage_required", False)
+        },
+        "flag_matching": {
+            "matched_flags": matched_flags
+        },
+        "escalation_policy": {
+            "escalation_path": None,  # GREEN tier - no escalation
+            "escalated": False
+        }
     }
     
     # Log entry (triage_tier already set above in RED/ORANGE cases)
@@ -451,6 +642,7 @@ Return: ["symptom1", "symptom2", ...] or [] if no symptoms."""
         "input": user_input,
         "symptoms": symptoms,
         "severity": severity,
+        "fever_value": fever_value,  # Include parsed fever value
         "triage_tier": triage_tier,
         "matched_flags": matched_flags,
         "response": response,

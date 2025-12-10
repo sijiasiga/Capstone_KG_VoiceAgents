@@ -1,28 +1,14 @@
 {
-  "scope": [
-    "symptom reporting",
-    "symptom monitoring",
-    "severity assessment",
-    "triage classification"
-  ],
-  "restrictions": [
-    "no diagnosis",
-    "no treatment recommendations",
-    "no prescription changes"
-  ],
-  "escalate_on": [
-    "RED flag symptoms",
-    "severe pain (>= 8/10)",
-    "high fever (>= 101.5°F)",
-    "neurological deficits",
-    "chest pain or shortness of breath"
-  ],
-  "triage_required": true,
-  "classification": {
-    "RED": "Direct to emergency department immediately",
-    "ORANGE": "Schedule nurse callback and tentative appointment",
-    "GREEN": "Log for provider review at next appointment"
+  "postop_windows": {
+    "Cardiac Bypass": [7, 14],
+    "Valve Repair": [7, 14]
   },
+  "telehealth_allowed": {
+    "Follow-up - Cardiology": true,
+    "Consultation - Diabetes": true,
+    "Suture Removal": false
+  },
+  "referral_required_plans": ["HMO_A"],
   "red_flags": [
     {
       "name": "chest_pain",

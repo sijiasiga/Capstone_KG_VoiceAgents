@@ -34,7 +34,7 @@ else:
 
 def main():
     """Main CLI interface"""
-    # Set up console logging to capture all output to conversation_log.txt
+    # Set up console logging (outputs to console only, structured data goes to orchestration_log.jsonl)
     setup_console_logging()
     
     print("LangGraph VoiceAgents Orchestrator")
@@ -93,7 +93,7 @@ def process_input(user_input: str, patient_id: str, voice_enabled: bool, session
     """Process user input through the LangGraph workflow"""
     user_turn_idx = turn_index * 2  # User turns are even (0, 2, 4...)
     
-    # Log user turn to conversation_log.txt
+        # Log user turn to console (structured data in orchestration_log.jsonl)
     log_turn_summary(
         timestamp=now_iso(),
         conversation_id=session_id,
@@ -146,7 +146,7 @@ def process_input(user_input: str, patient_id: str, voice_enabled: bool, session
         tts_backend = say(response, voice_enabled)
         tts_used = 1 if tts_backend else 0
         
-        # Log assistant turn to conversation_log.txt (includes message)
+        # Log assistant turn to console (structured data in orchestration_log.jsonl)
         log_turn_summary(
             timestamp=now_iso(),
             conversation_id=session_id,
@@ -169,6 +169,7 @@ def process_input(user_input: str, patient_id: str, voice_enabled: bool, session
             "ts": now_iso(),
             "agent": "OrchestrationAgent",
             "session_id": session_id,
+            "turn": turn_index,
             "input": user_input,
             "intent": intent,
             "patient_id": final_state.get("patient_id"),
@@ -185,7 +186,7 @@ def process_input(user_input: str, patient_id: str, voice_enabled: bool, session
         
         error_turn_idx = turn_index * 2 + 1
         
-        # Log error turn to conversation_log.txt
+        # Log error turn to console (structured data in orchestration_log.jsonl)
         log_turn_summary(
             timestamp=now_iso(),
             conversation_id=session_id,
@@ -199,6 +200,7 @@ def process_input(user_input: str, patient_id: str, voice_enabled: bool, session
             "ts": now_iso(),
             "agent": "OrchestrationAgent",
             "session_id": session_id,
+            "turn": turn_index,
             "input": user_input,
             "error": str(e)
         })

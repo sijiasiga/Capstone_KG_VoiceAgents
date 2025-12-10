@@ -3,7 +3,6 @@ Routing Node - Determines intent and routes to appropriate agent
 """
 import json
 import re
-from typing import Literal
 from ..state import VoiceAgentState
 from ..utils.llm_provider import chat_completion, USE_LLM, get_default_model
 
@@ -99,13 +98,45 @@ def parse_intent_llm(text: str) -> dict:
 
 
 def route_node(state: VoiceAgentState) -> VoiceAgentState:
-    """Route node - parses intent and extracts patient ID"""
-    user_text = state.get("user_input", "")
+    """
+    Route node - parses intent and extracts patient ID.
     
-    # Parse intent
-    parsed = parse_intent_llm(user_text)
-    intent = parsed.get("intent", "help")
-    patient_id = parsed.get("patient_id") or state.get("patient_id")
+    CRITICAL: If there's an active triage_phase from AppointmentAgent (e.g., "fever_probe"),
+    force routing back to AppointmentAgent to continue the probing conversation, regardless
+    of what the intent classifier predicts.
+    """
+    user_text = state.get("user_input", "")
+    session_id = state.get("session_id", "")
+    
+    # PRIORITY 1: Check if we're in an active triage probing phase from AppointmentAgent
+    # This must be checked BEFORE intent classification to preserve multi-turn context
+    triage_phase = state.get("triage_phase")
+    
+    # DEBUG: Always log triage_phase value for debugging (even if None)
+    from ..utils.logging_utils import get_conversation_logger
+    logger = get_conversation_logger()
+    logger.info(f"[DEBUG] Routing node - session_id: {session_id}, triage_phase: {triage_phase}, type: {type(triage_phase)}")
+    
+    # If there's an active probing phase, force routing to the agent that started it
+    # This handles: "fever_probe", "fever_probe_started", "fever_probe_completed" (during completion)
+    if triage_phase and (triage_phase.startswith("fever_probe") or triage_phase == "fever_probe"):
+        # Check which agent started the probe by looking at triage_context
+        triage_context = state.get("triage_context")
+        if triage_context and isinstance(triage_context, dict):
+            originating_agent = triage_context.get("originating_agent", "appointment")
+            # Route back to the agent that started the probe
+            intent = originating_agent if originating_agent in ["appointment", "followup"] else "appointment"
+        else:
+            # Default to appointment for backward compatibility
+            intent = "appointment"
+        patient_id = state.get("patient_id")
+        logger.info(f"[DEBUG] Routing FORCED to {intent} due to active triage_phase: '{triage_phase}' (session: {session_id})")
+    else:
+        # Normal routing based on user input (only if NOT in probing phase)
+        parsed = parse_intent_llm(user_text)
+        intent = parsed.get("intent", "help")
+        patient_id = parsed.get("patient_id") or state.get("patient_id")
+        logger.info(f"[DEBUG] Routing to {intent} (triage_phase={triage_phase}, session: {session_id})")
     
     # Update state
     state["intent"] = intent

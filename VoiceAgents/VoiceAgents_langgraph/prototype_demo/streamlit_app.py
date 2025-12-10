@@ -24,7 +24,8 @@ try:
     )
     from VoiceAgents_langgraph.utils import stt_transcribe, now_iso
     from VoiceAgents_langgraph.utils.logging_utils import (
-        log_orchestration, setup_console_logging, log_turn_summary
+        log_orchestration, setup_console_logging, log_turn_summary,
+        get_conversation_logger
     )
 except Exception as e:
     st.error(f"Failed to import LangGraph workflow: {e}")
@@ -58,7 +59,7 @@ def process_message(user_text: str, patient_id: str, voice_enabled: bool, sessio
     
     user_turn_idx = st.session_state.turn_index * 2  # User turns are even (0, 2, 4...)
     
-    # Log user turn to conversation_log.txt
+    # Log user turn to console (structured data in orchestration_log.jsonl)
     log_turn_summary(
         timestamp=now_iso(),
         conversation_id=session_id,
@@ -76,6 +77,19 @@ def process_message(user_text: str, patient_id: str, voice_enabled: bool, sessio
     detected_intent = intent_info.get("intent", "help")
     detected_pid = intent_info.get("patient_id") or patient_id
 
+    # Initialize triage state in session_state if not exists
+    if "triage_phase" not in st.session_state:
+        st.session_state.triage_phase = None
+    if "triage_context" not in st.session_state:
+        st.session_state.triage_context = None
+    if "escalation_path" not in st.session_state:
+        st.session_state.escalation_path = None
+
+    # Restore triage state from previous turn (for multi-turn conversations)
+    restored_triage_phase = st.session_state.triage_phase
+    logger = get_conversation_logger()
+    logger.info(f"[DEBUG] Restoring triage_phase from session_state: {restored_triage_phase} (session: {session_id}, turn: {st.session_state.turn_index})")
+    
     initial_state: VoiceAgentState = {
         "user_input": user_text,
         "patient_id": detected_pid,
@@ -90,7 +104,10 @@ def process_message(user_text: str, patient_id: str, voice_enabled: bool, sessio
         "voice_enabled": voice_enabled,
         "session_id": session_id,
         "timestamp": now_iso(),
-        "log_entry": None
+        "log_entry": None,
+        "triage_phase": restored_triage_phase,
+        "triage_context": st.session_state.triage_context,
+        "escalation_path": st.session_state.escalation_path
     }
 
     try:
@@ -123,7 +140,7 @@ def process_message(user_text: str, patient_id: str, voice_enabled: bool, sessio
         tts_backend = None
         tts_used = 0
         
-        # Log assistant turn to conversation_log.txt
+        # Log assistant turn to console (structured data in orchestration_log.jsonl)
         log_turn_summary(
             timestamp=now_iso(),
             conversation_id=session_id,
@@ -141,13 +158,32 @@ def process_message(user_text: str, patient_id: str, voice_enabled: bool, sessio
             tts_backend=tts_backend,
         )
         
-        # Increment turn index for next turn
-        st.session_state.turn_index += 1
+        # Persist triage state for next turn (for multi-turn conversations)
+        # DEBUG: Log state values before saving
+        triage_phase_value = final_state.get("triage_phase")
+        triage_context_value = final_state.get("triage_context")
+        escalation_path_value = final_state.get("escalation_path")
+        
+        logger = get_conversation_logger()
+        logger.info(f"[DEBUG] Saving state to session_state - triage_phase: {triage_phase_value}, triage_context: {triage_context_value}, escalation_path: {escalation_path_value} (session: {session_id}, turn: {st.session_state.turn_index})")
+        
+        st.session_state.triage_phase = triage_phase_value
+        st.session_state.triage_context = triage_context_value
+        st.session_state.escalation_path = escalation_path_value
+        
+        # Verify it was saved correctly
+        if triage_phase_value:
+            saved_value = st.session_state.triage_phase
+            logger.info(f"[DEBUG] Verified saved triage_phase in session_state: {saved_value}")
+
+        # Calculate conversation turn number (0-indexed, increments after each user-assistant pair)
+        conversation_turn = st.session_state.turn_index
 
         log_entry = {
             "ts": now_iso(),
             "agent": "OrchestrationAgent",
             "session_id": session_id,
+            "turn": conversation_turn,
             "input": user_text,
             "intent": final_state.get("intent"),
             "patient_id": final_state.get("patient_id"),
@@ -155,6 +191,9 @@ def process_message(user_text: str, patient_id: str, voice_enabled: bool, sessio
             "log_entry": log_entry_data
         }
         log_orchestration(log_entry)
+        
+        # Increment turn index for next turn (after logging)
+        st.session_state.turn_index += 1
 
     except Exception as e:
         error_msg = f"Error: {str(e)}"
@@ -166,8 +205,9 @@ def process_message(user_text: str, patient_id: str, voice_enabled: bool, sessio
         })
         
         error_turn_idx = st.session_state.turn_index * 2 + 1
+        conversation_turn = st.session_state.turn_index
         
-        # Log error turn to conversation_log.txt
+        # Log error turn to console (structured data in orchestration_log.jsonl)
         log_turn_summary(
             timestamp=now_iso(),
             conversation_id=session_id,
@@ -176,6 +216,16 @@ def process_message(user_text: str, patient_id: str, voice_enabled: bool, sessio
             agent="error",
             error=str(e),
         )
+        
+        # Log error to orchestration log
+        log_orchestration({
+            "ts": now_iso(),
+            "agent": "OrchestrationAgent",
+            "session_id": session_id,
+            "turn": conversation_turn,
+            "input": user_text,
+            "error": str(e)
+        })
         
         st.error(error_msg)
 
@@ -336,6 +386,12 @@ if "max_logs" not in st.session_state:
     st.session_state.max_logs = 10
 if "turn_index" not in st.session_state:
     st.session_state.turn_index = 0
+if "triage_phase" not in st.session_state:
+    st.session_state.triage_phase = None
+if "triage_context" not in st.session_state:
+    st.session_state.triage_context = None
+if "escalation_path" not in st.session_state:
+    st.session_state.escalation_path = None
 
 # Sidebar - persistent settings
 with st.sidebar:

@@ -1,0 +1,5 @@
+date,doctor,appointment_type,location,modality
+2025-10-09 10:00:00,Dr. Johnson,Follow-up - Cardiology,Clinic A,in_person
+2025-10-10 15:30:00,Dr. Johnson,Follow-up - Cardiology,Clinic A,in_person
+2025-09-30 09:00:00,Dr. Wilson,Consultation - Diabetes,Clinic B,video
+

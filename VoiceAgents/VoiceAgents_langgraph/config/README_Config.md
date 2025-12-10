@@ -171,49 +171,27 @@ The system automatically falls back through providers in this order:
 
 ---
 
-## Safety Rules
+## Triage and Business Rules
 
-**Location:** `policy/safety_rules.json`
+**Location:** `policy/agents/appointment_triage_policy.json`
 
-**Purpose:** Define RED/ORANGE/GREEN flag symptoms and escalation rules.
-
-**Structure:**
-```json
-{
-  "red_flags": ["symptom1", "symptom2"],
-  "orange_flags": ["symptom1", "symptom2"],
-  "green_flags": ["symptom1", "symptom2"],
-  "escalation": "If uncertain, escalate to human nurse."
-}
-```
-
-**How to Modify:**
-1. Open `policy/safety_rules.json`
-2. Add or remove symptoms from each category
-3. Update escalation message if needed
-
-**Usage:** Referenced by agents for triage classification. See `nodes/followup.py` and `nodes/appointment.py` for implementation.
-
----
-
-## Business Rules
-
-**Location:** `data/policy_config.json`
-
-**Purpose:** Business rules for appointment scheduling, telehealth, referrals, etc.
+**Purpose:** Define RED/ORANGE/GREEN flag symptoms, triage rules, telehealth eligibility, and business rules for appointment scheduling.
 
 **Current Rules:**
-- `red_flags` - Emergency symptoms
-- `orange_flags` - Concerning symptoms
+- `red_flags` - Emergency symptoms with pattern matching and thresholds
+- `orange_flags` - Concerning symptoms with pattern matching, ranges, and thresholds
 - `telehealth_allowed` - Which appointment types allow telehealth
 - `referral_required_plans` - Insurance plans requiring referrals
+- `postop_windows` - Post-operative scheduling windows
 
 **How to Modify:**
-1. Open `data/policy_config.json`
-2. Modify JSON structure
-3. Update agent code if new rule types are added
+1. Open `policy/agents/appointment_triage_policy.json`
+2. Modify JSON structure (patterns, thresholds, ranges)
+3. Changes apply automatically - no code restart needed for policy changes
 
-**Note:** Also see hardcoded rules in `nodes/appointment.py` (POLICY dictionary) for post-op windows and business logic.
+**Usage:** Used by appointment agent for triage classification and policy gates. See `nodes/appointment.py` for implementation.
+
+**Note:** Follow-up agent uses hardcoded triage flags in `nodes/followup.py` (TRIAGE_RED_FLAGS, TRIAGE_ORANGE_FLAGS) which mirror the structure in `appointment_triage_policy.json`.
 
 ---
 
@@ -279,12 +257,11 @@ The system automatically falls back through providers in this order:
 |--------------|----------|------|
 | Global Prompt | Policy | `policy/system_behavior.py` |
 | Agent Policies | Policy | `policy/agents/*.json` |
+| Triage Rules | Policy | `policy/agents/appointment_triage_policy.json` |
 | LLM Provider | Environment | `.env` |
 | LLM Defaults | Code | `utils/llm_provider.py` |
 | TTS Settings | Code | `utils/__init__.py` (say function) |
 | STT Settings | Code | `utils/__init__.py` (stt functions) |
-| Safety Rules | Policy | `policy/safety_rules.json` |
-| Business Rules | Data | `data/policy_config.json` |
 | Log Files | Code | `utils/logging_utils.py` |
 | Data Sources | Code | `database.py` |
 
