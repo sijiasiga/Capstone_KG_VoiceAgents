@@ -7,15 +7,18 @@ This document tracks incremental updates and improvements to the VoiceAgents sys
 
 ### Clinical Validation Feedback Implementation
 
-**Files:** `nodes/medication.py`, `nodes/appointment.py`
+**Files:** `nodes/medication.py`, `nodes/appointment.py`, `policy/agents/appointment_triage_policy.json`
 
 **Changes:**
 - Fixed medication agent to only discuss the specific medication requested by the user, preventing confusion from displaying all patient medications
 - Added urgent handling for hypoglycemia detection with immediate escalation and actionable guidance (eat fast-acting carbs, immediate nurse transfer)
 - Enhanced triage documentation with detailed probing question framework for fever, severe pain, wound issues, and dizziness
 - Medication filtering logic now extracts drug names from user queries and shows only relevant information
+- Fixed double dose risk assessment to only escalate to HIGH RISK when patient reports symptoms (otherwise ORANGE for monitoring)
+- Fixed swelling triage classification from RED (ER) to ORANGE (nurse callback) for isolated swelling without other severe wound symptoms
+- Fixed contraindication general questions to be GREEN (informational) rather than escalating unnecessarily
 
-**Impact:** Agent responses are more focused and clinically appropriate. Hypoglycemia is now treated as time-sensitive emergency. Clear roadmap for Phase 2 multi-turn probing conversations.
+**Impact:** Agent responses are more focused and clinically appropriate. Hypoglycemia is now treated as time-sensitive emergency. Triage decisions are more nuanced and context-aware, reducing unnecessary ER referrals while maintaining safety. Clear roadmap for Phase 2 multi-turn probing conversations.
 
 ---
 ## Nov 5th Updates

@@ -92,17 +92,27 @@ Question: "{user_text}"
 
 def llm_score_risk(parsed: Dict) -> Tuple[str, Optional[str], Optional[str], Optional[int]]:
     """Return (risk_level, provider, model) tuple.
-    Risk level is RED / ORANGE / GREEN."""
+    Risk level is RED / ORANGE / GREEN.
+
+    HEATHER FEEDBACK (Rows 10, 12): Double dose shouldn't be HIGH RISK unless patient has symptoms.
+    """
     if not USE_LLM:
         intent = parsed.get("intent")
         if intent == "double_dose":
-            return ("RED", None, None, None)
+            # Check if patient is experiencing symptoms (Heather feedback Rows 10, 12)
+            symptoms = parsed.get("symptoms", {})
+            has_symptoms = symptoms.get("present", False) if isinstance(symptoms, dict) else False
+            # Only RED if they have symptoms; otherwise ORANGE for monitoring
+            return ("RED" if has_symptoms else "ORANGE", None, None, None)
         if intent in ["interaction_check", "missed_dose"]:
             return ("ORANGE", None, None, None)
+        # Contraindication general questions should be GREEN (Heather feedback Row 45)
+        if intent == "contraindication":
+            return ("GREEN", None, None, None)
         return ("GREEN", None, None, None)
     
     messages = [
-        {"role": "system", "content": "Return ONLY a single word: RED, ORANGE, or GREEN."},
+        {"role": "system", "content": "Return ONLY a single word: RED, ORANGE, or GREEN. Important: Double dose should be ORANGE unless patient has symptoms (then RED). Contraindication general questions should be GREEN."},
         {"role": "user", "content": json.dumps(parsed, ensure_ascii=False)}
     ]
     try:

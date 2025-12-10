@@ -1,0 +1,77 @@
+{
+  "postop_windows": {
+    "Cardiac Bypass": [7, 14],
+    "Valve Repair": [7, 14]
+  },
+  "telehealth_allowed": {
+    "Follow-up - Cardiology": true,
+    "Consultation - Diabetes": true,
+    "Suture Removal": false
+  },
+  "referral_required_plans": ["HMO_A"],
+  "red_flags": [
+    {
+      "name": "chest_pain",
+      "pattern": ["chest pain", "pain in my chest", "chest tightness", "tightness in my chest"],
+      "threshold": null
+    },
+    {
+      "name": "shortness_of_breath",
+      "pattern": ["shortness of breath", "short of breath", "trouble breathing"],
+      "threshold": null
+    },
+    {
+      "name": "wound_dehiscence",
+      "pattern": ["incision opening", "wound opening", "dehiscence", "yellow drainage", "pus", "green drainage", "greenish fluid", "ooze", "warm to the touch", "warm"],
+      "threshold": null
+    },
+    {
+      "name": "fever_high",
+      "pattern": ["fever"],
+      "threshold": 101.5
+    },
+    {
+      "name": "severe_pain",
+      "pattern": ["pain"],
+      "threshold": 8
+    },
+    {
+      "name": "neuro_deficit",
+      "pattern": ["numbness", "weakness", "slurred speech"],
+      "threshold": null
+    },
+    {
+      "name": "syncope",
+      "pattern": ["fainted", "syncope"],
+      "threshold": null
+    }
+  ],
+  "orange_flags": [
+    {
+      "name": "moderate_pain",
+      "pattern": ["pain"],
+      "range": [5, 7]
+    },
+    {
+      "name": "fever_low",
+      "pattern": ["fever"],
+      "range": [99.5, 101.4]
+    },
+    {
+      "name": "hyperglycemia",
+      "pattern": ["glucose", "blood sugar"],
+      "threshold": 300
+    },
+    {
+      "name": "wound_redness",
+      "pattern": ["redness", "swelling"],
+      "threshold": null
+    },
+    {
+      "name": "dizziness",
+      "pattern": ["dizzy", "dizziness"],
+      "threshold": null
+    }
+  ]
+}
+

@@ -184,7 +184,52 @@ def say(text: str, voice: bool = False) -> Optional[str]:
                     elif system == "Linux":
                         subprocess.run(["aplay", tmp_path], check=False)
                     elif system == "Windows":
-                        subprocess.run(["start", tmp_path], shell=True, check=False)
+                        # Try pygame first (supports MP3, plays silently in background)
+                        try:
+                            import pygame
+                            pygame.mixer.init()
+                            pygame.mixer.music.load(tmp_path)
+                            pygame.mixer.music.play()
+                            logger.info("[TTS] Playing with pygame")
+                            while pygame.mixer.music.get_busy():
+                                import time
+                                time.sleep(0.1)
+                            logger.info("[TTS] Pygame playback completed")
+                        except Exception as e_pygame:
+                            logger.warning(f"[TTS] Pygame failed: {e_pygame}")
+                            # Fallback: use PowerShell with Add-Type for audio playback
+                            # This waits for audio to complete before continuing
+                            ps_cmd = f'''
+                            Add-Type -AssemblyName presentationCore
+                            $mediaPlayer = New-Object System.Windows.Media.MediaPlayer
+                            $mediaPlayer.Open([uri]"{tmp_path}")
+                            $mediaPlayer.Play()
+                            Start-Sleep -Milliseconds 500
+                            while ($mediaPlayer.NaturalDuration.HasTimeSpan -eq $false) {{
+                                Start-Sleep -Milliseconds 100
+                            }}
+                            $duration = $mediaPlayer.NaturalDuration.TimeSpan.TotalSeconds
+                            Start-Sleep -Seconds $duration
+                            $mediaPlayer.Stop()
+                            $mediaPlayer.Close()
+                            '''
+                            try:
+                                logger.info("[TTS] Trying PowerShell/WMPlayer")
+                                result = subprocess.run(
+                                    ["powershell", "-WindowStyle", "Hidden", "-Command", ps_cmd],
+                                    check=False,
+                                    capture_output=True,
+                                    creationflags=subprocess.CREATE_NO_WINDOW if hasattr(subprocess, 'CREATE_NO_WINDOW') else 0
+                                )
+                                if result.returncode == 0:
+                                    logger.info("[TTS] PowerShell playback completed")
+                                else:
+                                    logger.warning(f"[TTS] PowerShell failed: {result.stderr.decode()}")
+                            except Exception as e_ps:
+                                logger.warning(f"[TTS] PowerShell exception: {e_ps}")
+                                # Last resort: minimize the window when opening
+                                logger.info("[TTS] Using start /min fallback")
+                                subprocess.run(["start", "/min", tmp_path], shell=True, check=False)
                     
                     # Clean up
                     try:
