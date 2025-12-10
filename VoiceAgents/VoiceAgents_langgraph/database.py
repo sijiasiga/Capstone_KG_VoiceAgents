@@ -14,9 +14,11 @@ from typing import List, Dict, Optional
 # -------------------------------------------------------------------
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.join(BASE_DIR, "data")
+LOG_DIR = os.path.join(BASE_DIR, "logs")
 os.makedirs(DATA_DIR, exist_ok=True)
+os.makedirs(LOG_DIR, exist_ok=True)
 
-SYMPTOMS_LOG_CSV = os.path.join(DATA_DIR, "symptom_logs.csv")
+SYMPTOMS_LOG_CSV = os.path.join(LOG_DIR, "symptom_logs.csv")
 APPOINTMENTS_CSV = os.path.join(DATA_DIR, "appointments.csv")
 
 # Ensure the symptom log exists

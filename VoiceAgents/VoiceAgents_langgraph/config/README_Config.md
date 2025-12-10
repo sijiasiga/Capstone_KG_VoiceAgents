@@ -171,29 +171,6 @@ The system automatically falls back through providers in this order:
 
 ---
 
-## Safety Rules
-
-**Location:** `policy/safety_rules.json`
-
-**Purpose:** Define RED/ORANGE/GREEN flag symptoms and escalation rules.
-
-**Structure:**
-```json
-{
-  "red_flags": ["symptom1", "symptom2"],
-  "orange_flags": ["symptom1", "symptom2"],
-  "green_flags": ["symptom1", "symptom2"],
-  "escalation": "If uncertain, escalate to human nurse."
-}
-```
-
-**How to Modify:**
-1. Open `policy/safety_rules.json`
-2. Add or remove symptoms from each category
-3. Update escalation message if needed
-
-**Usage:** Referenced by agents for triage classification. See `nodes/followup.py` and `nodes/appointment.py` for implementation.
-
 ---
 
 ## Business Rules
@@ -263,6 +240,7 @@ The system automatically falls back through providers in this order:
 - `data/caregivers.csv`
 - `data/symptom_codes.csv`
 - `data/drug_knowledge.csv`
+- `logs/symptom_logs.csv` - Symptom tracking logs (runtime data, not static data)
 
 **How to Modify:**
 1. Open `database.py`
@@ -283,7 +261,6 @@ The system automatically falls back through providers in this order:
 | LLM Defaults | Code | `utils/llm_provider.py` |
 | TTS Settings | Code | `utils/__init__.py` (say function) |
 | STT Settings | Code | `utils/__init__.py` (stt functions) |
-| Safety Rules | Policy | `policy/safety_rules.json` |
 | Business Rules | Data | `data/policy_config.json` |
 | Log Files | Code | `utils/logging_utils.py` |
 | Data Sources | Code | `database.py` |

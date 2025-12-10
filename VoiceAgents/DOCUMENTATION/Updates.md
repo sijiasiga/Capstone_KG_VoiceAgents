@@ -26,8 +26,7 @@ This document tracks incremental updates and improvements to the VoiceAgents sys
 
 **Changes:**
 - Created centralized policy system with global system prompt (`policy/system_behavior.py`)
-- Added safety rules defining RED/ORANGE/GREEN triage flags (`policy/safety_rules.json`)
-- Implemented agent-specific policies for each agent type (`policy/agents/*.json`)
+- Implemented agent-specific policies for each agent type (`policy/agents/*.json`) with RED/ORANGE/GREEN triage flags
 - All agents now load and log their policies on startup
 - Modified LLM provider to automatically inject global system prompt into all LLM calls
 - Created comprehensive safety documentation (`docs/Safety_and_Boundaries.md`)
