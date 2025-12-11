@@ -64,7 +64,6 @@ VoiceAgents/
 │   │
 │   ├── policy/                         # Policy and safety configuration
 │   │   ├── system_behavior.py          # Global system prompt and behavior
-│   │   ├── safety_rules.json          # RED/ORANGE/GREEN flag definitions
 │   │   └── agents/                     # Agent-specific policies
 │   │       ├── appointment_policy.json
 │   │       ├── followup_policy.json
@@ -98,7 +97,6 @@ VoiceAgents/
 │   │   ├── appointments.csv             # Appointment bookings
 │   │   ├── prescriptions.csv            # Medication prescriptions
 │   │   ├── caregivers.csv               # Caregiver information
-│   │   ├── symptom_logs.csv             # Symptom tracking logs (auto-created)
 │   │   ├── policy_config.json           # Business rules and policies
 │   │   ├── symptom_codes.csv            # SNOMED symptom code mappings
 │   │   ├── drug_knowledge.csv           # Medication knowledge base
@@ -110,7 +108,8 @@ VoiceAgents/
 │   │   ├── med_agent_log.jsonl          # Medication query logs
 │   │   ├── caregiver_summaries.jsonl    # Caregiver summaries (JSON)
 │   │   ├── caregiver_summaries.txt       # Caregiver summaries (Text)
-│   │   └── orchestration_log.jsonl      # Routing and orchestration logs
+│   │   ├── orchestration_log.jsonl      # Routing and orchestration logs
+│   │   └── symptom_logs.csv             # Symptom tracking logs (auto-created)
 │   │
 │   ├── evaluation/                     # Evaluation scripts and results
 │   │   ├── evaluate_langgraph.py        # LangGraph-specific evaluation
@@ -487,6 +486,7 @@ All patient data stored in `VoiceAgents_langgraph/data/`:
 All interactions logged to `VoiceAgents_langgraph/logs/`:
 
 - `appointment_agent_log.jsonl` - Appointment interactions
+- `symptom_logs.csv` - Symptom tracking logs
 - `followup_agent_log.jsonl` - Symptom reports
 - `med_agent_log.jsonl` - Medication queries
 - `caregiver_summaries.jsonl` - Caregiver summaries

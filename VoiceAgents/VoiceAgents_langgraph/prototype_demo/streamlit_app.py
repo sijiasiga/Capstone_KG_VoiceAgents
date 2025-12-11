@@ -58,7 +58,7 @@ def process_message(user_text: str, patient_id: str, voice_enabled: bool, sessio
     
     user_turn_idx = st.session_state.turn_index * 2  # User turns are even (0, 2, 4...)
     
-    # Log user turn to conversation_log.txt
+    # Log user turn to console (terminal)
     log_turn_summary(
         timestamp=now_iso(),
         conversation_id=session_id,
@@ -123,7 +123,7 @@ def process_message(user_text: str, patient_id: str, voice_enabled: bool, sessio
         tts_backend = None
         tts_used = 0
         
-        # Log assistant turn to conversation_log.txt
+        # Log assistant turn to console (terminal)
         log_turn_summary(
             timestamp=now_iso(),
             conversation_id=session_id,
@@ -167,7 +167,7 @@ def process_message(user_text: str, patient_id: str, voice_enabled: bool, sessio
         
         error_turn_idx = st.session_state.turn_index * 2 + 1
         
-        # Log error turn to conversation_log.txt
+        # Log error turn to console (terminal)
         log_turn_summary(
             timestamp=now_iso(),
             conversation_id=session_id,

@@ -6,7 +6,7 @@ import os
 import json
 import logging
 from typing import Dict, Any, Optional
-from datetime import datetime, timezone
+from datetime import datetime
 from . import now_iso
 
 # Log directory (go up two levels from utils/ to VoiceAgents_langgraph/)
@@ -21,7 +21,6 @@ MEDICATION_LOG = os.path.join(LOG_DIR, "med_agent_log.jsonl")
 CAREGIVER_LOG = os.path.join(LOG_DIR, "caregiver_summaries.jsonl")
 CAREGIVER_TXT = os.path.join(LOG_DIR, "caregiver_summaries.txt")
 ORCHESTRATION_LOG = os.path.join(LOG_DIR, "orchestration_log.jsonl")
-CONVERSATION_TXT = os.path.join(LOG_DIR, "conversation_log.txt")
 
 # Global conversation logger (replaces TeeOutput)
 _conversation_logger = None
@@ -30,7 +29,7 @@ _conversation_logger = None
 def get_conversation_logger():
     """
     Get or create the global conversation logger.
-    Configured with StreamHandler (console) and FileHandler (conversation_log.txt).
+    Configured with StreamHandler (console only - no file output).
     """
     global _conversation_logger
     
@@ -44,20 +43,12 @@ def get_conversation_logger():
     # Remove existing handlers to avoid duplicates
     logger.handlers.clear()
     
-    # Console handler (StreamHandler)
+    # Console handler (StreamHandler) - terminal output only
     console_handler = logging.StreamHandler()
     console_handler.setLevel(logging.INFO)
     console_formatter = logging.Formatter("%(message)s")
     console_handler.setFormatter(console_formatter)
     logger.addHandler(console_handler)
-    
-    # File handler (conversation_log.txt)
-    # Note: We include timestamp in the message itself, so formatter doesn't add another one
-    file_handler = logging.FileHandler(CONVERSATION_TXT, mode="a", encoding="utf-8")
-    file_handler.setLevel(logging.INFO)
-    file_formatter = logging.Formatter("%(message)s")  # No timestamp - we add it in the message
-    file_handler.setFormatter(file_formatter)
-    logger.addHandler(file_handler)
     
     # Prevent propagation to root logger
     logger.propagate = False
@@ -151,7 +142,7 @@ def log_turn_summary(
     error: Optional[str] = None,
 ) -> None:
     """
-    Log a turn summary to conversation_log.txt following todo.md format.
+    Log a turn summary to console (terminal) following todo.md format.
     
     For user turns: timestamp, conversation_id, role=user, message
     For assistant turns: timestamp, conversation_id, role=assistant, agent, used_llm, provider, model, latency_ms, tts_used, action
