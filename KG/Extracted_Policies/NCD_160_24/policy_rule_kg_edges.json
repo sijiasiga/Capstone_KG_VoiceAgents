@@ -1,0 +1,200 @@
+[
+  {
+    "source": "NCD_160_24",
+    "target": "group_requirement",
+    "relation": "contains",
+    "edge_type": "policy_rule"
+  },
+  {
+    "source": "NCD_160_24",
+    "target": "group_diagnosis",
+    "relation": "contains",
+    "edge_type": "policy_rule"
+  },
+  {
+    "source": "NCD_160_24",
+    "target": "group_eligibility",
+    "relation": "contains",
+    "edge_type": "policy_rule"
+  },
+  {
+    "source": "NCD_160_24",
+    "target": "group_other",
+    "relation": "contains",
+    "edge_type": "policy_rule"
+  },
+  {
+    "source": "NCD_160_24",
+    "target": "group_procedure",
+    "relation": "contains",
+    "edge_type": "policy_rule"
+  },
+  {
+    "source": "group_requirement",
+    "target": "condition_dbs_device_fda_approved_or_ide_protocol_d43b9f",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_diagnosis",
+    "target": "condition_diagnosis_essential_tremor_aa4bca",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_diagnosis",
+    "target": "condition_tremor_causing_significant_limitation_despite_optimal_medical_therapy_92a628",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_diagnosis",
+    "target": "condition_diagnosis_idiopathic_parkinsons_disease_53a1ee",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_diagnosis",
+    "target": "condition_parkinsons_disease_tremor_dominant_form_4e92c8",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_diagnosis",
+    "target": "condition_diagnosis_idiopathic_parkinsons_disease_a8fd66",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_diagnosis",
+    "target": "condition_parkinsons_disease_persistent_disabling_symptoms_drug_side_effects_despite_therapy_fcc986",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_diagnosis",
+    "target": "condition_parkinsons_disease_minimum_cardinal_features_e44768",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_diagnosis",
+    "target": "condition_parkinsons_disease_minimum_cardinal_features_b0f37c",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_eligibility",
+    "target": "condition_patient_willingness_cooperation_operative_post_surgical_345404",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_eligibility",
+    "target": "condition_patient_willingness_cooperation_operative_post_surgical_cfce79",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_parkinsons_disease_advanced_idiopathic_hoehn_yahr_updrs_criteria_e7c4e3",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_parkinsons_disease_l_dopa_responsive_with_on_periods_add247",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_contraindication_non_idiopathic_parkinsons_or_plus_syndromes_bb3076",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_contraindication_cognitive_impairement_dementia_depression_82a724",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_contraindication_current_psychosis_alcohol_drug_abuse_a08525",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_contraindication_structural_lesions_movement_disorder_etiology_d1d515",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_contraindication_previous_movement_disorder_surgery_affected_basal_ganglion_ca0850",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_contraindication_significant_medical_surgical_neurologic_orthopedic_comorbidities_dbs_contraindicated_7b8960",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_neurosurgeon_properly_trained_dbs_65e66e",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_neurosurgeon_experience_surgical_management_movement_disorders_dbs_382703",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_operative_team_dbs_systems_training_experience_ecd15a",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_hospital_brain_imaging_equipment_stereotactic_localization_4f59f7",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_hospital_operating_rooms_stereotactic_surgery_equipment_8e3b80",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_hospital_support_services_complication_care_cfdd53",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_tremor_rating_scale_fahn_tolosa_marin_level_8cbcc7",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_procedure",
+    "target": "condition_neurosurgeon_experience_stereotactic_neurosurgical_procedures_9a8a2f",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_procedure",
+    "target": "condition_movement_disorder_physician_involved_patient_selection_post_procedure_care_f9c847",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  }
+]

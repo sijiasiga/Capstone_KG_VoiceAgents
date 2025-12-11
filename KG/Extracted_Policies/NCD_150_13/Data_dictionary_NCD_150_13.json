@@ -1,0 +1,140 @@
+[
+  {
+    "name": "patient_id",
+    "type": "string",
+    "description": "Unique patient identifier",
+    "section": "Demographics"
+  },
+  {
+    "name": "NCD_identifier",
+    "type": "string",
+    "description": "National Coverage Determination (NCD) identifier for Percutaneous Image-Guided Lumbar Decompression for Lumbar Spinal Stenosis.",
+    "section": "Policy Information"
+  },
+  {
+    "name": "procedure_PILD_description",
+    "type": "string",
+    "description": "Description of Percutaneous Image-Guided Lumbar Decompression (PILD) as a posterior decompression of the lumbar spine performed under indirect image guidance without direct visualization, involving percutaneous removal of lamina portion and debulking of ligamentum flavum, performed under x-ray guidance with contrast media.",
+    "section": "Procedures"
+  },
+  {
+    "name": "diagnosis_lumbar_spinal_stenosis_flag",
+    "type": "boolean",
+    "description": "Indicates the presence of Lumbar Spinal Stenosis (LSS).",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "diagnosis_symptomatic_LSS_flag",
+    "type": "boolean",
+    "description": "Indicates the presence of symptomatic Lumbar Spinal Stenosis (LSS).",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "treatment_unresponsive_conservative_therapy_LSS_flag",
+    "type": "boolean",
+    "description": "Indicates if Lumbar Spinal Stenosis (LSS) is unresponsive to conservative therapy.",
+    "section": "Eligibility"
+  },
+  {
+    "name": "coverage_type",
+    "type": "string",
+    "description": "The type of Medicare coverage, specifically Coverage with Evidence Development (CED).",
+    "section": "Coverage Requirements"
+  },
+  {
+    "name": "clinical_study_enrollment_flag",
+    "type": "boolean",
+    "description": "Beneficiary enrollment in an approved clinical study for PILD.",
+    "section": "Eligibility"
+  },
+  {
+    "name": "PILD_coverage_effective_date_section_I",
+    "type": "string",
+    "description": "Effective date for PILD coverage under clinical study criteria outlined in Section I.",
+    "section": "Coverage Requirements"
+  },
+  {
+    "name": "clinical_study_design_section_I",
+    "type": "string",
+    "description": "Clinical study design requirements for Section I, which include prospective, randomized, and controlled.",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "clinical_study_minimum_followup_time_description",
+    "type": "string",
+    "description": "Minimum length of patient follow-up time required for clinical study protocols.",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "clinical_study_compliance_45_CFR_Part_46_flag",
+    "type": "boolean",
+    "description": "Clinical study must be in compliance with 45 Code of Federal Regulations (CFR) Part 46 concerning the protection of human subjects.",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "clinical_study_compliance_21_CFR_Parts_50_56_flag",
+    "type": "boolean",
+    "description": "Clinical study regulated by the FDA must be in compliance with 21 CFR parts 50 and 56.",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "clinical_study_registration_ClinicalTrials_gov_flag",
+    "type": "boolean",
+    "description": "Clinical study must be registered on the ClinicalTrials.gov website prior to the enrollment of the first study subject.",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "clinical_study_data_release_window_section_I_months",
+    "type": "integer",
+    "description": "Results of clinical studies under Section I must be made public within 24 months of the end of data collection.",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "PILD_coverage_effective_date_section_II",
+    "type": "string",
+    "description": "Effective date for PILD coverage under prospective, longitudinal study criteria outlined in Section II.",
+    "section": "Coverage Requirements"
+  },
+  {
+    "name": "PILD_device_FDA_approved_cleared_flag",
+    "type": "boolean",
+    "description": "PILD procedures must use an FDA-approved/cleared device.",
+    "section": "Procedures"
+  },
+  {
+    "name": "clinical_study_type_section_II",
+    "type": "string",
+    "description": "Clinical study type for Section II coverage, specifically a prospective, longitudinal study.",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "clinical_study_prerequisite_CMS_approved_RCT_flag",
+    "type": "boolean",
+    "description": "For Section II coverage, the prospective, longitudinal study must have completed a CMS-approved Randomized Control Trial (RCT) that met criteria in Section I.",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "clinical_study_data_release_window_section_II_months",
+    "type": "integer",
+    "description": "Results of clinical studies under Section II must be made public within 12 months of the study\u2019s primary completion date.",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "clinical_study_registry_AHRQ_RoPR_flag",
+    "type": "boolean",
+    "description": "Registries associated with clinical studies must also be registered in the AHRQ Registry of Patient Registries (RoPR).",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "procedure_code_CPT",
+    "type": "string",
+    "description": "CPT procedure code 0275T for Percutaneous Image-Guided Lumbar Decompression (PILD).",
+    "section": "Procedures"
+  },
+  {
+    "name": "ICD_10_coding_updates_flag",
+    "type": "boolean",
+    "description": "Indicates that ICD-10 conversions and other coding updates specific to NCDs are performed for maintenance.",
+    "section": "Administrative"
+  }
+]

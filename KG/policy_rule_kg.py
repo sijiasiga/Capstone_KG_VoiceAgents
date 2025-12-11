@@ -65,30 +65,46 @@ class PolicyRuleKGGenerator:
         return self.sql_path.read_text(encoding='utf-8')
     
     def _parse_sql_conditions(self, sql_text: str) -> None:
-        """Parse SQL WHERE clause to extract individual conditions."""
+        """Parse SQL WHERE clause to extract individual conditions - ENHANCED."""
         # Extract WHERE clause
-        where_match = re.search(r'WHERE\s+(.*?)(?=;|$)', sql_text, re.IGNORECASE | re.DOTALL)
+        where_match = re.search(r'WHERE\s+(.*?)(?:;|```|$)', sql_text, re.IGNORECASE | re.DOTALL)
         if not where_match:
             return
-        
+
         where_clause = where_match.group(1).strip()
-        
-        # Split by OR operators first (top level)
-        or_conditions = self._split_by_operator(where_clause, 'OR')
-        
-        for or_condition in or_conditions:
-            # Split by AND operators
-            and_conditions = self._split_by_operator(or_condition, 'AND')
-            
-            for condition in and_conditions:
-                condition = condition.strip()
-                if not condition or condition in ['(', ')']:
-                    continue
-                
-                # Parse individual condition
-                parsed_condition = self._parse_individual_condition(condition)
-                if parsed_condition:
-                    self.conditions.append(parsed_condition)
+
+        # NEW APPROACH: Extract all field conditions directly using regex
+        # This bypasses the problematic nested parentheses parsing
+
+        # Pattern 1: field = TRUE/FALSE
+        matches = re.finditer(r'(\w+)\s*=\s*(TRUE|FALSE)\b', where_clause, re.IGNORECASE)
+        for match in matches:
+            field_name = match.group(1).lower()
+            value = match.group(2)
+            parsed_condition = self._create_condition(field_name, '=', value, match.group(0))
+            if parsed_condition:
+                self.conditions.append(parsed_condition)
+
+        # Pattern 2: field >= number or other comparisons
+        matches = re.finditer(r'(\w+)\s*([><=!]+)\s*(\d+)', where_clause)
+        for match in matches:
+            field_name = match.group(1).lower()
+            operator = match.group(2)
+            value = match.group(3)
+            parsed_condition = self._create_condition(field_name, operator, value, match.group(0))
+            if parsed_condition:
+                self.conditions.append(parsed_condition)
+
+        # Pattern 3: field IN (values)
+        matches = re.finditer(r'(\w+)\s+IN\s*\(([^)]+)\)', where_clause, re.IGNORECASE)
+        for match in matches:
+            field_name = match.group(1).lower()
+            values_str = match.group(2)
+            values = re.findall(r"'([^']+)'", values_str)
+            value = ', '.join(values) if values else values_str
+            parsed_condition = self._create_condition(field_name, 'IN', value, match.group(0))
+            if parsed_condition:
+                self.conditions.append(parsed_condition)
     
     def _split_by_operator(self, text: str, operator: str) -> List[str]:
         """Split text by operator while respecting parentheses and quotes."""
@@ -287,9 +303,12 @@ class PolicyRuleKGGenerator:
             )
             
             # Create individual condition nodes
-            condition_angle_step = angle_step / len(conditions)
+            condition_angle_step = angle_step / max(len(conditions), 1)
             for j, condition in enumerate(conditions):
-                condition_id = f"condition_{condition.field_name}_{j}"
+                # Use hash of full condition to create unique ID for duplicate field names
+                import hashlib
+                condition_hash = hashlib.md5(f"{condition.field_name}_{condition.operator}_{condition.value}_{j}".encode()).hexdigest()[:6]
+                condition_id = f"condition_{condition.field_name}_{condition_hash}"
                 condition_angle = group_angle + (j - len(conditions)/2) * condition_angle_step
                 condition_x = group_x + 1.5 * math.cos(condition_angle)
                 condition_y = group_y + 1.5 * math.sin(condition_angle)

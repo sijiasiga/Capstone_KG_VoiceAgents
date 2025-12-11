@@ -1,0 +1,66 @@
+[
+  {
+    "id": "NCD_230_4",
+    "type": "Policy",
+    "label": "Policy NCD_230_4",
+    "description": "Policy rules for NCD_230_4",
+    "node_size": 2000
+  },
+  {
+    "id": "group_diagnosis",
+    "type": "ConditionGroup",
+    "label": "Diagnosis Conditions",
+    "condition_type": "diagnosis",
+    "node_size": 1500
+  },
+  {
+    "id": "condition_coverage_sexual_impotence_diagnosis_treatment_0",
+    "type": "Condition",
+    "label": "coverage_sexual_impotence_d...",
+    "field_name": "coverage_sexual_impotence_diagnosis_treatment",
+    "operator": "=",
+    "value": "TRUE",
+    "description": "Indicates whether program payment is made for diagnosis and treatment of sexual impotence.",
+    "section": "Coverage",
+    "condition_type": "diagnosis",
+    "node_size": 1000
+  },
+  {
+    "id": "group_requirement",
+    "type": "ConditionGroup",
+    "label": "Requirement Conditions",
+    "condition_type": "requirement",
+    "node_size": 1500
+  },
+  {
+    "id": "condition_documentation_appropriateness_suspicion_of_abuse_0",
+    "type": "Condition",
+    "label": "documentation_appropriatene...",
+    "field_name": "documentation_appropriateness_suspicion_of_abuse",
+    "operator": "=",
+    "value": "TRUE",
+    "description": "Flag indicating if documentation of appropriateness is required due to suspected abuse in individual cases.",
+    "section": "Program Requirements",
+    "condition_type": "requirement",
+    "node_size": 1000
+  },
+  {
+    "id": "group_other",
+    "type": "ConditionGroup",
+    "label": "Other Conditions",
+    "condition_type": "other",
+    "node_size": 1500
+  },
+  {
+    "id": "condition_limitation_psychiatric_service_0",
+    "type": "Condition",
+    "label": "limitation_psychiatric_serv...",
+    "field_name": "limitation_psychiatric_service",
+    "operator": "=",
+    "value": "TRUE",
+    "description": "Indicates if the psychiatric service limitation described in the Medicare General Information, Eligibility, and Entitlement Manual, Chapter 3, applies.",
+    "section": "Limitations",
+    "condition_type": "other",
+    "node_size": 1000
+  }
+]

@@ -1,0 +1,114 @@
+```sql
+SELECT *
+FROM patients
+WHERE
+  -- Policy: LCD - Percutaneous Vertebral Augmentation (PVA) for Osteoporotic Vertebral Compression Fracture (VCF) (35 restrictions)
+  -- Restriction 1: Diagnosis of osteoporotic vertebral compression fracture (VCF) must be present
+  diagnosis_osteoporotic_VCF IS NOT NULL
+  AND
+  -- Restriction 2: Vertebral compression fracture (VCF) must be anatomically located between T1 and L5
+  VCF_anatomical_location IN ('T1', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'T8', 'T9', 'T10', 'T11', 'T12', 'L1', 'L2', 'L3', 'L4', 'L5')
+  AND
+  (
+    -- Restriction 3: Acute (less than 6 weeks from symptom onset) osteoporotic VCF documented by bone marrow edema on MRI
+    VCF_onset_status = 'Acute' AND VCF_onset_acute_window_weeks < 6 AND VCF_imaging_bone_marrow_edema_MRI = TRUE
+    OR
+    -- Restriction 4: Acute (less than 6 weeks from symptom onset) osteoporotic VCF documented by bone-scan uptake
+    VCF_onset_status = 'Acute' AND VCF_onset_acute_window_weeks < 6 AND VCF_imaging_bone_scan_uptake = TRUE
+    OR
+    -- Restriction 5: Acute (less than 6 weeks from symptom onset) osteoporotic VCF documented by SPECT/CT uptake
+    VCF_onset_status = 'Acute' AND VCF_onset_acute_window_weeks < 6 AND VCF_imaging_SPECT_CT_uptake = TRUE
+    OR
+    -- Restriction 6: Subacute (6 to 12 weeks from symptom onset) osteoporotic VCF documented by bone marrow edema on MRI
+    VCF_onset_status = 'Subacute' AND VCF_onset_subacute_window_weeks >= 6 AND VCF_onset_subacute_window_weeks <= 12 AND VCF_imaging_bone_marrow_edema_MRI = TRUE
+    OR
+    -- Restriction 7: Subacute (6 to 12 weeks from symptom onset) osteoporotic VCF documented by bone-scan uptake
+    VCF_onset_status = 'Subacute' AND VCF_onset_subacute_window_weeks >= 6 AND VCF_onset_subacute_window_weeks <= 12 AND VCF_imaging_bone_scan_uptake = TRUE
+  )
+  AND
+  -- Restriction 8: Subacute (6 to 12 weeks from symptom onset) osteoporotic VCF documented by SPECT/CT uptake
+  VCF_onset_status = 'Subacute' AND VCF_onset_subacute_window_weeks >= 6 AND VCF_onset_subacute_window_weeks <= 12 AND VCF_imaging_SPECT_CT_uptake = TRUE
+  AND
+  (
+    -- Restriction 9: Patient is hospitalized with severe pain (Numeric Rating Scale (NRS) or Visual Analog Scale (VAS) pain score 8 or higher)
+    patient_hospitalization_status = TRUE AND (pain_score_NRS_hospitalized >= 8 OR pain_score_VAS_hospitalized >= 8)
+    OR
+    -- Restriction 10: Non-hospitalized patient with moderate to severe worsening pain (NRS or VAS score 5 or higher) despite optimal non-surgical management (NSM)
+    patient_hospitalization_status = FALSE AND (pain_score_NRS_nonhospitalized >= 5 OR pain_score_VAS_nonhospitalized >= 5) AND non_surgical_management_attempted = TRUE AND pain_worsening_status = TRUE
+    OR
+    -- Restriction 11: Non-hospitalized patient with stable to improved pain (NRS or VAS score 5 or higher) after optimal non-surgical management (NSM), with progression of vertebral body height loss and greater than 25% vertebral body height reduction
+    patient_hospitalization_status = FALSE AND (pain_score_NRS_nonhospitalized >= 5 OR pain_score_VAS_nonhospitalized >= 5) AND non_surgical_management_attempted = TRUE AND vertebral_body_height_loss_progression = TRUE AND vertebral_body_height_reduction_percentage > 25.0
+    OR
+    -- Restriction 12: Non-hospitalized patient with stable to improved pain (NRS or VAS score 5 or higher) after optimal non-surgical management (NSM), with progression of vertebral body height loss and kyphotic deformity present
+    patient_hospitalization_status = FALSE AND (pain_score_NRS_nonhospitalized >= 5 OR pain_score_VAS_nonhospitalized >= 5) AND non_surgical_management_attempted = TRUE AND vertebral_body_height_loss_progression = TRUE AND kyphotic_deformity_present = TRUE
+    OR
+    -- Restriction 13: Non-hospitalized patient with stable to improved pain (NRS or VAS score 5 or higher) after optimal non-surgical management (NSM), with progression of vertebral body height loss and severe impact of VCF on daily functioning (RDQ score greater than 17)
+    patient_hospitalization_status = FALSE AND (pain_score_NRS_nonhospitalized >= 5 OR pain_score_VAS_nonhospitalized >= 5) AND non_surgical_management_attempted = TRUE AND vertebral_body_height_loss_progression = TRUE AND daily_functioning_RDQ_score > 17
+    OR
+    -- Restriction 14: Non-hospitalized patient with stable to improved pain (NRS or VAS score 5 or higher) after optimal non-surgical management (NSM), with greater than 25% vertebral body height reduction and kyphotic deformity present
+    patient_hospitalization_status = FALSE AND (pain_score_NRS_nonhospitalized >= 5 OR pain_score_VAS_nonhospitalized >= 5) AND non_surgical_management_attempted = TRUE AND vertebral_body_height_reduction_percentage > 25.0 AND kyphotic_deformity_present = TRUE
+    OR
+    -- Restriction 15: Non-hospitalized patient with stable to improved pain (NRS or VAS score 5 or higher) after optimal non-surgical management (NSM), with greater than 25% vertebral body height reduction and severe impact of VCF on daily functioning (RDQ score greater than 17)
+    patient_hospitalization_status = FALSE AND (pain_score_NRS_nonhospitalized >= 5 OR pain_score_VAS_nonhospitalized >= 5) AND non_surgical_management_attempted = TRUE AND vertebral_body_height_reduction_percentage > 25.0 AND daily_functioning_RDQ_score > 17
+  )
+  AND
+  -- Restriction 16: Non-hospitalized patient with stable to improved pain (NRS or VAS score 5 or higher) after optimal non-surgical management (NSM), with kyphotic deformity present and severe impact of VCF on daily functioning (RDQ score greater than 17)
+  patient_hospitalization_status = FALSE AND (pain_score_NRS_nonhospitalized >= 5 OR pain_score_VAS_nonhospitalized >= 5) AND non_surgical_management_attempted = TRUE AND kyphotic_deformity_present = TRUE AND daily_functioning_RDQ_score > 17
+  AND
+  -- Restriction 17: Referral for evaluation of Bone Mineral Density (BMD) and osteoporosis education for subsequent treatment as indicated is required
+  BMD_evaluation_referral_required = TRUE
+  AND
+  -- Restriction 18: Instruction to participate in an osteoporosis prevention/treatment program is required
+  osteoporosis_program_participation_required = TRUE
+  AND
+  -- Restriction 19: Current back pain must be primarily due to the identified acute or subacute VCF(s)
+  back_pain_not_primarily_VCF_related = FALSE
+  AND
+  -- Restriction 20: No diagnosis of osteomyelitis
+  diagnosis_osteomyelitis = FALSE
+  AND
+  -- Restriction 21: No diagnosis of discitis
+  diagnosis_discitis = FALSE
+  AND
+  -- Restriction 22: No diagnosis of active systemic infection
+  diagnosis_active_systemic_infection = FALSE
+  AND
+  -- Restriction 23: No diagnosis of active surgical site infection
+  diagnosis_active_surgical_site_infection = FALSE
+  AND
+  -- Restriction 24: Patient is not pregnant
+  patient_pregnancy_status = FALSE
+  AND
+  -- Restriction 25: No more than three vertebral fractures per procedure
+  vertebral_fracture_count_per_procedure_exceeds_three = FALSE
+  AND
+  -- Restriction 26: No allergy to bone cement
+  allergy_bone_cement = FALSE
+  AND
+  -- Restriction 27: No allergy to opacification agents
+  allergy_opacification_agents = FALSE
+  AND
+  -- Restriction 28: No uncorrected coagulopathy
+  diagnosis_uncorrected_coagulopathy = FALSE
+  AND
+  -- Restriction 29: No spinal instability
+  diagnosis_spinal_instability = FALSE
+  AND
+  -- Restriction 30: No myelopathy from the fracture
+  diagnosis_myelopathy_from_fracture = FALSE
+  AND
+  -- Restriction 31: No neurologic deficit
+  diagnosis_neurologic_deficit = FALSE
+  AND
+  -- Restriction 32: No neural impingement
+  diagnosis_neural_impingement = FALSE
+  AND
+  -- Restriction 33: No fracture retropulsion
+  diagnosis_fracture_retropulsion = FALSE
+  AND
+  -- Restriction 34: No canal compromise
+  diagnosis_canal_compromise = FALSE
+  AND
+  -- Restriction 35: Procedure performed must be one of the covered CPT codes for Percutaneous Vertebral Augmentation
+  procedure_code_CPT IN ('22510', '22511', '22512', '22513', '22514', '22515');
+```

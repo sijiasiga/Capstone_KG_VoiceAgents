@@ -1,0 +1,48 @@
+```sql
+-- Policy: Sacral Nerve Stimulation for the Treatment of Urinary and Fecal Incontinence
+-- Restriction Count: 22
+SELECT *
+FROM patients
+WHERE
+  eligibility_refractory_to_conventional_therapy_urinary_incontinence = TRUE
+  AND
+  eligibility_appropriate_surgical_candidate = TRUE
+  AND
+  exclusion_stress_incontinence = FALSE
+  AND
+  exclusion_urinary_obstruction = FALSE
+  AND
+  exclusion_neurologic_disease_urinary_incontinence = FALSE
+  AND
+  eligibility_test_stimulation_improvement_percentage_urinary_incontinence >= 50.0
+  AND
+  program_requirements_test_stimulation_measurement_method = 'voiding diaries'
+  AND
+  eligibility_patient_ability_to_record_voiding_diary_data = TRUE
+  AND
+  eligibility_fecal_incontinence_episodes_per_week_threshold > 2
+  AND
+  (eligibility_fecal_incontinence_duration_months > 6 OR eligibility_fecal_incontinence_duration_post_childbirth_months > 12)
+  AND
+  eligibility_refractory_to_conventional_therapy_fecal_incontinence = TRUE
+  AND
+  eligibility_percutaneous_test_stimulation_improvement_percentage_fecal_incontinence >= 50.0
+  AND
+  eligibility_percutaneous_test_stimulation_sustained_improvement_duration_hours > 48
+  AND
+  exclusion_anorectal_malformation = FALSE
+  AND
+  exclusion_chronic_inflammatory_bowel_disease = FALSE
+  AND
+  exclusion_neurologic_condition_fecal_incontinence = FALSE
+  AND
+  non_covered_condition_chronic_constipation = TRUE
+  AND
+  non_covered_condition_chronic_pelvic_pain = TRUE
+  AND
+  documentation_required_history_physical_exam = TRUE
+  AND
+  documentation_required_voiding_diaries = TRUE
+  AND
+  documentation_required_urodynamic_studies = TRUE;
+```

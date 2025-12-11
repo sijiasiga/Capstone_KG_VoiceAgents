@@ -1,0 +1,302 @@
+[
+  {
+    "source": "LCD_38312",
+    "target": "group_diagnosis",
+    "relation": "contains",
+    "edge_type": "policy_rule"
+  },
+  {
+    "source": "LCD_38312",
+    "target": "group_requirement",
+    "relation": "contains",
+    "edge_type": "policy_rule"
+  },
+  {
+    "source": "LCD_38312",
+    "target": "group_other",
+    "relation": "contains",
+    "edge_type": "policy_rule"
+  },
+  {
+    "source": "LCD_38312",
+    "target": "group_demographic",
+    "relation": "contains",
+    "edge_type": "policy_rule"
+  },
+  {
+    "source": "LCD_38312",
+    "target": "group_eligibility",
+    "relation": "contains",
+    "edge_type": "policy_rule"
+  },
+  {
+    "source": "group_diagnosis",
+    "target": "condition_polysomnography_performed_flag_222158",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_diagnosis",
+    "target": "condition_complete_concentric_collapse_soft_palate_flag_4425c6",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_diagnosis",
+    "target": "condition_anatomical_findings_compromising_device_flag_7612bd",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_diagnosis",
+    "target": "condition_tonsil_size_7cf8f5",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_requirement",
+    "target": "condition_shared_decision_making_documented_flag_405a56",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_requirement",
+    "target": "condition_shared_decision_making_documented_flag_b47c59",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_requirement",
+    "target": "condition_cpap_intolerance_returned_flag_0d6a2a",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_requirement",
+    "target": "condition_shared_decision_making_documented_flag_dd96d0",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_requirement",
+    "target": "condition_hgns_fda_approved_flag_f6ffbd",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_requirement",
+    "target": "condition_cpap_intolerance_usage_hours_per_night_8fe6a3",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_requirement",
+    "target": "condition_cpap_intolerance_usage_nights_per_week_f5b2ce",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_drug_induced_sleep_endoscopy_dise_performed_flag_05347b",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_other_implantable_device_flag_3c591d",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_neuromuscular_disease_flag_f74053",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_hypoglossal_nerve_palsy_flag_edfb6d",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_severe_pulmonary_disease_flag_53899c",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_pulmonary_arterial_hypertension_flag_af1b4a",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_severe_valvular_heart_disease_flag_5edfe8",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_myocardial_infarction_flag_edec25",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_severe_cardiac_arrhythmias_flag_da7919",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_uncontrolled_hypertension_flag_876c25",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_serious_mental_illness_adls_flag_852c6e",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_coexisting_nonrespiratory_sleep_disorders_flag_7ee086",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_pregnancy_flag_4c9a99",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_mri_compatibility_model_3024_flag_09f0a0",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_sleep_remote_operation_ability_flag_499f88",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_compromised_upper_airway_neurological_control_flag_2cfc21",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_dise_provider_certification_flag_abda1b",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_physician_qualification_otolaryngologist_board_certified_eligible_flag_f169ba",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_physician_qualification_otolaryngology_residency_flag_6272a1",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_surgeon_training_device_implant_flag_93c84d",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_sleep_physician_technician_training_device_titration_flag_369237",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_provider_training_documentation_flag_3f2088",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_sleep_physician_qualification_board_certified_eligible_flag_e75347",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_sleep_technician_qualification_l34040_flag_6845b9",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_sleep_facility_accreditation_flag_f391a2",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_central_mixed_apnea_percentage_ahi_186a19",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_apnea_hypopnea_index_ahi_d576db",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_apnea_hypopnea_index_ahi_a5d9e4",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_cpap_failure_ahi_3f4629",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_dise_certification_agreement_percentage_3a4542",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_dise_certification_consecutive_studies_982b5c",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_demographic",
+    "target": "condition_patient_age_0b8421",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_eligibility",
+    "target": "condition_patient_bmi_6c0c3e",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_eligibility",
+    "target": "condition_polysomnography_performed_window_months_c22805",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  }
+]

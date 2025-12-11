@@ -1,0 +1,116 @@
+[
+  {
+    "source": "NCD_150_13",
+    "target": "group_diagnosis",
+    "relation": "contains",
+    "edge_type": "policy_rule"
+  },
+  {
+    "source": "NCD_150_13",
+    "target": "group_other",
+    "relation": "contains",
+    "edge_type": "policy_rule"
+  },
+  {
+    "source": "NCD_150_13",
+    "target": "group_eligibility",
+    "relation": "contains",
+    "edge_type": "policy_rule"
+  },
+  {
+    "source": "NCD_150_13",
+    "target": "group_procedure",
+    "relation": "contains",
+    "edge_type": "policy_rule"
+  },
+  {
+    "source": "group_diagnosis",
+    "target": "condition_diagnosis_symptomatic_lss_flag_beb5bf",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_diagnosis",
+    "target": "condition_diagnosis_lumbar_spinal_stenosis_flag_a95df4",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_treatment_unresponsive_conservative_therapy_lss_flag_88a0ab",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_clinical_study_compliance_45_cfr_part_46_flag_56dcd3",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_clinical_study_compliance_21_cfr_parts_50_56_flag_68ec15",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_clinical_study_registration_clinicaltrials_gov_flag_cbe309",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_pild_device_fda_approved_cleared_flag_98f82c",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_clinical_study_prerequisite_cms_approved_rct_flag_801128",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_clinical_study_eligibility_requirements_maintained_flag_1d333b",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_clinical_study_registration_clinicaltrials_gov_flag_8d1a2b",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_clinical_study_registry_ahrq_ropr_flag_b5505c",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_clinical_study_data_release_window_section_i_months_aea69f",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_clinical_study_data_release_window_section_ii_months_6f4b23",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_eligibility",
+    "target": "condition_clinical_study_enrollment_flag_e44552",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_procedure",
+    "target": "condition_procedure_code_cpt_1d309b",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  }
+]

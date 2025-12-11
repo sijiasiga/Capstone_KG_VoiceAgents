@@ -1,0 +1,72 @@
+```sql
+SELECT *
+FROM patients
+WHERE
+  -- Total restrictions: 21
+  (
+    -- Restriction 0: Patient must have symptomatic Lumbar Spinal Stenosis (LSS).
+    diagnosis_symptomatic_LSS_flag = TRUE
+    AND
+    -- Restriction 1: Patient's symptomatic Lumbar Spinal Stenosis (LSS) must be unresponsive to conservative therapy.
+    treatment_unresponsive_conservative_therapy_LSS_flag = TRUE
+    AND
+    -- Restriction 2: Patient must have a diagnosis of Lumbar Spinal Stenosis (LSS).
+    diagnosis_lumbar_spinal_stenosis_flag = TRUE
+    AND
+    -- Restriction 3: PILD coverage is provided through Coverage with Evidence Development (CED).
+    coverage_type = 'Coverage with Evidence Development'
+    AND
+    -- Restriction 4: Beneficiary must be enrolled in an approved clinical study for PILD.
+    clinical_study_enrollment_flag = TRUE
+    AND
+    -- Restriction 5: The procedure must be billed with CPT code 0275T.
+    procedure_code_CPT IN ('0275T')
+    AND
+    -- Restriction 6: For Section I coverage, services must be performed on or after January 9, 2014.
+    PILD_coverage_effective_date_section_I >= '2014-01-09'
+    AND
+    -- Restriction 7: For Section I coverage, the clinical study design must be prospective, randomized, and controlled.
+    clinical_study_design_section_I = 'prospective, randomized, controlled'
+    AND
+    -- Restriction 8: For Section I coverage, the study protocol must specify a minimum length of patient follow-up time.
+    clinical_study_minimum_followup_time_description IS NOT NULL
+    AND
+    -- Restriction 9: For Section I coverage, the research study must comply with 45 CFR Part 46 concerning the protection of human subjects.
+    clinical_study_compliance_45_CFR_Part_46_flag = TRUE
+    AND
+    -- Restriction 10: For Section I coverage, if the study is regulated by the FDA, it must comply with 21 CFR parts 50 and 56.
+    clinical_study_compliance_21_CFR_Parts_50_56_flag = TRUE
+    AND
+    -- Restriction 11: For Section I coverage, the clinical research study must be registered on ClinicalTrials.gov prior to the enrollment of the first study subject.
+    clinical_study_registration_ClinicalTrials_gov_flag = TRUE
+    AND
+    -- Restriction 12: For Section I coverage, study results must be made public within 24 months of the end of data collection.
+    clinical_study_data_release_window_section_I_months <= 24
+  )
+  OR
+  (
+    -- Restriction 13: For Section II coverage, services must be performed on or after December 7, 2016.
+    PILD_coverage_effective_date_section_II >= '2016-12-07'
+    AND
+    -- Restriction 14: For Section II coverage, PILD procedures must use an FDA-approved or FDA-cleared device.
+    PILD_device_FDA_approved_cleared_flag = TRUE
+    AND
+    -- Restriction 15: For Section II coverage, the prospective, longitudinal study must have completed a CMS-approved randomized control trial (RCT) that met the criteria in Section I.
+    clinical_study_prerequisite_CMS_approved_RCT_flag = TRUE
+    AND
+    -- Restriction 16: For Section II coverage, the clinical study must be a prospective, longitudinal study.
+    clinical_study_type_section_II = 'prospective, longitudinal'
+    AND
+    -- Restriction 17: For Section II coverage, eligibility requirements (inclusion/exclusion criteria) from the CMS-approved RCT protocol must be maintained in the prospective, longitudinal study.
+    clinical_study_eligibility_requirements_maintained_flag = TRUE
+    AND
+    -- Restriction 18: For Section II coverage, all study sites and results must be listed in the ClinicalTrials.gov database.
+    clinical_study_registration_ClinicalTrials_gov_flag = TRUE
+    AND
+    -- Restriction 19: For Section II coverage, registries associated with clinical studies must be registered in the AHRQ Registry of Patient Registries (RoPR).
+    clinical_study_registry_AHRQ_RoPR_flag = TRUE
+    AND
+    -- Restriction 20: For Section II coverage, study results must be made public within 12 months of the study's primary completion date.
+    clinical_study_data_release_window_section_II_months <= 12
+  );
+```

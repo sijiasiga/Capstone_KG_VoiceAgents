@@ -1,0 +1,248 @@
+[
+  {
+    "name": "patient_id",
+    "type": "string",
+    "description": "Unique patient identifier",
+    "section": "Demographics"
+  },
+  {
+    "name": "procedure_name_PVA",
+    "type": "string",
+    "description": "Percutaneous Vertebral Augmentation, including Percutaneous Vertebroplasty (PVP) or Kyphoplasty (PKP)",
+    "section": "Procedures"
+  },
+  {
+    "name": "diagnosis_osteoporotic_VCF",
+    "type": "string",
+    "description": "Diagnosis of Osteoporotic Vertebral Compression Fracture (VCF)",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "VCF_onset_status",
+    "type": "string",
+    "description": "Status of Osteoporotic Vertebral Compression Fracture onset (Acute or Subacute)",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "VCF_onset_acute_window_weeks",
+    "type": "integer",
+    "description": "Timeframe for acute VCF onset, less than 6 weeks",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "VCF_onset_subacute_window_weeks",
+    "type": "string",
+    "description": "Timeframe for subacute VCF onset, 6 to 12 weeks",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "VCF_anatomical_location",
+    "type": "string",
+    "description": "Anatomical location of the vertebral compression fracture (T1-L5)",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "VCF_imaging_bone_marrow_edema_MRI",
+    "type": "boolean",
+    "description": "Documentation of bone marrow edema on MRI for VCF diagnosis",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "VCF_imaging_bone_scan_uptake",
+    "type": "boolean",
+    "description": "Documentation of bone-scan uptake for VCF diagnosis",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "VCF_imaging_SPECT_CT_uptake",
+    "type": "boolean",
+    "description": "Documentation of SPECT/CT uptake for VCF diagnosis",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "patient_hospitalization_status",
+    "type": "boolean",
+    "description": "Indicates if the patient is currently hospitalized",
+    "section": "Demographics"
+  },
+  {
+    "name": "pain_score_NRS_hospitalized",
+    "type": "integer",
+    "description": "Numeric Rating Scale (NRS) pain score for hospitalized patients (threshold >= 8)",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "pain_score_VAS_hospitalized",
+    "type": "integer",
+    "description": "Visual Analog Scale (VAS) pain score for hospitalized patients (threshold >= 8)",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "pain_score_NRS_nonhospitalized",
+    "type": "integer",
+    "description": "Numeric Rating Scale (NRS) pain score for non-hospitalized patients (threshold >= 5)",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "pain_score_VAS_nonhospitalized",
+    "type": "integer",
+    "description": "Visual Analog Scale (VAS) pain score for non-hospitalized patients (threshold >= 5)",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "non_surgical_management_attempted",
+    "type": "boolean",
+    "description": "Indicates if optimal non-surgical management (NSM) has been attempted for VCF pain",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "pain_worsening_status",
+    "type": "boolean",
+    "description": "Indicates if the patient's pain has worsened",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "vertebral_body_height_loss_progression",
+    "type": "boolean",
+    "description": "Indicates progression of vertebral body height loss",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "vertebral_body_height_reduction_percentage",
+    "type": "float",
+    "description": "Percentage of vertebral body height reduction (threshold > 25%)",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "kyphotic_deformity_present",
+    "type": "boolean",
+    "description": "Indicates presence of kyphotic deformity",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "daily_functioning_RDQ_score",
+    "type": "integer",
+    "description": "Roland Morris Disability Questionnaire (RDQ) score indicating severe impact of VCF on daily functioning (threshold > 17)",
+    "section": "Eligibility"
+  },
+  {
+    "name": "BMD_evaluation_referral_required",
+    "type": "boolean",
+    "description": "Requirement for referral for evaluation of Bone Mineral Density (BMD) for VCF patients",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "osteoporosis_education_referral_required",
+    "type": "boolean",
+    "description": "Requirement for referral for osteoporosis education for VCF patients",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "osteoporosis_program_participation_required",
+    "type": "boolean",
+    "description": "Requirement for instruction to participate in an osteoporosis prevention/treatment program for VCF patients",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "back_pain_not_primarily_VCF_related",
+    "type": "boolean",
+    "description": "Exclusion: True if current back pain is not primarily due to the identified acute or subacute VCF(s)",
+    "section": "Exclusions"
+  },
+  {
+    "name": "diagnosis_osteomyelitis",
+    "type": "boolean",
+    "description": "Exclusion: True if diagnosis of osteomyelitis is present",
+    "section": "Exclusions"
+  },
+  {
+    "name": "diagnosis_discitis",
+    "type": "boolean",
+    "description": "Exclusion: True if diagnosis of discitis is present",
+    "section": "Exclusions"
+  },
+  {
+    "name": "diagnosis_active_systemic_infection",
+    "type": "boolean",
+    "description": "Exclusion: True if diagnosis of active systemic infection is present",
+    "section": "Exclusions"
+  },
+  {
+    "name": "diagnosis_active_surgical_site_infection",
+    "type": "boolean",
+    "description": "Exclusion: True if diagnosis of active surgical site infection is present",
+    "section": "Exclusions"
+  },
+  {
+    "name": "patient_pregnancy_status",
+    "type": "boolean",
+    "description": "Exclusion: True if patient is pregnant",
+    "section": "Exclusions"
+  },
+  {
+    "name": "vertebral_fracture_count_per_procedure_exceeds_three",
+    "type": "boolean",
+    "description": "Exclusion: True if more than three vertebral fractures per procedure are present",
+    "section": "Exclusions"
+  },
+  {
+    "name": "allergy_bone_cement",
+    "type": "boolean",
+    "description": "Exclusion: True if allergy to bone cement is present",
+    "section": "Exclusions"
+  },
+  {
+    "name": "allergy_opacification_agents",
+    "type": "boolean",
+    "description": "Exclusion: True if allergy to opacification agents is present",
+    "section": "Exclusions"
+  },
+  {
+    "name": "diagnosis_uncorrected_coagulopathy",
+    "type": "boolean",
+    "description": "Exclusion: True if diagnosis of uncorrected coagulopathy is present",
+    "section": "Exclusions"
+  },
+  {
+    "name": "diagnosis_spinal_instability",
+    "type": "boolean",
+    "description": "Exclusion: True if diagnosis of spinal instability is present",
+    "section": "Exclusions"
+  },
+  {
+    "name": "diagnosis_myelopathy_from_fracture",
+    "type": "boolean",
+    "description": "Exclusion: True if myelopathy from the fracture is present",
+    "section": "Exclusions"
+  },
+  {
+    "name": "diagnosis_neurologic_deficit",
+    "type": "boolean",
+    "description": "Exclusion: True if neurologic deficit is present",
+    "section": "Exclusions"
+  },
+  {
+    "name": "diagnosis_neural_impingement",
+    "type": "boolean",
+    "description": "Exclusion: True if neural impingement is present",
+    "section": "Exclusions"
+  },
+  {
+    "name": "diagnosis_fracture_retropulsion",
+    "type": "boolean",
+    "description": "Exclusion: True if fracture retropulsion is present",
+    "section": "Exclusions"
+  },
+  {
+    "name": "diagnosis_canal_compromise",
+    "type": "boolean",
+    "description": "Exclusion: True if canal compromise is present",
+    "section": "Exclusions"
+  },
+  {
+    "name": "procedure_code_CPT",
+    "type": "string",
+    "description": "Covered CPT procedure codes for Percutaneous Vertebral Augmentation (22510, 22511, 22512, 22513, 22514, 22515)",
+    "section": "Procedures"
+  }
+]

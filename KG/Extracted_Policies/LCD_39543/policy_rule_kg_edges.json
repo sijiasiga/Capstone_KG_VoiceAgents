@@ -1,0 +1,140 @@
+[
+  {
+    "source": "LCD_39543",
+    "target": "group_eligibility",
+    "relation": "contains",
+    "edge_type": "policy_rule"
+  },
+  {
+    "source": "LCD_39543",
+    "target": "group_other",
+    "relation": "contains",
+    "edge_type": "policy_rule"
+  },
+  {
+    "source": "group_eligibility",
+    "target": "condition_eligibility_refractory_to_conventional_therapy_urinary_incontinence_6c70e6",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_eligibility",
+    "target": "condition_eligibility_appropriate_surgical_candidate_587aef",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_eligibility",
+    "target": "condition_eligibility_patient_ability_to_record_voiding_diary_data_2a5625",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_eligibility",
+    "target": "condition_eligibility_refractory_to_conventional_therapy_fecal_incontinence_006184",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_eligibility",
+    "target": "condition_eligibility_test_stimulation_improvement_percentage_urinary_incontinence_796727",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_eligibility",
+    "target": "condition_eligibility_fecal_incontinence_episodes_per_week_threshold_0eea64",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_eligibility",
+    "target": "condition_eligibility_fecal_incontinence_duration_months_48b563",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_eligibility",
+    "target": "condition_eligibility_fecal_incontinence_duration_post_childbirth_months_e38b82",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_eligibility",
+    "target": "condition_eligibility_percutaneous_test_stimulation_improvement_percentage_fecal_incontinence_e18465",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_eligibility",
+    "target": "condition_eligibility_percutaneous_test_stimulation_sustained_improvement_duration_hours_e14e9e",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_exclusion_stress_incontinence_5311e7",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_exclusion_urinary_obstruction_b99940",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_exclusion_neurologic_disease_urinary_incontinence_282d33",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_exclusion_anorectal_malformation_44f8e2",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_exclusion_chronic_inflammatory_bowel_disease_dea00c",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_exclusion_neurologic_condition_fecal_incontinence_fd59bf",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_non_covered_condition_chronic_constipation_b1d076",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_non_covered_condition_chronic_pelvic_pain_35d2df",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_documentation_required_history_physical_exam_ba04e9",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_documentation_required_voiding_diaries_9e5338",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_documentation_required_urodynamic_studies_9d9d0c",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  }
+]

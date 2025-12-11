@@ -1,0 +1,110 @@
+[
+  {
+    "source": "LCD_37360",
+    "target": "group_other",
+    "relation": "contains",
+    "edge_type": "policy_rule"
+  },
+  {
+    "source": "LCD_37360",
+    "target": "group_eligibility",
+    "relation": "contains",
+    "edge_type": "policy_rule"
+  },
+  {
+    "source": "LCD_37360",
+    "target": "group_requirement",
+    "relation": "contains",
+    "edge_type": "policy_rule"
+  },
+  {
+    "source": "LCD_37360",
+    "target": "group_procedure",
+    "relation": "contains",
+    "edge_type": "policy_rule"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_peripheral_nerve_stimulation_coverage_d056ba",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_peripheral_nerve_field_stimulation_coverage_b00717",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_pns_trial_leads_maximum_e2c290",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_pns_trial_contacts_maximum_cae827",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_eligibility",
+    "target": "condition_failure_less_invasive_treatment_modalities_3845d3",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_eligibility",
+    "target": "condition_surgical_contraindications_absent_3682de",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_eligibility",
+    "target": "condition_active_substance_abuse_absent_8ff8dd",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_eligibility",
+    "target": "condition_formal_psychological_screening_by_mental_health_professional_required_a41227",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_eligibility",
+    "target": "condition_chronic_pain_minimum_duration_months_5c4102",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_requirement",
+    "target": "condition_pns_trial_functional_improvement_element_required_87e10d",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_requirement",
+    "target": "condition_pns_trial_pain_intensity_reduction_percentage_d84b2f",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_requirement",
+    "target": "condition_pns_trial_analgesic_medication_reduction_percentage_62b550",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_requirement",
+    "target": "condition_pns_trial_to_permanent_implant_ratio_threshold_for_review_9ba21d",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_procedure",
+    "target": "condition_procedure_code_cpt_64555_annual_service_limit_d2b6ff",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  }
+]

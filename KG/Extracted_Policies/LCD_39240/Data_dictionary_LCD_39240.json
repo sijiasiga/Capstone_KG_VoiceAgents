@@ -1,0 +1,968 @@
+[
+  {
+    "name": "patient_id",
+    "type": "string",
+    "description": "Unique patient identifier",
+    "section": "Demographics"
+  },
+  {
+    "name": "lcd_id",
+    "type": "string",
+    "description": "Local Coverage Determination ID",
+    "section": "Policy Information"
+  },
+  {
+    "name": "lcd_title",
+    "type": "string",
+    "description": "Local Coverage Determination Title",
+    "section": "Policy Information"
+  },
+  {
+    "name": "policy_topic",
+    "type": "string",
+    "description": "Main topic of the policy: Epidural Steroid Injections for Pain Management",
+    "section": "Policy Information"
+  },
+  {
+    "name": "effective_date_original",
+    "type": "string",
+    "description": "Original Effective Date for services performed",
+    "section": "Policy Information"
+  },
+  {
+    "name": "effective_date_revision",
+    "type": "string",
+    "description": "Revision Effective Date for services performed",
+    "section": "Policy Information"
+  },
+  {
+    "name": "patient_age_minimum_years",
+    "type": "integer",
+    "description": "Minimum patient age in years (age >= 18)",
+    "section": "Demographics"
+  },
+  {
+    "name": "patient_age_elderly_threshold_years",
+    "type": "integer",
+    "description": "Patient age threshold for elderly considerations (65 and older)",
+    "section": "Demographics"
+  },
+  {
+    "name": "patient_pregnancy_flag",
+    "type": "boolean",
+    "description": "Indicates if the patient is pregnant, in which case ultrasound guidance without contrast may be considered",
+    "section": "Demographics"
+  },
+  {
+    "name": "diagnosis_radiculopathy_lumbar",
+    "type": "string",
+    "description": "Diagnosis of lumbar radiculopathy",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "diagnosis_radiculopathy_cervical",
+    "type": "string",
+    "description": "Diagnosis of cervical radiculopathy",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "diagnosis_radiculopathy_thoracic",
+    "type": "string",
+    "description": "Diagnosis of thoracic radiculopathy",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "diagnosis_radicular_pain",
+    "type": "string",
+    "description": "Diagnosis of radicular pain",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "diagnosis_neurogenic_claudication",
+    "type": "string",
+    "description": "Diagnosis of neurogenic claudication",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "diagnosis_disc_herniation",
+    "type": "string",
+    "description": "Diagnosis of disc herniation",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "diagnosis_osteophyte",
+    "type": "string",
+    "description": "Diagnosis of osteophyte",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "diagnosis_osteophyte_complex",
+    "type": "string",
+    "description": "Diagnosis of osteophyte complex",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "diagnosis_degenerative_disc_disease_severe",
+    "type": "string",
+    "description": "Diagnosis of severe degenerative disc disease",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "diagnosis_spinal_stenosis_foraminal",
+    "type": "string",
+    "description": "Diagnosis of foraminal spinal stenosis",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "diagnosis_spinal_stenosis_central",
+    "type": "string",
+    "description": "Diagnosis of central spinal stenosis",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "diagnosis_post_laminectomy_syndrome",
+    "type": "string",
+    "description": "Diagnosis of post-laminectomy syndrome",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "diagnosis_acute_herpes_zoster_associated_pain",
+    "type": "string",
+    "description": "Diagnosis of acute herpes zoster associated pain",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "diagnosis_acute_low_back_pain_duration_weeks",
+    "type": "integer",
+    "description": "Acute low back pain defined as present for up to six weeks",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "diagnosis_cervicobrachialgia",
+    "type": "string",
+    "description": "Pain in the neck radiating to the arm, caused by compression of nerve roots of the cervical spine",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "diagnosis_discogenic_pain",
+    "type": "string",
+    "description": "Pain originating from damaged vertebral disc, particularly, but not always, due to degenerative disc disease",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "diagnosis_non_radicular_back_pain",
+    "type": "string",
+    "description": "Radiating non-neuropathic pain which is not causally related to a spinal nerve root irritation and does not produce reproducible neuropathic symptoms in an objective dermatomal pattern",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "diagnosis_nonspecific_low_back_pain",
+    "type": "string",
+    "description": "Back pain that cannot be attributed to a specific disease or spinal pathology",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "diagnosis_peripheral_neuropathic_pain",
+    "type": "string",
+    "description": "Pain causally related to a lesion or disease of the peripheral somatosensory nerves",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "diagnosis_radicular_back_pain",
+    "type": "string",
+    "description": "Nerve root pain radiating from the affected spinal segment in a distribution concordant with the known distribution of the nerve root",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "diagnosis_radiculopathy",
+    "type": "string",
+    "description": "Radiating neuropathic pain causally related to spinal nerve root irritation, extending distally, producing neuropathic pain in a myotomal or dermatomal pattern",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "diagnosis_radiculitis",
+    "type": "string",
+    "description": "Inflammation of the nerve roots producing radicular pain without objective neurological findings on physical examination",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "diagnosis_spinal_stenosis",
+    "type": "string",
+    "description": "Narrowing of the central spinal canal or foraminal openings, typically due to spinal degeneration, disc herniation, osteoarthritis, or tumor",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "diagnosis_spondylolisthesis",
+    "type": "string",
+    "description": "Disorder where one vertebra slips onto the vertebra below it, causing pain in lower back or legs",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "diagnosis_subacute_pain_duration_weeks",
+    "type": "integer",
+    "description": "Pain occurring during the six to twelve-week time period",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "diagnosis_chronic_pain_duration_weeks",
+    "type": "integer",
+    "description": "Pain occurring 12 weeks after the onset of the pain",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "diagnosis_nonspecific_low_back_pain_exclusion",
+    "type": "boolean",
+    "description": "ESIs to treat non-specific low back pain (LBP) are considered investigational and not medically reasonable and necessary",
+    "section": "Limitations"
+  },
+  {
+    "name": "diagnosis_axial_spine_pain_exclusion",
+    "type": "boolean",
+    "description": "ESIs to treat axial spine pain are considered investigational and not medically reasonable and necessary",
+    "section": "Limitations"
+  },
+  {
+    "name": "diagnosis_complex_regional_pain_syndrome_exclusion",
+    "type": "boolean",
+    "description": "ESIs to treat complex regional pain syndrome are considered investigational and not medically reasonable and necessary",
+    "section": "Limitations"
+  },
+  {
+    "name": "diagnosis_widespread_diffuse_pain_exclusion",
+    "type": "boolean",
+    "description": "ESIs to treat widespread diffuse pain are considered investigational and not medically reasonable and necessary",
+    "section": "Limitations"
+  },
+  {
+    "name": "diagnosis_neuropathy_pain_exclusion",
+    "type": "boolean",
+    "description": "ESIs to treat pain from neuropathy from other causes are considered investigational and not medically reasonable and necessary",
+    "section": "Limitations"
+  },
+  {
+    "name": "diagnosis_cervicogenic_headaches_exclusion",
+    "type": "boolean",
+    "description": "ESIs to treat cervicogenic headaches are considered investigational and not medically reasonable and necessary",
+    "section": "Limitations"
+  },
+  {
+    "name": "procedure_epidural_steroid_injection",
+    "type": "string",
+    "description": "Medical procedure involving the administration of a solution containing corticosteroids and/or anesthetic into the epidural space for pain management",
+    "section": "Procedures"
+  },
+  {
+    "name": "procedure_interlaminar_epidural_steroid_injection",
+    "type": "string",
+    "description": "Injection of contrast (absent allergy), then corticosteroid and possibly local anesthetic into the epidural space via paramedian or midline interlaminar approach under fluoroscopic guidance",
+    "section": "Procedures"
+  },
+  {
+    "name": "procedure_transforaminal_epidural_steroid_injection",
+    "type": "string",
+    "description": "Epidural injection via paramedian approach into intervertebral foramen to inject near dorsal root ganglion and exiting spinal nerve root (previously selective nerve root block)",
+    "section": "Procedures"
+  },
+  {
+    "name": "procedure_caudal_epidural_steroid_injection",
+    "type": "string",
+    "description": "Administration of contrast (absent allergy), then corticosteroids and possibly local anesthetic into the epidural space via sacral hiatus under fluoroscopic guidance",
+    "section": "Procedures"
+  },
+  {
+    "name": "procedure_image_guidance_CT",
+    "type": "string",
+    "description": "Epidural steroid injections must be performed under CT image guidance with contrast, unless contraindicated",
+    "section": "Procedures"
+  },
+  {
+    "name": "procedure_image_guidance_fluoroscopy",
+    "type": "string",
+    "description": "Epidural steroid injections must be performed under fluoroscopy image guidance with contrast, unless contraindicated",
+    "section": "Procedures"
+  },
+  {
+    "name": "procedure_image_guidance_ultrasound",
+    "type": "string",
+    "description": "Ultrasound guidance without contrast may be considered for epidural steroid injections if patient has documented allergy to contrast or is pregnant",
+    "section": "Procedures"
+  },
+  {
+    "name": "procedure_transforaminal_epidural_steroid_injection_max_levels_per_region",
+    "type": "integer",
+    "description": "Maximum of two (2) levels for Transforaminal Epidural Steroid Injections (TFESIs) in one spinal region",
+    "section": "Procedures"
+  },
+  {
+    "name": "procedure_caudal_epidural_steroid_injection_max_levels",
+    "type": "integer",
+    "description": "Maximum of one level for Caudal Epidural Steroid Injections (CESIs)",
+    "section": "Procedures"
+  },
+  {
+    "name": "procedure_interlaminar_epidural_steroid_injection_max_levels",
+    "type": "integer",
+    "description": "Maximum of one level for Interlaminar Epidural Steroid Injections (ILESIs)",
+    "section": "Procedures"
+  },
+  {
+    "name": "procedure_transforaminal_epidural_steroid_injection_bilateral_flag",
+    "type": "boolean",
+    "description": "Transforaminal Epidural Steroid Injections (TFESIs) may be performed bilaterally only when clinically indicated",
+    "section": "Procedures"
+  },
+  {
+    "name": "procedure_repeat_ESI_minimum_interval_days",
+    "type": "integer",
+    "description": "If initial ESI fails, a repeat ESI can be performed after 14 days",
+    "section": "Procedures"
+  },
+  {
+    "name": "procedure_image_guidance_required_flag",
+    "type": "boolean",
+    "description": "Injections performed without image guidance or by ultrasound are generally not considered reasonable and necessary, with exceptions for contraindications to contrast",
+    "section": "Procedures"
+  },
+  {
+    "name": "procedure_multiple_blocks_same_session_flag",
+    "type": "boolean",
+    "description": "Performing multiple blocks (ESI, sympathetic blocks, facet blocks, trigger point injections) during the same session as ESIs is generally not medically reasonable and necessary, with the exception of a facet synovial cyst and ESI",
+    "section": "Procedures"
+  },
+  {
+    "name": "procedure_sedation_level",
+    "type": "string",
+    "description": "Use of Moderate or Deep Sedation, General Anesthesia, and Monitored Anesthesia Care (MAC) is usually unnecessary or rarely indicated for ESI procedures; oral anxiolytics typically suffice",
+    "section": "Procedures"
+  },
+  {
+    "name": "procedure_ESI_max_sessions_per_region_12_months",
+    "type": "integer",
+    "description": "ESIs are limited to a maximum of four (4) sessions per spinal region in a rolling twelve (12) month period",
+    "section": "Procedures"
+  },
+  {
+    "name": "procedure_ESI_max_spinal_regions_per_session",
+    "type": "integer",
+    "description": "Not medically reasonable and necessary for more than one spinal region to be injected in the same session",
+    "section": "Procedures"
+  },
+  {
+    "name": "procedure_TFESI_max_nerve_root_levels_per_session",
+    "type": "integer",
+    "description": "Not medically reasonable and necessary to perform TFESIs at more than two (2) nerve root levels during the same session",
+    "section": "Procedures"
+  },
+  {
+    "name": "procedure_caudal_epidural_steroid_injection_interlaminar_epidural_steroid_injection_max_levels_per_session",
+    "type": "integer",
+    "description": "Not medically reasonable and necessary to perform CESIs or ILESIs at more than one (1) level during the same session",
+    "section": "Procedures"
+  },
+  {
+    "name": "procedure_caudal_epidural_steroid_injection_bilateral_flag",
+    "type": "boolean",
+    "description": "Not medically reasonable and necessary to perform CESIs bilaterally",
+    "section": "Procedures"
+  },
+  {
+    "name": "procedure_interlaminar_epidural_steroid_injection_bilateral_flag",
+    "type": "boolean",
+    "description": "Not medically reasonable and necessary to perform ILESIs bilaterally",
+    "section": "Procedures"
+  },
+  {
+    "name": "procedure_predetermined_ESI_series_flag",
+    "type": "boolean",
+    "description": "Not medically reasonable and necessary to prescribe a predetermined series of ESIs",
+    "section": "Procedures"
+  },
+  {
+    "name": "procedure_ESI_max_duration_months",
+    "type": "integer",
+    "description": "Treatment with ESI generally not considered medically reasonable and necessary beyond 12 months",
+    "section": "Procedures"
+  },
+  {
+    "name": "procedure_imaging_MRI_lumbar",
+    "type": "string",
+    "description": "Magnetic resonance imaging (MRI) of the lumbar spine without contrast classified as 'usually appropriate' for diagnostics",
+    "section": "Procedures"
+  },
+  {
+    "name": "procedure_imaging_CT",
+    "type": "string",
+    "description": "Computed tomography (CT) classified as 'appropriate' if MRI is unavailable for diagnostics",
+    "section": "Procedures"
+  },
+  {
+    "name": "procedure_selective_nerve_root_block",
+    "type": "string",
+    "description": "Diagnostic injection of contrast (absent allergy) of a single nerve root with local anesthetic, inserted into neuroforamen under fluoroscopic or CT guidance",
+    "section": "Procedures"
+  },
+  {
+    "name": "procedure_ESI_SSNB_max_count_6_months",
+    "type": "integer",
+    "description": "No more than 4 ESIs and/or SSNBs should be performed in a 6-month period of time",
+    "section": "Procedures"
+  },
+  {
+    "name": "procedure_ESI_SSNB_max_count_12_months",
+    "type": "integer",
+    "description": "No more than 6 ESIs and/or SSNBs should be performed in a 12-month period of time, regardless of the number of levels",
+    "section": "Procedures"
+  },
+  {
+    "name": "procedure_TFESI_max_count_per_session",
+    "type": "integer",
+    "description": "No more than 2 TFESIs should be performed at a single setting (e.g., single level bilaterally or two levels)",
+    "section": "Procedures"
+  },
+  {
+    "name": "procedure_caudal_epidural_steroid_injection_interlaminar_epidural_steroid_injection_conjunction_with_TFESI_flag",
+    "type": "boolean",
+    "description": "For CESIs or ILESIs, only one level per session may be performed and NOT in conjunction with a TFESI injection",
+    "section": "Procedures"
+  },
+  {
+    "name": "procedure_cervical_interlaminar_lumbar_transforaminal_volume_mL",
+    "type": "integer",
+    "description": "Recommended to limit cervical interlaminar and lumbar transforaminal injection volume to 4mL",
+    "section": "Procedures"
+  },
+  {
+    "name": "substance_corticosteroid",
+    "type": "string",
+    "description": "Corticosteroid medication used in epidural injections",
+    "section": "Substances"
+  },
+  {
+    "name": "substance_anesthetic",
+    "type": "string",
+    "description": "Anesthetic medication used in epidural injections",
+    "section": "Substances"
+  },
+  {
+    "name": "substance_saline",
+    "type": "string",
+    "description": "Saline solution used in epidural injections",
+    "section": "Substances"
+  },
+  {
+    "name": "substance_contrast_media",
+    "type": "string",
+    "description": "Contrast medium required for image guidance to confirm epidural placement, unless patient has a contraindication to contrast",
+    "section": "Substances"
+  },
+  {
+    "name": "substance_corticosteroid_injection",
+    "type": "string",
+    "description": "Corticosteroids should be included in subsequent epidural steroid injections",
+    "section": "Substances"
+  },
+  {
+    "name": "substance_anesthetic_injection",
+    "type": "string",
+    "description": "Anesthetics may be combined with corticosteroids in epidural steroid injections",
+    "section": "Substances"
+  },
+  {
+    "name": "substance_saline_injection",
+    "type": "string",
+    "description": "Saline may be combined with corticosteroids in epidural steroid injections",
+    "section": "Substances"
+  },
+  {
+    "name": "substance_biologicals_FDA_designation_flag",
+    "type": "boolean",
+    "description": "ESIs performed with biologicals or other substances not FDA designated for this use are considered investigational",
+    "section": "Substances"
+  },
+  {
+    "name": "substance_triamcinolone_max_dose_mg_per_session",
+    "type": "integer",
+    "description": "Recommended not to exceed 80 mg of triamcinolone per session",
+    "section": "Substances"
+  },
+  {
+    "name": "substance_betamethasone_max_dose_mg_per_session",
+    "type": "integer",
+    "description": "Recommended not to exceed 12 mg of betamethasone per session",
+    "section": "Substances"
+  },
+  {
+    "name": "substance_dexamethasone_max_dose_mg_per_session",
+    "type": "integer",
+    "description": "Recommended not to exceed 15 mg of dexamethasone per session",
+    "section": "Substances"
+  },
+  {
+    "name": "substance_methylprednisolone_acetate_max_dose_mg",
+    "type": "integer",
+    "description": "Recommended lowest effective dosing for methylprednisolone acetate (MPA) is 40mg",
+    "section": "Substances"
+  },
+  {
+    "name": "substance_triamcinolone_acetate_max_dose_mg_range_min",
+    "type": "integer",
+    "description": "Recommended lowest effective dosing for triamcinolone acetate: 10mg",
+    "section": "Substances"
+  },
+  {
+    "name": "substance_triamcinolone_acetate_max_dose_mg_range_max",
+    "type": "integer",
+    "description": "Recommended lowest effective dosing for triamcinolone acetate: 20mg",
+    "section": "Substances"
+  },
+  {
+    "name": "substance_dexamethasone_phosphate_max_dose_mg",
+    "type": "integer",
+    "description": "Recommended lowest effective dosing for dexamethasone phosphate is 10mg (10mg/mL)",
+    "section": "Substances"
+  },
+  {
+    "name": "substance_etanercept_FDA_approval_flag",
+    "type": "boolean",
+    "description": "Etanercept is not FDA approved for injection into the epidural space",
+    "section": "Substances"
+  },
+  {
+    "name": "pain_scale_baseline_required_flag",
+    "type": "boolean",
+    "description": "Objective pain scale must be performed at baseline (prior to interventions)",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "functional_assessment_baseline_required_flag",
+    "type": "boolean",
+    "description": "Functional assessment must be performed at baseline (prior to interventions)",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "pain_scale_followup_required_flag",
+    "type": "boolean",
+    "description": "Same objective pain scale must be repeated at each follow-up for assessment of response",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "functional_assessment_followup_required_flag",
+    "type": "boolean",
+    "description": "Same functional assessment must be repeated at each follow-up for assessment of response",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "pain_duration_minimum_weeks",
+    "type": "integer",
+    "description": "Minimum pain duration of at least four (4) weeks required before ESI consideration",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "conservative_care_intolerance_flag",
+    "type": "boolean",
+    "description": "Indicates inability to tolerate noninvasive conservative care",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "conservative_care_failure_duration_weeks",
+    "type": "integer",
+    "description": "Medical documentation of failure to respond to four (4) weeks of noninvasive conservative care",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "diagnosis_acute_herpes_zoster_refractory_flag",
+    "type": "boolean",
+    "description": "Indicates if acute herpes zoster is refractory to conservative management, where a four (4) week wait is not required",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "conservative_treatment_conjunction_flag",
+    "type": "boolean",
+    "description": "Epidural steroid injections should be performed in conjunction with conservative treatments",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "rehabilitation_program_participation_flag",
+    "type": "boolean",
+    "description": "Patient should be part of an active rehabilitation program, home exercise program or functional restoration program",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "procedure_ESI_continuation_beyond_12_months_criteria",
+    "type": "string",
+    "description": "Criteria required for continuation of ESIs beyond 12 months: severe functional/vocational disability, at least 50% sustained improvement, rationale for continuation, and PCP notification",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "treatment_conservative_therapy",
+    "type": "string",
+    "description": "Appropriate combination of medication (NSAIDs, analgesics), physical therapy, spinal manipulation therapy, cognitive behavioral therapy, home exercise program, or other interventions",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "program_multidisciplinary_biopsychosocial_rehabilitation",
+    "type": "string",
+    "description": "Multidisciplinary biopsychosocial rehabilitation program targeting physical, psychological, and social aspects of LBP, involving a team of healthcare providers",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "conservative_management_failure_duration_weeks",
+    "type": "integer",
+    "description": "Imaging may be considered for patients with no improvement in back pain after six weeks of medical management and physical therapy",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "procedure_repeat_ESI_pain_improvement_threshold",
+    "type": "float",
+    "description": "Minimum 50% sustained improvement in pain relief required for repeat ESI",
+    "section": "Treatment Outcomes"
+  },
+  {
+    "name": "procedure_repeat_ESI_function_improvement_threshold",
+    "type": "float",
+    "description": "Minimum 50% objective improvement in function required for repeat ESI",
+    "section": "Treatment Outcomes"
+  },
+  {
+    "name": "procedure_repeat_ESI_sustained_improvement_months",
+    "type": "integer",
+    "description": "Minimum duration of sustained improvement (3 months) required for repeat ESI",
+    "section": "Treatment Outcomes"
+  },
+  {
+    "name": "pain_assessment_scale_types",
+    "type": "string",
+    "description": "Acceptable scales for pain assessment including verbal rating scales, Numerical Rating Scale (NRS), Visual Analog Scale (VAS)",
+    "section": "Treatment Outcomes"
+  },
+  {
+    "name": "disability_assessment_scale_types",
+    "type": "string",
+    "description": "Acceptable scales for disability assessment including Pain Disability Assessment Scale (PDAS), Oswestry Disability Index (ODI), Oswestry Low Back Pain Disability Questionnaire (OSW), Quebec Back Pain Disability Scale (QUE), Roland Morris Pain Scale, Back Pain Functional Scale (BPFS), PROMIS profile domains",
+    "section": "Treatment Outcomes"
+  },
+  {
+    "name": "treatment_success_pain_reduction_threshold",
+    "type": "float",
+    "description": "Threshold for significant pain relief for treatment success (e.g., 50% improvement from baseline)",
+    "section": "Treatment Outcomes"
+  },
+  {
+    "name": "treatment_success_function_improvement_threshold",
+    "type": "float",
+    "description": "Threshold for improvement in function for treatment success (e.g., 50% improvement from baseline)",
+    "section": "Treatment Outcomes"
+  },
+  {
+    "name": "pain_score_meaningful_change_threshold",
+    "type": "float",
+    "description": "A minimum of 20% change in pain scores is clinically meaningful",
+    "section": "Treatment Outcomes"
+  },
+  {
+    "name": "patient_contrast_allergy_flag",
+    "type": "boolean",
+    "description": "Indicates if the patient has a documented allergy to low molecular weight nonionic contrast",
+    "section": "Contraindications"
+  },
+  {
+    "name": "contraindication_spinal_infection",
+    "type": "boolean",
+    "description": "Contraindication for ESIs: suspected or active localized spinal infection",
+    "section": "Contraindications"
+  },
+  {
+    "name": "contraindication_systemic_infection",
+    "type": "boolean",
+    "description": "Contraindication for ESIs: significant systemic infection",
+    "section": "Contraindications"
+  },
+  {
+    "name": "contraindication_spinal_cord_compression",
+    "type": "boolean",
+    "description": "Contraindication for ESIs: compressive lesions of the spinal cord",
+    "section": "Contraindications"
+  },
+  {
+    "name": "contraindication_conus_medullaris_compression",
+    "type": "boolean",
+    "description": "Contraindication for ESIs: compressive lesions of the conus medullaris",
+    "section": "Contraindications"
+  },
+  {
+    "name": "contraindication_cauda_equina_compression",
+    "type": "boolean",
+    "description": "Contraindication for ESIs: compressive lesions of the cauda equina",
+    "section": "Contraindications"
+  },
+  {
+    "name": "contraindication_cancer_suspicion",
+    "type": "boolean",
+    "description": "Contraindication for ESIs: suspicion or major risk factors for cancer",
+    "section": "Contraindications"
+  },
+  {
+    "name": "contraindication_coagulopathy",
+    "type": "boolean",
+    "description": "Absolute contraindication: coagulopathy not correctible",
+    "section": "Contraindications"
+  },
+  {
+    "name": "contraindication_systemic_infection_concurrent",
+    "type": "boolean",
+    "description": "Absolute contraindication: concurrent systemic infection",
+    "section": "Contraindications"
+  },
+  {
+    "name": "contraindication_infectious_spondylitis",
+    "type": "boolean",
+    "description": "Absolute contraindication: infectious spondylitis",
+    "section": "Contraindications"
+  },
+  {
+    "name": "contraindication_acute_spinal_cord_compression",
+    "type": "boolean",
+    "description": "Absolute contraindication: acute spinal cord compression",
+    "section": "Contraindications"
+  },
+  {
+    "name": "contraindication_myelopathy",
+    "type": "boolean",
+    "description": "Absolute contraindication: myelopathy",
+    "section": "Contraindications"
+  },
+  {
+    "name": "contraindication_cauda_equina_syndrome_absolute",
+    "type": "boolean",
+    "description": "Absolute contraindication: cauda equina syndrome",
+    "section": "Contraindications"
+  },
+  {
+    "name": "contraindication_informed_consent_inability",
+    "type": "boolean",
+    "description": "Absolute contraindication: inability to obtain informed consent",
+    "section": "Contraindications"
+  },
+  {
+    "name": "contraindication_skin_puncture_infection",
+    "type": "boolean",
+    "description": "Absolute contraindication: infection at the skin puncture site",
+    "section": "Contraindications"
+  },
+  {
+    "name": "contraindication_anticoagulation_uncorrected",
+    "type": "boolean",
+    "description": "Relative contraindication: uncorrected anticoagulation therapy",
+    "section": "Contraindications"
+  },
+  {
+    "name": "contraindication_hypersensitivity_agents",
+    "type": "boolean",
+    "description": "Relative contraindication: hypersensitivity to administered agents",
+    "section": "Contraindications"
+  },
+  {
+    "name": "contraindication_pregnancy_relative",
+    "type": "boolean",
+    "description": "Relative contraindication: pregnancy (though interventions may be performed without image guidance)",
+    "section": "Contraindications"
+  },
+  {
+    "name": "contraindication_hepatitis",
+    "type": "boolean",
+    "description": "Relative contraindication: hepatitis (thrombocytopenia must be excluded)",
+    "section": "Contraindications"
+  },
+  {
+    "name": "contraindication_diabetes_uncontrolled",
+    "type": "boolean",
+    "description": "Relative contraindication: uncontrolled diabetes mellitus (risk of elevated blood sugars after steroid injections)",
+    "section": "Contraindications"
+  },
+  {
+    "name": "contraindication_congestive_heart_failure",
+    "type": "boolean",
+    "description": "Relative contraindication: congestive heart failure (steroid may lead to fluid retention)",
+    "section": "Contraindications"
+  },
+  {
+    "name": "contraindication_immunosuppressed_state",
+    "type": "boolean",
+    "description": "Relative contraindication: immunosuppressed state (preprocedural antibiotics may be considered)",
+    "section": "Contraindications"
+  },
+  {
+    "name": "contraindication_patient_improving_on_therapy",
+    "type": "boolean",
+    "description": "Relative contraindication: patient improving on medical and physical therapy",
+    "section": "Contraindications"
+  },
+  {
+    "name": "contraindication_severe_spinal_canal_stenosis",
+    "type": "boolean",
+    "description": "Relative contraindication: severe spinal canal stenosis",
+    "section": "Contraindications"
+  },
+  {
+    "name": "contraindication_no_response_previous_ESI",
+    "type": "boolean",
+    "description": "Relative contraindication: no response to previous well-performed ESI",
+    "section": "Contraindications"
+  },
+  {
+    "name": "contraindication_steroid_therapy_complication",
+    "type": "boolean",
+    "description": "Relative contraindication: complication to steroid therapy (Cushing\u2019s etc.)",
+    "section": "Contraindications"
+  },
+  {
+    "name": "risk_fracture_per_ESI",
+    "type": "float",
+    "description": "Each successive injection increased the fracture risk by a factor of 1.21 (21% increased risk)",
+    "section": "Risks"
+  },
+  {
+    "name": "adverse_event_HPA_axis_suppression",
+    "type": "string",
+    "description": "Suppression of the hypothalamic-pituitary-adrenal (HPA) axis can occur after ESI, lasting three to six weeks",
+    "section": "Risks"
+  },
+  {
+    "name": "adverse_event_cushing_syndrome",
+    "type": "string",
+    "description": "Cushing syndrome is a rare adverse event after ESI",
+    "section": "Risks"
+  },
+  {
+    "name": "adverse_event_hyperglycemia_diabetes",
+    "type": "string",
+    "description": "Elevated glucose levels in diabetic patients may be seen for two to six days after ESI",
+    "section": "Risks"
+  },
+  {
+    "name": "adverse_event_immune_suppression",
+    "type": "string",
+    "description": "Dose-dependent suppression of the immune system has been reported after ESI",
+    "section": "Risks"
+  },
+  {
+    "name": "adverse_event_vaccine_effectiveness_reduction",
+    "type": "string",
+    "description": "Corticosteroids reduced the effectiveness of the vaccine",
+    "section": "Risks"
+  },
+  {
+    "name": "adverse_event_influenza_risk",
+    "type": "string",
+    "description": "Patients were at increased risk for developing influenza after a major joint injection with corticosteroids",
+    "section": "Risks"
+  },
+  {
+    "name": "adverse_event_vasovagal_reaction_rate",
+    "type": "float",
+    "description": "Most common adverse event reported: vasovagal reaction in 1.2% of procedures",
+    "section": "Risks"
+  },
+  {
+    "name": "adverse_event_dural_puncture_rate",
+    "type": "float",
+    "description": "Adverse event reported: dural punctures occurred in 0.06% of procedures",
+    "section": "Risks"
+  },
+  {
+    "name": "adverse_event_central_steroid_response_rate",
+    "type": "float",
+    "description": "Adverse event reported: central steroid response (sleeplessness, flushing, non-positional headache) in 2.6% of TFESI and ILESI patients",
+    "section": "Risks"
+  },
+  {
+    "name": "adverse_event_increased_pain_rate",
+    "type": "float",
+    "description": "Adverse event reported: increased pain in 2.1% of TFESI and 1.8% of ILESI patients",
+    "section": "Risks"
+  },
+  {
+    "name": "adverse_event_intravascular_penetration_rate",
+    "type": "float",
+    "description": "Adverse event reported: overall intravascular penetration rate of 4.3%",
+    "section": "Risks"
+  },
+  {
+    "name": "adverse_event_local_bleeding_rate",
+    "type": "float",
+    "description": "Adverse event reported: local bleeding rate of 63%",
+    "section": "Risks"
+  },
+  {
+    "name": "adverse_event_post_lumbar_puncture_headache_rate",
+    "type": "float",
+    "description": "Adverse event reported: post-lumbar puncture headache rate of 0.05%",
+    "section": "Risks"
+  },
+  {
+    "name": "adverse_event_transient_nerve_irritation_rate",
+    "type": "float",
+    "description": "Adverse event reported: transient nerve irritation rate of 0.85%",
+    "section": "Risks"
+  },
+  {
+    "name": "adverse_event_transient_spinal_cord_irritation_rate",
+    "type": "float",
+    "description": "Adverse event reported: transient spinal cord irritation rate of 0.08%",
+    "section": "Risks"
+  },
+  {
+    "name": "provider_training_requirements",
+    "type": "string",
+    "description": "Services considered medically reasonable and necessary only if performed by appropriately trained providers",
+    "section": "Provider Requirements"
+  },
+  {
+    "name": "provider_credentialing_requirements",
+    "type": "string",
+    "description": "Credentialing or privileges are required for procedures performed in inpatient and outpatient settings",
+    "section": "Provider Requirements"
+  },
+  {
+    "name": "provider_licensure_scope_of_practice",
+    "type": "string",
+    "description": "All aspects of care must be within the provider\u2019s medical licensure and scope of practice",
+    "section": "Provider Requirements"
+  },
+  {
+    "name": "provider_imaging_modality_training",
+    "type": "string",
+    "description": "Providers must meet training requirements for using and interpreting imaging modalities (ionizing radiation and associated contrast material, magnetic resonance imaging, ultrasound)",
+    "section": "Provider Requirements"
+  },
+  {
+    "name": "definition_disability",
+    "type": "string",
+    "description": "Activity limitations and/or participation restrictions in an individual with a health condition, disorder or disease",
+    "section": "Definitions"
+  },
+  {
+    "name": "definition_impairment",
+    "type": "string",
+    "description": "A significant deviation, loss, or loss of use of any body structure or body function in an individual with a health condition, disorder, or disease",
+    "section": "Definitions"
+  },
+  {
+    "name": "definition_session",
+    "type": "string",
+    "description": "A time period that includes all procedures performed during one day",
+    "section": "Definitions"
+  },
+  {
+    "name": "anatomy_spinal_levels",
+    "type": "string",
+    "description": "Spinal roots entering and exiting between vertebral segments: cervical (C1-C8), thoracic (T1-T2), lumbar (L1-L5), and Sacral (S1-S5)",
+    "section": "Anatomy"
+  },
+  {
+    "name": "anatomy_neural_foramina",
+    "type": "string",
+    "description": "Openings between each pair of vertebra (intervertebral foramen) where structures pass through",
+    "section": "Anatomy"
+  }
+]

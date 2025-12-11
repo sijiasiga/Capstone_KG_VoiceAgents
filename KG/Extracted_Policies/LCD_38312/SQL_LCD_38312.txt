@@ -1,0 +1,128 @@
+```sql
+-- Policy: Hypoglossal Nerve Stimulation for the Treatment of Obstructive Sleep Apnea
+-- Total Restrictions: 40
+SELECT *
+FROM patients
+WHERE
+  -- Restriction 1: Patient is 22 years of age or older
+  patient_age >= 22
+  AND
+  -- Restriction 2: Patient's Body Mass Index (BMI) is less than 35 kg/m2
+  patient_bmi < 35.0
+  AND
+  -- Restriction 3: A polysomnography (PSG) was performed within 24 months of the first consultation for HGNS implant
+  (polysomnography_performed_flag = TRUE AND polysomnography_performed_window_months <= 24)
+  AND
+  -- Restriction 4: Patient has predominantly obstructive events, defined as central and mixed apneas less than 25% of the total AHI
+  central_mixed_apnea_percentage_AHI < 25.0
+  AND
+  -- Restriction 5: Apnea-Hypopnea Index (AHI) is between 15 and 65 events per hour
+  (apnea_hypopnea_index_AHI >= 15.0 AND apnea_hypopnea_index_AHI <= 65.0)
+  AND
+  (
+    -- Restriction 6: Patient has documented CPAP failure (AHI greater than 15 despite CPAP usage)
+    cpap_failure_AHI > 15.0
+    OR
+    -- Restriction 7: Patient has documented CPAP intolerance (less than 4 hours per night) and shared decision making with a sleep expert is documented
+    (cpap_intolerance_usage_hours_per_night < 4.0 AND shared_decision_making_documented_flag = TRUE)
+    OR
+    -- Restriction 8: Patient has documented CPAP intolerance (less than 5 nights per week) and shared decision making with a sleep expert is documented
+    (cpap_intolerance_usage_nights_per_week < 5 AND shared_decision_making_documented_flag = TRUE)
+    OR
+    -- Restriction 9: Patient has documented CPAP intolerance (CPAP device has been returned) and shared decision making with a sleep expert is documented
+    (cpap_intolerance_returned_flag = TRUE AND shared_decision_making_documented_flag = TRUE)
+  )
+  AND
+  -- Restriction 10: Absence of complete concentric collapse at the soft palate level, confirmed by drug-induced sleep endoscopy (DISE) procedure
+  (complete_concentric_collapse_soft_palate_flag = FALSE AND drug_induced_sleep_endoscopy_DISE_performed_flag = TRUE)
+  AND
+  -- Restriction 11: No other anatomical findings that would compromise performance of the device
+  anatomical_findings_compromising_device_flag = FALSE
+  AND
+  -- Restriction 12: Tonsil size is not 3 or 4 per standardized tonsillar hypertrophy grading scale (i.e., size less than 3)
+  tonsil_size < 3
+  AND
+  -- Restriction 13: The hypoglossal nerve neurostimulation system is FDA-approved
+  hgns_fda_approved_flag = TRUE
+  AND
+  -- Restriction 14: Patient does not have an implantable device that could experience unintended interaction with the HGNS implant system
+  other_implantable_device_flag = FALSE
+  AND
+  -- Restriction 15: Absence of neuromuscular disease
+  neuromuscular_disease_flag = FALSE
+  AND
+  -- Restriction 16: Absence of hypoglossal-nerve palsy
+  hypoglossal_nerve_palsy_flag = FALSE
+  AND
+  -- Restriction 17: Absence of severe restrictive or obstructive pulmonary disease
+  severe_pulmonary_disease_flag = FALSE
+  AND
+  -- Restriction 18: Absence of moderate-to-severe pulmonary arterial hypertension
+  pulmonary_arterial_hypertension_flag = FALSE
+  AND
+  -- Restriction 19: Absence of severe valvular heart disease
+  severe_valvular_heart_disease_flag = FALSE
+  AND
+  -- Restriction 20: Patient does not have New York Heart Association (NYHA) class III or IV heart failure
+  (nyha_heart_failure_class != 'Class III' AND nyha_heart_failure_class != 'Class IV')
+  AND
+  -- Restriction 21: Absence of myocardial infarction within the past 6 months
+  myocardial_infarction_flag = FALSE
+  AND
+  -- Restriction 22: Absence of severe cardiac arrhythmias within the past 6 months
+  severe_cardiac_arrhythmias_flag = FALSE
+  AND
+  -- Restriction 23: Absence of persistent uncontrolled hypertension despite medication use
+  uncontrolled_hypertension_flag = FALSE
+  AND
+  -- Restriction 24: Absence of active, serious mental illness that reduces the ability to carry out Activities of Daily Living (ADLs) and would interfere with the patient's ability to operate the HNS
+  serious_mental_illness_ADLs_flag = FALSE
+  AND
+  -- Restriction 25: Absence of coexisting nonrespiratory sleep disorders that would confound functional sleep assessment
+  coexisting_nonrespiratory_sleep_disorders_flag = FALSE
+  AND
+  -- Restriction 26: Patient is not pregnant and does not plan to become pregnant
+  pregnancy_flag = FALSE
+  AND
+  -- Restriction 27: Patient requiring MRI does not have HGNS device model 3024 (MRI incompatible)
+  mri_compatibility_model_3024_flag = FALSE
+  AND
+  -- Restriction 28: Patient is able to or has necessary assistance to operate the HGNS sleep remote
+  sleep_remote_operation_ability_flag = TRUE
+  AND
+  -- Restriction 29: Absence of any condition or procedure that has compromised neurological control of the upper airway
+  compromised_upper_airway_neurological_control_flag = FALSE
+  AND
+  -- Restriction 30: Inserting provider for Drug Induced Sleep Endoscopy (DISE) is certified by the FDA-approved manufacturer’s second opinion service of validation
+  dise_provider_certification_flag = TRUE
+  AND
+  -- Restriction 31: Provider certification for DISE requires at least 80% agreement in validation studies
+  dise_certification_agreement_percentage >= 80
+  AND
+  -- Restriction 32: Provider certification for DISE requires validation via at least 15 consecutive studies
+  dise_certification_consecutive_studies >= 15
+  AND
+  -- Restriction 33: Physician performing HGNS insertion is a qualified physician (MD or DO) who is board certified or board eligible otolaryngologist
+  physician_qualification_otolaryngologist_board_certified_eligible_flag = TRUE
+  AND
+  -- Restriction 34: Physician performing HGNS insertion has completed an AMA or AOA certified residency program in otolaryngology
+  physician_qualification_otolaryngology_residency_flag = TRUE
+  AND
+  -- Restriction 35: Surgeon implanting the system has received classroom instruction by an FDA-approved device manufacturer on device implant techniques and cadaver training
+  surgeon_training_device_implant_flag = TRUE
+  AND
+  -- Restriction 36: Sleep physician or sleep technician has received classroom instruction on how to titrate the device and hands-on operation
+  sleep_physician_technician_training_device_titration_flag = TRUE
+  AND
+  -- Restriction 37: Provider maintains documentation of training completion to a satisfactory level
+  provider_training_documentation_flag = TRUE
+  AND
+  -- Restriction 38: Sleep physician performing evaluation, referral, and post-implant evaluation is board eligible or certified
+  sleep_physician_qualification_board_certified_eligible_flag = TRUE
+  AND
+  -- Restriction 39: Sleep technicians meet the qualifications outlined in LCD L34040
+  sleep_technician_qualification_L34040_flag = TRUE
+  AND
+  -- Restriction 40: Sleep studies are performed in an accredited sleep facility as stated in LCD L34040
+  sleep_facility_accreditation_flag = TRUE;
+```

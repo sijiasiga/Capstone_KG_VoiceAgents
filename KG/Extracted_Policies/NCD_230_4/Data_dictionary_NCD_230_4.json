@@ -1,0 +1,62 @@
+[
+  {
+    "name": "patient_id",
+    "type": "string",
+    "description": "Unique patient identifier",
+    "section": "Demographics"
+  },
+  {
+    "name": "diagnosis_impotence",
+    "type": "string",
+    "description": "Medical condition characterized as a failure of a body part for which diagnosis and treatment require medical expertise.",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "procedure_penile_prosthesis_implantation",
+    "type": "boolean",
+    "description": "Surgical treatment for impotence involving the implantation of a penile prosthesis.",
+    "section": "Procedures"
+  },
+  {
+    "name": "treatment_medical_impotence",
+    "type": "boolean",
+    "description": "Nonsurgical medical treatment for impotence.",
+    "section": "Treatments"
+  },
+  {
+    "name": "treatment_psychotherapeutic_impotence",
+    "type": "boolean",
+    "description": "Nonsurgical psychotherapeutic treatment for impotence.",
+    "section": "Treatments"
+  },
+  {
+    "name": "coverage_sexual_impotence_diagnosis_treatment",
+    "type": "boolean",
+    "description": "Indicates whether program payment is made for diagnosis and treatment of sexual impotence.",
+    "section": "Coverage"
+  },
+  {
+    "name": "documentation_appropriateness_suspicion_of_abuse",
+    "type": "boolean",
+    "description": "Flag indicating if documentation of appropriateness is required due to suspected abuse in individual cases.",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "patient_status_hospital_inpatient",
+    "type": "boolean",
+    "description": "Indicates whether the patient is a hospital inpatient.",
+    "section": "Eligibility"
+  },
+  {
+    "name": "patient_condition_mental",
+    "type": "boolean",
+    "description": "Indicates whether the patient's condition is connected to a mental condition.",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "limitation_psychiatric_service",
+    "type": "boolean",
+    "description": "Indicates if the psychiatric service limitation described in the Medicare General Information, Eligibility, and Entitlement Manual, Chapter 3, applies.",
+    "section": "Limitations"
+  }
+]

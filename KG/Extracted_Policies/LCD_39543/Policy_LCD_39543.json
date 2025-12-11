@@ -1,0 +1,141 @@
+[
+  {
+    "name": "Sacral Nerve Stimulation for the Treatment of Urinary and Fecal Incontinence",
+    "guideline_number": "L39543",
+    "description": "This LCD outlines limited coverage for Sacral Nerve Stimulation (SNS) for the treatment of urinary and fecal incontinence, including specific details under coverage indications, limitations, and medical necessity criteria.",
+    "restrictions": [
+      {
+        "condition": "Patient must be refractory to conventional therapy (documented behavioral, pharmacologic, and/or surgical corrective therapy) for urinary incontinence.",
+        "rule": "eligibility_refractory_to_conventional_therapy_urinary_incontinence = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Patient must be an appropriate surgical candidate such that implantation with anesthesia can occur for urinary incontinence treatment.",
+        "rule": "eligibility_appropriate_surgical_candidate = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Patient must not have stress incontinence.",
+        "rule": "exclusion_stress_incontinence = FALSE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Patient must not have urinary obstruction.",
+        "rule": "exclusion_urinary_obstruction = FALSE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Patient must not have specific neurologic diseases (e.g., diabetes with peripheral nerve involvement, multiple sclerosis, spinal cord injury) which are associated with secondary manifestations of urinary incontinence indications.",
+        "rule": "exclusion_neurologic_disease_urinary_incontinence = FALSE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Patient must demonstrate a 50% or greater improvement through test stimulation to support subsequent permanent implantation for urinary incontinence.",
+        "rule": "eligibility_test_stimulation_improvement_percentage_urinary_incontinence >= 50.0",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Improvement from test stimulation for urinary incontinence is measured through voiding diaries.",
+        "rule": "program_requirements_test_stimulation_measurement_method = 'voiding diaries'",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Patient must be able to demonstrate adequate ability to record voiding diary data for proper evaluation of implant procedure results.",
+        "rule": "eligibility_patient_ability_to_record_voiding_diary_data = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Patient must have chronic fecal incontinence with greater than 2 incontinent episodes on average per week.",
+        "rule": "eligibility_fecal_incontinence_episodes_per_week_threshold > 2",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Duration of fecal incontinence must be greater than 6 months.",
+        "rule": "eligibility_fecal_incontinence_duration_months > 6",
+        "codes": [],
+        "logic": "OR"
+      },
+      {
+        "condition": "Duration of fecal incontinence must be greater than 12 months after vaginal childbirth.",
+        "rule": "eligibility_fecal_incontinence_duration_post_childbirth_months > 12",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Patient must have documented failure or intolerance to conventional therapy (e.g., dietary modification, bulking and pharmacologic treatment) for fecal incontinence.",
+        "rule": "eligibility_refractory_to_conventional_therapy_fecal_incontinence = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Patient must have a successful percutaneous test stimulation for fecal incontinence, defined as at least 50% sustained improvement in symptoms.",
+        "rule": "eligibility_percutaneous_test_stimulation_improvement_percentage_fecal_incontinence >= 50.0",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Sustained improvement from percutaneous test stimulation for fecal incontinence must last more than 48 hours.",
+        "rule": "eligibility_percutaneous_test_stimulation_sustained_improvement_duration_hours > 48",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Fecal incontinence condition must not be related to anorectal malformation (e.g., congenital malformation, defects of the external anal sphincter over 60 degrees, visible sequelae of pelvic radiation, active anal abscesses and fistulae).",
+        "rule": "exclusion_anorectal_malformation = FALSE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Fecal incontinence condition must not be related to chronic inflammatory bowel disease.",
+        "rule": "exclusion_chronic_inflammatory_bowel_disease = FALSE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Fecal incontinence must not be related to another neurologic condition such as peripheral neuropathy or complete spinal cord injury.",
+        "rule": "exclusion_neurologic_condition_fecal_incontinence = FALSE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Sacral Nerve Stimulation is considered experimental/investigational for the treatment of chronic constipation.",
+        "rule": "non_covered_condition_chronic_constipation = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Sacral Nerve Stimulation is considered experimental/investigational for the treatment of chronic pelvic pain (CPP).",
+        "rule": "non_covered_condition_chronic_pelvic_pain = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "A complete history and physical examination must be documented in the patient's medical record.",
+        "rule": "documentation_required_history_physical_exam = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Voiding diaries must be documented in the patient's medical record.",
+        "rule": "documentation_required_voiding_diaries = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Urodynamic studies for urinary incontinence must be documented in the patient's medical record.",
+        "rule": "documentation_required_urodynamic_studies = TRUE",
+        "codes": [],
+        "logic": "AND"
+      }
+    ]
+  }
+]

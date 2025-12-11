@@ -1,0 +1,137 @@
+[
+  {
+    "name": "NCD - Percutaneous Image-Guided Lumbar Decompression for Lumbar Spinal Stenosis",
+    "guideline_number": "150.13",
+    "description": "Percutaneous Image-Guided Lumbar Decompression (PILD) is a posterior decompression of the lumbar spine performed under indirect image guidance for symptomatic Lumbar Spinal Stenosis (LSS) unresponsive to conservative therapy. PILD is covered by Medicare through Coverage with Evidence Development (CED) when beneficiaries with LSS are enrolled in an approved clinical study that meets specific criteria. Coverage criteria are split into two sections: Section I for prospective, randomized, controlled studies (effective January 9, 2014) and Section II for prospective, longitudinal studies using FDA-approved/cleared devices that completed a CMS-approved Randomized Control Trial (RCT) from Section I (effective December 7, 2016). PILD for LSS is not considered reasonable and necessary outside the context of a clinical trial.",
+    "restrictions": [
+      {
+        "condition": "Patient must have symptomatic Lumbar Spinal Stenosis (LSS).",
+        "rule": "diagnosis_symptomatic_LSS_flag = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Patient's symptomatic Lumbar Spinal Stenosis (LSS) must be unresponsive to conservative therapy.",
+        "rule": "treatment_unresponsive_conservative_therapy_LSS_flag = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Patient must have a diagnosis of Lumbar Spinal Stenosis (LSS).",
+        "rule": "diagnosis_lumbar_spinal_stenosis_flag = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "PILD coverage is provided through Coverage with Evidence Development (CED).",
+        "rule": "coverage_type = 'Coverage with Evidence Development'",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Beneficiary must be enrolled in an approved clinical study for PILD.",
+        "rule": "clinical_study_enrollment_flag = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "The procedure must be billed with CPT code 0275T.",
+        "rule": "procedure_code_CPT IN ('0275T')",
+        "codes": [
+          "0275T"
+        ],
+        "logic": "AND"
+      },
+      {
+        "condition": "For Section I coverage, services must be performed on or after January 9, 2014.",
+        "rule": "PILD_coverage_effective_date_section_I >= '2014-01-09'",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "For Section I coverage, the clinical study design must be prospective, randomized, and controlled.",
+        "rule": "clinical_study_design_section_I = 'prospective, randomized, controlled'",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "For Section I coverage, the study protocol must specify a minimum length of patient follow-up time.",
+        "rule": "clinical_study_minimum_followup_time_description IS NOT NULL",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "For Section I coverage, the research study must comply with 45 CFR Part 46 concerning the protection of human subjects.",
+        "rule": "clinical_study_compliance_45_CFR_Part_46_flag = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "For Section I coverage, if the study is regulated by the FDA, it must comply with 21 CFR parts 50 and 56.",
+        "rule": "clinical_study_compliance_21_CFR_Parts_50_56_flag = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "For Section I coverage, the clinical research study must be registered on ClinicalTrials.gov prior to the enrollment of the first study subject.",
+        "rule": "clinical_study_registration_ClinicalTrials_gov_flag = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "For Section I coverage, study results must be made public within 24 months of the end of data collection.",
+        "rule": "clinical_study_data_release_window_section_I_months <= 24",
+        "codes": [],
+        "logic": "OR"
+      },
+      {
+        "condition": "For Section II coverage, services must be performed on or after December 7, 2016.",
+        "rule": "PILD_coverage_effective_date_section_II >= '2016-12-07'",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "For Section II coverage, PILD procedures must use an FDA-approved or FDA-cleared device.",
+        "rule": "PILD_device_FDA_approved_cleared_flag = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "For Section II coverage, the prospective, longitudinal study must have completed a CMS-approved randomized control trial (RCT) that met the criteria in Section I.",
+        "rule": "clinical_study_prerequisite_CMS_approved_RCT_flag = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "For Section II coverage, the clinical study must be a prospective, longitudinal study.",
+        "rule": "clinical_study_type_section_II = 'prospective, longitudinal'",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "For Section II coverage, eligibility requirements (inclusion/exclusion criteria) from the CMS-approved RCT protocol must be maintained in the prospective, longitudinal study.",
+        "rule": "clinical_study_eligibility_requirements_maintained_flag = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "For Section II coverage, all study sites and results must be listed in the ClinicalTrials.gov database.",
+        "rule": "clinical_study_registration_ClinicalTrials_gov_flag = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "For Section II coverage, registries associated with clinical studies must be registered in the AHRQ Registry of Patient Registries (RoPR).",
+        "rule": "clinical_study_registry_AHRQ_RoPR_flag = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "For Section II coverage, study results must be made public within 12 months of the study's primary completion date.",
+        "rule": "clinical_study_data_release_window_section_II_months <= 12",
+        "codes": [],
+        "logic": "AND"
+      }
+    ]
+  }
+]

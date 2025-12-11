@@ -1,0 +1,27 @@
+[
+  {
+    "name": "NCD - Diagnosis and Treatment of Impotence",
+    "guideline_number": "230.4",
+    "description": "This policy outlines the coverage for diagnosis and treatment of sexual impotence, including surgical (e.g., penile prosthesis implantation) and nonsurgical (e.g., medical or psychotherapeutic) interventions. It details conditions under which documentation may be required and when psychiatric service limitations apply.",
+    "restrictions": [
+      {
+        "condition": "Program payment is available for the diagnosis and treatment of sexual impotence.",
+        "rule": "coverage_sexual_impotence_diagnosis_treatment = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Documentation of appropriateness may be requested in individual cases if abuse of the policy is suspected.",
+        "rule": "documentation_appropriateness_suspicion_of_abuse = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "The psychiatric service limitation described in the Medicare General Information, Eligibility, and Entitlement Manual, Chapter 3, applies when treatment is furnished to non-hospital inpatients in connection with a mental condition.",
+        "rule": "limitation_psychiatric_service = TRUE AND patient_status_hospital_inpatient = FALSE AND patient_condition_mental = TRUE",
+        "codes": [],
+        "logic": "AND"
+      }
+    ]
+  }
+]

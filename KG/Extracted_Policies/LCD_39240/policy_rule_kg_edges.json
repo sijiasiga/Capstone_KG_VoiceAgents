@@ -1,0 +1,716 @@
+[
+  {
+    "source": "LCD_39240",
+    "target": "group_diagnosis",
+    "relation": "contains",
+    "edge_type": "policy_rule"
+  },
+  {
+    "source": "LCD_39240",
+    "target": "group_requirement",
+    "relation": "contains",
+    "edge_type": "policy_rule"
+  },
+  {
+    "source": "LCD_39240",
+    "target": "group_procedure",
+    "relation": "contains",
+    "edge_type": "policy_rule"
+  },
+  {
+    "source": "LCD_39240",
+    "target": "group_other",
+    "relation": "contains",
+    "edge_type": "policy_rule"
+  },
+  {
+    "source": "LCD_39240",
+    "target": "group_demographic",
+    "relation": "contains",
+    "edge_type": "policy_rule"
+  },
+  {
+    "source": "group_diagnosis",
+    "target": "condition_diagnosis_radiculopathy_lumbar_98fa5a",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_diagnosis",
+    "target": "condition_diagnosis_radiculopathy_cervical_5bcf97",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_diagnosis",
+    "target": "condition_diagnosis_radiculopathy_thoracic_eb32bb",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_diagnosis",
+    "target": "condition_diagnosis_radicular_pain_a25e1a",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_diagnosis",
+    "target": "condition_diagnosis_neurogenic_claudication_2fc6c1",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_diagnosis",
+    "target": "condition_diagnosis_disc_herniation_457687",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_diagnosis",
+    "target": "condition_diagnosis_osteophyte_42a07d",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_diagnosis",
+    "target": "condition_diagnosis_osteophyte_complex_e24e9f",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_diagnosis",
+    "target": "condition_diagnosis_degenerative_disc_disease_severe_39dfab",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_diagnosis",
+    "target": "condition_diagnosis_spinal_stenosis_foraminal_88c4b3",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_diagnosis",
+    "target": "condition_diagnosis_spinal_stenosis_central_cd5daf",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_diagnosis",
+    "target": "condition_diagnosis_post_laminectomy_syndrome_cb9bb7",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_diagnosis",
+    "target": "condition_diagnosis_acute_herpes_zoster_associated_pain_b55f82",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_diagnosis",
+    "target": "condition_diagnosis_radiculopathy_lumbar_cf3438",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_diagnosis",
+    "target": "condition_diagnosis_radiculopathy_cervical_c3a4fd",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_diagnosis",
+    "target": "condition_diagnosis_radiculopathy_thoracic_de97e1",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_diagnosis",
+    "target": "condition_diagnosis_radicular_pain_9ff158",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_diagnosis",
+    "target": "condition_diagnosis_neurogenic_claudication_9092f4",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_diagnosis",
+    "target": "condition_diagnosis_nonspecific_low_back_pain_exclusion_a39afe",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_diagnosis",
+    "target": "condition_diagnosis_axial_spine_pain_exclusion_56a7e9",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_diagnosis",
+    "target": "condition_diagnosis_complex_regional_pain_syndrome_exclusion_3e1748",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_diagnosis",
+    "target": "condition_diagnosis_widespread_diffuse_pain_exclusion_75c7c7",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_diagnosis",
+    "target": "condition_diagnosis_neuropathy_pain_exclusion_010e5d",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_diagnosis",
+    "target": "condition_diagnosis_cervicogenic_headaches_exclusion_bff849",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_requirement",
+    "target": "condition_functional_assessment_baseline_required_flag_fb36c2",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_requirement",
+    "target": "condition_pain_scale_baseline_required_flag_ba67b3",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_requirement",
+    "target": "condition_pain_scale_baseline_required_flag_003214",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_requirement",
+    "target": "condition_functional_assessment_baseline_required_flag_538d6a",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_requirement",
+    "target": "condition_pain_scale_followup_required_flag_742ba2",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_requirement",
+    "target": "condition_functional_assessment_followup_required_flag_509f59",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_requirement",
+    "target": "condition_conservative_care_intolerance_flag_951572",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_requirement",
+    "target": "condition_diagnosis_acute_herpes_zoster_refractory_flag_bd0b4e",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_requirement",
+    "target": "condition_conservative_treatment_conjunction_flag_7be83b",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_requirement",
+    "target": "condition_rehabilitation_program_participation_flag_aee456",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_requirement",
+    "target": "condition_pain_duration_minimum_weeks_aa54d8",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_requirement",
+    "target": "condition_conservative_care_failure_duration_weeks_051f6a",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_requirement",
+    "target": "condition_conservative_management_failure_duration_weeks_66867d",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_procedure",
+    "target": "condition_procedure_image_guidance_ct_09ea53",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_procedure",
+    "target": "condition_procedure_image_guidance_fluoroscopy_68628d",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_procedure",
+    "target": "condition_procedure_image_guidance_ultrasound_619329",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_procedure",
+    "target": "condition_procedure_image_guidance_ultrasound_9082f5",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_procedure",
+    "target": "condition_procedure_transforaminal_epidural_steroid_injection_bilateral_flag_fe4148",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_procedure",
+    "target": "condition_procedure_multiple_blocks_same_session_flag_f5059c",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_procedure",
+    "target": "condition_procedure_caudal_epidural_steroid_injection_bilateral_flag_979592",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_procedure",
+    "target": "condition_procedure_interlaminar_epidural_steroid_injection_bilateral_flag_d74d26",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_procedure",
+    "target": "condition_procedure_predetermined_esi_series_flag_dc48d2",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_procedure",
+    "target": "condition_procedure_imaging_mri_lumbar_767d9d",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_procedure",
+    "target": "condition_procedure_imaging_ct_409dfb",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_procedure",
+    "target": "condition_procedure_caudal_epidural_steroid_injection_interlaminar_epidural_steroid_injection_conjunction_with_tfesi_flag_dc31ac",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_procedure",
+    "target": "condition_procedure_transforaminal_epidural_steroid_injection_max_levels_per_region_e1a22a",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_procedure",
+    "target": "condition_procedure_caudal_epidural_steroid_injection_max_levels_c7133b",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_procedure",
+    "target": "condition_procedure_interlaminar_epidural_steroid_injection_max_levels_7877ce",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_procedure",
+    "target": "condition_procedure_repeat_esi_pain_improvement_threshold_ef0c7d",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_procedure",
+    "target": "condition_procedure_repeat_esi_function_improvement_threshold_d5b09e",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_procedure",
+    "target": "condition_procedure_repeat_esi_sustained_improvement_months_ce0aad",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_procedure",
+    "target": "condition_procedure_repeat_esi_minimum_interval_days_d63254",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_procedure",
+    "target": "condition_procedure_esi_max_sessions_per_region_12_months_a3e7c3",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_procedure",
+    "target": "condition_procedure_esi_max_spinal_regions_per_session_8f9050",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_procedure",
+    "target": "condition_procedure_tfesi_max_nerve_root_levels_per_session_b33859",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_procedure",
+    "target": "condition_procedure_caudal_epidural_steroid_injection_interlaminar_epidural_steroid_injection_max_levels_per_session_941e7d",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_procedure",
+    "target": "condition_procedure_esi_max_duration_months_9a219b",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_procedure",
+    "target": "condition_procedure_repeat_esi_sustained_improvement_months_c358ba",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_procedure",
+    "target": "condition_procedure_cervical_interlaminar_lumbar_transforaminal_volume_ml_2d7a23",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_procedure",
+    "target": "condition_procedure_esi_ssnb_max_count_6_months_08f88b",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_procedure",
+    "target": "condition_procedure_esi_ssnb_max_count_12_months_f7a944",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_procedure",
+    "target": "condition_procedure_tfesi_max_count_per_session_052401",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_procedure",
+    "target": "condition_procedure_sedation_level_addae2",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_substance_contrast_media_3e37c4",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_patient_contrast_allergy_flag_a5deb1",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_substance_contrast_media_4d7b83",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_substance_contrast_media_a93d22",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_substance_contrast_media_281df7",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_substance_corticosteroid_injection_75d231",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_substance_biologicals_fda_designation_flag_861078",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_contraindication_spinal_infection_6244ac",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_contraindication_systemic_infection_78bc5a",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_contraindication_spinal_cord_compression_84a8b0",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_contraindication_conus_medullaris_compression_f0d629",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_contraindication_cauda_equina_compression_3e8608",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_contraindication_cancer_suspicion_2307c1",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_provider_training_requirements_e209cd",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_provider_credentialing_requirements_1a21c3",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_provider_licensure_scope_of_practice_69367d",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_provider_imaging_modality_training_741f32",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_contraindication_coagulopathy_0e0cfe",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_contraindication_systemic_infection_concurrent_df29bf",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_contraindication_infectious_spondylitis_19f527",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_contraindication_acute_spinal_cord_compression_1b3a6f",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_contraindication_myelopathy_493905",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_contraindication_cauda_equina_syndrome_absolute_e63b4e",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_contraindication_informed_consent_inability_808e61",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_contraindication_skin_puncture_infection_4e1f26",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_contraindication_anticoagulation_uncorrected_b7034d",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_contraindication_hypersensitivity_agents_ea4be7",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_contraindication_pregnancy_relative_9e8677",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_contraindication_hepatitis_cb723c",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_contraindication_diabetes_uncontrolled_895f4e",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_contraindication_congestive_heart_failure_fdc74c",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_contraindication_immunosuppressed_state_d20f63",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_contraindication_patient_improving_on_therapy_c237ab",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_contraindication_severe_spinal_canal_stenosis_91b70e",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_contraindication_no_response_previous_esi_64ce5f",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_contraindication_steroid_therapy_complication_56f449",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_substance_etanercept_fda_approval_flag_870837",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_substance_triamcinolone_max_dose_mg_per_session_b0803b",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_substance_betamethasone_max_dose_mg_per_session_6a3ee8",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_substance_dexamethasone_max_dose_mg_per_session_7fda77",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_treatment_success_pain_reduction_threshold_1665a6",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_treatment_success_function_improvement_threshold_9423e7",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_substance_methylprednisolone_acetate_max_dose_mg_f0e979",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_substance_triamcinolone_acetate_max_dose_mg_range_min_16221d",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_substance_triamcinolone_acetate_max_dose_mg_range_max_5e0e8e",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_substance_dexamethasone_phosphate_max_dose_mg_2580ed",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_demographic",
+    "target": "condition_patient_pregnancy_flag_2747ee",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  }
+]

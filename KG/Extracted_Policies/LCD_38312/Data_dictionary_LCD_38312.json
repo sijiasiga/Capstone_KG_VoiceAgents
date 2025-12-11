@@ -1,0 +1,398 @@
+[
+  {
+    "name": "patient_id",
+    "type": "string",
+    "description": "Unique patient identifier",
+    "section": "Demographics"
+  },
+  {
+    "name": "policy_id_LCD",
+    "type": "string",
+    "description": "Local Coverage Determination (LCD) identifier",
+    "section": "Policy Information"
+  },
+  {
+    "name": "diagnosis_obstructive_sleep_apnea_flag",
+    "type": "boolean",
+    "description": "Diagnosis of Obstructive Sleep Apnea (OSA)",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "procedure_hypoglossal_nerve_stimulation_flag",
+    "type": "boolean",
+    "description": "Indicates if Hypoglossal Nerve Stimulation is performed",
+    "section": "Procedures"
+  },
+  {
+    "name": "comorbidity_hypertension_flag",
+    "type": "boolean",
+    "description": "Presence of comorbidity: hypertension (associated with OSA)",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "comorbidity_cardiovascular_disease_flag",
+    "type": "boolean",
+    "description": "Presence of comorbidity: cardiovascular disease (associated with OSA)",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "comorbidity_cardiac_arrhythmia_flag",
+    "type": "boolean",
+    "description": "Presence of comorbidity: cardiac arrhythmia (associated with OSA)",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "comorbidity_cerebrovascular_disease_flag",
+    "type": "boolean",
+    "description": "Presence of comorbidity: cerebrovascular disease (associated with OSA)",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "comorbidity_excessive_daytime_sleepiness_flag",
+    "type": "boolean",
+    "description": "Presence of comorbidity: excessive daytime sleepiness (associated with OSA)",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "comorbidity_mood_disorders_flag",
+    "type": "boolean",
+    "description": "Presence of comorbidity: mood disorders (associated with OSA)",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "device_battery_life_years",
+    "type": "integer",
+    "description": "Battery life of the implantable HGNS device components in years (7 to 10 years)",
+    "section": "Device Information"
+  },
+  {
+    "name": "patient_age",
+    "type": "integer",
+    "description": "Patient age in years (must be 22 or older for HGNS)",
+    "section": "Demographics"
+  },
+  {
+    "name": "patient_bmi",
+    "type": "float",
+    "description": "Patient Body Mass Index in kg/m2 (must be less than 35 for HGNS)",
+    "section": "Eligibility"
+  },
+  {
+    "name": "polysomnography_performed_window_months",
+    "type": "integer",
+    "description": "Time window within which a polysomnography (PSG) must be performed prior to first HGNS consultation (24 months)",
+    "section": "Eligibility"
+  },
+  {
+    "name": "polysomnography_performed_flag",
+    "type": "boolean",
+    "description": "Indicates if a polysomnography (PSG) was performed within the required window",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "central_mixed_apnea_percentage_AHI",
+    "type": "float",
+    "description": "Percentage of central and mixed apneas relative to total AHI (must be less than 25% for HGNS)",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "apnea_hypopnea_index_AHI",
+    "type": "float",
+    "description": "Apnea-Hypopnea Index (AHI) in events per hour (must be between 15 and 65 for HGNS)",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "cpap_failure_AHI",
+    "type": "float",
+    "description": "Apnea-Hypopnea Index (AHI) indicating CPAP failure (greater than 15 despite CPAP usage)",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "cpap_intolerance_usage_hours_per_night",
+    "type": "float",
+    "description": "CPAP usage in hours per night (less than 4 hours indicates intolerance)",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "cpap_intolerance_usage_nights_per_week",
+    "type": "integer",
+    "description": "CPAP usage in nights per week (less than 5 nights indicates intolerance)",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "cpap_intolerance_returned_flag",
+    "type": "boolean",
+    "description": "Flag indicating if CPAP device was returned due to intolerance",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "cpap_intolerance_flag",
+    "type": "boolean",
+    "description": "Flag indicating CPAP intolerance, requiring consultation with a sleep expert for shared decision making",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "complete_concentric_collapse_soft_palate_flag",
+    "type": "boolean",
+    "description": "Absence of complete concentric collapse at the soft palate level (evaluated via DISE)",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "drug_induced_sleep_endoscopy_DISE_performed_flag",
+    "type": "boolean",
+    "description": "Indicates if a drug-induced sleep endoscopy (DISE) procedure was performed",
+    "section": "Procedures"
+  },
+  {
+    "name": "tonsil_size",
+    "type": "integer",
+    "description": "Tonsil size per standardized tonsillar hypertrophy grading scale (sizes 3 or 4 are contraindications for HGNS)",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "anatomical_findings_compromising_device_flag",
+    "type": "boolean",
+    "description": "Flag indicating presence of anatomical findings that would compromise HGNS device performance",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "hgns_fda_approved_flag",
+    "type": "boolean",
+    "description": "Indicates if the Hypoglossal Nerve Neurostimulation system is FDA-approved",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "other_implantable_device_flag",
+    "type": "boolean",
+    "description": "Presence of other implantable devices that could interact with HGNS system",
+    "section": "Contraindications"
+  },
+  {
+    "name": "neuromuscular_disease_flag",
+    "type": "boolean",
+    "description": "Presence of neuromuscular disease",
+    "section": "Contraindications"
+  },
+  {
+    "name": "hypoglossal_nerve_palsy_flag",
+    "type": "boolean",
+    "description": "Presence of hypoglossal-nerve palsy",
+    "section": "Contraindications"
+  },
+  {
+    "name": "severe_pulmonary_disease_flag",
+    "type": "boolean",
+    "description": "Presence of severe restrictive or obstructive pulmonary disease",
+    "section": "Contraindications"
+  },
+  {
+    "name": "pulmonary_arterial_hypertension_flag",
+    "type": "boolean",
+    "description": "Presence of moderate-to-severe pulmonary arterial hypertension",
+    "section": "Contraindications"
+  },
+  {
+    "name": "severe_valvular_heart_disease_flag",
+    "type": "boolean",
+    "description": "Presence of severe valvular heart disease",
+    "section": "Contraindications"
+  },
+  {
+    "name": "nyha_heart_failure_class",
+    "type": "string",
+    "description": "New York Heart Association (NYHA) heart failure class (Class III or IV is a contraindication)",
+    "section": "Contraindications"
+  },
+  {
+    "name": "recent_cardiac_event_window_months",
+    "type": "integer",
+    "description": "Time window for recent myocardial infarction or severe cardiac arrhythmias (within the past 6 months is a contraindication)",
+    "section": "Contraindications"
+  },
+  {
+    "name": "myocardial_infarction_flag",
+    "type": "boolean",
+    "description": "Presence of recent myocardial infarction (within past 6 months is a contraindication)",
+    "section": "Contraindications"
+  },
+  {
+    "name": "severe_cardiac_arrhythmias_flag",
+    "type": "boolean",
+    "description": "Presence of severe cardiac arrhythmias (within past 6 months is a contraindication)",
+    "section": "Contraindications"
+  },
+  {
+    "name": "uncontrolled_hypertension_flag",
+    "type": "boolean",
+    "description": "Presence of persistent uncontrolled hypertension despite medication use",
+    "section": "Contraindications"
+  },
+  {
+    "name": "serious_mental_illness_ADLs_flag",
+    "type": "boolean",
+    "description": "Presence of active, serious mental illness affecting ADLs and ability to operate HNS",
+    "section": "Contraindications"
+  },
+  {
+    "name": "coexisting_nonrespiratory_sleep_disorders_flag",
+    "type": "boolean",
+    "description": "Presence of coexisting nonrespiratory sleep disorders confounding functional sleep assessment",
+    "section": "Contraindications"
+  },
+  {
+    "name": "pregnancy_flag",
+    "type": "boolean",
+    "description": "Patient is pregnant or plans to become pregnant",
+    "section": "Contraindications"
+  },
+  {
+    "name": "mri_compatibility_model_3024_flag",
+    "type": "boolean",
+    "description": "HGNS device model 3024 is incompatible with MRI",
+    "section": "Contraindications"
+  },
+  {
+    "name": "mri_compatibility_model_3028_flag",
+    "type": "boolean",
+    "description": "HGNS device model 3028 has limited MRI compatibility (head and extremities only)",
+    "section": "Contraindications"
+  },
+  {
+    "name": "sleep_remote_operation_ability_flag",
+    "type": "boolean",
+    "description": "Patient's ability or assistance to operate the HGNS sleep remote",
+    "section": "Contraindications"
+  },
+  {
+    "name": "compromised_upper_airway_neurological_control_flag",
+    "type": "boolean",
+    "description": "Presence of conditions/procedures compromising neurological control of the upper airway",
+    "section": "Contraindications"
+  },
+  {
+    "name": "dise_provider_certification_flag",
+    "type": "boolean",
+    "description": "Provider certification for Drug Induced Sleep Endoscopy (DISE) by FDA approved manufacturer's second opinion service",
+    "section": "Provider Qualifications"
+  },
+  {
+    "name": "dise_certification_agreement_percentage",
+    "type": "integer",
+    "description": "Minimum agreement percentage for DISE provider certification (at least 80%)",
+    "section": "Provider Qualifications"
+  },
+  {
+    "name": "dise_certification_consecutive_studies",
+    "type": "integer",
+    "description": "Minimum number of consecutive studies for DISE provider certification (at least 15)",
+    "section": "Provider Qualifications"
+  },
+  {
+    "name": "shared_decision_making_documented_flag",
+    "type": "boolean",
+    "description": "Documentation of shared decision making between attending provider and patient",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "physician_qualification_otolaryngologist_board_certified_eligible_flag",
+    "type": "boolean",
+    "description": "Physician must be board certified or eligible otolaryngologist for HGNS insertion",
+    "section": "Provider Qualifications"
+  },
+  {
+    "name": "physician_qualification_otolaryngology_residency_flag",
+    "type": "boolean",
+    "description": "Physician must have completed AMA or AOA certified otolaryngology residency program for HGNS insertion",
+    "section": "Provider Qualifications"
+  },
+  {
+    "name": "surgeon_training_device_implant_flag",
+    "type": "boolean",
+    "description": "Surgeon training by FDA-approved device manufacturer on implant techniques and cadaver training",
+    "section": "Provider Qualifications"
+  },
+  {
+    "name": "sleep_physician_technician_training_device_titration_flag",
+    "type": "boolean",
+    "description": "Sleep physician/technician training on device titration and operation",
+    "section": "Provider Qualifications"
+  },
+  {
+    "name": "provider_training_documentation_flag",
+    "type": "boolean",
+    "description": "Provider must maintain documentation of training completion",
+    "section": "Provider Qualifications"
+  },
+  {
+    "name": "sleep_physician_qualification_board_certified_eligible_flag",
+    "type": "boolean",
+    "description": "Sleep physician must be board eligible or certified for HGNS evaluation/referral/post-implant evaluation",
+    "section": "Provider Qualifications"
+  },
+  {
+    "name": "sleep_technician_qualification_L34040_flag",
+    "type": "boolean",
+    "description": "Sleep technicians must meet qualifications outlined in LCD L34040",
+    "section": "Provider Qualifications"
+  },
+  {
+    "name": "sleep_facility_accreditation_flag",
+    "type": "boolean",
+    "description": "Sleep studies must be performed in an accredited sleep facility",
+    "section": "Provider Qualifications"
+  },
+  {
+    "name": "oxygen_desaturation_index_ODI",
+    "type": "float",
+    "description": "Oxygen Desaturation Index (ODI), number of times per hour blood oxygen drops >= 4 percentage points (used in study outcomes)",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "ahi_reduction_percentage_post_treatment",
+    "type": "float",
+    "description": "Percentage reduction in AHI score from baseline post-treatment (at least 50% indicates treatment response in studies)",
+    "section": "Program Outcomes"
+  },
+  {
+    "name": "ahi_post_treatment",
+    "type": "float",
+    "description": "Apnea-Hypopnea Index (AHI) post-treatment (less than 20 events per hour indicates treatment response in studies)",
+    "section": "Program Outcomes"
+  },
+  {
+    "name": "odi_reduction_percentage_post_treatment",
+    "type": "float",
+    "description": "Percentage reduction in Oxygen Desaturation Index (ODI) score from baseline post-treatment (at least 25% indicates treatment response in studies)",
+    "section": "Program Outcomes"
+  },
+  {
+    "name": "epworth_sleepiness_scale_score",
+    "type": "float",
+    "description": "Epworth Sleepiness Scale (ESS) score (0.0 to 24.0, higher scores indicate more daytime sleepiness, used in study outcomes)",
+    "section": "Program Outcomes"
+  },
+  {
+    "name": "functional_outcomes_of_sleep_questionnaire_score",
+    "type": "float",
+    "description": "Functional Outcomes of Sleep Questionnaire (FOSQ) score (5.0 to 20.0, higher scores indicate greater functioning, used in study outcomes)",
+    "section": "Program Outcomes"
+  },
+  {
+    "name": "sleep_time_oxygen_saturation_below_90_percent",
+    "type": "float",
+    "description": "Percentage of sleep time with oxygen saturation less than 90% (used in study outcomes)",
+    "section": "Program Outcomes"
+  },
+  {
+    "name": "device_daily_usage_percentage",
+    "type": "float",
+    "description": "Self-reported daily usage percentage of the upper airway stimulation device",
+    "section": "Program Outcomes"
+  },
+  {
+    "name": "local_coverage_article_id",
+    "type": "string",
+    "description": "Associated Local Coverage Article ID (A57949 for Billing and Coding)",
+    "section": "References"
+  }
+]

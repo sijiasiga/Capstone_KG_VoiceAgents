@@ -1,0 +1,111 @@
+```sql
+SELECT *
+FROM patients
+WHERE
+-- Total restrictions: 32
+(
+-- Restriction 1: Peripheral nerve stimulation (PNS) may be covered for relief of chronic intractable pain for conditions known to be responsive to this form of therapy.
+  peripheral_nerve_stimulation_coverage = TRUE
+AND 
+-- Restriction 2: PNS is covered only after documented failure of less invasive treatment modalities and medications.
+  failure_less_invasive_treatment_modalities = TRUE
+AND 
+-- Restriction 3: Peripheral Nerve Field Stimulation (PNFS) is not covered for any condition due to insufficient evidence of medical necessity.
+  peripheral_nerve_field_stimulation_coverage = FALSE
+AND 
+-- Restriction 4: Patient must have documented chronic and severe pain for at least 3 months.
+  chronic_pain_minimum_duration_months >= 3
+AND 
+-- Restriction 5: Patient must lack surgical contraindications, including infections and medical risks.
+  surgical_contraindications_absent = TRUE
+AND 
+-- Restriction 6: Patient must have no active substance abuse issues.
+  active_substance_abuse_absent = TRUE
+AND 
+-- Restriction 7: Patient must undergo a formal psychological screening by a mental health professional.
+  formal_psychological_screening_by_mental_health_professional_required = TRUE
+)
+AND
+(
+-- Restriction 8: A successful PNS stimulation trial requires greater than or equal to 50% reduction in pain intensity.
+  pns_trial_pain_intensity_reduction_percentage >= 50
+OR 
+-- Restriction 9: A successful PNS stimulation trial requires greater than or equal to 50% reduction of analgesic medications.
+  pns_trial_analgesic_medication_reduction_percentage >= 50
+)
+AND
+(
+-- Restriction 10: A successful PNS stimulation trial must show some element of functional improvement.
+  pns_trial_functional_improvement_element_required = TRUE
+AND 
+-- Restriction 11: Physicians with a trial to permanent implant ratio less than 50% will be subject to post-payment review.
+  pns_trial_to_permanent_implant_ratio_threshold_for_review < 50
+)
+AND
+(
+-- Restriction 12: PNS may be covered for occipital neuralgia.
+  pns_covered_diagnosis_conditions LIKE '%occipital neuralgia%'
+OR 
+-- Restriction 13: PNS may be covered for post-surgical neuropathic pain.
+  pns_covered_diagnosis_conditions LIKE '%post-surgical neuropathic pain%'
+OR 
+-- Restriction 14: PNS may be covered for cervicogenic headaches.
+  pns_covered_diagnosis_conditions LIKE '%cervicogenic headaches%'
+OR 
+-- Restriction 15: PNS may be covered for treatment resistant migraines.
+  pns_covered_diagnosis_conditions LIKE '%treatment resistant migraines%'
+OR 
+-- Restriction 16: PNS may be covered for neuropathic pain in the face related to the trigeminal nerves.
+  pns_covered_diagnosis_conditions LIKE '%neuropathic pain in the face related to trigeminal nerves%'
+OR 
+-- Restriction 17: PNS may be covered for complex regional pain syndromes (type 1 and 2).
+  pns_covered_diagnosis_conditions LIKE '%complex regional pain syndromes (type 1 and 2)%'
+OR 
+-- Restriction 18: PNS may be covered for pain due to peripheral nerve injury.
+  pns_covered_diagnosis_conditions LIKE '%pain due to peripheral nerve injury%'
+OR 
+-- Restriction 19: PNS may be covered for post-surgical scar formation.
+  pns_covered_diagnosis_conditions LIKE '%post-surgical scar formation%'
+OR 
+-- Restriction 20: PNS may be covered for nerve entrapment.
+  pns_covered_diagnosis_conditions LIKE '%nerve entrapment%'
+OR 
+-- Restriction 21: PNS may be covered for painful mononeuropathy.
+  pns_covered_diagnosis_conditions LIKE '%painful mononeuropathy%'
+OR 
+-- Restriction 22: PNS may be covered for painful amputation neuromas.
+  pns_covered_diagnosis_conditions LIKE '%painful amputation neuromas%'
+OR 
+-- Restriction 23: PNS may be covered for intercostal and ilio-inguinal neuropathic pain.
+  pns_covered_diagnosis_conditions LIKE '%intercostal and ilio-inguinal neuropathic pain%'
+)
+AND
+(
+-- Restriction 24: PNS is not covered for fibromyalgia.
+  NOT (pns_non_covered_diagnosis_conditions LIKE '%fibromyalgia%')
+AND 
+-- Restriction 25: PNS is not covered for phantom limb pain.
+  NOT (pns_non_covered_diagnosis_conditions LIKE '%phantom limb pain%')
+AND 
+-- Restriction 26: PNS is not covered for diffuse polyneuropathy.
+  NOT (pns_non_covered_diagnosis_conditions LIKE '%diffuse polyneuropathy%')
+AND 
+-- Restriction 27: PNS is not covered for nociceptive pain in trunk or lower back.
+  NOT (pns_non_covered_diagnosis_conditions LIKE '%nociceptive pain in trunk or lower back%')
+AND 
+-- Restriction 28: PNS is not covered for angina pectoris.
+  NOT (pns_non_covered_diagnosis_conditions LIKE '%angina pectoris%')
+AND 
+-- Restriction 29: A maximum of two services for CPT code 64555 are allowed per 365 days.
+  procedure_code_CPT = '64555' AND procedure_code_CPT_64555_annual_service_limit <= 2
+AND 
+-- Restriction 30: PNS trials are limited to a maximum of four leads.
+  pns_trial_leads_maximum <= 4
+AND 
+-- Restriction 31: PNS trials are limited to a maximum of 16 contacts.
+  pns_trial_contacts_maximum <= 16
+AND 
+-- Restriction 32: ICD-10-CM diagnosis code M54.81 is applicable for PNS coverage.
+  diagnosis_code_ICD10 = 'M54.81'
+);
+```

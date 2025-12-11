@@ -1,0 +1,38 @@
+[
+  {
+    "source": "NCD_230_4",
+    "target": "group_diagnosis",
+    "relation": "contains",
+    "edge_type": "policy_rule"
+  },
+  {
+    "source": "NCD_230_4",
+    "target": "group_requirement",
+    "relation": "contains",
+    "edge_type": "policy_rule"
+  },
+  {
+    "source": "NCD_230_4",
+    "target": "group_other",
+    "relation": "contains",
+    "edge_type": "policy_rule"
+  },
+  {
+    "source": "group_diagnosis",
+    "target": "condition_coverage_sexual_impotence_diagnosis_treatment_0",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_requirement",
+    "target": "condition_documentation_appropriateness_suspicion_of_abuse_0",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_limitation_psychiatric_service_0",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  }
+]

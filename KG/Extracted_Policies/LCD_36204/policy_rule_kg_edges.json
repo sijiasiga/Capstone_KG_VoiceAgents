@@ -1,0 +1,176 @@
+[
+  {
+    "source": "LCD_36204",
+    "target": "group_diagnosis",
+    "relation": "contains",
+    "edge_type": "policy_rule"
+  },
+  {
+    "source": "LCD_36204",
+    "target": "group_requirement",
+    "relation": "contains",
+    "edge_type": "policy_rule"
+  },
+  {
+    "source": "LCD_36204",
+    "target": "group_other",
+    "relation": "contains",
+    "edge_type": "policy_rule"
+  },
+  {
+    "source": "LCD_36204",
+    "target": "group_eligibility",
+    "relation": "contains",
+    "edge_type": "policy_rule"
+  },
+  {
+    "source": "LCD_36204",
+    "target": "group_procedure",
+    "relation": "contains",
+    "edge_type": "policy_rule"
+  },
+  {
+    "source": "group_diagnosis",
+    "target": "condition_diagnosis_chronic_intractable_pain_fdb67a",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_diagnosis",
+    "target": "condition_diagnosis_neuropathic_pain_89e670",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_diagnosis",
+    "target": "condition_diagnosis_nociceptive_pain_severe_intractable_a72b20",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_diagnosis",
+    "target": "condition_diagnosis_code_icd10_7a4f43",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_requirement",
+    "target": "condition_prerequisite_successful_scs_trial_for_permanent_implant_bfeef6",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_requirement",
+    "target": "condition_scs_replacement_without_trial_flag_7ebce5",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_requirement",
+    "target": "condition_patient_education_and_disclosure_required_fcfbc0",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_requirement",
+    "target": "condition_scs_physician_continuity_written_notification_required_59a176",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_requirement",
+    "target": "condition_repeat_scs_trial_extenuating_circumstances_only_671a74",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_scs_trial_success_functional_improvement_required_6a0480",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_physician_scs_trial_privileges_or_board_certification_required_5d8007",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_scs_trial_success_pain_reduction_percentage_fd4710",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_scs_trial_success_analgesic_medication_reduction_percentage_e047ea",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_physician_low_scs_trial_to_implant_ratio_threshold_6cc102",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_scs_maximum_leads_reimbursed_d3881d",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_scs_maximum_contacts_reimbursed_f98a04",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_scs_maximum_trials_per_region_lifetime_125fd7",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_not_a7da49",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_eligibility",
+    "target": "condition_prior_conservative_treatment_required_cbdbd2",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_eligibility",
+    "target": "condition_multidisciplinary_team_evaluation_required_647dad",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_eligibility",
+    "target": "condition_psychological_evaluation_required_61509f",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_eligibility",
+    "target": "condition_no_active_substance_abuse_issues_required_da4890",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_procedure",
+    "target": "condition_scs_trial_setting_restriction_c7353b",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_procedure",
+    "target": "condition_scs_permanent_implant_setting_restriction_97fa2b",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  }
+]

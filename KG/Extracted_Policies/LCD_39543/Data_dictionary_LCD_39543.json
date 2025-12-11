@@ -1,0 +1,230 @@
+[
+  {
+    "name": "patient_id",
+    "type": "string",
+    "description": "Unique patient identifier",
+    "section": "Demographics"
+  },
+  {
+    "name": "policy_id",
+    "type": "string",
+    "description": "Local Coverage Determination (LCD) identifier for Sacral Nerve Stimulation for the Treatment of Urinary and Fecal Incontinence (L39543).",
+    "section": "Policy Information"
+  },
+  {
+    "name": "procedure_sacral_nerve_stimulation",
+    "type": "string",
+    "description": "Sacral Nerve Stimulation (SNS) or Sacral Neuromodulation (SNM) involves delivering nonpainful, electrical pulses to sacral nerves to modulate reflexes that influence the bladder, sphincter, and pelvic floor function.",
+    "section": "Procedures"
+  },
+  {
+    "name": "condition_urinary_incontinence",
+    "type": "string",
+    "description": "Involuntary loss of urine, including urinary urge incontinence and urgency-frequency syndrome, for which SNS/SNM is covered.",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "condition_fecal_incontinence",
+    "type": "string",
+    "description": "Chronic involuntary loss of stool, for which SNS/SNM is covered.",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "condition_overactive_bladder_OAB",
+    "type": "string",
+    "description": "A condition characterized by urgency, urge incontinence, and frequency, for which SNM is a treatment.",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "condition_nonobstructive_urinary_retention",
+    "type": "string",
+    "description": "Urinary retention that is not caused by a physical obstruction, for which SNS/SNM is covered.",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "procedure_sns_temporary_test_stimulation",
+    "type": "boolean",
+    "description": "Temporary test stimulation performed to determine if an implantable stimulator would be effective, a covered component of SNS for urinary incontinence.",
+    "section": "Procedures"
+  },
+  {
+    "name": "procedure_sns_permanent_implantation",
+    "type": "boolean",
+    "description": "Permanent implantation of a sacral nerve stimulator in appropriate candidates, a covered component of SNS for urinary incontinence.",
+    "section": "Procedures"
+  },
+  {
+    "name": "eligibility_refractory_to_conventional_therapy_urinary_incontinence",
+    "type": "boolean",
+    "description": "Patient must be refractory to conventional therapy (documented behavioral, pharmacologic, and/or surgical corrective therapy) for urinary incontinence.",
+    "section": "Eligibility"
+  },
+  {
+    "name": "eligibility_appropriate_surgical_candidate",
+    "type": "boolean",
+    "description": "Patient must be an appropriate surgical candidate such that implantation with anesthesia can occur.",
+    "section": "Eligibility"
+  },
+  {
+    "name": "exclusion_stress_incontinence",
+    "type": "boolean",
+    "description": "Patients with stress incontinence are excluded from SNS coverage.",
+    "section": "Exclusions"
+  },
+  {
+    "name": "exclusion_urinary_obstruction",
+    "type": "boolean",
+    "description": "Patients with urinary obstruction are excluded from SNS coverage.",
+    "section": "Exclusions"
+  },
+  {
+    "name": "exclusion_neurologic_disease_urinary_incontinence",
+    "type": "string",
+    "description": "Patients with specific neurologic diseases (e.g., diabetes with peripheral nerve involvement, multiple sclerosis, spinal cord injury) associated with secondary manifestations of urinary incontinence indications are excluded from SNS coverage.",
+    "section": "Exclusions"
+  },
+  {
+    "name": "eligibility_test_stimulation_improvement_percentage_urinary_incontinence",
+    "type": "float",
+    "description": "Patient must demonstrate 50% or greater improvement through test stimulation to support subsequent permanent implantation for urinary incontinence.",
+    "section": "Eligibility"
+  },
+  {
+    "name": "program_requirements_test_stimulation_measurement_method",
+    "type": "string",
+    "description": "Improvement from test stimulation for urinary incontinence is measured through voiding diaries.",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "eligibility_patient_ability_to_record_voiding_diary_data",
+    "type": "boolean",
+    "description": "Patient must be able to demonstrate adequate ability to record voiding diary data for proper evaluation of implant procedure results.",
+    "section": "Eligibility"
+  },
+  {
+    "name": "eligibility_fecal_incontinence_episodes_per_week_threshold",
+    "type": "integer",
+    "description": "For FI coverage, patient must have greater than 2 incontinent episodes on average per week.",
+    "section": "Eligibility"
+  },
+  {
+    "name": "eligibility_fecal_incontinence_duration_months",
+    "type": "integer",
+    "description": "For FI coverage, duration of incontinence must be greater than 6 months.",
+    "section": "Eligibility"
+  },
+  {
+    "name": "eligibility_fecal_incontinence_duration_post_childbirth_months",
+    "type": "integer",
+    "description": "For FI coverage, duration of incontinence must be greater than 12 months after vaginal childbirth.",
+    "section": "Eligibility"
+  },
+  {
+    "name": "eligibility_refractory_to_conventional_therapy_fecal_incontinence",
+    "type": "boolean",
+    "description": "For FI coverage, documented failure or intolerance to conventional therapy (e.g., dietary modification, bulking and pharmacologic treatment) is required.",
+    "section": "Eligibility"
+  },
+  {
+    "name": "eligibility_percutaneous_test_stimulation_improvement_percentage_fecal_incontinence",
+    "type": "float",
+    "description": "For FI coverage, a successful percutaneous test stimulation is defined as at least 50% sustained improvement in symptoms.",
+    "section": "Eligibility"
+  },
+  {
+    "name": "eligibility_percutaneous_test_stimulation_sustained_improvement_duration_hours",
+    "type": "integer",
+    "description": "For FI coverage, sustained improvement from percutaneous test stimulation must last more than 48 hours.",
+    "section": "Eligibility"
+  },
+  {
+    "name": "exclusion_anorectal_malformation",
+    "type": "string",
+    "description": "FI coverage excludes conditions related to anorectal malformation (e.g., congenital malformation, defects of the external anal sphincter over 60 degrees, visible sequelae of pelvic radiation, active anal abscesses and fistulae).",
+    "section": "Exclusions"
+  },
+  {
+    "name": "exclusion_chronic_inflammatory_bowel_disease",
+    "type": "boolean",
+    "description": "FI coverage excludes conditions related to chronic inflammatory bowel disease.",
+    "section": "Exclusions"
+  },
+  {
+    "name": "exclusion_neurologic_condition_fecal_incontinence",
+    "type": "string",
+    "description": "FI coverage excludes incontinence related to another neurologic condition such as peripheral neuropathy or complete spinal cord injury.",
+    "section": "Exclusions"
+  },
+  {
+    "name": "non_covered_condition_chronic_constipation",
+    "type": "boolean",
+    "description": "Sacral Nerve Stimulation is considered experimental/investigational for the treatment of chronic constipation.",
+    "section": "Non-Covered Services"
+  },
+  {
+    "name": "non_covered_condition_chronic_pelvic_pain",
+    "type": "boolean",
+    "description": "Sacral Nerve Stimulation is considered experimental/investigational for the treatment of chronic pelvic pain (CPP).",
+    "section": "Non-Covered Services"
+  },
+  {
+    "name": "device_interstim_therapy_system",
+    "type": "string",
+    "description": "A sacral nerve stimulation device (Medtronic InterStimTM Therapy/System) used in studies for SNS/SNM.",
+    "section": "Devices"
+  },
+  {
+    "name": "device_axonics_system",
+    "type": "string",
+    "description": "A rechargeable sacral neuromodulation system (Axonics\u00ae System) approved for OAB, nonobstructive urinary retention, and FI, compatible with full body MRI scans.",
+    "section": "Devices"
+  },
+  {
+    "name": "device_axonics_system_functional_life_years",
+    "type": "integer",
+    "description": "The approved functional life of the Axonics\u00ae System, at least 15 years.",
+    "section": "Devices"
+  },
+  {
+    "name": "documentation_required_history_physical_exam",
+    "type": "boolean",
+    "description": "A complete history and physical examination must be documented in the patient's medical record.",
+    "section": "Documentation Requirements"
+  },
+  {
+    "name": "documentation_required_voiding_diaries",
+    "type": "boolean",
+    "description": "Voiding diaries must be documented in the patient's medical record.",
+    "section": "Documentation Requirements"
+  },
+  {
+    "name": "documentation_required_urodynamic_studies",
+    "type": "boolean",
+    "description": "Urodynamic studies for urinary incontinence must be documented in the patient's medical record.",
+    "section": "Documentation Requirements"
+  },
+  {
+    "name": "related_document_billing_coding_article_id",
+    "type": "string",
+    "description": "Related article ID for billing and coding information for Sacral Nerve Stimulation: A59332.",
+    "section": "Related Documents"
+  },
+  {
+    "name": "related_document_response_to_comments_article_id",
+    "type": "string",
+    "description": "Related article ID for response to comments on Sacral Nerve Stimulation: A59520.",
+    "section": "Related Documents"
+  },
+  {
+    "name": "related_document_archived_lcd_id",
+    "type": "string",
+    "description": "Related archived LCD ID for Sacral Nerve Stimulation: DL39543.",
+    "section": "Related Documents"
+  },
+  {
+    "name": "related_ncd_sacral_nerve_stimulation_urinary_incontinence_id",
+    "type": "string",
+    "description": "Related National Coverage Determination (NCD) ID for Sacral Nerve Stimulation for Urinary Incontinence: 230.18.",
+    "section": "Related Documents"
+  }
+]

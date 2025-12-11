@@ -1,0 +1,170 @@
+[
+  {
+    "name": "patient_id",
+    "type": "string",
+    "description": "Unique patient identifier",
+    "section": "Demographics"
+  },
+  {
+    "name": "diagnosis_chronic_intractable_pain",
+    "type": "boolean",
+    "description": "Patient has chronic intractable pain that may be treated with spinal cord stimulators",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "diagnosis_neuropathic_pain",
+    "type": "boolean",
+    "description": "Indication for SCS, representing neuropathic pain",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "diagnosis_nociceptive_pain_severe_intractable",
+    "type": "boolean",
+    "description": "Indication for SCS, representing nociceptive severe, intractable pain (with limited value)",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "procedure_spinal_cord_stimulator_trial",
+    "type": "boolean",
+    "description": "Percutaneous implantation of neurostimulator electrode(s) in the epidural space for assessing patient suitability for ongoing treatment with a permanent stimulator",
+    "section": "Procedures"
+  },
+  {
+    "name": "procedure_spinal_cord_stimulator_permanent_implant",
+    "type": "boolean",
+    "description": "Surgically implanted nerve stimulator for ongoing treatment of chronic intractable pain",
+    "section": "Procedures"
+  },
+  {
+    "name": "prerequisite_successful_scs_trial_for_permanent_implant",
+    "type": "boolean",
+    "description": "An effective and documented trial is a prerequisite for permanent nerve stimulation implantation",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "scs_replacement_without_trial_flag",
+    "type": "boolean",
+    "description": "Indicates that a new trial is not needed for SCS replacement due to battery change, malfunction, or end of stimulator life",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "prior_conservative_treatment_required",
+    "type": "boolean",
+    "description": "SCS therapy should be considered only after more conservative attempts (medications, physical therapy, psychological therapy, or other modalities) have been tried",
+    "section": "Eligibility"
+  },
+  {
+    "name": "multidisciplinary_team_evaluation_required",
+    "type": "boolean",
+    "description": "Patients must have undergone careful screening, evaluation, and diagnosis by a multidisciplinary team prior to implantation",
+    "section": "Eligibility"
+  },
+  {
+    "name": "psychological_evaluation_required",
+    "type": "boolean",
+    "description": "Required psychological evaluation as part of the multidisciplinary screening prior to implantation",
+    "section": "Eligibility"
+  },
+  {
+    "name": "no_active_substance_abuse_issues_required",
+    "type": "boolean",
+    "description": "Patients must not have active substance abuse issues",
+    "section": "Eligibility"
+  },
+  {
+    "name": "patient_education_and_disclosure_required",
+    "type": "boolean",
+    "description": "Patients must undergo proper patient education, discussion, and disclosure, including risks and benefits of SCS therapy",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "scs_trial_setting_restriction",
+    "type": "string",
+    "description": "Temporary neurostimulator trials are preferably placed in an ASC or outpatient hospital setting; an office setting is allowed if sterility, equipment, training, and support personnel are available",
+    "section": "Procedures"
+  },
+  {
+    "name": "scs_permanent_implant_setting_restriction",
+    "type": "string",
+    "description": "Permanent neurostimulators must be placed in an ASC or hospital",
+    "section": "Procedures"
+  },
+  {
+    "name": "physician_scs_trial_privileges_or_board_certification_required",
+    "type": "boolean",
+    "description": "Physicians performing SCS trials in an office setting must have like privileges at a local hospital or ASC, or be subspecialty boarded in Pain Medicine by the American Board of Anesthesiology",
+    "section": "Provider Qualifications"
+  },
+  {
+    "name": "scs_physician_continuity_written_notification_required",
+    "type": "boolean",
+    "description": "If the trial physician does not or cannot implant the permanent neurostimulator, the patient must be informed in writing and given the referral surgeon's name",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "scs_trial_success_pain_reduction_percentage",
+    "type": "integer",
+    "description": "Minimum 50% reduction of target pain for a successful SCS trial",
+    "section": "Outcome Measures"
+  },
+  {
+    "name": "scs_trial_success_analgesic_medication_reduction_percentage",
+    "type": "integer",
+    "description": "Minimum 50% reduction of analgesic medications for a successful SCS trial",
+    "section": "Outcome Measures"
+  },
+  {
+    "name": "scs_trial_success_functional_improvement_required",
+    "type": "boolean",
+    "description": "Requirement for some element of functional improvement for a successful SCS trial",
+    "section": "Outcome Measures"
+  },
+  {
+    "name": "physician_low_scs_trial_to_implant_ratio_threshold",
+    "type": "float",
+    "description": "Physicians with a trial to permanent implant ratio less than 50% will be subject to post-payment review",
+    "section": "Provider Performance"
+  },
+  {
+    "name": "scs_maximum_leads_reimbursed",
+    "type": "integer",
+    "description": "Maximum of 2 leads reimbursed per anatomic spinal region per patient per lifetime",
+    "section": "Device Specifications"
+  },
+  {
+    "name": "scs_maximum_contacts_reimbursed",
+    "type": "integer",
+    "description": "Maximum of 16 contacts reimbursed per anatomic spinal region per patient per lifetime",
+    "section": "Device Specifications"
+  },
+  {
+    "name": "scs_maximum_trials_per_region_lifetime",
+    "type": "integer",
+    "description": "Maximum of 2 SCS trials reimbursed per anatomic spinal region per patient per lifetime",
+    "section": "Limitations"
+  },
+  {
+    "name": "repeat_scs_trial_extenuating_circumstances_only",
+    "type": "boolean",
+    "description": "A repeat SCS trial is not appropriate after a failed trial unless there are extenuating circumstances that led to trial failure",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "diagnosis_code_ICD10",
+    "type": "string",
+    "description": "ICD-10-CM codes including Z45.42 (Encounter for adjustment and management of neurostimulator), M48.061, and M48.062",
+    "section": "Diagnosis Codes"
+  },
+  {
+    "name": "procedure_code_CPT",
+    "type": "string",
+    "description": "CPT codes identified as related to SCS, including 63661, 63662, 63688, 95970, 95971, and 95972 (noted as removed from this LCD)",
+    "section": "Procedure Codes"
+  },
+  {
+    "name": "procedure_code_HCPCS",
+    "type": "string",
+    "description": "HCPCS code L8680, identified as related to SCS (noted as deleted from Group 2 of the LCD)",
+    "section": "Procedure Codes"
+  }
+]

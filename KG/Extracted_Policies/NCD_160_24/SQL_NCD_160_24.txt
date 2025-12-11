@@ -1,0 +1,56 @@
+```sql
+/* Policy: Deep Brain Stimulation for Essential Tremor and Parkinson’s Disease (25 restrictions) */
+SELECT *
+FROM patients
+WHERE
+  -- Restriction 1: Device Approval
+  dbs_device_fda_approved_or_ide_protocol = TRUE
+  AND
+  -- Restrictions 2-11: Patient Condition Eligibility (Essential Tremor OR Parkinson's Disease)
+  (
+    -- Essential Tremor (ET) Criteria for thalamic VIM DBS (Restrictions 2, 4, 5, 6)
+    (
+      diagnosis_essential_tremor = TRUE
+      AND tremor_rating_scale_Fahn_Tolosa_Marin_level IN ('3','4')
+      AND tremor_causing_significant_limitation_despite_optimal_medical_therapy = TRUE
+      AND patient_willingness_cooperation_operative_post_surgical = TRUE
+    )
+    OR
+    -- Parkinson's Disease (PD) Criteria (Tremor-dominant VIM DBS OR STN/GPi DBS) (Restrictions 3, 7-11)
+    (
+      -- PD Tremor-dominant VIM DBS (Restriction 3)
+      (
+        diagnosis_idiopathic_parkinsons_disease = TRUE AND parkinsons_disease_minimum_cardinal_features >= 2 AND parkinsons_disease_tremor_dominant_form = TRUE
+      )
+      OR
+      -- PD STN or GPi DBS (Restrictions 7-11)
+      (
+        diagnosis_idiopathic_parkinsons_disease = TRUE AND parkinsons_disease_minimum_cardinal_features >= 2
+        AND parkinsons_disease_advanced_idiopathic_Hoehn_Yahr_UPDRS_criteria = TRUE
+        AND parkinsons_disease_L_dopa_responsive_with_on_periods = TRUE
+        AND parkinsons_disease_persistent_disabling_symptoms_drug_side_effects_despite_therapy = TRUE
+        AND patient_willingness_cooperation_operative_post_surgical = TRUE
+      )
+    )
+  )
+  AND
+  -- Restrictions 12-17: Contraindications
+  contraindication_non_idiopathic_parkinsons_or_plus_syndromes = FALSE
+  AND contraindication_cognitive_impairement_dementia_depression = FALSE
+  AND contraindication_current_psychosis_alcohol_drug_abuse = FALSE
+  AND contraindication_structural_lesions_movement_disorder_etiology = FALSE
+  AND contraindication_previous_movement_disorder_surgery_affected_basal_ganglion = FALSE
+  AND contraindication_significant_medical_surgical_neurologic_orthopedic_comorbidities_DBS_contraindicated = FALSE
+  AND
+  -- Restrictions 18-22: Neurosurgeon and Operative Team Qualifications
+  neurosurgeon_properly_trained_DBS = TRUE
+  AND neurosurgeon_experience_surgical_management_movement_disorders_dbs = TRUE
+  AND neurosurgeon_experience_stereotactic_neurosurgical_procedures = TRUE
+  AND operative_team_dbs_systems_training_experience = TRUE
+  AND movement_disorder_physician_involved_patient_selection_post_procedure_care = TRUE
+  AND
+  -- Restrictions 23-25: Facility Requirements
+  hospital_brain_imaging_equipment_stereotactic_localization = TRUE
+  AND hospital_operating_rooms_stereotactic_surgery_equipment = TRUE
+  AND hospital_support_services_complication_care = TRUE;
+```

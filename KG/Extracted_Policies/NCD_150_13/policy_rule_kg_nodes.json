@@ -1,0 +1,217 @@
+[
+  {
+    "id": "NCD_150_13",
+    "type": "Policy",
+    "label": "Policy NCD_150_13",
+    "description": "Policy rules for NCD_150_13",
+    "node_size": 2000
+  },
+  {
+    "id": "group_diagnosis",
+    "type": "ConditionGroup",
+    "label": "Diagnosis Conditions",
+    "condition_type": "diagnosis",
+    "node_size": 1500
+  },
+  {
+    "id": "condition_diagnosis_symptomatic_lss_flag_beb5bf",
+    "type": "Condition",
+    "label": "diagnosis_symptomatic_lss_f...",
+    "field_name": "diagnosis_symptomatic_lss_flag",
+    "operator": "=",
+    "value": "TRUE",
+    "description": "Field: diagnosis_symptomatic_lss_flag",
+    "section": "Unknown",
+    "condition_type": "diagnosis",
+    "node_size": 1000
+  },
+  {
+    "id": "condition_diagnosis_lumbar_spinal_stenosis_flag_a95df4",
+    "type": "Condition",
+    "label": "diagnosis_lumbar_spinal_ste...",
+    "field_name": "diagnosis_lumbar_spinal_stenosis_flag",
+    "operator": "=",
+    "value": "TRUE",
+    "description": "Indicates the presence of Lumbar Spinal Stenosis (LSS).",
+    "section": "Diagnosis",
+    "condition_type": "diagnosis",
+    "node_size": 1000
+  },
+  {
+    "id": "group_other",
+    "type": "ConditionGroup",
+    "label": "Other Conditions",
+    "condition_type": "other",
+    "node_size": 1500
+  },
+  {
+    "id": "condition_treatment_unresponsive_conservative_therapy_lss_flag_88a0ab",
+    "type": "Condition",
+    "label": "treatment_unresponsive_cons...",
+    "field_name": "treatment_unresponsive_conservative_therapy_lss_flag",
+    "operator": "=",
+    "value": "TRUE",
+    "description": "Field: treatment_unresponsive_conservative_therapy_lss_flag",
+    "section": "Unknown",
+    "condition_type": "other",
+    "node_size": 1000
+  },
+  {
+    "id": "condition_clinical_study_compliance_45_cfr_part_46_flag_56dcd3",
+    "type": "Condition",
+    "label": "clinical_study_compliance_4...",
+    "field_name": "clinical_study_compliance_45_cfr_part_46_flag",
+    "operator": "=",
+    "value": "TRUE",
+    "description": "Field: clinical_study_compliance_45_cfr_part_46_flag",
+    "section": "Unknown",
+    "condition_type": "other",
+    "node_size": 1000
+  },
+  {
+    "id": "condition_clinical_study_compliance_21_cfr_parts_50_56_flag_68ec15",
+    "type": "Condition",
+    "label": "clinical_study_compliance_2...",
+    "field_name": "clinical_study_compliance_21_cfr_parts_50_56_flag",
+    "operator": "=",
+    "value": "TRUE",
+    "description": "Field: clinical_study_compliance_21_cfr_parts_50_56_flag",
+    "section": "Unknown",
+    "condition_type": "other",
+    "node_size": 1000
+  },
+  {
+    "id": "condition_clinical_study_registration_clinicaltrials_gov_flag_cbe309",
+    "type": "Condition",
+    "label": "clinical_study_registration...",
+    "field_name": "clinical_study_registration_clinicaltrials_gov_flag",
+    "operator": "=",
+    "value": "TRUE",
+    "description": "Field: clinical_study_registration_clinicaltrials_gov_flag",
+    "section": "Unknown",
+    "condition_type": "other",
+    "node_size": 1000
+  },
+  {
+    "id": "condition_pild_device_fda_approved_cleared_flag_98f82c",
+    "type": "Condition",
+    "label": "pild_device_fda_approved_cl...",
+    "field_name": "pild_device_fda_approved_cleared_flag",
+    "operator": "=",
+    "value": "TRUE",
+    "description": "Field: pild_device_fda_approved_cleared_flag",
+    "section": "Unknown",
+    "condition_type": "other",
+    "node_size": 1000
+  },
+  {
+    "id": "condition_clinical_study_prerequisite_cms_approved_rct_flag_801128",
+    "type": "Condition",
+    "label": "clinical_study_prerequisite...",
+    "field_name": "clinical_study_prerequisite_cms_approved_rct_flag",
+    "operator": "=",
+    "value": "TRUE",
+    "description": "Field: clinical_study_prerequisite_cms_approved_rct_flag",
+    "section": "Unknown",
+    "condition_type": "other",
+    "node_size": 1000
+  },
+  {
+    "id": "condition_clinical_study_eligibility_requirements_maintained_flag_1d333b",
+    "type": "Condition",
+    "label": "clinical_study_eligibility_...",
+    "field_name": "clinical_study_eligibility_requirements_maintained_flag",
+    "operator": "=",
+    "value": "TRUE",
+    "description": "Field: clinical_study_eligibility_requirements_maintained_flag",
+    "section": "Unknown",
+    "condition_type": "other",
+    "node_size": 1000
+  },
+  {
+    "id": "condition_clinical_study_registration_clinicaltrials_gov_flag_8d1a2b",
+    "type": "Condition",
+    "label": "clinical_study_registration...",
+    "field_name": "clinical_study_registration_clinicaltrials_gov_flag",
+    "operator": "=",
+    "value": "TRUE",
+    "description": "Field: clinical_study_registration_clinicaltrials_gov_flag",
+    "section": "Unknown",
+    "condition_type": "other",
+    "node_size": 1000
+  },
+  {
+    "id": "condition_clinical_study_registry_ahrq_ropr_flag_b5505c",
+    "type": "Condition",
+    "label": "clinical_study_registry_ahr...",
+    "field_name": "clinical_study_registry_ahrq_ropr_flag",
+    "operator": "=",
+    "value": "TRUE",
+    "description": "Field: clinical_study_registry_ahrq_ropr_flag",
+    "section": "Unknown",
+    "condition_type": "other",
+    "node_size": 1000
+  },
+  {
+    "id": "condition_clinical_study_data_release_window_section_i_months_aea69f",
+    "type": "Condition",
+    "label": "clinical_study_data_release...",
+    "field_name": "clinical_study_data_release_window_section_i_months",
+    "operator": "<=",
+    "value": "24",
+    "description": "Field: clinical_study_data_release_window_section_i_months",
+    "section": "Unknown",
+    "condition_type": "other",
+    "node_size": 1000
+  },
+  {
+    "id": "condition_clinical_study_data_release_window_section_ii_months_6f4b23",
+    "type": "Condition",
+    "label": "clinical_study_data_release...",
+    "field_name": "clinical_study_data_release_window_section_ii_months",
+    "operator": "<=",
+    "value": "12",
+    "description": "Field: clinical_study_data_release_window_section_ii_months",
+    "section": "Unknown",
+    "condition_type": "other",
+    "node_size": 1000
+  },
+  {
+    "id": "group_eligibility",
+    "type": "ConditionGroup",
+    "label": "Eligibility Conditions",
+    "condition_type": "eligibility",
+    "node_size": 1500
+  },
+  {
+    "id": "condition_clinical_study_enrollment_flag_e44552",
+    "type": "Condition",
+    "label": "clinical_study_enrollment_f...",
+    "field_name": "clinical_study_enrollment_flag",
+    "operator": "=",
+    "value": "TRUE",
+    "description": "Beneficiary enrollment in an approved clinical study for PILD.",
+    "section": "Eligibility",
+    "condition_type": "eligibility",
+    "node_size": 1000
+  },
+  {
+    "id": "group_procedure",
+    "type": "ConditionGroup",
+    "label": "Procedure Conditions",
+    "condition_type": "procedure",
+    "node_size": 1500
+  },
+  {
+    "id": "condition_procedure_code_cpt_1d309b",
+    "type": "Condition",
+    "label": "procedure_code_cpt IN 0275T",
+    "field_name": "procedure_code_cpt",
+    "operator": "IN",
+    "value": "0275T",
+    "description": "Field: procedure_code_cpt",
+    "section": "Unknown",
+    "condition_type": "procedure",
+    "node_size": 1000
+  }
+]

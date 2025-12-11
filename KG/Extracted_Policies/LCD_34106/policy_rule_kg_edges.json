@@ -1,0 +1,506 @@
+[
+  {
+    "source": "LCD_34106",
+    "target": "group_other",
+    "relation": "contains",
+    "edge_type": "policy_rule"
+  },
+  {
+    "source": "LCD_34106",
+    "target": "group_demographic",
+    "relation": "contains",
+    "edge_type": "policy_rule"
+  },
+  {
+    "source": "LCD_34106",
+    "target": "group_requirement",
+    "relation": "contains",
+    "edge_type": "policy_rule"
+  },
+  {
+    "source": "LCD_34106",
+    "target": "group_diagnosis",
+    "relation": "contains",
+    "edge_type": "policy_rule"
+  },
+  {
+    "source": "LCD_34106",
+    "target": "group_procedure",
+    "relation": "contains",
+    "edge_type": "policy_rule"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_vcf_imaging_bone_marrow_edema_mri_b18487",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_vcf_imaging_bone_scan_uptake_16a2b9",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_vcf_imaging_spect_ct_uptake_42cd4c",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_vcf_imaging_bone_marrow_edema_mri_98d77f",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_vcf_imaging_bone_scan_uptake_ddeffa",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_vcf_imaging_spect_ct_uptake_eee239",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_bmd_evaluation_referral_required_a7ed01",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_back_pain_not_primarily_vcf_related_bfcfc0",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_patient_pregnancy_status_3f9cd9",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_allergy_bone_cement_cce3a9",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_allergy_opacification_agents_fb68c1",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_vcf_onset_acute_window_weeks_e5a3e8",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_vcf_onset_acute_window_weeks_789b89",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_vcf_onset_acute_window_weeks_6f297b",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_vcf_onset_subacute_window_weeks_33f596",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_vcf_onset_subacute_window_weeks_ea9e1c",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_vcf_onset_subacute_window_weeks_5216c6",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_vcf_onset_subacute_window_weeks_35369e",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_vcf_onset_subacute_window_weeks_ca471a",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_vcf_onset_subacute_window_weeks_42cc9e",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_pain_score_nrs_hospitalized_cb5119",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_pain_score_vas_hospitalized_97cf4c",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_pain_score_nrs_nonhospitalized_1477a6",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_pain_score_vas_nonhospitalized_823f10",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_pain_score_nrs_nonhospitalized_6174b7",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_pain_score_vas_nonhospitalized_819649",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_pain_score_nrs_nonhospitalized_e0d614",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_pain_score_vas_nonhospitalized_f836a7",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_pain_score_nrs_nonhospitalized_448968",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_pain_score_vas_nonhospitalized_a3b407",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_daily_functioning_rdq_score_21d927",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_pain_score_nrs_nonhospitalized_a7cdf4",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_pain_score_vas_nonhospitalized_49db50",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_pain_score_nrs_nonhospitalized_4bcb8e",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_pain_score_vas_nonhospitalized_b787cc",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_daily_functioning_rdq_score_341362",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_pain_score_nrs_nonhospitalized_cabdb8",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_pain_score_vas_nonhospitalized_fbf9b6",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_daily_functioning_rdq_score_ab63d6",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_other",
+    "target": "condition_vcf_anatomical_location_8e3764",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_demographic",
+    "target": "condition_patient_hospitalization_status_ce1a71",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_demographic",
+    "target": "condition_patient_hospitalization_status_6e3bcb",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_demographic",
+    "target": "condition_patient_hospitalization_status_8f45e7",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_demographic",
+    "target": "condition_patient_hospitalization_status_969644",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_demographic",
+    "target": "condition_patient_hospitalization_status_2d7636",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_demographic",
+    "target": "condition_patient_hospitalization_status_0d1edc",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_demographic",
+    "target": "condition_patient_hospitalization_status_8c9818",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_demographic",
+    "target": "condition_patient_hospitalization_status_c01c77",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_requirement",
+    "target": "condition_non_surgical_management_attempted_33d0c5",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_requirement",
+    "target": "condition_non_surgical_management_attempted_082c10",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_requirement",
+    "target": "condition_non_surgical_management_attempted_9f8d55",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_requirement",
+    "target": "condition_non_surgical_management_attempted_46aa49",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_requirement",
+    "target": "condition_non_surgical_management_attempted_82b933",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_requirement",
+    "target": "condition_non_surgical_management_attempted_681dd3",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_requirement",
+    "target": "condition_non_surgical_management_attempted_def01b",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_requirement",
+    "target": "condition_osteoporosis_program_participation_required_61c5c2",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_diagnosis",
+    "target": "condition_pain_worsening_status_436547",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_diagnosis",
+    "target": "condition_vertebral_body_height_loss_progression_e1c18f",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_diagnosis",
+    "target": "condition_vertebral_body_height_loss_progression_7f09cc",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_diagnosis",
+    "target": "condition_kyphotic_deformity_present_337c37",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_diagnosis",
+    "target": "condition_vertebral_body_height_loss_progression_39ba14",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_diagnosis",
+    "target": "condition_kyphotic_deformity_present_291462",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_diagnosis",
+    "target": "condition_kyphotic_deformity_present_a1ba3a",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_diagnosis",
+    "target": "condition_diagnosis_osteomyelitis_3243e4",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_diagnosis",
+    "target": "condition_diagnosis_discitis_5a1fe5",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_diagnosis",
+    "target": "condition_diagnosis_active_systemic_infection_af6662",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_diagnosis",
+    "target": "condition_diagnosis_active_surgical_site_infection_acdc69",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_diagnosis",
+    "target": "condition_diagnosis_uncorrected_coagulopathy_f92c7e",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_diagnosis",
+    "target": "condition_diagnosis_spinal_instability_237c33",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_diagnosis",
+    "target": "condition_diagnosis_myelopathy_from_fracture_520d8a",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_diagnosis",
+    "target": "condition_diagnosis_neurologic_deficit_6b9b8e",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_diagnosis",
+    "target": "condition_diagnosis_neural_impingement_f10d8b",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_diagnosis",
+    "target": "condition_diagnosis_fracture_retropulsion_d270b8",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_diagnosis",
+    "target": "condition_diagnosis_canal_compromise_3ff77b",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_diagnosis",
+    "target": "condition_vertebral_body_height_reduction_percentage_994472",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_diagnosis",
+    "target": "condition_vertebral_body_height_reduction_percentage_b5e0b5",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_diagnosis",
+    "target": "condition_vertebral_body_height_reduction_percentage_f9ddba",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_procedure",
+    "target": "condition_vertebral_fracture_count_per_procedure_exceeds_three_15785b",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  },
+  {
+    "source": "group_procedure",
+    "target": "condition_procedure_code_cpt_ccaa85",
+    "relation": "contains",
+    "edge_type": "group_condition"
+  }
+]

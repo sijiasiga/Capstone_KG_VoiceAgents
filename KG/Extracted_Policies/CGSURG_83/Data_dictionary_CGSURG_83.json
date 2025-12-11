@@ -1,0 +1,80 @@
+[
+  {
+    "name": "patient_id",
+    "type": "string",
+    "description": "Unique patient identifier",
+    "section": "Demographics"
+  },
+  {
+    "name": "patient_age",
+    "type": "integer",
+    "description": "Patient age, must be 18 years or older",
+    "section": "Demographics"
+  },
+  {
+    "name": "patient_bmi",
+    "type": "float",
+    "description": "Body Mass Index. Eligible if ≥40, or ≥35 with comorbid condition",
+    "section": "Eligibility"
+  },
+  {
+    "name": "comorbidity_flag",
+    "type": "boolean",
+    "description": "Indicates if patient has an obesity-related comorbidity (e.g., diabetes, cardiovascular disease, hypertension, severe sleep apnea, Pickwickian syndrome, obesity-related cardiomyopathy)",
+    "section": "Diagnosis"
+  },
+  {
+    "name": "weight_loss_program_history",
+    "type": "boolean",
+    "description": "Indicates past participation in a weight loss program",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "conservative_therapy_attempt",
+    "type": "boolean",
+    "description": "Indicates inadequate weight loss despite comprehensive lifestyle interventions (diet, exercise, behavioral modifications)",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "preop_medical_clearance",
+    "type": "boolean",
+    "description": "Indicates whether pre-operative medical evaluation and clearance were completed",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "preop_psych_clearance",
+    "type": "boolean",
+    "description": "Indicates whether pre-operative mental health evaluation and clearance were completed",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "preop_education_completed",
+    "type": "boolean",
+    "description": "Indicates whether pre-operative education about risks, benefits, expectations, long-term follow-up, and behavioral adherence was completed",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "treatment_plan_documented",
+    "type": "boolean",
+    "description": "Indicates whether a treatment plan addressing pre- and post-operative needs is documented",
+    "section": "Program Requirements"
+  },
+  {
+    "name": "procedure_code_CPT",
+    "type": "string",
+    "description": "Covered CPT procedure codes for bariatric surgery (e.g., 43644, 43645, 43770, 43771, 43772, 43773, 43774, 43775, 43842, 43843, 43845, 43846, 43847, 43848, 43886, 43887, 43888)",
+    "section": "Procedures"
+  },
+  {
+    "name": "procedure_code_ICD10PCS",
+    "type": "string",
+    "description": "Covered ICD-10 procedure codes for bariatric surgery (e.g., 0DP60CZ, 0DV64ZZ, 0D160ZA, 0DB60ZZ)",
+    "section": "Procedures"
+  },
+  {
+    "name": "diagnosis_code_ICD10",
+    "type": "string",
+    "description": "Covered ICD-10 diagnosis codes (e.g., E66.01, E66.09, E66.2, E66.811-E66.813, E66.9, Z46.51, Z68.35-Z68.39, Z68.41-Z68.45, Z98.84)",
+    "section": "Diagnosis"
+  }
+]

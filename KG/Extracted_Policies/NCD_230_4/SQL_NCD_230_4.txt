@@ -1,0 +1,14 @@
+```sql
+-- This query applies 3 policy restrictions.
+SELECT *
+FROM patients
+WHERE
+  -- Restriction 1: Program payment is available for the diagnosis and treatment of sexual impotence.
+  coverage_sexual_impotence_diagnosis_treatment = TRUE
+  AND
+  -- Restriction 2: Documentation of appropriateness may be requested in individual cases if abuse of the policy is suspected.
+  documentation_appropriateness_suspicion_of_abuse = TRUE
+  AND
+  -- Restriction 3: The psychiatric service limitation described in the Medicare General Information, Eligibility, and Entitlement Manual, Chapter 3, applies when treatment is furnished to non-hospital inpatients in connection with a mental condition.
+  (limitation_psychiatric_service = TRUE AND patient_status_hospital_inpatient = FALSE AND patient_condition_mental = TRUE);
+```

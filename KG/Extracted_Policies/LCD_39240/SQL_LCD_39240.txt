@@ -1,0 +1,255 @@
+```sql
+-- Policy: Epidural Steroid Injections for Pain Management
+-- Total Restrictions: 56
+
+SELECT *
+FROM patients
+WHERE
+  (
+    -- Restriction 1: Diagnosis of lumbar radiculopathy, cervical radiculopathy, thoracic radiculopathy, radicular pain, or neurogenic claudication, supported by history, physical examination, and concordant radiological imaging, due to disc herniation, osteophyte, osteophyte complexes, severe degenerative disc disease, or producing foraminal or central spinal stenosis.
+    (diagnosis_radiculopathy_lumbar = TRUE OR diagnosis_radiculopathy_cervical = TRUE OR diagnosis_radiculopathy_thoracic = TRUE OR diagnosis_radicular_pain = TRUE OR diagnosis_neurogenic_claudication = TRUE) AND (diagnosis_disc_herniation = TRUE OR diagnosis_osteophyte = TRUE OR diagnosis_osteophyte_complex = TRUE OR diagnosis_degenerative_disc_disease_severe = TRUE OR diagnosis_spinal_stenosis_foraminal = TRUE OR diagnosis_spinal_stenosis_central = TRUE)
+    OR
+    -- Restriction 2: Diagnosis of post-laminectomy syndrome, supported by history, physical examination, and concordant radiological imaging.
+    diagnosis_post_laminectomy_syndrome = TRUE
+    OR
+    -- Restriction 3: Diagnosis of acute herpes zoster associated pain, supported by history, physical examination, and concordant radiological imaging.
+    diagnosis_acute_herpes_zoster_associated_pain = TRUE
+  )
+  AND
+  -- Restriction 4: Radiculopathy, radicular pain, or neurogenic claudication must be severe enough to greatly impact quality of life or function.
+  (diagnosis_radiculopathy_lumbar = TRUE OR diagnosis_radiculopathy_cervical = TRUE OR diagnosis_radiculopathy_thoracic = TRUE OR diagnosis_radicular_pain = TRUE OR diagnosis_neurogenic_claudication = TRUE) AND (functional_assessment_baseline_required_flag = TRUE OR pain_scale_baseline_required_flag = TRUE)
+  AND
+  -- Restriction 5: An objective pain scale or functional assessment must be performed at baseline prior to interventions.
+  (pain_scale_baseline_required_flag = TRUE OR functional_assessment_baseline_required_flag = TRUE)
+  AND
+  -- Restriction 6: The same objective pain scale or functional assessment used at baseline must be repeated at each follow-up for assessment of response.
+  (pain_scale_followup_required_flag = TRUE OR functional_assessment_followup_required_flag = TRUE)
+  AND
+  -- Restriction 7: Pain duration must be at least four weeks.
+  pain_duration_minimum_weeks >= 4
+  AND
+  -- Restriction 8: Inability to tolerate noninvasive conservative care, OR medical documentation of failure to respond to four weeks of noninvasive conservative care, OR acute herpes zoster refractory to conservative management where a four-week wait is not required.
+  (conservative_care_intolerance_flag = TRUE OR conservative_care_failure_duration_weeks >= 4 OR diagnosis_acute_herpes_zoster_refractory_flag = TRUE)
+  AND
+  -- Restriction 9: Epidural steroid injections must be performed under CT or fluoroscopy image guidance with contrast, unless a documented contraindication exists.
+  ((procedure_image_guidance_CT = TRUE OR procedure_image_guidance_fluoroscopy = TRUE) AND substance_contrast_media = TRUE) OR (patient_contrast_allergy_flag = TRUE AND procedure_image_guidance_ultrasound = TRUE AND substance_contrast_media = FALSE) OR (patient_pregnancy_flag = TRUE AND procedure_image_guidance_ultrasound = TRUE AND substance_contrast_media = FALSE)
+  AND
+  -- Restriction 10: Transforaminal epidural steroid injections (TFESIs) are limited to a maximum of two levels in one spinal region.
+  procedure_transforaminal_epidural_steroid_injection_max_levels_per_region <= 2
+  AND
+  -- Restriction 11: Caudal epidural steroid injections (CESIs) are limited to a maximum of one level.
+  procedure_caudal_epidural_steroid_injection_max_levels <= 1
+  AND
+  -- Restriction 12: Interlaminar epidural steroid injections (ILESIs) are limited to a maximum of one level.
+  procedure_interlaminar_epidural_steroid_injection_max_levels <= 1
+  AND
+  -- Restriction 13: Transforaminal epidural steroid injections (TFESIs) may be performed bilaterally only when clinically indicated.
+  procedure_transforaminal_epidural_steroid_injection_bilateral_flag = TRUE
+  AND
+  -- Restriction 14: Repeat ESI is considered if the first injection provided at least 50% sustained improvement in pain relief for at least three months, OR at least 50% objective improvement in function for at least three months.
+  (procedure_repeat_ESI_pain_improvement_threshold >= 0.50 OR procedure_repeat_ESI_function_improvement_threshold >= 0.50) AND procedure_repeat_ESI_sustained_improvement_months >= 3
+  AND
+  -- Restriction 15: If an initial ESI fails, a repeat ESI can be performed after 14 days, using a different approach, level, or medication, with documented rationale.
+  procedure_repeat_ESI_minimum_interval_days >= 14
+  AND
+  -- Restriction 16: An initial injection of contrast is required to confirm epidural placement, unless contraindicated.
+  substance_contrast_media = TRUE
+  AND
+  -- Restriction 17: Subsequent epidural steroid injections must include corticosteroids.
+  substance_corticosteroid_injection = TRUE
+  AND
+  -- Restriction 18: Epidural steroid injections should be performed in conjunction with conservative treatments.
+  conservative_treatment_conjunction_flag = TRUE
+  AND
+  -- Restriction 19: Patient should be part of an active rehabilitation program, home exercise program, or functional restoration program.
+  rehabilitation_program_participation_flag = TRUE
+  AND
+  -- Restriction 20: ESIs performed with biologicals or other substances not FDA designated for this use are considered investigational and not medically reasonable and necessary.
+  substance_biologicals_FDA_designation_flag = FALSE
+  AND
+  -- Restriction 21: Performing multiple blocks (ESI, sympathetic blocks, facet blocks, trigger point injections etc.) during the same session as ESIs is generally not medically reasonable and necessary, with the exception of a facet synovial cyst and ESI performed in the same session.
+  procedure_multiple_blocks_same_session_flag = FALSE
+  AND
+  -- Restriction 22: Use of Moderate or Deep Sedation, General Anesthesia, and Monitored Anesthesia Care (MAC) is generally not medically reasonable and necessary for ESI procedures.
+  procedure_sedation_level IN ('Moderate Sedation','Deep Sedation','General Anesthesia','Monitored Anesthesia Care (MAC)')
+  AND
+  -- Restriction 23: ESIs to treat non-specific low back pain (LBP) are considered investigational and not medically reasonable and necessary.
+  diagnosis_nonspecific_low_back_pain_exclusion = TRUE
+  AND
+  -- Restriction 24: ESIs to treat axial spine pain are considered investigational and not medically reasonable and necessary.
+  diagnosis_axial_spine_pain_exclusion = TRUE
+  AND
+  -- Restriction 25: ESIs to treat complex regional pain syndrome are considered investigational and not medically reasonable and necessary.
+  diagnosis_complex_regional_pain_syndrome_exclusion = TRUE
+  AND
+  -- Restriction 26: ESIs to treat widespread diffuse pain are considered investigational and not medically reasonable and necessary.
+  diagnosis_widespread_diffuse_pain_exclusion = TRUE
+  AND
+  -- Restriction 27: ESIs to treat pain from neuropathy from other causes are considered investigational and not medically reasonable and necessary.
+  diagnosis_neuropathy_pain_exclusion = TRUE
+  AND
+  -- Restriction 28: ESIs to treat cervicogenic headaches are considered investigational and not medically reasonable and necessary.
+  diagnosis_cervicogenic_headaches_exclusion = TRUE
+  AND
+  -- Restriction 29: ESIs are limited to a maximum of four sessions per spinal region in a rolling twelve-month period.
+  procedure_ESI_max_sessions_per_region_12_months <= 4
+  AND
+  -- Restriction 30: It is not medically reasonable and necessary for more than one spinal region to be injected in the same session.
+  procedure_ESI_max_spinal_regions_per_session <= 1
+  AND
+  -- Restriction 31: It is not medically reasonable and necessary to perform TFESIs at more than two nerve root levels during the same session.
+  procedure_TFESI_max_nerve_root_levels_per_session <= 2
+  AND
+  -- Restriction 32: It is not medically reasonable and necessary to perform CESIs or ILESIs at more than one level during the same session.
+  procedure_caudal_epidural_steroid_injection_interlaminar_epidural_steroid_injection_max_levels_per_session <= 1
+  AND
+  -- Restriction 33: It is not medically reasonable and necessary to perform CESIs bilaterally.
+  procedure_caudal_epidural_steroid_injection_bilateral_flag = FALSE
+  AND
+  -- Restriction 34: It is not medically reasonable and necessary to perform ILESIs bilaterally.
+  procedure_interlaminar_epidural_steroid_injection_bilateral_flag = FALSE
+  AND
+  -- Restriction 35: It is not medically reasonable and necessary to prescribe a predetermined series of ESIs.
+  procedure_predetermined_ESI_series_flag = FALSE
+  AND
+  -- Restriction 36: Recommended not to exceed 80 mg of triamcinolone per session.
+  substance_triamcinolone_max_dose_mg_per_session <= 80
+  AND
+  -- Restriction 37: Recommended not to exceed 12 mg of betamethasone per session.
+  substance_betamethasone_max_dose_mg_per_session <= 12
+  AND
+  -- Restriction 38: Recommended not to exceed 15 mg of dexamethasone per session.
+  substance_dexamethasone_max_dose_mg_per_session <= 15
+  AND
+  -- Restriction 39: Treatment with ESI generally not considered medically reasonable and necessary beyond 12 months.
+  procedure_ESI_max_duration_months <= 12
+  AND
+  -- Restriction 40: For continuation of ESIs beyond 12 months, patient has severe functional or vocational disability.
+  procedure_ESI_continuation_beyond_12_months_criteria LIKE '%severe functional/vocational disability%'
+  AND
+  -- Restriction 41: For continuation of ESIs beyond 12 months, ESI must provide at least 50% sustained improvement of pain and/or 50% objective improvement in function (using same scale as baseline).
+  (treatment_success_pain_reduction_threshold >= 0.50 OR treatment_success_function_improvement_threshold >= 0.50) AND procedure_repeat_ESI_sustained_improvement_months >= 3
+  AND
+  -- Restriction 42: For continuation of ESIs beyond 12 months, rationale for continuation (e.g., high-risk surgical candidate, patient does not desire surgery, recurrence of pain relieved for at least three months) must be documented.
+  procedure_ESI_continuation_beyond_12_months_criteria LIKE '%rationale for continuation%'
+  AND
+  -- Restriction 43: For continuation of ESIs beyond 12 months, the primary care provider must be notified regarding continuation of procedures and prolonged repeat steroid use.
+  procedure_ESI_continuation_beyond_12_months_criteria LIKE '%PCP notification%'
+  AND
+  -- Restriction 44: ESIs are contraindicated if there is a suspected or active localized spinal infection.
+  contraindication_spinal_infection = TRUE
+  AND
+  -- Restriction 45: ESIs are contraindicated if there is a significant systemic infection.
+  contraindication_systemic_infection = TRUE
+  AND
+  -- Restriction 46: ESIs are contraindicated if there are compressive lesions of the spinal cord.
+  contraindication_spinal_cord_compression = TRUE
+  AND
+  -- Restriction 47: ESIs are contraindicated if there are compressive lesions of the conus medullaris.
+  contraindication_conus_medullaris_compression = TRUE
+  AND
+  -- Restriction 48: ESIs are contraindicated if there are compressive lesions of the cauda equina.
+  contraindication_cauda_equina_compression = TRUE
+  AND
+  -- Restriction 49: ESIs are contraindicated if there is suspicion or major risk factors for cancer.
+  contraindication_cancer_suspicion = TRUE
+  AND
+  -- Restriction 50: Services must be performed by appropriately trained providers.
+  provider_training_requirements = TRUE
+  AND
+  -- Restriction 51: Credentialing or privileges are required for procedures performed in inpatient and outpatient settings.
+  provider_credentialing_requirements = TRUE
+  AND
+  -- Restriction 52: All aspects of care must be within the provider’s medical licensure and scope of practice.
+  provider_licensure_scope_of_practice = TRUE
+  AND
+  -- Restriction 53: Providers must meet training requirements for using and interpreting imaging modalities (ionizing radiation and associated contrast material, magnetic resonance imaging, ultrasound).
+  provider_imaging_modality_training = TRUE
+  AND
+  -- Restriction 54: Imaging (MRI of lumbar spine without contrast or CT if MRI unavailable) may be considered for patients with no improvement in back pain after six weeks of medical management and physical therapy.
+  conservative_management_failure_duration_weeks >= 6 AND (procedure_imaging_MRI_lumbar = TRUE OR procedure_imaging_CT = TRUE)
+  AND
+  -- Restriction 55: Absolute contraindication: coagulopathy not correctible.
+  contraindication_coagulopathy = TRUE
+  AND
+  -- Restriction 56: Absolute contraindication: concurrent systemic infection.
+  contraindication_systemic_infection_concurrent = TRUE
+  AND
+  -- Restriction 57: Absolute contraindication: infectious spondylitis.
+  contraindication_infectious_spondylitis = TRUE
+  AND
+  -- Restriction 58: Absolute contraindication: acute spinal cord compression.
+  contraindication_acute_spinal_cord_compression = TRUE
+  AND
+  -- Restriction 59: Absolute contraindication: myelopathy.
+  contraindication_myelopathy = TRUE
+  AND
+  -- Restriction 60: Absolute contraindication: cauda equina syndrome.
+  contraindication_cauda_equina_syndrome_absolute = TRUE
+  AND
+  -- Restriction 61: Absolute contraindication: inability to obtain informed consent.
+  contraindication_informed_consent_inability = TRUE
+  AND
+  -- Restriction 62: Absolute contraindication: infection at the skin puncture site.
+  contraindication_skin_puncture_infection = TRUE
+  AND
+  -- Restriction 63: Relative contraindication: uncorrected anticoagulation therapy.
+  contraindication_anticoagulation_uncorrected = TRUE
+  AND
+  -- Restriction 64: Relative contraindication: hypersensitivity to administered agents.
+  contraindication_hypersensitivity_agents = TRUE
+  AND
+  -- Restriction 65: Relative contraindication: pregnancy.
+  contraindication_pregnancy_relative = TRUE
+  AND
+  -- Restriction 66: Relative contraindication: hepatitis (thrombocytopenia must be excluded).
+  contraindication_hepatitis = TRUE
+  AND
+  -- Restriction 67: Relative contraindication: uncontrolled diabetes mellitus (risk of elevated blood sugars after steroid injections).
+  contraindication_diabetes_uncontrolled = TRUE
+  AND
+  -- Restriction 68: Relative contraindication: congestive heart failure (steroid may lead to fluid retention).
+  contraindication_congestive_heart_failure = TRUE
+  AND
+  -- Restriction 69: Relative contraindication: immunosuppressed state (preprocedural antibiotics may be considered).
+  contraindication_immunosuppressed_state = TRUE
+  AND
+  -- Restriction 70: Relative contraindication: patient improving on medical and physical therapy.
+  contraindication_patient_improving_on_therapy = TRUE
+  AND
+  -- Restriction 71: Relative contraindication: severe spinal canal stenosis.
+  contraindication_severe_spinal_canal_stenosis = TRUE
+  AND
+  -- Restriction 72: Relative contraindication: no response to previous well-performed ESI.
+  contraindication_no_response_previous_ESI = TRUE
+  AND
+  -- Restriction 73: Relative contraindication: complication to steroid therapy (Cushing’s etc.).
+  contraindication_steroid_therapy_complication = TRUE
+  AND
+  -- Restriction 74: Recommended lowest effective dosing for methylprednisolone acetate (MPA) is 40mg.
+  substance_methylprednisolone_acetate_max_dose_mg >= 40
+  AND
+  -- Restriction 75: Recommended lowest effective dosing for triamcinolone acetate is 10-20mg.
+  substance_triamcinolone_acetate_max_dose_mg_range_min >= 10 AND substance_triamcinolone_acetate_max_dose_mg_range_max <= 20
+  AND
+  -- Restriction 76: Recommended lowest effective dosing for dexamethasone phosphate is 10mg (10mg/mL).
+  substance_dexamethasone_phosphate_max_dose_mg >= 10
+  AND
+  -- Restriction 77: Recommended to limit cervical interlaminar and lumbar transforaminal injection volume to 4mL.
+  procedure_cervical_interlaminar_lumbar_transforaminal_volume_mL <= 4
+  AND
+  -- Restriction 78: Etanercept is not FDA approved for injection into the epidural space.
+  substance_etanercept_FDA_approval_flag = FALSE
+  AND
+  -- Restriction 79: No more than 4 ESIs and/or Selective Nerve Root Blocks (SSNBs) should be performed in a 6-month period.
+  procedure_ESI_SSNB_max_count_6_months <= 4
+  AND
+  -- Restriction 80: No more than 6 ESIs and/or Selective Nerve Root Blocks (SSNBs) should be performed in a 12-month period, regardless of the number of levels.
+  procedure_ESI_SSNB_max_count_12_months <= 6
+  AND
+  -- Restriction 81: No more than 2 TFESIs should be performed at a single setting (e.g., single level bilaterally or two levels).
+  procedure_TFESI_max_count_per_session <= 2
+  AND
+  -- Restriction 82: For CESIs or ILESIs, only one level per session may be performed and NOT in conjunction with a TFESI injection.
+  procedure_caudal_epidural_steroid_injection_interlaminar_epidural_steroid_injection_conjunction_with_TFESI_flag = FALSE;
+```
