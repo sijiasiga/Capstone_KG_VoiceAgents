@@ -33,29 +33,18 @@ Analyze every field in the JSON against the Policy Text:
 Identify True Positives (TP):
  List the specific field names from the JSON that accurately represent concepts found in the text.
 
-
 Identify False Positives (FP):
  List the specific field names from the JSON that are hallucinated, irrelevant, or factually incorrect based on the text.
-
 
 Identify False Negatives (FN):
  List the specific key concepts or data elements present in the Policy Text that failed to appear in the JSON.
 
 Step 2: Compute Counts and Metrics
 Count the number of items in your TP, FP, and FN lists.
-
-
 Precision: TP / (TP + FP)
-
-
 Recall: TP / (TP + FN)
-
-
 F1-Score: 2 * (Precision * Recall) / (Precision + Recall)
-
-
 Round all floats to 4 decimal places.
-
 
 
 Step 3: Output Generation

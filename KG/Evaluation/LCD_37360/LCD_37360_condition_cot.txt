@@ -649,48 +649,25 @@ Identify True Positives (TP):
 
 
 Find items in the "Extracted Restrictions" that accurately reflect a rule in the "Policy Text".
-
-
 Verify that the field name used matches a valid entry in the "Data Dictionary".
-
-
 Action: Add the field name and value to the true_positives list.
 
-
 Identify False Positives (FP):
-
-
 Find items in the "Extracted Restrictions" that are NOT supported by the "Policy Text" (hallucinations), OR contradict the text, OR use a field name not present in the "Data Dictionary".
-
-
 Action: Add the incorrect item to the false_positives list.
 
-
-
 Identify False Negatives (FN):
-
-
 Scan the "Policy Text" for relevant restrictions or criteria that were completely missed in the "Extracted Restrictions".
-
 
 Action: Describe the missing rule in the false_negatives list.
 
 Step 2: Calculate Metrics
 Counts: Count the number of items in the lists generated in Step 1.
-
-
 Precision: TP / (TP + FP)
-
-
 Recall: TP / (TP + FN)
-
-
 F1-Score: 2 * (Precision * Recall) / (Precision + Recall)
 
-
 Note: Round all metrics to 4 decimal places. Return 0.0 if the denominator is 0.
-
-
 
 Step 3: Output Generation
 Output the results in the following JSON format. The counts must strictly match the number of items in the evidence arrays.

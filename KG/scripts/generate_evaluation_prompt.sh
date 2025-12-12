@@ -1,7 +1,7 @@
 
-# PROMPT="prompts/Evaluation/data_dictionary_judge_prompt_cot.txt"
+PROMPT="prompts/Evaluation/data_dictionary_judge_prompt_cot.txt"
 # PROMPT="prompts/Evaluation/patient_extraction_judge_prompt_cot.txt"
-PROMPT="prompts/Evaluation/policy_condition_judge_prompt_cot.txt"
+# PROMPT="prompts/Evaluation/policy_condition_judge_prompt_cot.txt"
 # PROMPT="prompts/Evaluation/data_dictionary_judge_prompt_zero.txt"
 # PROMPT="prompts/Evaluation/patient_extraction_judge_prompt_zero.txt"
 # PROMPT="prompts/Evaluation/policy_condition_judge_prompt_zero.txt"

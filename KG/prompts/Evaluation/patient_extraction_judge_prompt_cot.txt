@@ -21,46 +21,24 @@ You must perform this evaluation in a strict sequence. Do not jump to the final 
 Step 1: Systematic Evidence Generation
 Analyze every field in the "System Extracted Data" against the "Medical Record Text":
 Identify True Positives (TP):
-
-
 Locate every value in the JSON that has a corresponding, accurate source in the text.
-
-
 Trace: Pair the JSON field with the exact text snippet that validates it.
 
-
 Identify False Positives (FP):
-
-
 Locate any value in the JSON that is factually incorrect, hallucinated, or not found in the text.
-
-
 Trace: Note the incorrect value and why it is invalid.
 
-
 Identify False Negatives (FN):
-
-
 Scan the text for clinically relevant information (diagnoses, medications, dates, vitals) that is missing from the JSON.
-
 
 Trace: Quote the missing information from the text.
 
 
-
 Step 2: Derive Counts and Metrics
 Counts: Count the number of items identified in your TP, FP, and FN traces from Step 1.
-
-
 Precision: TP / (TP + FP)
-
-
 Recall: TP / (TP + FN)
-
-
 F1-Score: 2 * (Precision * Recall) / (Precision + Recall)
-
-
 Note: Round all metrics to 4 decimal places. Return 0.0 if the denominator is 0.
 
 
