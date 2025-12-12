@@ -1,0 +1,21 @@
+{
+  "patient_id": "L37360_001",
+  "peripheral_nerve_stimulation_coverage": null,
+  "peripheral_nerve_field_stimulation_coverage": null,
+  "chronic_pain_minimum_duration_months": null,
+  "failure_less_invasive_treatment_modalities": null,
+  "surgical_contraindications_absent": true,
+  "active_substance_abuse_absent": true,
+  "formal_psychological_screening_by_mental_health_professional_required": null,
+  "pns_trial_pain_intensity_reduction_percentage": 50,
+  "pns_trial_analgesic_medication_reduction_percentage": null,
+  "pns_trial_functional_improvement_element_required": true,
+  "pns_trial_to_permanent_implant_ratio_threshold_for_review": null,
+  "procedure_code_CPT": "64555",
+  "procedure_code_CPT_64555_annual_service_limit": null,
+  "pns_trial_leads_maximum": null,
+  "pns_trial_contacts_maximum": null,
+  "diagnosis_code_ICD10": null,
+  "pns_covered_diagnosis_conditions": null,
+  "pns_non_covered_diagnosis_conditions": null
+}

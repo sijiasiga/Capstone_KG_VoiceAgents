@@ -63,9 +63,11 @@ def replace_placeholders(prompt_content, replacements):
     # Define all possible placeholders
     placeholder_mapping = {
         'ORIGINAL_DOCUMENT_PLACEHOLDER': 'original_document',
-        'EXTRACTED_JSON_PLACEHOLDER': 'extracted_json',
-        'DATA_DICTIONARY_JSON_PLACEHOLDER': 'data_dictionary',
-        'EXTRACTED_DD_JSON_PLACEHOLDER': 'extracted_dd'
+        'ORIGINAL_PATIENT_PLACEHOLDER': 'original_patient',
+        'EXTRACTED_DD_JSON_PLACEHOLDER': 'extracted_dd',
+        'DATA_DICTIONARY_JSON_PLACEHOLDER': 'extracted_dd',
+        'EXTRACTED_JSON_PLACEHOLDER': 'extracted_policy',
+        'EXTRACTED_PAT_PLACEHOLDER': 'extracted_patient'
     }
 
     for placeholder, key in placeholder_mapping.items():
@@ -94,15 +96,16 @@ Examples:
   python prompt_generator.py \\
     --prompt KG/prompts/Evaluation/patient_extraction_judge_prompt.txt \\
     --original-document KG/Run_Time_Patient/Patient_84722025445_Policy_CGSURG_83/CGSURG_83_Record_001.txt \\
-    --extracted-json KG/Run_Time_Patient/Patient_84722025445_Policy_CGSURG_83/Patient_data_8472-2025-445.json \\
+    --original-patient KG/Run_Time_Patient/Patient_84722025445_Policy_CGSURG_83/Patient_84722025445.json \\
+    --extracted-patient KG/Run_Time_Patient/Patient_84722025445_Policy_CGSURG_83/Patient_data_8472-2025-445.json \\
     --output KG/Evaluation/
 
   # For policy condition evaluation
   python prompt_generator.py \\
     --prompt KG/prompts/Evaluation/policy_condition_judge_prompt.txt \\
     --original-document KG/Run_Time_Policy/LCD_39543/Policy_LCD_39543.txt \\
-    --data-dictionary KG/Run_Time_Policy/LCD_39543/Data_dictionary_LCD_39543.json \\
-    --extracted-json KG/Run_Time_Policy/LCD_39543/Policy_LCD_39543.json \\
+    --extracted-dd KG/Run_Time_Policy/LCD_39543/Data_dictionary_LCD_39543.json \\
+    --extracted-policy KG/Run_Time_Policy/LCD_39543/Policy_LCD_39543.json \\
     --output KG/Evaluation/
         """
     )
@@ -119,18 +122,23 @@ Examples:
     )
 
     parser.add_argument(
-        '--extracted-json',
-        help='Path to the extracted JSON (for EXTRACTED_JSON_PLACEHOLDER)'
-    )
-
-    parser.add_argument(
-        '--data-dictionary',
-        help='Path to the data dictionary JSON (for DATA_DICTIONARY_JSON_PLACEHOLDER)'
+        '--original-patient',
+        help='Path to the original patient document (for patient evaluation)'
     )
 
     parser.add_argument(
         '--extracted-dd',
-        help='Path to the extracted data dictionary JSON (for EXTRACTED_DD_JSON_PLACEHOLDER)'
+        help='Path to the extracted data dictionary JSON'
+    )
+
+    parser.add_argument(
+        '--extracted-policy',
+        help='Path to the extracted policy conditions JSON'
+    )
+
+    parser.add_argument(
+        '--extracted-patient',
+        help='Path to the extracted patient data JSON'
     )
 
     parser.add_argument(
@@ -147,9 +155,10 @@ Examples:
     # Prepare replacements
     replacements = {
         'original_document': args.original_document,
-        'extracted_json': args.extracted_json,
-        'data_dictionary': args.data_dictionary,
-        'extracted_dd': args.extracted_dd
+        'original_patient': args.original_patient,
+        'extracted_dd': args.extracted_dd,
+        'extracted_policy': args.extracted_policy,
+        'extracted_patient': args.extracted_patient
     }
 
     # Replace placeholders
@@ -187,7 +196,7 @@ Examples:
 
     print(f"✓ Generated prompt saved to: {output_path}")
     print(f"  - Prompt type: {get_prompt_type(args.prompt)}")
-    print(f"  - Policy ID: {extract_policy_id(str(args.original_document or args.extracted_json or ''))}")
+    print(f"  - Policy ID: {extract_policy_id(str(args.original_document or args.extracted_policy or args.extracted_patient or ''))}")
 
 
 if __name__ == '__main__':

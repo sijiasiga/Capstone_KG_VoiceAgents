@@ -18,21 +18,31 @@ System Extracted Data (JSON):
 
 Your task is to perform two steps:
 
-**Step 1: Count Discrepancies**
-- **True Positives (TP):** Count every value in the extracted JSON that is correct and accurately reflects the information in the original patient medical record text.
-- **False Positives (FP):** Count every value in the extracted JSON that is incorrect, irrelevant, or not present in the original patient medical record text.
-- **False Negatives (FN):** Count every piece of relevant information in the original patient medical record text that was missed and is not present in the extracted JSON.
+Step 1: Count Discrepancies
+True Positives (TP):
+ Count every value in the extracted JSON that is correct and accurately reflects the information in the original patient medical record text.
 
-**Step 2: Calculate Metrics**
-- **Precision**: Calculate `TP / (TP + FP)`.
-- **Recall**: Calculate `TP / (TP + FN)`.
-- **F1-Score**: Calculate `2 * (Precision * Recall) / (Precision + Recall)`.
 
+False Positives (FP):
+ Count every value in the extracted JSON that is incorrect, irrelevant, or not present in the original patient medical record text.
+
+
+False Negatives (FN):
+ Count every piece of relevant information in the original patient medical record text that was missed and is not present in the extracted JSON.
+
+
+
+Step 2: Calculate Metrics
+Precision: Calculate TP / (TP + FP)
+
+
+Recall: Calculate TP / (TP + FN)
+
+
+F1-Score: Calculate 2 * (Precision * Recall) / (Precision + Recall)
+
+Output Format
 Provide the final output in the following JSON format. Do not include any other text, explanations, or summaries.
-
-**Output Format:**
-
-```json
 {
   "counts": {
     "true_positives": <integer_count>,
@@ -45,5 +55,3 @@ Provide the final output in the following JSON format. Do not include any other 
     "f1_score": <float_from_0.0_to_1.0>
   }
 }
-```
-</User_Input>

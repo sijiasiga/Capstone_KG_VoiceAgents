@@ -1,0 +1,205 @@
+[
+  {
+    "id": "LCD_37360",
+    "type": "Policy",
+    "label": "Policy LCD_37360",
+    "description": "Policy rules for LCD_37360",
+    "node_size": 2000
+  },
+  {
+    "id": "group_other",
+    "type": "ConditionGroup",
+    "label": "Other Conditions",
+    "condition_type": "other",
+    "node_size": 1500
+  },
+  {
+    "id": "condition_peripheral_nerve_stimulation_coverage_d056ba",
+    "type": "Condition",
+    "label": "peripheral_nerve_stimulatio...",
+    "field_name": "peripheral_nerve_stimulation_coverage",
+    "operator": "=",
+    "value": "TRUE",
+    "description": "Indicates whether Peripheral Nerve Stimulation (PNS) is covered for relief of chronic intractable pain.",
+    "section": "Coverage Indications",
+    "condition_type": "other",
+    "node_size": 1000
+  },
+  {
+    "id": "condition_peripheral_nerve_field_stimulation_coverage_b00717",
+    "type": "Condition",
+    "label": "peripheral_nerve_field_stim...",
+    "field_name": "peripheral_nerve_field_stimulation_coverage",
+    "operator": "=",
+    "value": "FALSE",
+    "description": "Indicates whether Peripheral Nerve Field Stimulation (PNFS) is covered. PNFS is currently not covered for any condition.",
+    "section": "Coverage Indications",
+    "condition_type": "other",
+    "node_size": 1000
+  },
+  {
+    "id": "condition_pns_trial_leads_maximum_e2c290",
+    "type": "Condition",
+    "label": "pns_trial_leads_maximum <= 4",
+    "field_name": "pns_trial_leads_maximum",
+    "operator": "<=",
+    "value": "4",
+    "description": "Maximum number of leads (four) allowed for PNS trials.",
+    "section": "Utilization Guidelines",
+    "condition_type": "other",
+    "node_size": 1000
+  },
+  {
+    "id": "condition_pns_trial_contacts_maximum_cae827",
+    "type": "Condition",
+    "label": "pns_trial_contacts_maximum ...",
+    "field_name": "pns_trial_contacts_maximum",
+    "operator": "<=",
+    "value": "16",
+    "description": "Maximum number of contacts (16) allowed for PNS trials.",
+    "section": "Utilization Guidelines",
+    "condition_type": "other",
+    "node_size": 1000
+  },
+  {
+    "id": "group_eligibility",
+    "type": "ConditionGroup",
+    "label": "Eligibility Conditions",
+    "condition_type": "eligibility",
+    "node_size": 1500
+  },
+  {
+    "id": "condition_failure_less_invasive_treatment_modalities_3845d3",
+    "type": "Condition",
+    "label": "failure_less_invasive_treat...",
+    "field_name": "failure_less_invasive_treatment_modalities",
+    "operator": "=",
+    "value": "TRUE",
+    "description": "Requirement for documented failure of less invasive treatment modalities and medications as an eligibility criterion for PNS.",
+    "section": "Eligibility",
+    "condition_type": "eligibility",
+    "node_size": 1000
+  },
+  {
+    "id": "condition_surgical_contraindications_absent_3682de",
+    "type": "Condition",
+    "label": "surgical_contraindications_...",
+    "field_name": "surgical_contraindications_absent",
+    "operator": "=",
+    "value": "TRUE",
+    "description": "Absence of surgical contraindications (e.g., infections, medical risks) as an eligibility criterion for PNS.",
+    "section": "Eligibility",
+    "condition_type": "eligibility",
+    "node_size": 1000
+  },
+  {
+    "id": "condition_active_substance_abuse_absent_8ff8dd",
+    "type": "Condition",
+    "label": "active_substance_abuse_abse...",
+    "field_name": "active_substance_abuse_absent",
+    "operator": "=",
+    "value": "TRUE",
+    "description": "Absence of active substance abuse issues as an eligibility criterion for PNS.",
+    "section": "Eligibility",
+    "condition_type": "eligibility",
+    "node_size": 1000
+  },
+  {
+    "id": "condition_formal_psychological_screening_by_mental_health_professional_required_a41227",
+    "type": "Condition",
+    "label": "formal_psychological_screen...",
+    "field_name": "formal_psychological_screening_by_mental_health_professional_required",
+    "operator": "=",
+    "value": "TRUE",
+    "description": "Requirement for a formal psychological screening by a mental health professional as an eligibility criterion for PNS.",
+    "section": "Eligibility",
+    "condition_type": "eligibility",
+    "node_size": 1000
+  },
+  {
+    "id": "condition_chronic_pain_minimum_duration_months_5c4102",
+    "type": "Condition",
+    "label": "chronic_pain_minimum_durati...",
+    "field_name": "chronic_pain_minimum_duration_months",
+    "operator": ">=",
+    "value": "3",
+    "description": "Minimum duration (3 months) of documented chronic and severe pain required for PNS coverage.",
+    "section": "Eligibility",
+    "condition_type": "eligibility",
+    "node_size": 1000
+  },
+  {
+    "id": "group_requirement",
+    "type": "ConditionGroup",
+    "label": "Requirement Conditions",
+    "condition_type": "requirement",
+    "node_size": 1500
+  },
+  {
+    "id": "condition_pns_trial_functional_improvement_element_required_87e10d",
+    "type": "Condition",
+    "label": "pns_trial_functional_improv...",
+    "field_name": "pns_trial_functional_improvement_element_required",
+    "operator": "=",
+    "value": "TRUE",
+    "description": "Requirement for showing some element of functional improvement for a successful PNS stimulation trial.",
+    "section": "Program Requirements",
+    "condition_type": "requirement",
+    "node_size": 1000
+  },
+  {
+    "id": "condition_pns_trial_pain_intensity_reduction_percentage_d84b2f",
+    "type": "Condition",
+    "label": "pns_trial_pain_intensity_re...",
+    "field_name": "pns_trial_pain_intensity_reduction_percentage",
+    "operator": ">=",
+    "value": "50",
+    "description": "Minimum percentage reduction (50%) in pain intensity required for a successful PNS stimulation trial before permanent implantation.",
+    "section": "Program Requirements",
+    "condition_type": "requirement",
+    "node_size": 1000
+  },
+  {
+    "id": "condition_pns_trial_analgesic_medication_reduction_percentage_62b550",
+    "type": "Condition",
+    "label": "pns_trial_analgesic_medicat...",
+    "field_name": "pns_trial_analgesic_medication_reduction_percentage",
+    "operator": ">=",
+    "value": "50",
+    "description": "Minimum percentage reduction (50%) of analgesic medications required for a successful PNS stimulation trial.",
+    "section": "Program Requirements",
+    "condition_type": "requirement",
+    "node_size": 1000
+  },
+  {
+    "id": "condition_pns_trial_to_permanent_implant_ratio_threshold_for_review_9ba21d",
+    "type": "Condition",
+    "label": "pns_trial_to_permanent_impl...",
+    "field_name": "pns_trial_to_permanent_implant_ratio_threshold_for_review",
+    "operator": "<",
+    "value": "50",
+    "description": "Threshold (50%) for the trial to permanent implant ratio below which physicians will be subject to post-payment review.",
+    "section": "Program Requirements",
+    "condition_type": "requirement",
+    "node_size": 1000
+  },
+  {
+    "id": "group_procedure",
+    "type": "ConditionGroup",
+    "label": "Procedure Conditions",
+    "condition_type": "procedure",
+    "node_size": 1500
+  },
+  {
+    "id": "condition_procedure_code_cpt_64555_annual_service_limit_d2b6ff",
+    "type": "Condition",
+    "label": "procedure_code_cpt_64555_an...",
+    "field_name": "procedure_code_cpt_64555_annual_service_limit",
+    "operator": "<=",
+    "value": "2",
+    "description": "Field: procedure_code_cpt_64555_annual_service_limit",
+    "section": "Unknown",
+    "condition_type": "procedure",
+    "node_size": 1000
+  }
+]

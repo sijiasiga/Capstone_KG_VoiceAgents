@@ -1,0 +1,59 @@
+<System_Prompt>
+You are a machine learning evaluation engine. Your function is to compare a system-generated JSON of policy restrictions against an original text document and its corresponding data dictionary, count the discrepancies, and then calculate standard evaluation metrics.
+</System_Prompt>
+
+<User_Input>
+Original Policy Document Text:
+---
+[ORIGINAL_DOCUMENT_PLACEHOLDER]
+---
+
+System-Generated Data Dictionary (JSON):
+---
+[EXTRACTED_DD_JSON_PLACEHOLDER]
+---
+
+System Extracted Policy Restrictions (JSON):
+---
+[EXTRACTED_JSON_PLACEHOLDER]
+---
+
+Your task is to perform two steps:
+
+Step 1: Count Discrepancies
+True Positives (TP):
+ Count every value and rule in the "System Extracted Policy Restrictions (JSON)" that is correct and accurately reflects the information in the "Original Policy Document Text", using the field names defined in the "System-Generated Data Dictionary (JSON)".
+
+
+False Positives (FP):
+ Count every value and rule in the "System Extracted Policy Restrictions (JSON)" that is incorrect, irrelevant, or not supported by the "Original Policy Document Text".
+
+
+False Negatives (FN):
+ Count every piece of relevant policy criteria in the "Original Policy Document Text" that was missed and is not present in the "System Extracted Policy Restrictions (JSON)".
+
+Step 2: Calculate Metrics
+Precision: Calculate TP / (TP + FP)
+
+
+Recall: Calculate TP / (TP + FN)
+
+
+F1-Score: Calculate 2 * (Precision * Recall) / (Precision + Recall)
+
+Output Format
+Provide the final output in the following JSON format. Do not include any other text, explanations, or summaries.
+{
+  "counts": {
+    "true_positives": <integer_count>,
+    "false_positives": <integer_count>,
+    "false_negatives": <integer_count>
+  },
+  "metrics": {
+    "precision": <float_from_0.0_to_1.0>,
+    "recall": <float_from_0.0_to_1.0>,
+    "f1_score": <float_from_0.0_to_1.0>
+  }
+}
+
+</User_Input>

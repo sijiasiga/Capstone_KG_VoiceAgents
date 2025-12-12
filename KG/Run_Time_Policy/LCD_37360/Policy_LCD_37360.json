@@ -1,0 +1,205 @@
+[
+  {
+    "name": "LCD - Peripheral Nerve Stimulation",
+    "guideline_number": "L37360",
+    "description": "This policy outlines the coverage criteria for Peripheral Nerve Stimulation (PNS) for the relief of chronic intractable pain, including eligibility requirements, trial parameters, covered and non-covered conditions, and utilization guidelines.",
+    "restrictions": [
+      {
+        "condition": "Peripheral nerve stimulation (PNS) may be covered for relief of chronic intractable pain for conditions known to be responsive to this form of therapy.",
+        "rule": "peripheral_nerve_stimulation_coverage = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "PNS is covered only after documented failure of less invasive treatment modalities and medications.",
+        "rule": "failure_less_invasive_treatment_modalities = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Peripheral Nerve Field Stimulation (PNFS) is not covered for any condition due to insufficient evidence of medical necessity.",
+        "rule": "peripheral_nerve_field_stimulation_coverage = FALSE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Patient must have documented chronic and severe pain for at least 3 months.",
+        "rule": "chronic_pain_minimum_duration_months >= 3",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Patient must lack surgical contraindications, including infections and medical risks.",
+        "rule": "surgical_contraindications_absent = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Patient must have no active substance abuse issues.",
+        "rule": "active_substance_abuse_absent = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Patient must undergo a formal psychological screening by a mental health professional.",
+        "rule": "formal_psychological_screening_by_mental_health_professional_required = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "A successful PNS stimulation trial requires greater than or equal to 50% reduction in pain intensity.",
+        "rule": "pns_trial_pain_intensity_reduction_percentage >= 50",
+        "codes": [],
+        "logic": "OR"
+      },
+      {
+        "condition": "A successful PNS stimulation trial requires greater than or equal to 50% reduction of analgesic medications.",
+        "rule": "pns_trial_analgesic_medication_reduction_percentage >= 50",
+        "codes": [],
+        "logic": "OR"
+      },
+      {
+        "condition": "A successful PNS stimulation trial must show some element of functional improvement.",
+        "rule": "pns_trial_functional_improvement_element_required = TRUE",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "Physicians with a trial to permanent implant ratio less than 50% will be subject to post-payment review.",
+        "rule": "pns_trial_to_permanent_implant_ratio_threshold_for_review < 50",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "PNS may be covered for occipital neuralgia.",
+        "rule": "pns_covered_diagnosis_conditions LIKE '%occipital neuralgia%'",
+        "codes": [],
+        "logic": "OR"
+      },
+      {
+        "condition": "PNS may be covered for post-surgical neuropathic pain.",
+        "rule": "pns_covered_diagnosis_conditions LIKE '%post-surgical neuropathic pain%'",
+        "codes": [],
+        "logic": "OR"
+      },
+      {
+        "condition": "PNS may be covered for cervicogenic headaches.",
+        "rule": "pns_covered_diagnosis_conditions LIKE '%cervicogenic headaches%'",
+        "codes": [],
+        "logic": "OR"
+      },
+      {
+        "condition": "PNS may be covered for treatment resistant migraines.",
+        "rule": "pns_covered_diagnosis_conditions LIKE '%treatment resistant migraines%'",
+        "codes": [],
+        "logic": "OR"
+      },
+      {
+        "condition": "PNS may be covered for neuropathic pain in the face related to the trigeminal nerves.",
+        "rule": "pns_covered_diagnosis_conditions LIKE '%neuropathic pain in the face related to trigeminal nerves%'",
+        "codes": [],
+        "logic": "OR"
+      },
+      {
+        "condition": "PNS may be covered for complex regional pain syndromes (type 1 and 2).",
+        "rule": "pns_covered_diagnosis_conditions LIKE '%complex regional pain syndromes (type 1 and 2)%'",
+        "codes": [],
+        "logic": "OR"
+      },
+      {
+        "condition": "PNS may be covered for pain due to peripheral nerve injury.",
+        "rule": "pns_covered_diagnosis_conditions LIKE '%pain due to peripheral nerve injury%'",
+        "codes": [],
+        "logic": "OR"
+      },
+      {
+        "condition": "PNS may be covered for post-surgical scar formation.",
+        "rule": "pns_covered_diagnosis_conditions LIKE '%post-surgical scar formation%'",
+        "codes": [],
+        "logic": "OR"
+      },
+      {
+        "condition": "PNS may be covered for nerve entrapment.",
+        "rule": "pns_covered_diagnosis_conditions LIKE '%nerve entrapment%'",
+        "codes": [],
+        "logic": "OR"
+      },
+      {
+        "condition": "PNS may be covered for painful mononeuropathy.",
+        "rule": "pns_covered_diagnosis_conditions LIKE '%painful mononeuropathy%'",
+        "codes": [],
+        "logic": "OR"
+      },
+      {
+        "condition": "PNS may be covered for painful amputation neuromas.",
+        "rule": "pns_covered_diagnosis_conditions LIKE '%painful amputation neuromas%'",
+        "codes": [],
+        "logic": "OR"
+      },
+      {
+        "condition": "PNS may be covered for intercostal and ilio-inguinal neuropathic pain.",
+        "rule": "pns_covered_diagnosis_conditions LIKE '%intercostal and ilio-inguinal neuropathic pain%'",
+        "codes": [],
+        "logic": "OR"
+      },
+      {
+        "condition": "PNS is not covered for fibromyalgia.",
+        "rule": "pns_non_covered_diagnosis_conditions LIKE '%fibromyalgia%'",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "PNS is not covered for phantom limb pain.",
+        "rule": "pns_non_covered_diagnosis_conditions LIKE '%phantom limb pain%'",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "PNS is not covered for diffuse polyneuropathy.",
+        "rule": "pns_non_covered_diagnosis_conditions LIKE '%diffuse polyneuropathy%'",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "PNS is not covered for nociceptive pain in trunk or lower back.",
+        "rule": "pns_non_covered_diagnosis_conditions LIKE '%nociceptive pain in trunk or lower back%'",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "PNS is not covered for angina pectoris.",
+        "rule": "pns_non_covered_diagnosis_conditions LIKE '%angina pectoris%'",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "A maximum of two services for CPT code 64555 are allowed per 365 days.",
+        "rule": "procedure_code_CPT = '64555' AND procedure_code_CPT_64555_annual_service_limit <= 2",
+        "codes": [
+          "64555"
+        ],
+        "logic": "AND"
+      },
+      {
+        "condition": "PNS trials are limited to a maximum of four leads.",
+        "rule": "pns_trial_leads_maximum <= 4",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "PNS trials are limited to a maximum of 16 contacts.",
+        "rule": "pns_trial_contacts_maximum <= 16",
+        "codes": [],
+        "logic": "AND"
+      },
+      {
+        "condition": "ICD-10-CM diagnosis code M54.81 is applicable for PNS coverage.",
+        "rule": "diagnosis_code_ICD10 = 'M54.81'",
+        "codes": [
+          "M54.81"
+        ],
+        "logic": "AND"
+      }
+    ]
+  }
+]

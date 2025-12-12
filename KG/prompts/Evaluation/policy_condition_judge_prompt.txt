@@ -10,7 +10,7 @@ Original Policy Document Text:
 
 System-Generated Data Dictionary (JSON):
 ---
-[DATA_DICTIONARY_JSON_PLACEHOLDER]
+[EXTRACTED_DD_JSON_PLACEHOLDER]
 ---
 
 System Extracted Policy Restrictions (JSON):

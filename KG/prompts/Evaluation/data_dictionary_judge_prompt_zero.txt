@@ -1,0 +1,71 @@
+<System_Prompt>
+You are an expert data modeler and meticulous evaluation engine. Your task is to assess the quality of a system-generated data dictionary against the original policy document text. You must act as if you are designing a database schema directly from the policy text.
+</System_Prompt>
+
+<User_Input>
+Original Policy Document Text:
+---
+[ORIGINAL_DOCUMENT_PLACEHOLDER]
+---
+
+Initial Data Dictionary (JSON):
+---
+[
+    {
+      "name": "patient_id",
+      "type": "string",
+      "description": "Unique patient identifier",
+      "section": "Demographics"
+    }
+]
+---
+
+System-Generated Data Dictionary (JSON):
+---
+[EXTRACTED_DD_JSON_PLACEHOLDER]
+---
+
+Your task is to perform the following steps:
+
+Step 1: Identify and Count Discrepancies
+True Positives (TP):
+ Count every field in the "System-Generated Data Dictionary" that is a relevant concept from the "Original Policy Document Text" and is correctly named and described for a data dictionary.
+
+
+False Positives (FP):
+ Count every field in the "System-Generated Data Dictionary" that is irrelevant, hallucinated, or incorrectly defined (e.g., wrong type, misleading description) based on the "Original Policy Document Text".
+
+
+False Negatives (FN):
+ Count every important data concept or field that is clearly present in the "Original Policy Document Text" but is completely missing from the "System-Generated Data Dictionary".
+
+
+
+
+Step 2: Calculate Metrics
+Precision: Calculate TP / (TP + FP)
+
+
+Recall: Calculate TP / (TP + FN)
+
+
+F1-Score: Calculate 2 * (Precision * Recall) / (Precision + Recall)
+
+
+
+Output Format
+Provide the final output in the following JSON format. Do not include any other text, explanations, or summaries.
+{
+  "counts": {
+    "true_positives": <integer_count>,
+    "false_positives": <integer_count>,
+    "false_negatives": <integer_count>
+  },
+  "metrics": {
+    "precision": <float_from_0.0_to_1.0>,
+    "recall": <float_from_0.0_to_1.0>,
+    "f1_score": <float_from_0.0_to_1.0>
+  }
+}
+
+</User_Input>

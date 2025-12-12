@@ -1,0 +1,42 @@
+NORTHWEST PAIN MANAGEMENT CENTER 4562 Medical Plaza Drive, Suite 200 | Seattle, WA 98112
+Phone: (206) 555-0143 | Fax: (206) 555-0144 PATIENT INFORMATION
+
+Medical Record - L37360_001 file:///Users/sanjana/Desktop/CMS_arizona/SYN_data/L37360/pns_record_001.html
+Despite aggressive multimodal treatment, pain remains severe and significantly impacts her quality of life. She has been unable to return to her previous employment as an accountant.
+PAST MEDICAL HISTORY | Hypertension (well-controlled on lisinopril) | Hypothyroidism (stable on levothyroxine) | Anxiety disorder (managed with counseling) | Status post MVA 2017 with whiplash injury | MEDICATIONS | Gabapentin 300mg three times daily | Lisinopril 10mg daily | Levothyroxine 75mcg daily | Sumatriptan 100mg PRN (uses 15-20 tablets/month) | SOCIAL HISTORY Non-smoker. Denies alcohol or recreational drug use. Married, lives with supportive husband.
+Previously worked as an accountant but has been on disability since 2021 due to chronic pain. High school graduate with some college education.
+REVIEW OF SYSTEMS Constitutional: Denies fever, chills, night sweats. Reports fatigue related to chronic pain.
+Neurological: Positive for chronic headaches as described above. Denies seizures, syncope, weakness, or numbness in extremities.
+Psychiatric: History of anxiety, currently well-managed. Denies current depression or suicidal ideation.
+All other systems reviewed and negative.
+PHYSICAL EXAMINATION | Vital Signs:
+BP 128/78, HR 72, RR 16, Temp 98.4°F, Weight 165 lbs General: Alert and oriented x3, appears stated age, in no acute distress
+Head/Neck: Normocephalic. Significant tenderness to palpation over bilateral occipital nerves, greater on left. No lymphadenopathy. Full range of motion with pain at extremes of rotation and extension.
+
+Medical Record - L37360_001 file:///Users/sanjana/Desktop/CMS_arizona/SYN_data/L37360/pns_record_001.html
+Neurological: Cranial nerves II-XII intact. Motor strength 5/5 all extremities. Sensation intact to light touch. Reflexes 2+ and symmetric. Negative Tinel's sign at occipital nerves bilaterally.
+DIAGNOSTIC STUDIES MRI Brain and Cervical Spine (08/12/2024): No acute intracranial abnormality. Mild degenerative
+changes at C5-C6 and C6-C7 without significant stenosis or nerve root compression.
+EMG/NCS Upper Extremities (07/20/2024): No evidence of cervical radiculopathy or peripheral neuropathy.
+PSYCHOLOGICAL EVALUATION | Date: August 28, 2024 | Evaluator: Dr. Sarah Chen, Licensed Clinical Psychologist Summary: Ms. Richardson underwent comprehensive psychological evaluation including clinical
+interview and standardized assessment tools (BDI-II, BAI, Pain Catastrophizing Scale). She demonstrates appropriate coping mechanisms and realistic expectations regarding neuromodulation
+therapy. No significant depression currently present (BDI-II score: 12). Anxiety symptoms are mild and well-managed (BAI score: 14). No evidence of substance abuse or misuse of prescribed
+medications. She has strong social support and motivation for treatment. Cleared for peripheral nerve stimulation trial from psychological perspective.
+ASSESSMENT AND PLAN | Primary Diagnosis: G52.8 - Chronic bilateral occipital neuralgia
+Secondary Diagnoses: G43.919 - Migraine, unspecified, intractable, without status migrainosus Ms. Richardson is a 56-year-old female with chronic, severe, intractable bilateral occipital neuralgia
+and refractory migraines of 7 years duration. She has failed extensive conservative therapies including multiple medication trials, physical therapy, nerve blocks, and Botox injections. Pain significantly
+impairs her functional capacity and quality of life.
+After thorough discussion of risks, benefits, and alternatives, she has been deemed an appropriate candidate for a trial of occipital nerve stimulation. She has undergone psychological clearance and has
+no contraindications to the procedure. Patient education has been provided regarding the trial process, expected outcomes, and potential complications. She demonstrates understanding and provides
+informed consent.
+Plan:
+
+Medical Record - L37360_001 file:///Users/sanjana/Desktop/CMS_arizona/SYN_data/L37360/pns_record_001.html
+Proceed with percutaneous trial placement of bilateral occipital nerve stimulator leads Trial period: 5-7 days | Patient to maintain detailed pain diary during trial
+If trial demonstrates ≥50% pain reduction and functional improvement, proceed with permanent implantation | Follow-up appointment scheduled 10 days post-trial placement | PHYSICIAN ASSESSMENT AND RECOMMENDATION
+Patient presents with chronic occipital neuralgia causing severe functional impairment. Conservative treatments have been exhausted without adequate relief. Occipital nerve stimulation trial is
+recommended as next appropriate intervention.
+Procedure Requested: CPT 64555 - Percutaneous implantation of neurostimulator electrode array;
+peripheral nerve (bilateral occipital nerves) | Attending Physician: Robert J. Martinez, MD | Board Certification: Pain Medicine, Anesthesiology | NPI:
+Signature: _____________________________ Date: 09/
+Medical Record - L37360_001 file:///Users/sanjana/Desktop/CMS_arizona/SYN_data/L37360/pns_record_001.html
