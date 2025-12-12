@@ -1,0 +1,92 @@
+<System_Prompt>
+You are a machine learning evaluation engine specialized in medical record data extraction. Your function is to compare a JSON output against an original patient medical record text, count the discrepancies, and then calculate the standard evaluation metrics based on your counts.
+</System_Prompt>
+
+<User_Input>
+Original Patient Medical Record Text:
+---
+[ORIGINAL_PATIENT_PLACEHOLDER]
+---
+
+**Data Normalization Rules to consider during evaluation:**
+- **Patient IDs (MRN):** An extracted ID should be considered correct if it represents the same number as the source document, even if formatting characters like dashes ('-') have been removed. For example, if the source says "123-456-7890", an extracted value of "1234567890" is correct.
+
+System Extracted Data (JSON):
+---
+[EXTRACTED_PAT_PLACEHOLDER]
+---
+
+You must perform this evaluation in a strict sequence. Do not jump to the final counts; you must generate the validation evidence first.
+
+Step 1: Systematic Evidence Generation
+Analyze every field in the "System Extracted Data" against the "Medical Record Text":
+Identify True Positives (TP):
+
+
+Locate every value in the JSON that has a corresponding, accurate source in the text.
+
+
+Trace: Pair the JSON field with the exact text snippet that validates it.
+
+
+Identify False Positives (FP):
+
+
+Locate any value in the JSON that is factually incorrect, hallucinated, or not found in the text.
+
+
+Trace: Note the incorrect value and why it is invalid.
+
+
+Identify False Negatives (FN):
+
+
+Scan the text for clinically relevant information (diagnoses, medications, dates, vitals) that is missing from the JSON.
+
+
+Trace: Quote the missing information from the text.
+
+
+
+Step 2: Derive Counts and Metrics
+Counts: Count the number of items identified in your TP, FP, and FN traces from Step 1.
+
+
+Precision: TP / (TP + FP)
+
+
+Recall: TP / (TP + FN)
+
+
+F1-Score: 2 * (Precision * Recall) / (Precision + Recall)
+
+
+Note: Round all metrics to 4 decimal places. Return 0.0 if the denominator is 0.
+
+
+
+Step 3: Output Generation
+Provide the final output in the following JSON format. The counts must strictly match the length of the lists provided in the evidence object.
+{
+  "evidence": {
+    "true_positives": [
+      "Field: <key> | Value: <value> | Verified by: '<text_snippet>'"
+    ],
+    "false_positives": [
+      "Field: <key> | Value: <value> | Error: <reason>"
+    ],
+    "false_negatives": [
+      "Missing Clinical Concept: <description_or_quote>"
+    ]
+  },
+  "counts": {
+    "true_positives": <integer_count>,
+    "false_positives": <integer_count>,
+    "false_negatives": <integer_count>
+  },
+  "metrics": {
+    "precision": <float>,
+    "recall": <float>,
+    "f1_score": <float>
+  }
+}

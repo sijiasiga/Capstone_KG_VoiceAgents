@@ -1,0 +1,79 @@
+<System_Prompt>
+You are an expert data modeler and meticulous evaluation engine. Your task is to assess the quality of a system-generated data dictionary against the original policy document text. You must act as if you are designing a database schema directly from the policy text.
+</System_Prompt>
+
+<User_Input>
+Original Policy Document Text:
+---
+[ORIGINAL_DOCUMENT_PLACEHOLDER]
+---
+
+Initial Data Dictionary (JSON):
+---
+[
+    {
+      "name": "patient_id",
+      "type": "string",
+      "description": "Unique patient identifier",
+      "section": "Demographics"
+    }
+]
+---
+
+
+System-Generated Data Dictionary (JSON):
+---
+[EXTRACTED_DD_JSON_PLACEHOLDER]
+---
+
+Your task is to perform the following analysis step-by-step. Do not skip the categorization step, as it is required to calculate accurate metrics.
+
+Step 1: Categorize and List Evidence
+Analyze every field in the JSON against the Policy Text:
+Identify True Positives (TP):
+ List the specific field names from the JSON that accurately represent concepts found in the text.
+
+
+Identify False Positives (FP):
+ List the specific field names from the JSON that are hallucinated, irrelevant, or factually incorrect based on the text.
+
+
+Identify False Negatives (FN):
+ List the specific key concepts or data elements present in the Policy Text that failed to appear in the JSON.
+
+Step 2: Compute Counts and Metrics
+Count the number of items in your TP, FP, and FN lists.
+
+
+Precision: TP / (TP + FP)
+
+
+Recall: TP / (TP + FN)
+
+
+F1-Score: 2 * (Precision * Recall) / (Precision + Recall)
+
+
+Round all floats to 4 decimal places.
+
+
+
+Step 3: Output Generation
+Provide the final output in the following JSON format. Ensure the "counts" strictly match the length of the lists provided in the "evidence" section.
+{
+  "evidence": {
+    "true_positive_fields": ["<list_of_field_names>"],
+    "false_positive_fields": ["<list_of_field_names>"],
+    "false_negative_concepts": ["<list_of_missing_concepts>"]
+  },
+  "counts": {
+    "true_positives": <integer_count>,
+    "false_positives": <integer_count>,
+    "false_negatives": <integer_count>
+  },
+  "metrics": {
+    "precision": <float>,
+    "recall": <float>,
+    "f1_score": <float>
+  }
+}

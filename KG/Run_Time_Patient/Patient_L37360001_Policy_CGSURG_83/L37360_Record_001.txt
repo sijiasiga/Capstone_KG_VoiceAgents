@@ -1,10 +1,3 @@
-<System_Prompt>
-You are a machine learning evaluation engine specialized in medical record data extraction. Your function is to compare a JSON output against an original patient medical record text, count the discrepancies, and then calculate the standard evaluation metrics based on your counts.
-</System_Prompt>
-
-<User_Input>
-Original Patient Medical Record Text:
----
 NORTHWEST PAIN MANAGEMENT CENTER 4562 Medical Plaza Drive, Suite 200 | Seattle, WA 98112
 Phone: (206) 555-0143 | Fax: (206) 555-0144 PATIENT INFORMATION
 
@@ -47,64 +40,3 @@ Procedure Requested: CPT 64555 - Percutaneous implantation of neurostimulator el
 peripheral nerve (bilateral occipital nerves) | Attending Physician: Robert J. Martinez, MD | Board Certification: Pain Medicine, Anesthesiology | NPI:
 Signature: _____________________________ Date: 09/
 Medical Record - L37360_001 file:///Users/sanjana/Desktop/CMS_arizona/SYN_data/L37360/pns_record_001.html
----
-
-**Data Normalization Rules to consider during evaluation:**
-- **Patient IDs (MRN):** An extracted ID should be considered correct if it represents the same number as the source document, even if formatting characters like dashes ('-') have been removed. For example, if the source says "123-456-7890", an extracted value of "1234567890" is correct.
-
-System Extracted Data (JSON):
----
-{
-  "patient_id": "L37360_001",
-  "peripheral_nerve_stimulation_coverage": null,
-  "peripheral_nerve_field_stimulation_coverage": null,
-  "chronic_pain_minimum_duration_months": null,
-  "failure_less_invasive_treatment_modalities": null,
-  "surgical_contraindications_absent": true,
-  "active_substance_abuse_absent": true,
-  "formal_psychological_screening_by_mental_health_professional_required": null,
-  "pns_trial_pain_intensity_reduction_percentage": 50,
-  "pns_trial_analgesic_medication_reduction_percentage": null,
-  "pns_trial_functional_improvement_element_required": true,
-  "pns_trial_to_permanent_implant_ratio_threshold_for_review": null,
-  "procedure_code_CPT": "64555",
-  "procedure_code_CPT_64555_annual_service_limit": null,
-  "pns_trial_leads_maximum": null,
-  "pns_trial_contacts_maximum": null,
-  "diagnosis_code_ICD10": null,
-  "pns_covered_diagnosis_conditions": null,
-  "pns_non_covered_diagnosis_conditions": null
-}
----
-
-Your task is to perform two steps:
-
-**Step 1: Count Discrepancies**
-- **True Positives (TP):** Count every value in the extracted JSON that is correct and accurately reflects the information in the original patient medical record text.
-- **False Positives (FP):** Count every value in the extracted JSON that is incorrect, irrelevant, or not present in the original patient medical record text.
-- **False Negatives (FN):** Count every piece of relevant information in the original patient medical record text that was missed and is not present in the extracted JSON.
-
-**Step 2: Calculate Metrics**
-- **Precision**: Calculate `TP / (TP + FP)`.
-- **Recall**: Calculate `TP / (TP + FN)`.
-- **F1-Score**: Calculate `2 * (Precision * Recall) / (Precision + Recall)`.
-
-Provide the final output in the following JSON format. Do not include any other text, explanations, or summaries.
-
-**Output Format:**
-
-```json
-{
-  "counts": {
-    "true_positives": <integer_count>,
-    "false_positives": <integer_count>,
-    "false_negatives": <integer_count>
-  },
-  "metrics": {
-    "precision": <float_from_0.0_to_1.0>,
-    "recall": <float_from_0.0_to_1.0>,
-    "f1_score": <float_from_0.0_to_1.0>
-  }
-}
-```
-</User_Input>

@@ -1,0 +1,15 @@
+{
+  "patient_id": "L37360_001",
+  "patient_age": 56,
+  "patient_bmi": null,
+  "comorbidity_flag": null,
+  "weight_loss_program_history": null,
+  "conservative_therapy_attempt": null,
+  "preop_medical_clearance": true,
+  "preop_psych_clearance": true,
+  "preop_education_completed": true,
+  "treatment_plan_documented": true,
+  "procedure_code_CPT": null,
+  "procedure_code_ICD10PCS": null,
+  "diagnosis_code_ICD10": "G52.8"
+}

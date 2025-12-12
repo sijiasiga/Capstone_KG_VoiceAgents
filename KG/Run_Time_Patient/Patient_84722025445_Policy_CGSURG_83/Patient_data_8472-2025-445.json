@@ -1,0 +1,15 @@
+{
+  "patient_id": "8472-2025-445",
+  "patient_age": 47,
+  "patient_bmi": 42.4,
+  "comorbidity_flag": true,
+  "weight_loss_program_history": true,
+  "conservative_therapy_attempt": true,
+  "preop_medical_clearance": true,
+  "preop_psych_clearance": true,
+  "preop_education_completed": true,
+  "treatment_plan_documented": true,
+  "procedure_code_CPT": null,
+  "procedure_code_ICD10PCS": null,
+  "diagnosis_code_ICD10": null
+}
