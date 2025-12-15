@@ -13,3 +13,4 @@
 .DS_Store?
 .claude/
 /KG/api.json
+.archive/
