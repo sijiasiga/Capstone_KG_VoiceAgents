@@ -1,15 +1,13 @@
-# Healthcare Voice Agent System
+# Healthcare AI Systems
 ## CMU x Zyter Capstone Project
 
-An AI-powered voice triage system for healthcare organizations that provides 24/7 patient support through intelligent conversation agents.
+This repository contains two complementary healthcare AI systems developed as part of the Carnegie Mellon University and Zyter Health capstone project.
 
 ---
 
 ## 🎯 Project Overview
 
-This repository contains two complementary healthcare AI systems:
-
-### 🎤 **Voice Agents** (Primary Focus)
+### 🎤 Voice Agents
 **AI-powered voice triage and patient support system**
 
 - 24/7 appointment management and scheduling
@@ -21,38 +19,33 @@ This repository contains two complementary healthcare AI systems:
 **→ [Explore Voice Agents System](./VoiceAgents/README.md)**
 
 ### 🔗 Knowledge Graph
-Policy-based medical coverage and prior authorization system
+**Policy-based medical coverage and prior authorization system**
 
-**→ [View Knowledge Graph](./KG/README.md)**
+- Medical policy extraction and representation
+- Prior authorization decision support
+- Healthcare coverage determination
+- Clinical guideline knowledge base
 
----
-
-## ⚡ Key Performance Metrics (Voice Agents)
-
-| Metric | Result | Impact |
-|--------|--------|--------|
-| **Response Time** | <2 seconds | Instant patient support vs hours of waiting |
-| **Emergency Detection** | 96.8% (30/31) | Identifies life-threatening symptoms requiring ER |
-| **Intent Accuracy** | 98.4% (120/122) | Correctly routes patients to appropriate care |
-| **Policy Compliance** | 100% | Perfect enforcement of clinical protocols |
+**→ [View Knowledge Graph System](./KG/README.md)**
 
 ---
 
-## 🚀 Quick Start (Voice Agents)
+## 🚀 Quick Start
+
+### Voice Agents
 
 ```bash
-# Navigate to the main system
 cd VoiceAgents/VoiceAgents_langgraph
-
-# Set up environment
-cp .env.example .env
-# Add your API keys to .env
-
-# Install dependencies
+cp .env.example .env  # Add your API keys
 pip install -r requirements.txt
-
-# Run the system
 python main.py
+```
+
+### Knowledge Graph
+
+```bash
+cd KG
+# See KG/README.md for setup instructions
 ```
 
 ---
@@ -78,12 +71,14 @@ Capstone_KG_VoiceAgents/
 
 ## 📚 Documentation
 
-### Voice Agents Documentation
-- **[📖 START HERE](./VoiceAgents/DOCUMENTATION/START_HERE.md)** - Documentation navigation guide
+### Voice Agents
+- **[📖 Documentation Guide](./VoiceAgents/DOCUMENTATION/START_HERE.md)** - Navigation and getting started
 - **[System Overview](./VoiceAgents/README.md)** - Complete feature documentation
 - **[Evaluation Report](./VoiceAgents/DOCUMENTATION/EVALUATION_REPORT.md)** - Performance analysis and validation
-- **[System Architecture](./VoiceAgents/DOCUMENTATION/VOICE_AGENT_REPORT.md)** - Technical deep dive
-- **[Triage Logic](./VoiceAgents/DOCUMENTATION/Voice_Agent_Triage_Logic_Summary.md)** - Clinical decision system
+- **[Technical Architecture](./VoiceAgents/DOCUMENTATION/VOICE_AGENT_REPORT.md)** - System design and implementation
+
+### Knowledge Graph
+- **[System Overview](./KG/README.md)** - KG system documentation and features
 
 ---
 
