@@ -37,42 +37,42 @@ streamlit run streamlit_final.py
 
 ```
 ├── patient_kg.py               # Patient data visualizer with code mapping
-├── patient_rule_kg.py          # Patient vs policy evaluator  
+├── patient_rule_kg.py          # Patient vs policy evaluator 
+├── patient_rule_kg_interactive.py  # Patient vs policy evaluator (more detailed KG)
 ├── policy_rule_kg.py           # Policy rule generator
+├── policy_rule_kg_interactive.py   # Policy rule generator (more detailed KG)
 ├── process_policy.py           # Agents Orchestration for Policy Extraction
 ├── streamlit_app.py            # Interactive web application
-├── streamlit_app.py            # Interactive web application with more funcs
+├── streamlit_final.py          # Interactive web application with more funcs
+├── prompt_generator.py         # generate evaluation prompt for LLM-based Method
 ├── Database                    # Database management system
 ├── OCR                         # Medical record processing
 ├── prompts                     # Prompts for Agents
-├── patient_data/               # Patient case studies
-│   ├── patient_8472202544/     # Patient case 1 (ELIGIBLE)
-│   ├── patient_9384202577/     # Patient case 2 (NOT ELIGIBLE)
-│   └── patient_*/              # Additional patient cases
 ├── NCD_LCD_Syn_data/           # Test Policies (Source data)
 │   ├── L34106/                 # LCD Policy 34106 - Vertebral Augmentation
 │   │   ├── LCD - ... (L34106).pdf
 │   │   ├── L34106_Record_001.pdf - L34106_Record_*.pdf   # Synthetic patient records
 │   │   └── L34106_Summary.xlsx # Policy summary data
-├── Policies_test/              # Results of Agent Orchestration (Policy extraction outputs)
-│   ├── Policy_LCD_34106/       # Extracted policy data for L34106
-│   │   ├── Policy_LCD_34106.txt          # OCR extracted policy text
-│   │   ├── Data_dictionary_LCD_34106.json    # Extracted data fields
-│   │   ├── Policy_LCD_34106.json            # Extracted policy conditions
-│   │   ├── SQL_LCD_34106.txt               # Generated SQL queries
-│   │   ├── Info_LCD_34106.json             # Policy metadata
-│   │   ├── policy_rule_kg_LCD_34106.png    # Policy knowledge graph visualization
+├── Run_Time_Policy /              # Results of Agent Orchestration (Policy extraction outputs)
+│   ├── CGSURG_83/              # Extracted policy folder
+│   │   ├── Policy_CGSURG_83.txt          # OCR extracted policy text
+│   │   ├── Data_dictionary_CGSURG_83.json    # Extracted data fields
+│   │   ├── Policy_CGSURG_83.json            # Extracted policy conditions
+│   │   ├── SQL_CGSURG_83.txt               # Generated SQL queries
+│   │   ├── InfoCGSURG_83.json             # Policy metadata
+│   │   ├── policy_rule_kg_CGSURG_83.png    # Policy knowledge graph visualization
+│   │   ├── policy_rule_kg_interactive_CGSURG_83.html   # Policy knowledge graph visualizationx
 │   │   ├── policy_rule_kg_nodes.json       # KG node definitions
 │   │   └── policy_rule_kg_edges.json       # KG edge definitions
-├── test1/                      # Complete working example (Bariatric Surgery Policy CGSURG83)
-│   ├── Policy_CGSURG83/        # Policy extraction outputs
-│   │   ├── Medical_Policy_CGSURG83.txt    # OCR extracted policy text
-│   │   ├── Data_dictionary_CGSURG83.json  # Extracted data fields
-│   │   ├── Policy_CGSURG83.json           # Extracted policy conditions
-│   │   ├── SQL_CGSURG83.txt               # Generated SQL queries
-│   │   ├── Codes_CGSURG83.txt             # Medical codes mapping
-│   │   └── policy_rule_kg.png             # Policy knowledge graph visualization
-│   ├── Data_dictionary.json        # Initial data dictionary template
+├── Run_Time_Patient /              # Results of Patient Compliance
+│   ├── Patient_84722025445_Policy_CGSURG_83/  
+│   ├── CGSURG_83_Record_001.txt          # OCR extracted patient text 
+│   ├── pat_84722025445_pol_CGSURG_83.json
+│   ├── Patient_data_8472-2025-445.json
+│   ├── patient_kg_interactive.html
+│   ├── patient_kg_text_interactive.html
+│   ├── patient_rule_kg_CGSURG_83_text.html
+│   └── patient_rule_kg_CGSURG_83.html
 └── scripts/                    # Automation scripts
 ```
 
@@ -372,7 +372,14 @@ Output: Compliance report + Visualization
   ]
 }
 ```
+## 🚀 LLM Evaluation
+We provided both zero-shot and chain-of-thought prompts for LLM-based Evaluation in ![KG/prompts/Evaluation](KG/prompts/Evaluation)
+We replaced the PLACEHOLDER in the prompt with the original OCRed text and generated files, then let LLMs to generate scores.
 
+Generally we pick 2 models (e.g. Gemini and Claude) and 2 prompts for each stage (1.data field 2.policy condition 3. patient data extraction)
+So we have 4 evaluation results for each stage, then we take the avg to compute the final recall, precision and accuracy.
+
+2 LLM
 ## 🌐 Streamlit Web Application
 
 The `streamlit_app.py` provides an interactive web interface for the complete workflow:
@@ -396,13 +403,3 @@ streamlit run streamlit_app.py
 **SQL Queries & Database Management Page:**
 ![Streamlit SQL Queries Page](Figures/streamlit2.jpg)
 
-## 📝 TODO
-
-- [X] **Agents Orchestration**: Finish multi-agent coordination
-- [X] **Policy Extraction Automation**: End-to-end automation from PDF input to KG generation
-- [ ] **Refinement of Policy OCR**: Enhance accuracy and robustness of medical policy text extraction
-- [ ] **Refinement of Patient Record OCR**: Improve extraction quality from patient medical records
-- [ ] **Refinement of Code Base**: Code optimization, documentation, and maintainability improvements
-- [ ] **Validation Agent**: Design agents to evaluate the results for each agents
-- [ ] **Streamlit Interface**: Add Policy Extraction Function
-- [ ] **Interactive Interface**: KG plots
