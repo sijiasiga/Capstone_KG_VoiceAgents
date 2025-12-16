@@ -45,9 +45,19 @@ python main.py
 
 ```bash
 cd KG
-# See KG/README.md for setup instructions
+pip install -r requirements.txt
 ```
+Before running, create `api.json` in the KG directory:
+```json
+{
+  "gemini": "your-gemini-api-key-here"
+}
+```
+then run this in the terminal
 
+```bash
+streamlit run streamlit_final.py
+```
 ---
 
 ## 📂 Repository Structure
@@ -64,7 +74,19 @@ Capstone_KG_VoiceAgents/
 │   └── DOCUMENTATION/            # Project reports and analysis
 │
 └── KG/                       # Knowledge Graph system
-    └── README.md
+    ├── patient_kg.py               # Patient data visualizer with code mapping
+    ├── patient_rule_kg_interactive.py  # Patient vs policy evaluator (more detailed KG)
+    ├── policy_rule_kg_interactive.py   # Policy rule generator (more detailed KG)
+    ├── process_policy.py           # Agents Orchestration for Policy Extraction
+    ├── streamlit_final.py          # Interactive web application with more funcs
+    ├── prompt_generator.py         # generate evaluation prompt for LLM-based Method
+    ├── Database                    # Database management system
+    ├── OCR                         # Medical record processing
+    ├── prompts                     # Prompts for Agents
+    ├── NCD_LCD_Syn_data/           # Test Policies (Source data)
+    ├── Run_Time_Policy /              # Results of Agent Orchestration (Policy extraction outputs)
+    ├── Run_Time_Patient /              # Results of Patient Compliance
+    └── scripts/                    # Automation scripts
 ```
 
 ---
