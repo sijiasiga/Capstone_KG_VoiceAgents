@@ -78,6 +78,7 @@ Capstone_KG_VoiceAgents/
     ├── patient_rule_kg_interactive.py  # Patient vs policy evaluator (more detailed KG)
     ├── policy_rule_kg_interactive.py   # Policy rule generator (more detailed KG)
     ├── process_policy.py           # Agents Orchestration for Policy Extraction
+    ├── process_patient_record.py   # Patient Data Extraction Agents
     ├── streamlit_final.py          # Interactive web application with more funcs
     ├── prompt_generator.py         # generate evaluation prompt for LLM-based Method
     ├── Database                    # Database management system

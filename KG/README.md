@@ -42,6 +42,7 @@ streamlit run streamlit_final.py
 ├── policy_rule_kg.py           # Policy rule generator
 ├── policy_rule_kg_interactive.py   # Policy rule generator (more detailed KG)
 ├── process_policy.py           # Agents Orchestration for Policy Extraction
+├── process_patient_record.py   # Patient Data Extraction Agents
 ├── streamlit_app.py            # Interactive web application
 ├── streamlit_final.py          # Interactive web application with more funcs
 ├── prompt_generator.py         # generate evaluation prompt for LLM-based Method
@@ -61,7 +62,7 @@ streamlit run streamlit_final.py
 │   │   ├── SQL_CGSURG_83.txt               # Generated SQL queries
 │   │   ├── InfoCGSURG_83.json             # Policy metadata
 │   │   ├── policy_rule_kg_CGSURG_83.png    # Policy knowledge graph visualization
-│   │   ├── policy_rule_kg_interactive_CGSURG_83.html   # Policy knowledge graph visualizationx
+│   │   ├── policy_rule_kg_interactive_CGSURG_83.html   # Policy knowledge graph visualization
 │   │   ├── policy_rule_kg_nodes.json       # KG node definitions
 │   │   └── policy_rule_kg_edges.json       # KG edge definitions
 ├── Run_Time_Patient /              # Results of Patient Compliance
